@@ -130,6 +130,8 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
     # ---- 1. match owned items to staging items (greedy over all compatible pairs, cheapest first) ----
     cands = []
     for o in own:
+        if o["type"] == "tv":
+            continue
         for rank, key in enumerate(keys_for(o)):
             for s in state[key]["staging"]:
                 base = COMPAT.get(o["type"], {}).get(s["type"])
@@ -190,7 +192,10 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
         if o["id"] in matched:
             continue
         done, why = False, ""
-        for key in keys_for(o):
+        order = keys_for(o)
+        if o["type"] == "tv":   # a TV goes where the sofa is, before any bedroom
+            order = sorted(order, key=lambda k: 0 if any(i["type"] in ("sofa", "sectional") for i in state[k]["own"] + state[k]["staging"]) else 1)
+        for key in order:
             st, room = state[key], by_key[key]["room"]
             rec = _own_rec(o)
             tall = o["type"] in TALL_TYPES
@@ -198,6 +203,38 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
                 bw, bd = min(o["w"], room["w"] - 0.3), min(o["d"], room["d"] - 0.3)
                 rec["rect"] = [round((room["w"] - bw) / 2, 3), round((room["d"] - bd) / 2, 3), round(bw, 3), round(bd, 3)]
                 rec["note"] = "no rug in the photo; centred in the room"
+            elif o["type"] == "tv":
+                # opposite the sofa: on the wall the main sofa faces, centred on it
+                seats = [i for i in st["own"] + st["staging"] if i["type"] in ("sofa", "sectional") and not i["floor"]]
+                if not seats and room["type"] == "bedroom":
+                    seats = [i for i in st["own"] + st["staging"] if i["type"] == "bed"]
+                rect = None
+                solids = [r_ for r_ in solid_rects(key)] + [i["rect"] for i in st["staging"] if not i["floor"] and i["type"] != "tv"]
+                for seat in sorted(seats, key=lambda i: (0 if i.get("own") else 1, -i["rect"][2] * i["rect"][3])):
+                    wl = seat["face"]
+                    if wl in room["open"]:
+                        continue
+                    sx_, sz_, sw_, sd_ = seat["rect"]
+                    centre = (sx_ + sw_ / 2) if wl in "NS" else (sz_ + sd_ / 2)
+                    rect = _along_wall(room, wl, o["w"], o["d"], solids, False, start=centre - o["w"] / 2)
+                    if rect:
+                        rec["face"] = WALLS[(WALLS.index(wl) + 2) % 4]
+                        rec["note"] = f"on the {WALL_NAME[wl]} wall, facing {'your' if seat.get('own') else 'the'} {seat['label'].lower()}"
+                        break
+                if rect is None:
+                    for wl in sorted((w for w in WALLS if w not in room["open"]), key=lambda w: -(room["w"] if w in "NS" else room["d"])):
+                        rect = _along_wall(room, wl, o["w"], o["d"], solids, False)
+                        if rect:
+                            rec["face"] = WALLS[(WALLS.index(wl) + 2) % 4]
+                            rec["note"] = f"no closed wall faces a sofa here; hung on the {WALL_NAME[wl]} wall"
+                            break
+                if rect is None:
+                    why = f"no free wall for a TV in the {room['label'].lower()}"
+                    continue
+                rec["rect"] = rect
+                gone = [s for s in st["staging"] if s["type"] == "tv"]   # your TV replaces the photo's media wall
+                st["staging"] = [s for s in st["staging"] if s["type"] != "tv"]
+                st["dropped"] += [s["label"] for s in gone]
             elif o["type"] in WALL_TYPES:
                 rect = None
                 for wl in sorted((w for w in WALLS if w not in room["open"]), key=lambda w: -(room["w"] if w in "NS" else room["d"])):

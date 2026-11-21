@@ -635,7 +635,7 @@ function buildItem(it,p,ox,oz){const [x,z,bw,bd]=it.rect,ew=it.face==='E'||it.fa
   (MAKE[it.own&&it.type==='tv'?'owntv':it.type]||((g,w,d)=>B(g,w,.5,d,'#888888')))(g,w,d,it.own?ownPal(p,it):p,it);
   g.rotation.y={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2}[it.face]||0;if(it.flip&&it.type==='sectional')g.scale.x=-1;
   const target=new THREE.Vector3(ox+x+bw/2,it.at_h||0,oz+z+bd/2);world.add(g);
-  if(it.own&&!it.floor){const ring=new THREE.Mesh(new THREE.RingGeometry(Math.max(bw,bd)/2+.06,Math.max(bw,bd)/2+.1,48),M('#8ab4f8',{glow:1.8}));ring.rotation.x=-Math.PI/2;ring.position.set(target.x,.03,target.z);ring.visible=false;ring.userData.ring=true;world.add(ring);g.userData.ring=ring}
+  // no floor marker under the user's pieces: the glowing ring read as stray white light
   return {g,target,it}}
 /* the two reviewers: trench coat, fedora, one with a magnifying glass, one with a notepad */
 function detective(glass){const g=new THREE.Group(),coat=glass?'#b08d57':'#8c7a5b',hat='#4a3a26';
@@ -677,8 +677,8 @@ async function review(P,FIT,log,sp,alive,ask,fix){
     say('<b>'+r.label+'</b>: '+(v==='approved'?'approved as placed.':v==='corrected'?'corrected ('+f.review.fixes+' change'+(f.review.fixes>1?'s':'')+').':'still needs attention.')+walkable);
     log('review','<b>'+r.label+'</b>: '+v+(f.review.fixes?' · '+f.review.fixes+' fix'+(f.review.fixes>1?'es':''):'')+'.'+walkable);
     await tween(650,()=>{},sp)}
-  await walk(ent.clone().add(new THREE.Vector3(.9,0,.2)),110);a.rotation.y=b.rotation.y=0;carry.classList.add('hide');
-  log('review','Review walk done. The 3D scene now shows the corrected layout.')}
+  await walk(ent,110);carry.classList.add('hide');await walk(ent.clone().add(ent.clone().setY(0).normalize().multiplyScalar(2.8)),130);world.remove(a);world.remove(b);   // reviewers leave once the home is signed off
+  log('review','Review walk done. The 3D scene now shows the corrected layout. Try “Play tour”.')}
 async function show(P,FIT,CAT,log,sp,alive,opts={}){reg={};ctx={};
   if(walking)fps.unlock();touring=false;inset.classList.add('hide');
   if(world){scene.remove(world);world.traverse(o=>o.geometry&&o.geometry.dispose())}
@@ -745,7 +745,9 @@ async function show(P,FIT,CAT,log,sp,alive,opts={}){reg={};ctx={};
   if(!alive())return;
   carry.classList.add('hide');man.rotation.y=0;
   for(let i=0;i<2;i++)await tween(260,t=>{man.position.y=Math.sin(t*Math.PI)*.35},sp);   // a little hop when the job is done
-  log('3d','Move-in done: '+jobs.length+' pieces carried in. Blue rings mark your own furniture. Try “Play tour”.');
+  log('3d','Move-in done: '+jobs.length+' pieces carried in.');
+  // the job is done, so the mover walks out and leaves the scene
+  const away=ent.clone().add(ent.clone().setY(0).normalize().multiplyScalar(2.6));await go(away,130);world.remove(man);man=null;
 }
 async function tour(P,record){
   if(!world||touring)return;if(walking)fps.unlock();touring=true;orbit.enabled=false;tall(true);hint.textContent=record?'Recording the tour…':'Tour playing…';
