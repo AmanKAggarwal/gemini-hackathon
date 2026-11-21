@@ -1,0 +1,663 @@
+{
+  "apartment_name": "Homeweave Composite Dream Residence",
+  "eye_height_m": 1.65,
+  "player_radius_m": 0.26,
+  "ceiling_height_m": 2.72,
+  "spawn": {
+    "x": 5.15,
+    "y": 1.65,
+    "z": 2.85,
+    "yaw_deg": 68.0,
+    "pitch_deg": -3.0
+  },
+  "rooms": [
+    {
+      "id": "new-living",
+      "name": "Living & Dining Room",
+      "key": "1",
+      "bounds": [
+        0.0,
+        0.0,
+        5.82,
+        3.66
+      ],
+      "preset": {
+        "x": 4.95,
+        "z": 2.85,
+        "yaw_deg": 66.0,
+        "pitch_deg": -3.0
+      },
+      "source_ref": "Manhattan Park Plan P (19'1\" x 12'0\") + L1/L2 & walkthrough video"
+    },
+    {
+      "id": "new-kitchen",
+      "name": "Open Island Kitchen & Foyer",
+      "key": "2",
+      "bounds": [
+        5.82,
+        0.0,
+        9.42,
+        3.66
+      ],
+      "preset": {
+        "x": 8.65,
+        "z": 2.92,
+        "yaw_deg": 48.0,
+        "pitch_deg": -4.0
+      },
+      "source_ref": "The Eastline Residence 1713 + K1/K3 & Foyer video"
+    },
+    {
+      "id": "new-primary-bedroom",
+      "name": "Primary Bedroom Suite",
+      "key": "3",
+      "bounds": [
+        0.0,
+        3.66,
+        4.78,
+        6.99
+      ],
+      "preset": {
+        "x": 3.75,
+        "z": 4.22,
+        "yaw_deg": 122.0,
+        "pitch_deg": -5.0
+      },
+      "source_ref": "Manhattan Park Plan P (15'8\" x 10'11\") + Be1..Be3"
+    },
+    {
+      "id": "new-bathroom",
+      "name": "Spa Soaking-Tub Bathroom",
+      "key": "4",
+      "bounds": [
+        4.78,
+        3.66,
+        8.18,
+        6.99
+      ],
+      "preset": {
+        "x": 6.56,
+        "z": 4.08,
+        "yaw_deg": 168.0,
+        "pitch_deg": -6.0
+      },
+      "source_ref": "The Eastline Residence 1713 + B1/B2/B4"
+    },
+    {
+      "id": "new-balcony",
+      "name": "Riverfront Balcony",
+      "key": "5",
+      "bounds": [
+        0.36,
+        -1.65,
+        5.46,
+        0.0
+      ],
+      "preset": {
+        "x": 3.35,
+        "z": -0.78,
+        "yaw_deg": 195.0,
+        "pitch_deg": -2.0
+      },
+      "source_ref": "Manhattan Park Balcony + Waterfront & Mock-Up Flat Balcony videos"
+    }
+  ],
+  "assumptions": [
+    "Ceiling height standardized to 2.72 m (8'11\") across all rooms with 0.14 m perimeter soffit coves.",
+    "Exterior walls modeled at 0.18 m thickness (0.22 m window reveal with sill overhang); interior partitions at 0.14 m.",
+    "Shared room walls deduplicated with cased openings: 2.56 m Living-Kitchen portal, 0.92 m Bedroom doorway, 0.88 m Bathroom doorway, and 0.93 m open Balcony sliding door.",
+    "Interior doors assumed 0.86-0.92 m x 2.22 m and swung 86 deg open so every walkthrough passage exceeds 0.82 m clear width."
+  ],
+  "colliders": [
+    {
+      "kind": "wall",
+      "label": "Wall_North_solid_0",
+      "x0": -0.09,
+      "z0": -0.09,
+      "x1": 0.52,
+      "z1": 0.09,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "window",
+      "label": "Wall_North_glassL_0",
+      "x0": 0.565,
+      "z0": -0.03,
+      "x1": 2.95,
+      "z1": -0.01,
+      "y0": 0.025,
+      "y1": 2.415
+    },
+    {
+      "kind": "window",
+      "label": "Wall_North_glassR_0",
+      "x0": 3.88,
+      "z0": -0.03,
+      "x1": 5.255,
+      "z1": -0.01,
+      "y0": 0.025,
+      "y1": 2.415
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_North_solid_end",
+      "x0": 5.3,
+      "z0": -0.09,
+      "x1": 9.51,
+      "z1": 0.09,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_West_solid_end",
+      "x0": -0.09,
+      "z0": 0.0,
+      "x1": 0.09,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_East_Kitchen_solid_0",
+      "x0": 9.33,
+      "z0": 0.0,
+      "x1": 9.51,
+      "z1": 1.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_East_Kitchen_sillwall_0",
+      "x0": 9.33,
+      "z0": 1.08,
+      "x1": 9.51,
+      "z1": 2.24,
+      "y0": 0.0,
+      "y1": 1.04
+    },
+    {
+      "kind": "window",
+      "label": "Wall_East_Kitchen_wglass_0",
+      "x0": 9.462,
+      "z0": 1.122,
+      "x1": 9.478,
+      "z1": 2.198,
+      "y0": 1.082,
+      "y1": 2.258
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_East_Kitchen_solid_1",
+      "x0": 9.33,
+      "z0": 2.24,
+      "x1": 9.51,
+      "z1": 2.58,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Wall_East_Kitchen_doorleaf_1",
+      "x0": 9.398,
+      "z0": 2.606,
+      "x1": 9.442,
+      "z1": 3.454,
+      "y0": 0.01,
+      "y1": 2.194
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_East_Kitchen_solid_end",
+      "x0": 9.33,
+      "z0": 3.48,
+      "x1": 9.51,
+      "z1": 3.75,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Central_Spine_solid_0",
+      "x0": 0.0,
+      "z0": 3.59,
+      "x1": 3.38,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Wall_Central_Spine_ajarleaf_0",
+      "x0": 4.212,
+      "z0": 3.75,
+      "x1": 4.254,
+      "z1": 4.618,
+      "y0": 0.01,
+      "y1": 2.184
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Central_Spine_solid_1",
+      "x0": 4.3,
+      "z0": 3.59,
+      "x1": 6.12,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Wall_Central_Spine_ajarleaf_1",
+      "x0": 6.912,
+      "z0": 3.75,
+      "x1": 6.954,
+      "z1": 4.578,
+      "y0": 0.01,
+      "y1": 2.184
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Central_Spine_solid_end",
+      "x0": 7.0,
+      "z0": 3.59,
+      "x1": 8.18,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Foyer_South_solid_end",
+      "x0": 8.18,
+      "z0": 3.57,
+      "x1": 9.51,
+      "z1": 3.75,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Living_Kitchen_solid_0",
+      "x0": 5.75,
+      "z0": 0.0,
+      "x1": 5.89,
+      "z1": 0.74,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Living_Kitchen_solid_end",
+      "x0": 5.75,
+      "z0": 3.3,
+      "x1": 5.89,
+      "z1": 3.66,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Bed_Bath_solid_end",
+      "x0": 4.71,
+      "z0": 3.66,
+      "x1": 4.85,
+      "z1": 6.99,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Bath_East_solid_end",
+      "x0": 8.09,
+      "z0": 3.66,
+      "x1": 8.27,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_South_BedBath_solid_0",
+      "x0": -0.09,
+      "z0": 6.9,
+      "x1": 0.9,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_South_BedBath_sillwall_0",
+      "x0": 0.9,
+      "z0": 6.9,
+      "x1": 3.85,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 0.46
+    },
+    {
+      "kind": "window",
+      "label": "Wall_South_BedBath_wglass_0",
+      "x0": 0.942,
+      "z0": 7.032,
+      "x1": 3.808,
+      "z1": 7.048,
+      "y0": 0.502,
+      "y1": 2.318
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_South_BedBath_solid_1",
+      "x0": 3.85,
+      "z0": 6.9,
+      "x1": 6.68,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_South_BedBath_sillwall_1",
+      "x0": 6.68,
+      "z0": 6.9,
+      "x1": 7.78,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 1.02
+    },
+    {
+      "kind": "window",
+      "label": "Wall_South_BedBath_wglass_1",
+      "x0": 6.722,
+      "z0": 7.032,
+      "x1": 7.738,
+      "z1": 7.048,
+      "y0": 1.062,
+      "y1": 2.258
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_South_BedBath_solid_end",
+      "x0": 7.78,
+      "z0": 6.9,
+      "x1": 8.27,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "furniture",
+      "label": "Media_Console_Body",
+      "x0": 0.1,
+      "z0": 0.66,
+      "x1": 0.5,
+      "z1": 3.0,
+      "y0": 0.2,
+      "y1": 0.52
+    },
+    {
+      "kind": "furniture",
+      "label": "Living_Sofa",
+      "x0": 2.22,
+      "z0": 0.92,
+      "x1": 3.16,
+      "z1": 3.12,
+      "y0": 0.0,
+      "y1": 0.86
+    },
+    {
+      "kind": "furniture",
+      "label": "CoffeeTable_Base",
+      "x0": 1.16,
+      "z0": 1.56,
+      "x1": 1.66,
+      "z1": 2.46,
+      "y0": 0.015,
+      "y1": 0.34
+    },
+    {
+      "kind": "furniture",
+      "label": "CoffeeTable_Top",
+      "x0": 1.08,
+      "z0": 1.44,
+      "x1": 1.74,
+      "z1": 2.58,
+      "y0": 0.34,
+      "y1": 0.4
+    },
+    {
+      "kind": "furniture",
+      "label": "Accent_Armchair",
+      "x0": 1.04,
+      "z0": 0.48,
+      "x1": 1.88,
+      "z1": 1.28,
+      "y0": 0.0,
+      "y1": 0.82
+    },
+    {
+      "kind": "furniture",
+      "label": "Dining_Table_Top",
+      "x0": 4.14,
+      "z0": 1.42,
+      "x1": 5.02,
+      "z1": 2.82,
+      "y0": 0.72,
+      "y1": 0.76
+    },
+    {
+      "kind": "furniture",
+      "label": "Dining_Group",
+      "x0": 3.84,
+      "z0": 1.38,
+      "x1": 5.32,
+      "z1": 2.86,
+      "y0": 0.0,
+      "y1": 0.82
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_TallTower",
+      "x0": 5.92,
+      "z0": 0.09,
+      "x1": 6.62,
+      "z1": 0.72,
+      "y0": 0.0,
+      "y1": 2.58
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_BaseN",
+      "x0": 6.62,
+      "z0": 0.09,
+      "x1": 9.33,
+      "z1": 0.67,
+      "y0": 0.08,
+      "y1": 0.88
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_BaseE",
+      "x0": 8.76,
+      "z0": 0.67,
+      "x1": 9.33,
+      "z1": 2.36,
+      "y0": 0.08,
+      "y1": 0.88
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_Island",
+      "x0": 6.58,
+      "z0": 1.58,
+      "x1": 8.2,
+      "z1": 2.58,
+      "y0": 0.0,
+      "y1": 0.93
+    },
+    {
+      "kind": "furniture",
+      "label": "Foyer_Console_Top",
+      "x0": 8.36,
+      "z0": 3.24,
+      "x1": 9.22,
+      "z1": 3.54,
+      "y0": 0.78,
+      "y1": 0.81
+    },
+    {
+      "kind": "furniture",
+      "label": "Primary_Queen_Bed",
+      "x0": 0.09,
+      "z0": 4.52,
+      "x1": 2.21,
+      "z1": 6.24,
+      "y0": 0.0,
+      "y1": 1.12
+    },
+    {
+      "kind": "furniture",
+      "label": "Nightstand_0",
+      "x0": 0.1,
+      "z0": 3.96,
+      "x1": 0.52,
+      "z1": 4.44,
+      "y0": 0.24,
+      "y1": 0.52
+    },
+    {
+      "kind": "furniture",
+      "label": "Nightstand_1",
+      "x0": 0.1,
+      "z0": 6.32,
+      "x1": 0.52,
+      "z1": 6.8,
+      "y0": 0.24,
+      "y1": 0.52
+    },
+    {
+      "kind": "furniture",
+      "label": "Bedroom_DeskTop",
+      "x0": 1.48,
+      "z0": 3.75,
+      "x1": 2.68,
+      "z1": 4.32,
+      "y0": 0.72,
+      "y1": 0.76
+    },
+    {
+      "kind": "fixture",
+      "label": "Bedroom_Wardrobe",
+      "x0": 4.14,
+      "z0": 4.64,
+      "x1": 4.7,
+      "z1": 6.46,
+      "y0": 0.0,
+      "y1": 2.54
+    },
+    {
+      "kind": "furniture",
+      "label": "Bedroom_WindowBench",
+      "x0": 0.92,
+      "z0": 6.56,
+      "x1": 3.83,
+      "z1": 6.9,
+      "y0": 0.0,
+      "y1": 0.43
+    },
+    {
+      "kind": "fixture",
+      "label": "Spa_Soaking_Tub",
+      "x0": 5.02,
+      "z0": 6.04,
+      "x1": 6.58,
+      "z1": 6.8,
+      "y0": 0.0,
+      "y1": 0.68
+    },
+    {
+      "kind": "fixture",
+      "label": "Shower_GlassSouth",
+      "x0": 4.86,
+      "z0": 5.18,
+      "x1": 5.92,
+      "z1": 5.2,
+      "y0": 0.055,
+      "y1": 2.38
+    },
+    {
+      "kind": "fixture",
+      "label": "Bath_VanityCabinet",
+      "x0": 7.5,
+      "z0": 4.62,
+      "x1": 8.09,
+      "z1": 6.0,
+      "y0": 0.24,
+      "y1": 0.82
+    },
+    {
+      "kind": "fixture",
+      "label": "Bath_ToiletBowl",
+      "x0": 7.54,
+      "z0": 6.3,
+      "x1": 8.09,
+      "z1": 6.68,
+      "y0": 0.16,
+      "y1": 0.43
+    },
+    {
+      "kind": "railing",
+      "label": "Balcony_RailTopN",
+      "x0": 0.36,
+      "z0": -1.65,
+      "x1": 5.46,
+      "z1": -1.6,
+      "y0": 1.04,
+      "y1": 1.08
+    },
+    {
+      "kind": "railing",
+      "label": "Balcony_RailTopW",
+      "x0": 0.36,
+      "z0": -1.65,
+      "x1": 0.41,
+      "z1": -0.09,
+      "y0": 1.04,
+      "y1": 1.08
+    },
+    {
+      "kind": "railing",
+      "label": "Balcony_RailTopE",
+      "x0": 5.41,
+      "z0": -1.65,
+      "x1": 5.46,
+      "z1": -0.09,
+      "y0": 1.04,
+      "y1": 1.08
+    },
+    {
+      "kind": "furniture",
+      "label": "Balcony_ChairW",
+      "x0": 0.78,
+      "z0": -1.32,
+      "x1": 1.52,
+      "z1": -0.58,
+      "y0": 0.0,
+      "y1": 0.78
+    },
+    {
+      "kind": "furniture",
+      "label": "Balcony_Table",
+      "x0": 4.22,
+      "z0": -1.3,
+      "x1": 4.88,
+      "z1": -0.66,
+      "y0": 0.0,
+      "y1": 0.58
+    }
+  ]
+}
