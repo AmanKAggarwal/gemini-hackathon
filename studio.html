@@ -486,9 +486,9 @@ $('base').onclick=async()=>{const b=$('base');b.disabled=true;speed=0;Studio3D.f
     view('2d');document.querySelector('.cmp').scrollIntoView({behavior:'smooth',block:'center'})}
   catch(e){logLine('review','<span class="bad">Baseline failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Baseline: Gemini places it'};
 $('blClose').onclick=()=>$('bl').classList.add('hide');
-$('blend').onclick=async()=>{const b=$('blend');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing).');
+$('blend').onclick=async()=>{const b=$('blend');b.disabled=true;speed=0;Studio3D.flush();await moveP;const t0=Date.now(),tick=setInterval(()=>{b.textContent='✦ Blender is rendering… '+Math.round((Date.now()-t0)/1000)+' s'},1000);b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing). This takes about a minute; the button counts the seconds.');
   try{const r=await Studio3D.blender({room:'living'});$('blImg').src=r.url;$('blCap').textContent=`Blender Cycles · living room at eye level · ${r.seconds.toFixed(0)} s · same scene, ${r.kb} KB glTF`;$('bl').classList.remove('hide');logLine('3d',`Blender finished in ${r.seconds.toFixed(0)} s.`)}
-  catch(e){logLine('3d','Blender render failed: '+e.message)}b.disabled=false;b.textContent='✦ Render in Blender'};
+  catch(e){logLine('3d','<span class="bad">Blender render failed: '+e.message+'</span>')}clearInterval(tick);b.disabled=false;b.textContent='✦ Render in Blender'};
 let addKind=null;
 $('file').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const plan_=addKind==='plan';
   $('trayMsg').textContent=plan_?`Gemini Neon is reading ${f.name}…`:`Gemini Hydrogen is gauging ${f.name}…`;const t0=performance.now();
@@ -781,7 +781,7 @@ async function blender(opts={}){if(!world)throw new Error('no scene');
   for(let i=0;i<80&&pend();i++)await new Promise(r=>setTimeout(r,100));   // textures must be loaded before they can be exported
   const shot=opts.room?(shots.find(x=>x.room.key===opts.room)||shots[0]):null;if(shot)tall(true);if(man)man.visible=!shot;const rings=[];world.traverse(o=>{if(o.userData.ring&&o.isMesh&&o.visible){rings.push(o);o.visible=false}});
   const glb=await new Promise((res,rej)=>new GLTFExporter().parse(world,res,rej,{binary:true,onlyVisible:true}));if(shot)tall(false);if(man)man.visible=true;rings.forEach(o=>o.visible=true);
-  const camera=shot?{position:shot.from.toArray(),target:shot.look.toArray(),fov:70,width:1440,height:900,samples:72,sun_strength:1.4,room_light_w:160,ambient:2.2,exposure:.5,...opts}:{position:cam.position.toArray(),target:orbit.target.toArray(),fov:cam.fov,width:1280,height:Math.round(1280/cam.aspect),...opts};
+  const camera=shot?{position:shot.from.toArray(),target:shot.look.toArray(),fov:70,width:1200,height:750,samples:28,sun_strength:1.4,room_light_w:160,ambient:2.2,exposure:.5,...opts}:{position:cam.position.toArray(),target:orbit.target.toArray(),fov:cam.fov,width:1280,height:Math.round(1280/cam.aspect),...opts};
   const r=await fetch('/studio/blender',{method:'POST',headers:{'Content-Type':'model/gltf-binary','X-Camera':JSON.stringify(camera)},body:glb});
   if(!r.ok)throw new Error((await r.json()).detail||'render failed');
   return {url:URL.createObjectURL(await r.blob()),seconds:+r.headers.get('X-Render-Seconds'),kb:Math.round(glb.byteLength/1024)}}
