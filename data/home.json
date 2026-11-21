@@ -23,13 +23,30 @@
           3.66
         ]
       ],
-      "ceiling_height_m": 2.7,
+      "ceiling_height_m": 2.72,
       "doors": [
         {
-          "id": "new-door-01-1",
-          "wall_index": 2,
-          "offset_m": 0.45,
-          "width_m": 0.9,
+          "id": "new-door-living-balcony",
+          "wall_index": 0,
+          "offset_m": 2.95,
+          "width_m": 0.93,
+          "swing": "sliding",
+          "null_reason": null,
+          "provenance": {
+            "source": "plan",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst1",
+            "from_room": "lst1-living",
+            "notes": null
+          }
+        },
+        {
+          "id": "new-door-living-kitchen",
+          "wall_index": 1,
+          "offset_m": 2.18,
+          "width_m": 1.12,
           "swing": "open",
           "null_reason": null,
           "provenance": {
@@ -37,24 +54,24 @@
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
+            "from_listing": "lst1",
             "from_room": "lst1-living",
             "notes": null
           }
         },
         {
-          "id": "new-door-01-2",
-          "wall_index": 0,
-          "offset_m": 2.1,
-          "width_m": 1.8,
-          "swing": "sliding",
+          "id": "new-door-living-bed",
+          "wall_index": 2,
+          "offset_m": 1.5200000000000005,
+          "width_m": 0.92,
+          "swing": "outward_right",
           "null_reason": null,
           "provenance": {
             "source": "weave_stage",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
+            "from_listing": "lst1",
             "from_room": "lst1-living",
             "notes": null
           }
@@ -62,54 +79,54 @@
       ],
       "windows": [
         {
-          "id": "new-win-01-1",
+          "id": "new-win-living-n",
           "wall_index": 0,
-          "offset_m": 0.6,
-          "width_m": 4.4,
-          "sill_height_m": 0.35,
-          "height_m": 2.1,
+          "offset_m": 0.52,
+          "width_m": 4.78,
+          "sill_height_m": 0.1,
+          "height_m": 2.36,
           "provenance": {
-            "source": "weave_stage",
+            "source": "plan",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
-            "from_room": "lst1-living",
+            "from_listing": "lst1",
+            "from_room": null,
             "notes": null
           }
         }
       ],
       "fixtures": [
         {
-          "id": "new-fix-01-1",
+          "id": "new-fix-living-tvwall",
           "room_id": "new-living",
           "type": "tv_wall",
           "footprint": [
             [
               0.02,
-              0.95
+              0.8
             ],
             [
               0.16,
-              0.95
+              0.8
             ],
             [
               0.16,
-              2.85
+              2.86
             ],
             [
               0.02,
-              2.85
+              2.86
             ]
           ],
           "null_reason": null,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:0",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
-            "from_room": "lst1-living",
+            "from_listing": "lst1",
+            "from_room": null,
             "notes": null
           }
         }
@@ -120,7 +137,7 @@
         "photo_indices": [],
         "seen_at": [],
         "scale_ref": null,
-        "from_listing": "lst1-home",
+        "from_listing": "lst1",
         "from_room": "lst1-living",
         "notes": null
       }
@@ -146,13 +163,30 @@
           3.66
         ]
       ],
-      "ceiling_height_m": 2.7,
+      "ceiling_height_m": 2.72,
       "doors": [
         {
-          "id": "new-door-02-1",
+          "id": "new-door-entry",
+          "wall_index": 1,
+          "offset_m": 2.58,
+          "width_m": 0.9,
+          "swing": "outward_left",
+          "null_reason": null,
+          "provenance": {
+            "source": "plan",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst2",
+            "from_room": "lst2-kitchen",
+            "notes": null
+          }
+        },
+        {
+          "id": "new-door-kitchen-living",
           "wall_index": 3,
-          "offset_m": 1.8,
-          "width_m": 1.45,
+          "offset_m": 0.3600000000000003,
+          "width_m": 1.12,
           "swing": "open",
           "null_reason": null,
           "provenance": {
@@ -160,24 +194,41 @@
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
+            "from_listing": "lst2",
             "from_room": "lst2-kitchen",
             "notes": null
           }
         },
         {
-          "id": "new-door-02-2",
-          "wall_index": 1,
-          "offset_m": 0.45,
-          "width_m": 0.86,
-          "swing": "outward_left",
+          "id": "new-door-kitchen-office",
+          "wall_index": 2,
+          "offset_m": 0.1999999999999993,
+          "width_m": 0.88,
+          "swing": "open",
           "null_reason": null,
           "provenance": {
             "source": "weave_stage",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
+            "from_listing": "lst2",
+            "from_room": "lst2-kitchen",
+            "notes": null
+          }
+        },
+        {
+          "id": "new-door-kitchen-bath",
+          "wall_index": 2,
+          "offset_m": 2.42,
+          "width_m": 0.88,
+          "swing": "outward_right",
+          "null_reason": null,
+          "provenance": {
+            "source": "weave_stage",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst2",
             "from_room": "lst2-kitchen",
             "notes": null
           }
@@ -185,87 +236,120 @@
       ],
       "windows": [
         {
-          "id": "new-win-02-1",
+          "id": "new-win-kitchen-e",
           "wall_index": 1,
-          "offset_m": 1.55,
-          "width_m": 1.65,
-          "sill_height_m": 0.95,
-          "height_m": 1.35,
+          "offset_m": 1.08,
+          "width_m": 1.16,
+          "sill_height_m": 1.04,
+          "height_m": 1.26,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:3",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-kitchen",
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         }
       ],
       "fixtures": [
         {
-          "id": "new-fix-02-1",
+          "id": "new-fix-kitchen-north",
           "room_id": "new-kitchen",
           "type": "counter",
           "footprint": [
             [
               5.92,
-              0.08
+              0.09
             ],
             [
-              9.32,
-              0.08
+              9.33,
+              0.09
             ],
             [
-              9.32,
-              0.68
+              9.33,
+              0.7
             ],
             [
               5.92,
-              0.68
+              0.7
             ]
           ],
           "null_reason": null,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:0",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-kitchen",
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         },
         {
-          "id": "new-fix-02-2",
+          "id": "new-fix-kitchen-east",
           "room_id": "new-kitchen",
-          "type": "island",
+          "type": "sink",
           "footprint": [
             [
-              6.47,
-              1.55
+              8.73,
+              0.7
             ],
             [
-              8.27,
-              1.55
+              9.33,
+              0.7
             ],
             [
-              8.27,
-              2.4
+              9.33,
+              2.36
             ],
             [
-              6.47,
-              2.4
+              8.73,
+              2.36
             ]
           ],
           "null_reason": null,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:3",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-kitchen",
+            "from_listing": "lst2",
+            "from_room": null,
+            "notes": null
+          }
+        },
+        {
+          "id": "new-fix-kitchen-island",
+          "room_id": "new-kitchen",
+          "type": "island",
+          "footprint": [
+            [
+              6.62,
+              1.34
+            ],
+            [
+              8.14,
+              1.34
+            ],
+            [
+              8.14,
+              2.04
+            ],
+            [
+              6.62,
+              2.04
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "photo:0",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         }
@@ -276,7 +360,7 @@
         "photo_indices": [],
         "seen_at": [],
         "scale_ref": null,
-        "from_listing": "lst2-home",
+        "from_listing": "lst2",
         "from_room": "lst2-kitchen",
         "notes": null
       }
@@ -302,76 +386,76 @@
           6.99
         ]
       ],
-      "ceiling_height_m": 2.7,
+      "ceiling_height_m": 2.72,
       "doors": [
         {
-          "id": "new-door-03-1",
+          "id": "new-door-bed-in",
           "wall_index": 0,
-          "offset_m": 3.55,
-          "width_m": 0.81,
-          "swing": "inward_left",
+          "offset_m": 3.38,
+          "width_m": 0.92,
+          "swing": "inward_right",
           "null_reason": null,
           "provenance": {
             "source": "weave_stage",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
-            "from_room": "lst1-bedroom",
+            "from_listing": "lst1",
+            "from_room": null,
             "notes": null
           }
         }
       ],
       "windows": [
         {
-          "id": "new-win-03-1",
+          "id": "new-win-bed-s",
           "wall_index": 2,
-          "offset_m": 0.85,
-          "width_m": 3.1,
-          "sill_height_m": 0.45,
-          "height_m": 1.95,
+          "offset_m": 0.9300000000000002,
+          "width_m": 2.95,
+          "sill_height_m": 0.56,
+          "height_m": 1.8,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:2",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
-            "from_room": "lst1-bedroom",
+            "from_listing": "lst1",
+            "from_room": null,
             "notes": null
           }
         }
       ],
       "fixtures": [
         {
-          "id": "new-fix-03-1",
+          "id": "new-fix-bed-wardrobe",
           "room_id": "new-primary-bedroom",
           "type": "closet",
           "footprint": [
             [
-              4.12,
-              3.76
+              4.18,
+              4.72
             ],
             [
-              4.74,
-              3.76
+              4.71,
+              4.72
             ],
             [
-              4.74,
-              5.61
+              4.71,
+              6.46
             ],
             [
-              4.12,
-              5.61
+              4.18,
+              6.46
             ]
           ],
           "null_reason": null,
           "provenance": {
-            "source": "weave_stage",
+            "source": "plan",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst1-home",
-            "from_room": "lst1-bedroom",
+            "from_listing": "lst1",
+            "from_room": null,
             "notes": null
           }
         }
@@ -382,7 +466,7 @@
         "photo_indices": [],
         "seen_at": [],
         "scale_ref": null,
-        "from_listing": "lst1-home",
+        "from_listing": "lst1",
         "from_room": "lst1-bedroom",
         "notes": null
       }
@@ -408,109 +492,175 @@
           6.99
         ]
       ],
-      "ceiling_height_m": 2.7,
+      "ceiling_height_m": 2.72,
       "doors": [
         {
-          "id": "new-door-04-1",
+          "id": "new-door-bath-in",
           "wall_index": 0,
-          "offset_m": 1.35,
-          "width_m": 0.76,
-          "swing": "inward_right",
+          "offset_m": 1.3399999999999999,
+          "width_m": 0.88,
+          "swing": "inward_left",
           "null_reason": null,
           "provenance": {
             "source": "weave_stage",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-bathroom",
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         }
       ],
       "windows": [
         {
-          "id": "new-win-04-1",
+          "id": "new-win-bath-s",
           "wall_index": 2,
-          "offset_m": 0.35,
-          "width_m": 1.35,
-          "sill_height_m": 0.9,
-          "height_m": 1.4,
+          "offset_m": 0.39999999999999947,
+          "width_m": 1.1,
+          "sill_height_m": 1.02,
+          "height_m": 1.28,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:0",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-bathroom",
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         }
       ],
       "fixtures": [
         {
-          "id": "new-fix-04-1",
+          "id": "new-fix-bath-shower",
           "room_id": "new-bathroom",
-          "type": "bath_tub",
+          "type": "shower",
           "footprint": [
             [
-              4.93,
-              6.08
+              4.86,
+              3.74
             ],
             [
-              6.63,
-              6.08
+              5.92,
+              3.74
             ],
             [
-              6.63,
-              6.88
+              5.92,
+              5.2
             ],
             [
-              4.93,
-              6.88
+              4.86,
+              5.2
             ]
           ],
           "null_reason": null,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:1",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-bathroom",
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         },
         {
-          "id": "new-fix-04-2",
+          "id": "new-fix-bath-tub",
           "room_id": "new-bathroom",
-          "type": "vanity",
+          "type": "bath_tub",
           "footprint": [
             [
-              7.53,
-              4.61
+              4.92,
+              5.98
             ],
             [
-              8.1,
-              4.61
+              6.58,
+              5.98
             ],
             [
-              8.1,
-              6.01
+              6.58,
+              6.84
             ],
             [
-              7.53,
-              6.01
+              4.92,
+              6.84
             ]
           ],
           "null_reason": null,
           "provenance": {
-            "source": "weave_stage",
+            "source": "photo:0",
             "photo_indices": [],
             "seen_at": [],
             "scale_ref": null,
-            "from_listing": "lst2-home",
-            "from_room": "lst2-bathroom",
+            "from_listing": "lst2",
+            "from_room": null,
+            "notes": null
+          }
+        },
+        {
+          "id": "new-fix-bath-vanity",
+          "room_id": "new-bathroom",
+          "type": "counter",
+          "footprint": [
+            [
+              7.47,
+              4.82
+            ],
+            [
+              8.09,
+              4.82
+            ],
+            [
+              8.09,
+              6.04
+            ],
+            [
+              7.47,
+              6.04
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "photo:1",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst2",
+            "from_room": null,
+            "notes": null
+          }
+        },
+        {
+          "id": "new-fix-bath-wc",
+          "room_id": "new-bathroom",
+          "type": "toilet",
+          "footprint": [
+            [
+              7.52,
+              6.28
+            ],
+            [
+              8.09,
+              6.28
+            ],
+            [
+              8.09,
+              6.72
+            ],
+            [
+              7.52,
+              6.72
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "photo:1",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst2",
+            "from_room": null,
             "notes": null
           }
         }
@@ -521,78 +671,145 @@
         "photo_indices": [],
         "seen_at": [],
         "scale_ref": null,
-        "from_listing": "lst2-home",
+        "from_listing": "lst2",
         "from_room": "lst2-bathroom",
+        "notes": null
+      }
+    },
+    {
+      "id": "new-office",
+      "type": "office",
+      "polygon": [
+        [
+          8.18,
+          3.66
+        ],
+        [
+          11.58,
+          3.66
+        ],
+        [
+          11.58,
+          6.99
+        ],
+        [
+          8.18,
+          6.99
+        ]
+      ],
+      "ceiling_height_m": 2.72,
+      "doors": [
+        {
+          "id": "new-door-office-in",
+          "wall_index": 0,
+          "offset_m": 0.16000000000000014,
+          "width_m": 0.88,
+          "swing": "open",
+          "null_reason": null,
+          "provenance": {
+            "source": "weave_stage",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst3",
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "windows": [
+        {
+          "id": "new-win-office-e",
+          "wall_index": 1,
+          "offset_m": 0.6200000000000001,
+          "width_m": 2.1,
+          "sill_height_m": 0.58,
+          "height_m": 1.78,
+          "provenance": {
+            "source": "photo:0",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst3",
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "fixtures": [],
+      "null_reason": null,
+      "provenance": {
+        "source": "weave_stage",
+        "photo_indices": [],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": "lst3",
+        "from_room": "lst3-office",
+        "notes": null
+      }
+    },
+    {
+      "id": "new-balcony",
+      "type": "outdoor",
+      "polygon": [
+        [
+          0.36,
+          -1.65
+        ],
+        [
+          5.46,
+          -1.65
+        ],
+        [
+          5.46,
+          0.0
+        ],
+        [
+          0.36,
+          0.0
+        ]
+      ],
+      "ceiling_height_m": 2.72,
+      "doors": [
+        {
+          "id": "new-door-balcony-in",
+          "wall_index": 2,
+          "offset_m": 1.58,
+          "width_m": 0.93,
+          "swing": "sliding",
+          "null_reason": null,
+          "provenance": {
+            "source": "plan",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": "lst1",
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "windows": [],
+      "fixtures": [],
+      "null_reason": null,
+      "provenance": {
+        "source": "weave_stage",
+        "photo_indices": [],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": "lst1",
+        "from_room": "lst1-balcony",
         "notes": null
       }
     }
   ],
   "fixtures": [],
-  "staging": [
-    {
-      "id": "new-stage-01",
-      "room_id": "new-living",
-      "category": "sofa",
-      "dims_m": {
-        "w": 2.4,
-        "d": 0.98,
-        "h": 0.84
-      },
-      "pose": {
-        "x": 3.65,
-        "z": 1.85,
-        "rot_deg": 90.0
-      },
-      "group_kind": "conversation",
-      "replaceable": true,
-      "null_reason": null,
-      "provenance": {
-        "source": "weave_stage",
-        "photo_indices": [
-          0
-        ],
-        "seen_at": [],
-        "scale_ref": null,
-        "from_listing": "lst1-home",
-        "from_room": "lst1-living",
-        "notes": null
-      }
-    },
-    {
-      "id": "new-stage-02",
-      "room_id": "new-primary-bedroom",
-      "category": "bed",
-      "dims_m": {
-        "w": 1.65,
-        "d": 2.1,
-        "h": 1.06
-      },
-      "pose": {
-        "x": 1.25,
-        "z": 5.41,
-        "rot_deg": 270.0
-      },
-      "group_kind": "sleep",
-      "replaceable": true,
-      "null_reason": null,
-      "provenance": {
-        "source": "weave_stage",
-        "photo_indices": [
-          4
-        ],
-        "seen_at": [],
-        "scale_ref": null,
-        "from_listing": "lst1-home",
-        "from_room": "lst1-bedroom",
-        "notes": null
-      }
-    }
-  ],
+  "staging": [],
   "features": [],
   "conflicts": [],
   "scale_check": {
     "method": "plan_labels",
-    "reference": "Merged 4 rooms (61.7 m2 <= 85.0 m2)",
+    "reference": "Ensembled 6-zone residence (81.5 m2) anchored to Plan P + Eastline 1713",
     "conflicts": [],
     "null_reason": null,
     "provenance": {
@@ -612,6 +829,6 @@
     "scale_ref": null,
     "from_listing": null,
     "from_room": null,
-    "notes": "Merged from ['lst1-home', 'lst2-home']"
+    "notes": "Multi-category room ensemble with deduplicated cased portals"
   }
 }

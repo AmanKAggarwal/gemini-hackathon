@@ -1,7 +1,7 @@
 {
-  "apartment_name": "Homeweave Composite Dream Residence",
+  "apartment_name": "Homeweave 6-Zone Composite Dream Residence",
   "eye_height_m": 1.65,
-  "player_radius_m": 0.26,
+  "player_radius_m": 0.25,
   "ceiling_height_m": 2.72,
   "spawn": {
     "x": 5.15,
@@ -13,7 +13,8 @@
   "rooms": [
     {
       "id": "new-living",
-      "name": "Living & Dining Room",
+      "category": "living",
+      "name": "Living & Dining",
       "key": "1",
       "bounds": [
         0.0,
@@ -23,15 +24,20 @@
       ],
       "preset": {
         "x": 4.95,
-        "z": 2.85,
-        "yaw_deg": 66.0,
+        "z": 2.92,
+        "yaw_deg": 68.0,
         "pitch_deg": -3.0
       },
-      "source_ref": "Manhattan Park Plan P (19'1\" x 12'0\") + L1/L2 & walkthrough video"
+      "orbit_focus": [
+        2.85,
+        0.65,
+        1.85
+      ]
     },
     {
       "id": "new-kitchen",
-      "name": "Open Island Kitchen & Foyer",
+      "category": "kitchen",
+      "name": "Kitchen & Entry Foyer",
       "key": "2",
       "bounds": [
         5.82,
@@ -40,16 +46,21 @@
         3.66
       ],
       "preset": {
-        "x": 8.65,
-        "z": 2.92,
-        "yaw_deg": 48.0,
+        "x": 8.68,
+        "z": 2.95,
+        "yaw_deg": 52.0,
         "pitch_deg": -4.0
       },
-      "source_ref": "The Eastline Residence 1713 + K1/K3 & Foyer video"
+      "orbit_focus": [
+        7.55,
+        0.75,
+        1.85
+      ]
     },
     {
       "id": "new-primary-bedroom",
-      "name": "Primary Bedroom Suite",
+      "category": "bedroom",
+      "name": "Primary Bedroom",
       "key": "3",
       "bounds": [
         0.0,
@@ -58,16 +69,21 @@
         6.99
       ],
       "preset": {
-        "x": 3.75,
-        "z": 4.22,
+        "x": 3.72,
+        "z": 4.24,
         "yaw_deg": 122.0,
         "pitch_deg": -5.0
       },
-      "source_ref": "Manhattan Park Plan P (15'8\" x 10'11\") + Be1..Be3"
+      "orbit_focus": [
+        2.25,
+        0.65,
+        5.32
+      ]
     },
     {
       "id": "new-bathroom",
-      "name": "Spa Soaking-Tub Bathroom",
+      "category": "bathroom",
+      "name": "Spa Bathroom",
       "key": "4",
       "bounds": [
         4.78,
@@ -77,16 +93,44 @@
       ],
       "preset": {
         "x": 6.56,
-        "z": 4.08,
-        "yaw_deg": 168.0,
+        "z": 4.1,
+        "yaw_deg": 172.0,
         "pitch_deg": -6.0
       },
-      "source_ref": "The Eastline Residence 1713 + B1/B2/B4"
+      "orbit_focus": [
+        6.48,
+        0.65,
+        5.38
+      ]
+    },
+    {
+      "id": "new-office",
+      "category": "office",
+      "name": "Office / Study",
+      "key": "5",
+      "bounds": [
+        8.18,
+        3.66,
+        11.58,
+        6.99
+      ],
+      "preset": {
+        "x": 8.82,
+        "z": 4.18,
+        "yaw_deg": 218.0,
+        "pitch_deg": -5.0
+      },
+      "orbit_focus": [
+        9.88,
+        0.65,
+        5.32
+      ]
     },
     {
       "id": "new-balcony",
+      "category": "balcony",
       "name": "Riverfront Balcony",
-      "key": "5",
+      "key": "6",
       "bounds": [
         0.36,
         -1.65,
@@ -94,55 +138,38 @@
         0.0
       ],
       "preset": {
-        "x": 3.35,
+        "x": 3.38,
         "z": -0.78,
         "yaw_deg": 195.0,
         "pitch_deg": -2.0
       },
-      "source_ref": "Manhattan Park Balcony + Waterfront & Mock-Up Flat Balcony videos"
+      "orbit_focus": [
+        2.9,
+        0.45,
+        -0.82
+      ]
     }
   ],
   "assumptions": [
-    "Ceiling height standardized to 2.72 m (8'11\") across all rooms with 0.14 m perimeter soffit coves.",
-    "Exterior walls modeled at 0.18 m thickness (0.22 m window reveal with sill overhang); interior partitions at 0.14 m.",
-    "Shared room walls deduplicated with cased openings: 2.56 m Living-Kitchen portal, 0.92 m Bedroom doorway, 0.88 m Bathroom doorway, and 0.93 m open Balcony sliding door.",
-    "Interior doors assumed 0.86-0.92 m x 2.22 m and swung 86 deg open so every walkthrough passage exceeds 0.82 m clear width."
+    "Ceiling height standardized to 2.72 m (8'11\") across all 5 interior rooms with 0.14 m perimeter LED soffit coves.",
+    "Shared walls deduplicated with cased walnut openings: 2.56 m Living-Kitchen portal, 0.92 m Bedroom doorway, 0.88 m Bathroom doorway, 0.88 m Office portal, and 0.93 m Balcony sliding glass door.",
+    "All 17 movable PBR furniture assemblies validated by `check.check_layout` across 3 distinct orientations (`0` overlaps, `0` door blocks, `>= 0.96 m` clear walkways)."
   ],
-  "colliders": [
+  "static_colliders": [
     {
       "kind": "wall",
-      "label": "Wall_North_solid_0",
+      "label": "Wall_N_0",
       "x0": -0.09,
       "z0": -0.09,
-      "x1": 0.52,
+      "x1": 2.95,
       "z1": 0.09,
       "y0": 0.0,
       "y1": 2.72
     },
     {
-      "kind": "window",
-      "label": "Wall_North_glassL_0",
-      "x0": 0.565,
-      "z0": -0.03,
-      "x1": 2.95,
-      "z1": -0.01,
-      "y0": 0.025,
-      "y1": 2.415
-    },
-    {
-      "kind": "window",
-      "label": "Wall_North_glassR_0",
-      "x0": 3.88,
-      "z0": -0.03,
-      "x1": 5.255,
-      "z1": -0.01,
-      "y0": 0.025,
-      "y1": 2.415
-    },
-    {
       "kind": "wall",
-      "label": "Wall_North_solid_end",
-      "x0": 5.3,
+      "label": "Wall_N_1",
+      "x0": 3.88,
       "z0": -0.09,
       "x1": 9.51,
       "z1": 0.09,
@@ -151,7 +178,7 @@
     },
     {
       "kind": "wall",
-      "label": "Wall_West_solid_end",
+      "label": "Wall_W",
       "x0": -0.09,
       "z0": 0.0,
       "x1": 0.09,
@@ -161,39 +188,9 @@
     },
     {
       "kind": "wall",
-      "label": "Wall_East_Kitchen_solid_0",
+      "label": "Wall_E_Kit_0",
       "x0": 9.33,
       "z0": 0.0,
-      "x1": 9.51,
-      "z1": 1.08,
-      "y0": 0.0,
-      "y1": 2.72
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_East_Kitchen_sillwall_0",
-      "x0": 9.33,
-      "z0": 1.08,
-      "x1": 9.51,
-      "z1": 2.24,
-      "y0": 0.0,
-      "y1": 1.04
-    },
-    {
-      "kind": "window",
-      "label": "Wall_East_Kitchen_wglass_0",
-      "x0": 9.462,
-      "z0": 1.122,
-      "x1": 9.478,
-      "z1": 2.198,
-      "y0": 1.082,
-      "y1": 2.258
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_East_Kitchen_solid_1",
-      "x0": 9.33,
-      "z0": 2.24,
       "x1": 9.51,
       "z1": 2.58,
       "y0": 0.0,
@@ -201,17 +198,17 @@
     },
     {
       "kind": "door",
-      "label": "Wall_East_Kitchen_doorleaf_1",
-      "x0": 9.398,
-      "z0": 2.606,
-      "x1": 9.442,
-      "z1": 3.454,
-      "y0": 0.01,
-      "y1": 2.194
+      "label": "Entry_Door_Closed",
+      "x0": 9.39,
+      "z0": 2.6,
+      "x1": 9.45,
+      "z1": 3.46,
+      "y0": 0.0,
+      "y1": 2.2
     },
     {
       "kind": "wall",
-      "label": "Wall_East_Kitchen_solid_end",
+      "label": "Wall_E_Kit_1",
       "x0": 9.33,
       "z0": 3.48,
       "x1": 9.51,
@@ -221,67 +218,7 @@
     },
     {
       "kind": "wall",
-      "label": "Wall_Central_Spine_solid_0",
-      "x0": 0.0,
-      "z0": 3.59,
-      "x1": 3.38,
-      "z1": 3.73,
-      "y0": 0.0,
-      "y1": 2.72
-    },
-    {
-      "kind": "door",
-      "label": "Wall_Central_Spine_ajarleaf_0",
-      "x0": 4.212,
-      "z0": 3.75,
-      "x1": 4.254,
-      "z1": 4.618,
-      "y0": 0.01,
-      "y1": 2.184
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_Central_Spine_solid_1",
-      "x0": 4.3,
-      "z0": 3.59,
-      "x1": 6.12,
-      "z1": 3.73,
-      "y0": 0.0,
-      "y1": 2.72
-    },
-    {
-      "kind": "door",
-      "label": "Wall_Central_Spine_ajarleaf_1",
-      "x0": 6.912,
-      "z0": 3.75,
-      "x1": 6.954,
-      "z1": 4.578,
-      "y0": 0.01,
-      "y1": 2.184
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_Central_Spine_solid_end",
-      "x0": 7.0,
-      "z0": 3.59,
-      "x1": 8.18,
-      "z1": 3.73,
-      "y0": 0.0,
-      "y1": 2.72
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_Foyer_South_solid_end",
-      "x0": 8.18,
-      "z0": 3.57,
-      "x1": 9.51,
-      "z1": 3.75,
-      "y0": 0.0,
-      "y1": 2.72
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_Living_Kitchen_solid_0",
+      "label": "Wall_LK_0",
       "x0": 5.75,
       "z0": 0.0,
       "x1": 5.89,
@@ -291,7 +228,7 @@
     },
     {
       "kind": "wall",
-      "label": "Wall_Living_Kitchen_solid_end",
+      "label": "Wall_LK_1",
       "x0": 5.75,
       "z0": 3.3,
       "x1": 5.89,
@@ -301,7 +238,67 @@
     },
     {
       "kind": "wall",
-      "label": "Wall_Bed_Bath_solid_end",
+      "label": "Wall_Spine_0",
+      "x0": 0.0,
+      "z0": 3.59,
+      "x1": 3.38,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Bed_Ajar_Leaf",
+      "x0": 4.21,
+      "z0": 3.75,
+      "x1": 4.26,
+      "z1": 4.61,
+      "y0": 0.01,
+      "y1": 2.18
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_1",
+      "x0": 4.3,
+      "z0": 3.59,
+      "x1": 6.12,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Bath_Ajar_Leaf",
+      "x0": 6.16,
+      "z0": 3.75,
+      "x1": 6.21,
+      "z1": 4.57,
+      "y0": 0.01,
+      "y1": 2.18
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_2",
+      "x0": 7.0,
+      "z0": 3.59,
+      "x1": 8.34,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_3",
+      "x0": 9.22,
+      "z0": 3.57,
+      "x1": 11.67,
+      "z1": 3.75,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Bed_Bath",
       "x0": 4.71,
       "z0": 3.66,
       "x1": 4.85,
@@ -311,353 +308,2847 @@
     },
     {
       "kind": "wall",
-      "label": "Wall_Bath_East_solid_end",
-      "x0": 8.09,
+      "label": "Wall_Bath_Office",
+      "x0": 8.11,
       "z0": 3.66,
-      "x1": 8.27,
+      "x1": 8.25,
+      "z1": 6.99,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Office_E",
+      "x0": 11.49,
+      "z0": 3.66,
+      "x1": 11.67,
       "z1": 7.08,
       "y0": 0.0,
       "y1": 2.72
     },
     {
       "kind": "wall",
-      "label": "Wall_South_BedBath_solid_0",
+      "label": "Wall_South_All",
       "x0": -0.09,
       "z0": 6.9,
-      "x1": 0.9,
+      "x1": 11.67,
       "z1": 7.08,
       "y0": 0.0,
       "y1": 2.72
     },
     {
-      "kind": "wall",
-      "label": "Wall_South_BedBath_sillwall_0",
-      "x0": 0.9,
-      "z0": 6.9,
-      "x1": 3.85,
-      "z1": 7.08,
+      "kind": "railing",
+      "label": "Balcony_Rail_N",
+      "x0": 0.36,
+      "z0": -1.65,
+      "x1": 5.46,
+      "z1": -1.58,
       "y0": 0.0,
-      "y1": 0.46
+      "y1": 1.08
     },
     {
-      "kind": "window",
-      "label": "Wall_South_BedBath_wglass_0",
-      "x0": 0.942,
-      "z0": 7.032,
-      "x1": 3.808,
-      "z1": 7.048,
-      "y0": 0.502,
-      "y1": 2.318
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_South_BedBath_solid_1",
-      "x0": 3.85,
-      "z0": 6.9,
-      "x1": 6.68,
-      "z1": 7.08,
+      "kind": "railing",
+      "label": "Balcony_Rail_W",
+      "x0": 0.36,
+      "z0": -1.65,
+      "x1": 0.43,
+      "z1": -0.09,
       "y0": 0.0,
-      "y1": 2.72
+      "y1": 1.08
     },
     {
-      "kind": "wall",
-      "label": "Wall_South_BedBath_sillwall_1",
-      "x0": 6.68,
-      "z0": 6.9,
-      "x1": 7.78,
-      "z1": 7.08,
+      "kind": "railing",
+      "label": "Balcony_Rail_E",
+      "x0": 5.39,
+      "z0": -1.65,
+      "x1": 5.46,
+      "z1": -0.09,
       "y0": 0.0,
-      "y1": 1.02
-    },
-    {
-      "kind": "window",
-      "label": "Wall_South_BedBath_wglass_1",
-      "x0": 6.722,
-      "z0": 7.032,
-      "x1": 7.738,
-      "z1": 7.048,
-      "y0": 1.062,
-      "y1": 2.258
-    },
-    {
-      "kind": "wall",
-      "label": "Wall_South_BedBath_solid_end",
-      "x0": 7.78,
-      "z0": 6.9,
-      "x1": 8.27,
-      "z1": 7.08,
-      "y0": 0.0,
-      "y1": 2.72
-    },
-    {
-      "kind": "furniture",
-      "label": "Media_Console_Body",
-      "x0": 0.1,
-      "z0": 0.66,
-      "x1": 0.5,
-      "z1": 3.0,
-      "y0": 0.2,
-      "y1": 0.52
-    },
-    {
-      "kind": "furniture",
-      "label": "Living_Sofa",
-      "x0": 2.22,
-      "z0": 0.92,
-      "x1": 3.16,
-      "z1": 3.12,
-      "y0": 0.0,
-      "y1": 0.86
-    },
-    {
-      "kind": "furniture",
-      "label": "CoffeeTable_Base",
-      "x0": 1.16,
-      "z0": 1.56,
-      "x1": 1.66,
-      "z1": 2.46,
-      "y0": 0.015,
-      "y1": 0.34
-    },
-    {
-      "kind": "furniture",
-      "label": "CoffeeTable_Top",
-      "x0": 1.08,
-      "z0": 1.44,
-      "x1": 1.74,
-      "z1": 2.58,
-      "y0": 0.34,
-      "y1": 0.4
-    },
-    {
-      "kind": "furniture",
-      "label": "Accent_Armchair",
-      "x0": 1.04,
-      "z0": 0.48,
-      "x1": 1.88,
-      "z1": 1.28,
-      "y0": 0.0,
-      "y1": 0.82
-    },
-    {
-      "kind": "furniture",
-      "label": "Dining_Table_Top",
-      "x0": 4.14,
-      "z0": 1.42,
-      "x1": 5.02,
-      "z1": 2.82,
-      "y0": 0.72,
-      "y1": 0.76
-    },
-    {
-      "kind": "furniture",
-      "label": "Dining_Group",
-      "x0": 3.84,
-      "z0": 1.38,
-      "x1": 5.32,
-      "z1": 2.86,
-      "y0": 0.0,
-      "y1": 0.82
+      "y1": 1.08
     },
     {
       "kind": "fixture",
-      "label": "Kitchen_TallTower",
+      "label": "Kitchen_North_Run",
       "x0": 5.92,
       "z0": 0.09,
-      "x1": 6.62,
-      "z1": 0.72,
+      "x1": 9.33,
+      "z1": 0.7,
       "y0": 0.0,
       "y1": 2.58
     },
     {
       "kind": "fixture",
-      "label": "Kitchen_BaseN",
-      "x0": 6.62,
-      "z0": 0.09,
-      "x1": 9.33,
-      "z1": 0.67,
-      "y0": 0.08,
-      "y1": 0.88
-    },
-    {
-      "kind": "fixture",
-      "label": "Kitchen_BaseE",
-      "x0": 8.76,
-      "z0": 0.67,
+      "label": "Kitchen_East_Run",
+      "x0": 8.73,
+      "z0": 0.7,
       "x1": 9.33,
       "z1": 2.36,
-      "y0": 0.08,
-      "y1": 0.88
+      "y0": 0.0,
+      "y1": 0.92
     },
     {
       "kind": "fixture",
       "label": "Kitchen_Island",
-      "x0": 6.58,
-      "z0": 1.58,
-      "x1": 8.2,
-      "z1": 2.58,
+      "x0": 6.62,
+      "z0": 1.34,
+      "x1": 8.14,
+      "z1": 2.04,
       "y0": 0.0,
       "y1": 0.93
     },
     {
-      "kind": "furniture",
-      "label": "Foyer_Console_Top",
-      "x0": 8.36,
-      "z0": 3.24,
-      "x1": 9.22,
-      "z1": 3.54,
-      "y0": 0.78,
-      "y1": 0.81
-    },
-    {
-      "kind": "furniture",
-      "label": "Primary_Queen_Bed",
-      "x0": 0.09,
-      "z0": 4.52,
-      "x1": 2.21,
-      "z1": 6.24,
-      "y0": 0.0,
-      "y1": 1.12
-    },
-    {
-      "kind": "furniture",
-      "label": "Nightstand_0",
-      "x0": 0.1,
-      "z0": 3.96,
-      "x1": 0.52,
-      "z1": 4.44,
-      "y0": 0.24,
-      "y1": 0.52
-    },
-    {
-      "kind": "furniture",
-      "label": "Nightstand_1",
-      "x0": 0.1,
-      "z0": 6.32,
-      "x1": 0.52,
-      "z1": 6.8,
-      "y0": 0.24,
-      "y1": 0.52
-    },
-    {
-      "kind": "furniture",
-      "label": "Bedroom_DeskTop",
-      "x0": 1.48,
-      "z0": 3.75,
-      "x1": 2.68,
-      "z1": 4.32,
-      "y0": 0.72,
-      "y1": 0.76
-    },
-    {
       "kind": "fixture",
       "label": "Bedroom_Wardrobe",
-      "x0": 4.14,
-      "z0": 4.64,
-      "x1": 4.7,
+      "x0": 4.18,
+      "z0": 4.72,
+      "x1": 4.71,
       "z1": 6.46,
       "y0": 0.0,
       "y1": 2.54
     },
     {
-      "kind": "furniture",
-      "label": "Bedroom_WindowBench",
-      "x0": 0.92,
-      "z0": 6.56,
-      "x1": 3.83,
-      "z1": 6.9,
+      "kind": "fixture",
+      "label": "Bath_Shower",
+      "x0": 4.86,
+      "z0": 3.74,
+      "x1": 5.92,
+      "z1": 5.2,
       "y0": 0.0,
-      "y1": 0.43
+      "y1": 2.38
     },
     {
       "kind": "fixture",
-      "label": "Spa_Soaking_Tub",
-      "x0": 5.02,
-      "z0": 6.04,
+      "label": "Bath_Soaking_Tub",
+      "x0": 4.92,
+      "z0": 5.98,
       "x1": 6.58,
-      "z1": 6.8,
+      "z1": 6.84,
       "y0": 0.0,
       "y1": 0.68
     },
     {
       "kind": "fixture",
-      "label": "Shower_GlassSouth",
+      "label": "Bath_Vanity",
+      "x0": 7.47,
+      "z0": 4.82,
+      "x1": 8.09,
+      "z1": 6.04,
+      "y0": 0.0,
+      "y1": 0.87
+    },
+    {
+      "kind": "fixture",
+      "label": "Bath_WC",
+      "x0": 7.52,
+      "z0": 6.28,
+      "x1": 8.09,
+      "z1": 6.72,
+      "y0": 0.0,
+      "y1": 0.45
+    }
+  ],
+  "colliders": [
+    {
+      "kind": "wall",
+      "label": "Wall_N_0",
+      "x0": -0.09,
+      "z0": -0.09,
+      "x1": 2.95,
+      "z1": 0.09,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_N_1",
+      "x0": 3.88,
+      "z0": -0.09,
+      "x1": 9.51,
+      "z1": 0.09,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_W",
+      "x0": -0.09,
+      "z0": 0.0,
+      "x1": 0.09,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_E_Kit_0",
+      "x0": 9.33,
+      "z0": 0.0,
+      "x1": 9.51,
+      "z1": 2.58,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Entry_Door_Closed",
+      "x0": 9.39,
+      "z0": 2.6,
+      "x1": 9.45,
+      "z1": 3.46,
+      "y0": 0.0,
+      "y1": 2.2
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_E_Kit_1",
+      "x0": 9.33,
+      "z0": 3.48,
+      "x1": 9.51,
+      "z1": 3.75,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_LK_0",
+      "x0": 5.75,
+      "z0": 0.0,
+      "x1": 5.89,
+      "z1": 0.74,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_LK_1",
+      "x0": 5.75,
+      "z0": 3.3,
+      "x1": 5.89,
+      "z1": 3.66,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_0",
+      "x0": 0.0,
+      "z0": 3.59,
+      "x1": 3.38,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Bed_Ajar_Leaf",
+      "x0": 4.21,
+      "z0": 3.75,
+      "x1": 4.26,
+      "z1": 4.61,
+      "y0": 0.01,
+      "y1": 2.18
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_1",
+      "x0": 4.3,
+      "z0": 3.59,
+      "x1": 6.12,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "door",
+      "label": "Bath_Ajar_Leaf",
+      "x0": 6.16,
+      "z0": 3.75,
+      "x1": 6.21,
+      "z1": 4.57,
+      "y0": 0.01,
+      "y1": 2.18
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_2",
+      "x0": 7.0,
+      "z0": 3.59,
+      "x1": 8.34,
+      "z1": 3.73,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Spine_3",
+      "x0": 9.22,
+      "z0": 3.57,
+      "x1": 11.67,
+      "z1": 3.75,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Bed_Bath",
+      "x0": 4.71,
+      "z0": 3.66,
+      "x1": 4.85,
+      "z1": 6.99,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Bath_Office",
+      "x0": 8.11,
+      "z0": 3.66,
+      "x1": 8.25,
+      "z1": 6.99,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_Office_E",
+      "x0": 11.49,
+      "z0": 3.66,
+      "x1": 11.67,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "wall",
+      "label": "Wall_South_All",
+      "x0": -0.09,
+      "z0": 6.9,
+      "x1": 11.67,
+      "z1": 7.08,
+      "y0": 0.0,
+      "y1": 2.72
+    },
+    {
+      "kind": "railing",
+      "label": "Balcony_Rail_N",
+      "x0": 0.36,
+      "z0": -1.65,
+      "x1": 5.46,
+      "z1": -1.58,
+      "y0": 0.0,
+      "y1": 1.08
+    },
+    {
+      "kind": "railing",
+      "label": "Balcony_Rail_W",
+      "x0": 0.36,
+      "z0": -1.65,
+      "x1": 0.43,
+      "z1": -0.09,
+      "y0": 0.0,
+      "y1": 1.08
+    },
+    {
+      "kind": "railing",
+      "label": "Balcony_Rail_E",
+      "x0": 5.39,
+      "z0": -1.65,
+      "x1": 5.46,
+      "z1": -0.09,
+      "y0": 0.0,
+      "y1": 1.08
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_North_Run",
+      "x0": 5.92,
+      "z0": 0.09,
+      "x1": 9.33,
+      "z1": 0.7,
+      "y0": 0.0,
+      "y1": 2.58
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_East_Run",
+      "x0": 8.73,
+      "z0": 0.7,
+      "x1": 9.33,
+      "z1": 2.36,
+      "y0": 0.0,
+      "y1": 0.92
+    },
+    {
+      "kind": "fixture",
+      "label": "Kitchen_Island",
+      "x0": 6.62,
+      "z0": 1.34,
+      "x1": 8.14,
+      "z1": 2.04,
+      "y0": 0.0,
+      "y1": 0.93
+    },
+    {
+      "kind": "fixture",
+      "label": "Bedroom_Wardrobe",
+      "x0": 4.18,
+      "z0": 4.72,
+      "x1": 4.71,
+      "z1": 6.46,
+      "y0": 0.0,
+      "y1": 2.54
+    },
+    {
+      "kind": "fixture",
+      "label": "Bath_Shower",
       "x0": 4.86,
-      "z0": 5.18,
+      "z0": 3.74,
       "x1": 5.92,
       "z1": 5.2,
-      "y0": 0.055,
+      "y0": 0.0,
       "y1": 2.38
     },
     {
       "kind": "fixture",
-      "label": "Bath_VanityCabinet",
-      "x0": 7.5,
-      "z0": 4.62,
-      "x1": 8.09,
-      "z1": 6.0,
-      "y0": 0.24,
-      "y1": 0.82
+      "label": "Bath_Soaking_Tub",
+      "x0": 4.92,
+      "z0": 5.98,
+      "x1": 6.58,
+      "z1": 6.84,
+      "y0": 0.0,
+      "y1": 0.68
     },
     {
       "kind": "fixture",
-      "label": "Bath_ToiletBowl",
-      "x0": 7.54,
-      "z0": 6.3,
+      "label": "Bath_Vanity",
+      "x0": 7.47,
+      "z0": 4.82,
       "x1": 8.09,
-      "z1": 6.68,
-      "y0": 0.16,
-      "y1": 0.43
-    },
-    {
-      "kind": "railing",
-      "label": "Balcony_RailTopN",
-      "x0": 0.36,
-      "z0": -1.65,
-      "x1": 5.46,
-      "z1": -1.6,
-      "y0": 1.04,
-      "y1": 1.08
-    },
-    {
-      "kind": "railing",
-      "label": "Balcony_RailTopW",
-      "x0": 0.36,
-      "z0": -1.65,
-      "x1": 0.41,
-      "z1": -0.09,
-      "y0": 1.04,
-      "y1": 1.08
-    },
-    {
-      "kind": "railing",
-      "label": "Balcony_RailTopE",
-      "x0": 5.41,
-      "z0": -1.65,
-      "x1": 5.46,
-      "z1": -0.09,
-      "y0": 1.04,
-      "y1": 1.08
-    },
-    {
-      "kind": "furniture",
-      "label": "Balcony_ChairW",
-      "x0": 0.78,
-      "z0": -1.32,
-      "x1": 1.52,
-      "z1": -0.58,
+      "z1": 6.04,
       "y0": 0.0,
-      "y1": 0.78
+      "y1": 0.87
+    },
+    {
+      "kind": "fixture",
+      "label": "Bath_WC",
+      "x0": 7.52,
+      "z0": 6.28,
+      "x1": 8.09,
+      "z1": 6.72,
+      "y0": 0.0,
+      "y1": 0.45
     },
     {
       "kind": "furniture",
-      "label": "Balcony_Table",
-      "x0": 4.22,
-      "z0": -1.3,
-      "x1": 4.88,
+      "item_id": "src-kitchen-stools",
+      "glb_node": "Item__src_kitchen_stools",
+      "label": "Boucle Counter Stools (\u00d73)",
+      "room_id": "new-kitchen",
+      "x0": 6.69,
+      "z0": 2.04,
+      "x1": 8.07,
+      "z1": 2.38,
+      "y0": 0.0,
+      "y1": 0.9
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-foyer-console",
+      "glb_node": "Item__src_foyer_console",
+      "label": "Smoked-Glass Entry Console",
+      "room_id": "new-kitchen",
+      "x0": 7.18,
+      "z0": 3.31,
+      "x1": 7.98,
+      "z1": 3.57,
+      "y0": 0.0,
+      "y1": 0.8
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-living-media",
+      "glb_node": "Item__src_living_media",
+      "label": "Walnut Credenza & 65\" OLED TV",
+      "room_id": "new-living",
+      "x0": 0.13,
+      "z0": 0.94,
+      "x1": 0.55,
+      "z1": 2.86,
+      "y0": 0.0,
+      "y1": 1.6
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-living-sofa",
+      "glb_node": "Item__src_living_sofa",
+      "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+      "room_id": "new-living",
+      "x0": 2.02,
+      "z0": 0.85,
+      "x1": 2.94,
+      "z1": 2.95,
+      "y0": 0.0,
+      "y1": 0.84
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-living-coffee",
+      "glb_node": "Item__src_living_coffee",
+      "label": "Travertine & Walnut Coffee Table",
+      "room_id": "new-living",
+      "x0": 1.08,
+      "z0": 1.35,
+      "x1": 1.68,
+      "z1": 2.45,
+      "y0": 0.0,
+      "y1": 0.42
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-living-armchair",
+      "glb_node": "Item__src_living_armchair",
+      "label": "Curved Boucle Accent Chair",
+      "room_id": "new-living",
+      "x0": 0.99,
+      "z0": 0.31,
+      "x1": 1.77,
+      "z1": 1.05,
+      "y0": 0.0,
+      "y1": 0.8
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-living-dining",
+      "glb_node": "Item__src_living_dining",
+      "label": "Smoked-Glass 4-Seat Dining Set",
+      "room_id": "new-living",
+      "x0": 4.16,
+      "z0": 0.61,
+      "x1": 5.52,
+      "z1": 2.03,
+      "y0": 0.0,
+      "y1": 0.82
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-balcony-chair",
+      "glb_node": "Item__src_balcony_chair",
+      "label": "Outdoor Boucle Terrace Chair",
+      "room_id": "new-balcony",
+      "x0": 0.7591,
+      "z0": -1.4161,
+      "x1": 1.6809,
+      "z1": -0.5039,
+      "y0": 0.0,
+      "y1": 0.76
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-balcony-table",
+      "glb_node": "Item__src_balcony_table",
+      "label": "Bronze Riverfront Bistro Table",
+      "room_id": "new-balcony",
+      "x0": 4.26,
+      "z0": -1.26,
+      "x1": 4.86,
       "z1": -0.66,
       "y0": 0.0,
       "y1": 0.58
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-bed-queen",
+      "glb_node": "Item__src_bed_queen",
+      "label": "Channel-Tufted Queen Bed & Rug",
+      "room_id": "new-primary-bedroom",
+      "x0": 0.12,
+      "z0": 4.48,
+      "x1": 2.2,
+      "z1": 6.2,
+      "y0": 0.0,
+      "y1": 1.14
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-bed-nightstand-l",
+      "glb_node": "Item__src_bed_nightstand_l",
+      "label": "Walnut Nightstand & Moon Lamp (L)",
+      "room_id": "new-primary-bedroom",
+      "x0": 0.12,
+      "z0": 3.93,
+      "x1": 0.54,
+      "z1": 4.39,
+      "y0": 0.0,
+      "y1": 0.64
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-bed-nightstand-r",
+      "glb_node": "Item__src_bed_nightstand_r",
+      "label": "Walnut Nightstand & Moon Lamp (R)",
+      "room_id": "new-primary-bedroom",
+      "x0": 0.12,
+      "z0": 6.29,
+      "x1": 0.54,
+      "z1": 6.75,
+      "y0": 0.0,
+      "y1": 0.64
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-bed-bench",
+      "glb_node": "Item__src_bed_bench",
+      "label": "Boucle Upholstered Suite Bench",
+      "room_id": "new-primary-bedroom",
+      "x0": 2.19,
+      "z0": 6.43,
+      "x1": 3.53,
+      "z1": 6.85,
+      "y0": 0.0,
+      "y1": 0.46
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-bath-stool",
+      "glb_node": "Item__src_bath_stool",
+      "label": "Teak Spa Towel Bench",
+      "room_id": "new-bathroom",
+      "x0": 7.6,
+      "z0": 3.81,
+      "x1": 7.96,
+      "z1": 4.39,
+      "y0": 0.0,
+      "y1": 0.46
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-office-bookshelf",
+      "glb_node": "Item__src_office_bookshelf",
+      "label": "Illuminated Walnut & Brass Bookcase",
+      "room_id": "new-office",
+      "x0": 8.26,
+      "z0": 5.04,
+      "x1": 8.62,
+      "z1": 6.28,
+      "y0": 0.0,
+      "y1": 1.92
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-office-desk",
+      "glb_node": "Item__src_office_desk",
+      "label": "Executive Walnut Desk, Display & Chair",
+      "room_id": "new-office",
+      "x0": 9.49,
+      "z0": 5.5,
+      "x1": 10.95,
+      "z1": 6.54,
+      "y0": 0.0,
+      "y1": 1.14
+    },
+    {
+      "kind": "furniture",
+      "item_id": "src-office-lounge",
+      "glb_node": "Item__src_office_lounge",
+      "label": "Boucle Study Lounge & Side Table",
+      "room_id": "new-office",
+      "x0": 10.2862,
+      "z0": 3.7299,
+      "x1": 11.4338,
+      "z1": 4.8701,
+      "y0": 0.0,
+      "y1": 0.8
     }
-  ]
+  ],
+  "orientations": [
+    {
+      "id": "new-layout-01",
+      "rank": 1,
+      "tab_title": "Option 1 \u00b7 Optimal Ensemble",
+      "badge": "Best Fixture & Focal Match",
+      "summary": "West media focal wall, island counter seating, West suite headboard, and CEO command desk facing the study portal.",
+      "metrics": {
+        "violations_total": 0,
+        "overlaps": 0,
+        "door_blocks": 0,
+        "outside_room": 0,
+        "clearance_fails": 0,
+        "min_walkway_m": 0.96,
+        "open_floor_pct": 71.7,
+        "relations_kept_pct": 100.0,
+        "placed_count": 17
+      },
+      "placements": [
+        {
+          "item_id": "src-kitchen-stools",
+          "glb_node": "Item__src_kitchen_stools",
+          "label": "Boucle Counter Stools (\u00d73)",
+          "room_id": "new-kitchen",
+          "x": 7.38,
+          "z": 2.21,
+          "rot_deg": 180.0,
+          "w": 1.38,
+          "d": 0.34,
+          "h": 0.9
+        },
+        {
+          "item_id": "src-foyer-console",
+          "glb_node": "Item__src_foyer_console",
+          "label": "Smoked-Glass Entry Console",
+          "room_id": "new-kitchen",
+          "x": 7.58,
+          "z": 3.44,
+          "rot_deg": 180.0,
+          "w": 0.8,
+          "d": 0.26,
+          "h": 0.8
+        },
+        {
+          "item_id": "src-living-media",
+          "glb_node": "Item__src_living_media",
+          "label": "Walnut Credenza & 65\" OLED TV",
+          "room_id": "new-living",
+          "x": 0.34,
+          "z": 1.9,
+          "rot_deg": 270.0,
+          "w": 1.92,
+          "d": 0.42,
+          "h": 1.6
+        },
+        {
+          "item_id": "src-living-sofa",
+          "glb_node": "Item__src_living_sofa",
+          "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+          "room_id": "new-living",
+          "x": 2.48,
+          "z": 1.9,
+          "rot_deg": 90.0,
+          "w": 2.1,
+          "d": 0.92,
+          "h": 0.84
+        },
+        {
+          "item_id": "src-living-coffee",
+          "glb_node": "Item__src_living_coffee",
+          "label": "Travertine & Walnut Coffee Table",
+          "room_id": "new-living",
+          "x": 1.38,
+          "z": 1.9,
+          "rot_deg": 90.0,
+          "w": 1.1,
+          "d": 0.6,
+          "h": 0.42
+        },
+        {
+          "item_id": "src-living-armchair",
+          "glb_node": "Item__src_living_armchair",
+          "label": "Curved Boucle Accent Chair",
+          "room_id": "new-living",
+          "x": 1.38,
+          "z": 0.68,
+          "rot_deg": 0.0,
+          "w": 0.78,
+          "d": 0.74,
+          "h": 0.8
+        },
+        {
+          "item_id": "src-living-dining",
+          "glb_node": "Item__src_living_dining",
+          "label": "Smoked-Glass 4-Seat Dining Set",
+          "room_id": "new-living",
+          "x": 4.84,
+          "z": 1.32,
+          "rot_deg": 0.0,
+          "w": 1.36,
+          "d": 1.42,
+          "h": 0.82
+        },
+        {
+          "item_id": "src-balcony-chair",
+          "glb_node": "Item__src_balcony_chair",
+          "label": "Outdoor Boucle Terrace Chair",
+          "room_id": "new-balcony",
+          "x": 1.22,
+          "z": -0.96,
+          "rot_deg": 205.0,
+          "w": 0.7,
+          "d": 0.68,
+          "h": 0.76
+        },
+        {
+          "item_id": "src-balcony-table",
+          "glb_node": "Item__src_balcony_table",
+          "label": "Bronze Riverfront Bistro Table",
+          "room_id": "new-balcony",
+          "x": 4.56,
+          "z": -0.96,
+          "rot_deg": 0.0,
+          "w": 0.6,
+          "d": 0.6,
+          "h": 0.58
+        },
+        {
+          "item_id": "src-bed-queen",
+          "glb_node": "Item__src_bed_queen",
+          "label": "Channel-Tufted Queen Bed & Rug",
+          "room_id": "new-primary-bedroom",
+          "x": 1.16,
+          "z": 5.34,
+          "rot_deg": 270.0,
+          "w": 1.72,
+          "d": 2.08,
+          "h": 1.14
+        },
+        {
+          "item_id": "src-bed-nightstand-l",
+          "glb_node": "Item__src_bed_nightstand_l",
+          "label": "Walnut Nightstand & Moon Lamp (L)",
+          "room_id": "new-primary-bedroom",
+          "x": 0.33,
+          "z": 4.16,
+          "rot_deg": 270.0,
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        {
+          "item_id": "src-bed-nightstand-r",
+          "glb_node": "Item__src_bed_nightstand_r",
+          "label": "Walnut Nightstand & Moon Lamp (R)",
+          "room_id": "new-primary-bedroom",
+          "x": 0.33,
+          "z": 6.52,
+          "rot_deg": 270.0,
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        {
+          "item_id": "src-bed-bench",
+          "glb_node": "Item__src_bed_bench",
+          "label": "Boucle Upholstered Suite Bench",
+          "room_id": "new-primary-bedroom",
+          "x": 2.86,
+          "z": 6.64,
+          "rot_deg": 180.0,
+          "w": 1.34,
+          "d": 0.42,
+          "h": 0.46
+        },
+        {
+          "item_id": "src-bath-stool",
+          "glb_node": "Item__src_bath_stool",
+          "label": "Teak Spa Towel Bench",
+          "room_id": "new-bathroom",
+          "x": 7.78,
+          "z": 4.1,
+          "rot_deg": 90.0,
+          "w": 0.58,
+          "d": 0.36,
+          "h": 0.46
+        },
+        {
+          "item_id": "src-office-bookshelf",
+          "glb_node": "Item__src_office_bookshelf",
+          "label": "Illuminated Walnut & Brass Bookcase",
+          "room_id": "new-office",
+          "x": 8.44,
+          "z": 5.66,
+          "rot_deg": 270.0,
+          "w": 1.24,
+          "d": 0.36,
+          "h": 1.92
+        },
+        {
+          "item_id": "src-office-desk",
+          "glb_node": "Item__src_office_desk",
+          "label": "Executive Walnut Desk, Display & Chair",
+          "room_id": "new-office",
+          "x": 10.22,
+          "z": 6.02,
+          "rot_deg": 180.0,
+          "w": 1.46,
+          "d": 1.04,
+          "h": 1.14
+        },
+        {
+          "item_id": "src-office-lounge",
+          "glb_node": "Item__src_office_lounge",
+          "label": "Boucle Study Lounge & Side Table",
+          "room_id": "new-office",
+          "x": 10.86,
+          "z": 4.3,
+          "rot_deg": 42.0,
+          "w": 0.86,
+          "d": 0.76,
+          "h": 0.8
+        }
+      ],
+      "furniture_colliders": [
+        {
+          "kind": "furniture",
+          "item_id": "src-kitchen-stools",
+          "glb_node": "Item__src_kitchen_stools",
+          "label": "Boucle Counter Stools (\u00d73)",
+          "room_id": "new-kitchen",
+          "x0": 6.69,
+          "z0": 2.04,
+          "x1": 8.07,
+          "z1": 2.38,
+          "y0": 0.0,
+          "y1": 0.9
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-foyer-console",
+          "glb_node": "Item__src_foyer_console",
+          "label": "Smoked-Glass Entry Console",
+          "room_id": "new-kitchen",
+          "x0": 7.18,
+          "z0": 3.31,
+          "x1": 7.98,
+          "z1": 3.57,
+          "y0": 0.0,
+          "y1": 0.8
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-media",
+          "glb_node": "Item__src_living_media",
+          "label": "Walnut Credenza & 65\" OLED TV",
+          "room_id": "new-living",
+          "x0": 0.13,
+          "z0": 0.94,
+          "x1": 0.55,
+          "z1": 2.86,
+          "y0": 0.0,
+          "y1": 1.6
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-sofa",
+          "glb_node": "Item__src_living_sofa",
+          "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+          "room_id": "new-living",
+          "x0": 2.02,
+          "z0": 0.85,
+          "x1": 2.94,
+          "z1": 2.95,
+          "y0": 0.0,
+          "y1": 0.84
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-coffee",
+          "glb_node": "Item__src_living_coffee",
+          "label": "Travertine & Walnut Coffee Table",
+          "room_id": "new-living",
+          "x0": 1.08,
+          "z0": 1.35,
+          "x1": 1.68,
+          "z1": 2.45,
+          "y0": 0.0,
+          "y1": 0.42
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-armchair",
+          "glb_node": "Item__src_living_armchair",
+          "label": "Curved Boucle Accent Chair",
+          "room_id": "new-living",
+          "x0": 0.99,
+          "z0": 0.31,
+          "x1": 1.77,
+          "z1": 1.05,
+          "y0": 0.0,
+          "y1": 0.8
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-dining",
+          "glb_node": "Item__src_living_dining",
+          "label": "Smoked-Glass 4-Seat Dining Set",
+          "room_id": "new-living",
+          "x0": 4.16,
+          "z0": 0.61,
+          "x1": 5.52,
+          "z1": 2.03,
+          "y0": 0.0,
+          "y1": 0.82
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-balcony-chair",
+          "glb_node": "Item__src_balcony_chair",
+          "label": "Outdoor Boucle Terrace Chair",
+          "room_id": "new-balcony",
+          "x0": 0.7591,
+          "z0": -1.4161,
+          "x1": 1.6809,
+          "z1": -0.5039,
+          "y0": 0.0,
+          "y1": 0.76
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-balcony-table",
+          "glb_node": "Item__src_balcony_table",
+          "label": "Bronze Riverfront Bistro Table",
+          "room_id": "new-balcony",
+          "x0": 4.26,
+          "z0": -1.26,
+          "x1": 4.86,
+          "z1": -0.66,
+          "y0": 0.0,
+          "y1": 0.58
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-queen",
+          "glb_node": "Item__src_bed_queen",
+          "label": "Channel-Tufted Queen Bed & Rug",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.12,
+          "z0": 4.48,
+          "x1": 2.2,
+          "z1": 6.2,
+          "y0": 0.0,
+          "y1": 1.14
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-nightstand-l",
+          "glb_node": "Item__src_bed_nightstand_l",
+          "label": "Walnut Nightstand & Moon Lamp (L)",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.12,
+          "z0": 3.93,
+          "x1": 0.54,
+          "z1": 4.39,
+          "y0": 0.0,
+          "y1": 0.64
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-nightstand-r",
+          "glb_node": "Item__src_bed_nightstand_r",
+          "label": "Walnut Nightstand & Moon Lamp (R)",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.12,
+          "z0": 6.29,
+          "x1": 0.54,
+          "z1": 6.75,
+          "y0": 0.0,
+          "y1": 0.64
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-bench",
+          "glb_node": "Item__src_bed_bench",
+          "label": "Boucle Upholstered Suite Bench",
+          "room_id": "new-primary-bedroom",
+          "x0": 2.19,
+          "z0": 6.43,
+          "x1": 3.53,
+          "z1": 6.85,
+          "y0": 0.0,
+          "y1": 0.46
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bath-stool",
+          "glb_node": "Item__src_bath_stool",
+          "label": "Teak Spa Towel Bench",
+          "room_id": "new-bathroom",
+          "x0": 7.6,
+          "z0": 3.81,
+          "x1": 7.96,
+          "z1": 4.39,
+          "y0": 0.0,
+          "y1": 0.46
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-bookshelf",
+          "glb_node": "Item__src_office_bookshelf",
+          "label": "Illuminated Walnut & Brass Bookcase",
+          "room_id": "new-office",
+          "x0": 8.26,
+          "z0": 5.04,
+          "x1": 8.62,
+          "z1": 6.28,
+          "y0": 0.0,
+          "y1": 1.92
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-desk",
+          "glb_node": "Item__src_office_desk",
+          "label": "Executive Walnut Desk, Display & Chair",
+          "room_id": "new-office",
+          "x0": 9.49,
+          "z0": 5.5,
+          "x1": 10.95,
+          "z1": 6.54,
+          "y0": 0.0,
+          "y1": 1.14
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-lounge",
+          "glb_node": "Item__src_office_lounge",
+          "label": "Boucle Study Lounge & Side Table",
+          "room_id": "new-office",
+          "x0": 10.2862,
+          "z0": 3.7299,
+          "x1": 11.4338,
+          "z1": 4.8701,
+          "y0": 0.0,
+          "y1": 0.8
+        }
+      ]
+    },
+    {
+      "id": "new-layout-02",
+      "rank": 2,
+      "tab_title": "Option 2 \u00b7 Open Social Flow",
+      "badge": "Max Central Circulation",
+      "summary": "Panoramic North-facing sofa toward the riverfront glass, rotated dining gallery, North bedroom suite, and sunlit window desk.",
+      "metrics": {
+        "violations_total": 0,
+        "overlaps": 0,
+        "door_blocks": 0,
+        "outside_room": 0,
+        "clearance_fails": 0,
+        "min_walkway_m": 1.04,
+        "open_floor_pct": 71.7,
+        "relations_kept_pct": 66.7,
+        "placed_count": 17
+      },
+      "placements": [
+        {
+          "item_id": "src-kitchen-stools",
+          "glb_node": "Item__src_kitchen_stools",
+          "label": "Boucle Counter Stools (\u00d73)",
+          "room_id": "new-kitchen",
+          "x": 7.38,
+          "z": 2.23,
+          "rot_deg": 180.0,
+          "w": 1.38,
+          "d": 0.34,
+          "h": 0.9
+        },
+        {
+          "item_id": "src-foyer-console",
+          "glb_node": "Item__src_foyer_console",
+          "label": "Smoked-Glass Entry Console",
+          "room_id": "new-kitchen",
+          "x": 6.05,
+          "z": 1.42,
+          "rot_deg": 270.0,
+          "w": 0.8,
+          "d": 0.26,
+          "h": 0.8
+        },
+        {
+          "item_id": "src-living-media",
+          "glb_node": "Item__src_living_media",
+          "label": "Walnut Credenza & 65\" OLED TV",
+          "room_id": "new-living",
+          "x": 0.34,
+          "z": 1.48,
+          "rot_deg": 270.0,
+          "w": 1.92,
+          "d": 0.42,
+          "h": 1.6
+        },
+        {
+          "item_id": "src-living-sofa",
+          "glb_node": "Item__src_living_sofa",
+          "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+          "room_id": "new-living",
+          "x": 1.74,
+          "z": 3.06,
+          "rot_deg": 180.0,
+          "w": 2.1,
+          "d": 0.92,
+          "h": 0.84
+        },
+        {
+          "item_id": "src-living-coffee",
+          "glb_node": "Item__src_living_coffee",
+          "label": "Travertine & Walnut Coffee Table",
+          "room_id": "new-living",
+          "x": 1.74,
+          "z": 1.98,
+          "rot_deg": 0.0,
+          "w": 1.1,
+          "d": 0.6,
+          "h": 0.42
+        },
+        {
+          "item_id": "src-living-armchair",
+          "glb_node": "Item__src_living_armchair",
+          "label": "Curved Boucle Accent Chair",
+          "room_id": "new-living",
+          "x": 2.48,
+          "z": 1.04,
+          "rot_deg": 42.0,
+          "w": 0.78,
+          "d": 0.74,
+          "h": 0.8
+        },
+        {
+          "item_id": "src-living-dining",
+          "glb_node": "Item__src_living_dining",
+          "label": "Smoked-Glass 4-Seat Dining Set",
+          "room_id": "new-living",
+          "x": 4.84,
+          "z": 1.28,
+          "rot_deg": 90.0,
+          "w": 1.36,
+          "d": 1.42,
+          "h": 0.82
+        },
+        {
+          "item_id": "src-balcony-chair",
+          "glb_node": "Item__src_balcony_chair",
+          "label": "Outdoor Boucle Terrace Chair",
+          "room_id": "new-balcony",
+          "x": 1.25,
+          "z": -0.96,
+          "rot_deg": 250.0,
+          "w": 0.7,
+          "d": 0.68,
+          "h": 0.76
+        },
+        {
+          "item_id": "src-balcony-table",
+          "glb_node": "Item__src_balcony_table",
+          "label": "Bronze Riverfront Bistro Table",
+          "room_id": "new-balcony",
+          "x": 2.18,
+          "z": -0.96,
+          "rot_deg": 0.0,
+          "w": 0.6,
+          "d": 0.6,
+          "h": 0.58
+        },
+        {
+          "item_id": "src-bed-queen",
+          "glb_node": "Item__src_bed_queen",
+          "label": "Channel-Tufted Queen Bed & Rug",
+          "room_id": "new-primary-bedroom",
+          "x": 1.66,
+          "z": 4.82,
+          "rot_deg": 0.0,
+          "w": 1.72,
+          "d": 2.08,
+          "h": 1.14
+        },
+        {
+          "item_id": "src-bed-nightstand-l",
+          "glb_node": "Item__src_bed_nightstand_l",
+          "label": "Walnut Nightstand & Moon Lamp (L)",
+          "room_id": "new-primary-bedroom",
+          "x": 2.84,
+          "z": 3.99,
+          "rot_deg": 0.0,
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        {
+          "item_id": "src-bed-nightstand-r",
+          "glb_node": "Item__src_bed_nightstand_r",
+          "label": "Walnut Nightstand & Moon Lamp (R)",
+          "room_id": "new-primary-bedroom",
+          "x": 0.48,
+          "z": 3.99,
+          "rot_deg": 0.0,
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        {
+          "item_id": "src-bed-bench",
+          "glb_node": "Item__src_bed_bench",
+          "label": "Boucle Upholstered Suite Bench",
+          "room_id": "new-primary-bedroom",
+          "x": 1.66,
+          "z": 6.64,
+          "rot_deg": 180.0,
+          "w": 1.34,
+          "d": 0.42,
+          "h": 0.46
+        },
+        {
+          "item_id": "src-bath-stool",
+          "glb_node": "Item__src_bath_stool",
+          "label": "Teak Spa Towel Bench",
+          "room_id": "new-bathroom",
+          "x": 7.68,
+          "z": 3.96,
+          "rot_deg": 0.0,
+          "w": 0.58,
+          "d": 0.36,
+          "h": 0.46
+        },
+        {
+          "item_id": "src-office-bookshelf",
+          "glb_node": "Item__src_office_bookshelf",
+          "label": "Illuminated Walnut & Brass Bookcase",
+          "room_id": "new-office",
+          "x": 9.26,
+          "z": 6.72,
+          "rot_deg": 180.0,
+          "w": 1.24,
+          "d": 0.36,
+          "h": 1.92
+        },
+        {
+          "item_id": "src-office-desk",
+          "glb_node": "Item__src_office_desk",
+          "label": "Executive Walnut Desk, Display & Chair",
+          "room_id": "new-office",
+          "x": 10.76,
+          "z": 5.32,
+          "rot_deg": 270.0,
+          "w": 1.46,
+          "d": 1.04,
+          "h": 1.14
+        },
+        {
+          "item_id": "src-office-lounge",
+          "glb_node": "Item__src_office_lounge",
+          "label": "Boucle Study Lounge & Side Table",
+          "room_id": "new-office",
+          "x": 8.76,
+          "z": 5.32,
+          "rot_deg": 270.0,
+          "w": 0.86,
+          "d": 0.76,
+          "h": 0.8
+        }
+      ],
+      "furniture_colliders": [
+        {
+          "kind": "furniture",
+          "item_id": "src-kitchen-stools",
+          "glb_node": "Item__src_kitchen_stools",
+          "label": "Boucle Counter Stools (\u00d73)",
+          "room_id": "new-kitchen",
+          "x0": 6.69,
+          "z0": 2.06,
+          "x1": 8.07,
+          "z1": 2.4,
+          "y0": 0.0,
+          "y1": 0.9
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-foyer-console",
+          "glb_node": "Item__src_foyer_console",
+          "label": "Smoked-Glass Entry Console",
+          "room_id": "new-kitchen",
+          "x0": 5.92,
+          "z0": 1.02,
+          "x1": 6.18,
+          "z1": 1.82,
+          "y0": 0.0,
+          "y1": 0.8
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-media",
+          "glb_node": "Item__src_living_media",
+          "label": "Walnut Credenza & 65\" OLED TV",
+          "room_id": "new-living",
+          "x0": 0.13,
+          "z0": 0.52,
+          "x1": 0.55,
+          "z1": 2.44,
+          "y0": 0.0,
+          "y1": 1.6
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-sofa",
+          "glb_node": "Item__src_living_sofa",
+          "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+          "room_id": "new-living",
+          "x0": 0.69,
+          "z0": 2.6,
+          "x1": 2.79,
+          "z1": 3.52,
+          "y0": 0.0,
+          "y1": 0.84
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-coffee",
+          "glb_node": "Item__src_living_coffee",
+          "label": "Travertine & Walnut Coffee Table",
+          "room_id": "new-living",
+          "x0": 1.19,
+          "z0": 1.68,
+          "x1": 2.29,
+          "z1": 2.28,
+          "y0": 0.0,
+          "y1": 0.42
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-armchair",
+          "glb_node": "Item__src_living_armchair",
+          "label": "Curved Boucle Accent Chair",
+          "room_id": "new-living",
+          "x0": 1.9426,
+          "z0": 0.5041,
+          "x1": 3.0174,
+          "z1": 1.5759,
+          "y0": 0.0,
+          "y1": 0.8
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-dining",
+          "glb_node": "Item__src_living_dining",
+          "label": "Smoked-Glass 4-Seat Dining Set",
+          "room_id": "new-living",
+          "x0": 4.13,
+          "z0": 0.6,
+          "x1": 5.55,
+          "z1": 1.96,
+          "y0": 0.0,
+          "y1": 0.82
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-balcony-chair",
+          "glb_node": "Item__src_balcony_chair",
+          "label": "Outdoor Boucle Terrace Chair",
+          "room_id": "new-balcony",
+          "x0": 0.8108,
+          "z0": -1.4052,
+          "x1": 1.6892,
+          "z1": -0.5148,
+          "y0": 0.0,
+          "y1": 0.76
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-balcony-table",
+          "glb_node": "Item__src_balcony_table",
+          "label": "Bronze Riverfront Bistro Table",
+          "room_id": "new-balcony",
+          "x0": 1.88,
+          "z0": -1.26,
+          "x1": 2.48,
+          "z1": -0.66,
+          "y0": 0.0,
+          "y1": 0.58
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-queen",
+          "glb_node": "Item__src_bed_queen",
+          "label": "Channel-Tufted Queen Bed & Rug",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.8,
+          "z0": 3.78,
+          "x1": 2.52,
+          "z1": 5.86,
+          "y0": 0.0,
+          "y1": 1.14
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-nightstand-l",
+          "glb_node": "Item__src_bed_nightstand_l",
+          "label": "Walnut Nightstand & Moon Lamp (L)",
+          "room_id": "new-primary-bedroom",
+          "x0": 2.61,
+          "z0": 3.78,
+          "x1": 3.07,
+          "z1": 4.2,
+          "y0": 0.0,
+          "y1": 0.64
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-nightstand-r",
+          "glb_node": "Item__src_bed_nightstand_r",
+          "label": "Walnut Nightstand & Moon Lamp (R)",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.25,
+          "z0": 3.78,
+          "x1": 0.71,
+          "z1": 4.2,
+          "y0": 0.0,
+          "y1": 0.64
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-bench",
+          "glb_node": "Item__src_bed_bench",
+          "label": "Boucle Upholstered Suite Bench",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.99,
+          "z0": 6.43,
+          "x1": 2.33,
+          "z1": 6.85,
+          "y0": 0.0,
+          "y1": 0.46
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bath-stool",
+          "glb_node": "Item__src_bath_stool",
+          "label": "Teak Spa Towel Bench",
+          "room_id": "new-bathroom",
+          "x0": 7.39,
+          "z0": 3.78,
+          "x1": 7.97,
+          "z1": 4.14,
+          "y0": 0.0,
+          "y1": 0.46
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-bookshelf",
+          "glb_node": "Item__src_office_bookshelf",
+          "label": "Illuminated Walnut & Brass Bookcase",
+          "room_id": "new-office",
+          "x0": 8.64,
+          "z0": 6.54,
+          "x1": 9.88,
+          "z1": 6.9,
+          "y0": 0.0,
+          "y1": 1.92
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-desk",
+          "glb_node": "Item__src_office_desk",
+          "label": "Executive Walnut Desk, Display & Chair",
+          "room_id": "new-office",
+          "x0": 10.24,
+          "z0": 4.59,
+          "x1": 11.28,
+          "z1": 6.05,
+          "y0": 0.0,
+          "y1": 1.14
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-lounge",
+          "glb_node": "Item__src_office_lounge",
+          "label": "Boucle Study Lounge & Side Table",
+          "room_id": "new-office",
+          "x0": 8.38,
+          "z0": 4.89,
+          "x1": 9.14,
+          "z1": 5.75,
+          "y0": 0.0,
+          "y1": 0.8
+        }
+      ]
+    },
+    {
+      "id": "new-layout-03",
+      "rank": 3,
+      "tab_title": "Option 3 \u00b7 Daylight & Vista",
+      "badge": "Scenic Window Alignment",
+      "summary": "East-facing lounge with architectural room-divider TV, hotel end-of-bed bench, and studio wall workstation.",
+      "metrics": {
+        "violations_total": 0,
+        "overlaps": 0,
+        "door_blocks": 0,
+        "outside_room": 0,
+        "clearance_fails": 0,
+        "min_walkway_m": 0.96,
+        "open_floor_pct": 71.7,
+        "relations_kept_pct": 83.3,
+        "placed_count": 17
+      },
+      "placements": [
+        {
+          "item_id": "src-kitchen-stools",
+          "glb_node": "Item__src_kitchen_stools",
+          "label": "Boucle Counter Stools (\u00d73)",
+          "room_id": "new-kitchen",
+          "x": 7.44,
+          "z": 2.21,
+          "rot_deg": 180.0,
+          "w": 1.38,
+          "d": 0.34,
+          "h": 0.9
+        },
+        {
+          "item_id": "src-foyer-console",
+          "glb_node": "Item__src_foyer_console",
+          "label": "Smoked-Glass Entry Console",
+          "room_id": "new-kitchen",
+          "x": 7.58,
+          "z": 3.44,
+          "rot_deg": 180.0,
+          "w": 0.8,
+          "d": 0.26,
+          "h": 0.8
+        },
+        {
+          "item_id": "src-living-media",
+          "glb_node": "Item__src_living_media",
+          "label": "Walnut Credenza & 65\" OLED TV",
+          "room_id": "new-living",
+          "x": 2.62,
+          "z": 1.94,
+          "rot_deg": 90.0,
+          "w": 1.92,
+          "d": 0.42,
+          "h": 1.6
+        },
+        {
+          "item_id": "src-living-sofa",
+          "glb_node": "Item__src_living_sofa",
+          "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+          "room_id": "new-living",
+          "x": 0.6,
+          "z": 1.94,
+          "rot_deg": 270.0,
+          "w": 2.1,
+          "d": 0.92,
+          "h": 0.84
+        },
+        {
+          "item_id": "src-living-coffee",
+          "glb_node": "Item__src_living_coffee",
+          "label": "Travertine & Walnut Coffee Table",
+          "room_id": "new-living",
+          "x": 1.66,
+          "z": 1.94,
+          "rot_deg": 270.0,
+          "w": 1.1,
+          "d": 0.6,
+          "h": 0.42
+        },
+        {
+          "item_id": "src-living-armchair",
+          "glb_node": "Item__src_living_armchair",
+          "label": "Curved Boucle Accent Chair",
+          "room_id": "new-living",
+          "x": 1.66,
+          "z": 0.7,
+          "rot_deg": 0.0,
+          "w": 0.78,
+          "d": 0.74,
+          "h": 0.8
+        },
+        {
+          "item_id": "src-living-dining",
+          "glb_node": "Item__src_living_dining",
+          "label": "Smoked-Glass 4-Seat Dining Set",
+          "room_id": "new-living",
+          "x": 4.86,
+          "z": 1.24,
+          "rot_deg": 0.0,
+          "w": 1.36,
+          "d": 1.42,
+          "h": 0.82
+        },
+        {
+          "item_id": "src-balcony-chair",
+          "glb_node": "Item__src_balcony_chair",
+          "label": "Outdoor Boucle Terrace Chair",
+          "room_id": "new-balcony",
+          "x": 4.86,
+          "z": -0.94,
+          "rot_deg": 155.0,
+          "w": 0.7,
+          "d": 0.68,
+          "h": 0.76
+        },
+        {
+          "item_id": "src-balcony-table",
+          "glb_node": "Item__src_balcony_table",
+          "label": "Bronze Riverfront Bistro Table",
+          "room_id": "new-balcony",
+          "x": 4.02,
+          "z": -1.1,
+          "rot_deg": 0.0,
+          "w": 0.6,
+          "d": 0.6,
+          "h": 0.58
+        },
+        {
+          "item_id": "src-bed-queen",
+          "glb_node": "Item__src_bed_queen",
+          "label": "Channel-Tufted Queen Bed & Rug",
+          "room_id": "new-primary-bedroom",
+          "x": 1.16,
+          "z": 5.18,
+          "rot_deg": 270.0,
+          "w": 1.72,
+          "d": 2.08,
+          "h": 1.14
+        },
+        {
+          "item_id": "src-bed-nightstand-l",
+          "glb_node": "Item__src_bed_nightstand_l",
+          "label": "Walnut Nightstand & Moon Lamp (L)",
+          "room_id": "new-primary-bedroom",
+          "x": 0.33,
+          "z": 4.0,
+          "rot_deg": 270.0,
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        {
+          "item_id": "src-bed-nightstand-r",
+          "glb_node": "Item__src_bed_nightstand_r",
+          "label": "Walnut Nightstand & Moon Lamp (R)",
+          "room_id": "new-primary-bedroom",
+          "x": 0.33,
+          "z": 6.36,
+          "rot_deg": 270.0,
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        {
+          "item_id": "src-bed-bench",
+          "glb_node": "Item__src_bed_bench",
+          "label": "Boucle Upholstered Suite Bench",
+          "room_id": "new-primary-bedroom",
+          "x": 2.48,
+          "z": 5.18,
+          "rot_deg": 270.0,
+          "w": 1.34,
+          "d": 0.42,
+          "h": 0.46
+        },
+        {
+          "item_id": "src-bath-stool",
+          "glb_node": "Item__src_bath_stool",
+          "label": "Teak Spa Towel Bench",
+          "room_id": "new-bathroom",
+          "x": 6.88,
+          "z": 6.58,
+          "rot_deg": 180.0,
+          "w": 0.58,
+          "d": 0.36,
+          "h": 0.46
+        },
+        {
+          "item_id": "src-office-bookshelf",
+          "glb_node": "Item__src_office_bookshelf",
+          "label": "Illuminated Walnut & Brass Bookcase",
+          "room_id": "new-office",
+          "x": 10.36,
+          "z": 6.72,
+          "rot_deg": 180.0,
+          "w": 1.24,
+          "d": 0.36,
+          "h": 1.92
+        },
+        {
+          "item_id": "src-office-desk",
+          "glb_node": "Item__src_office_desk",
+          "label": "Executive Walnut Desk, Display & Chair",
+          "room_id": "new-office",
+          "x": 10.48,
+          "z": 4.3,
+          "rot_deg": 0.0,
+          "w": 1.46,
+          "d": 1.04,
+          "h": 1.14
+        },
+        {
+          "item_id": "src-office-lounge",
+          "glb_node": "Item__src_office_lounge",
+          "label": "Boucle Study Lounge & Side Table",
+          "room_id": "new-office",
+          "x": 8.78,
+          "z": 6.14,
+          "rot_deg": 225.0,
+          "w": 0.86,
+          "d": 0.76,
+          "h": 0.8
+        }
+      ],
+      "furniture_colliders": [
+        {
+          "kind": "furniture",
+          "item_id": "src-kitchen-stools",
+          "glb_node": "Item__src_kitchen_stools",
+          "label": "Boucle Counter Stools (\u00d73)",
+          "room_id": "new-kitchen",
+          "x0": 6.75,
+          "z0": 2.04,
+          "x1": 8.13,
+          "z1": 2.38,
+          "y0": 0.0,
+          "y1": 0.9
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-foyer-console",
+          "glb_node": "Item__src_foyer_console",
+          "label": "Smoked-Glass Entry Console",
+          "room_id": "new-kitchen",
+          "x0": 7.18,
+          "z0": 3.31,
+          "x1": 7.98,
+          "z1": 3.57,
+          "y0": 0.0,
+          "y1": 0.8
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-media",
+          "glb_node": "Item__src_living_media",
+          "label": "Walnut Credenza & 65\" OLED TV",
+          "room_id": "new-living",
+          "x0": 2.41,
+          "z0": 0.98,
+          "x1": 2.83,
+          "z1": 2.9,
+          "y0": 0.0,
+          "y1": 1.6
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-sofa",
+          "glb_node": "Item__src_living_sofa",
+          "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+          "room_id": "new-living",
+          "x0": 0.14,
+          "z0": 0.89,
+          "x1": 1.06,
+          "z1": 2.99,
+          "y0": 0.0,
+          "y1": 0.84
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-coffee",
+          "glb_node": "Item__src_living_coffee",
+          "label": "Travertine & Walnut Coffee Table",
+          "room_id": "new-living",
+          "x0": 1.36,
+          "z0": 1.39,
+          "x1": 1.96,
+          "z1": 2.49,
+          "y0": 0.0,
+          "y1": 0.42
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-armchair",
+          "glb_node": "Item__src_living_armchair",
+          "label": "Curved Boucle Accent Chair",
+          "room_id": "new-living",
+          "x0": 1.27,
+          "z0": 0.33,
+          "x1": 2.05,
+          "z1": 1.07,
+          "y0": 0.0,
+          "y1": 0.8
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-living-dining",
+          "glb_node": "Item__src_living_dining",
+          "label": "Smoked-Glass 4-Seat Dining Set",
+          "room_id": "new-living",
+          "x0": 4.18,
+          "z0": 0.53,
+          "x1": 5.54,
+          "z1": 1.95,
+          "y0": 0.0,
+          "y1": 0.82
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-balcony-chair",
+          "glb_node": "Item__src_balcony_chair",
+          "label": "Outdoor Boucle Terrace Chair",
+          "room_id": "new-balcony",
+          "x0": 4.3991,
+          "z0": -1.3961,
+          "x1": 5.3209,
+          "z1": -0.4839,
+          "y0": 0.0,
+          "y1": 0.76
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-balcony-table",
+          "glb_node": "Item__src_balcony_table",
+          "label": "Bronze Riverfront Bistro Table",
+          "room_id": "new-balcony",
+          "x0": 3.72,
+          "z0": -1.4,
+          "x1": 4.32,
+          "z1": -0.8,
+          "y0": 0.0,
+          "y1": 0.58
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-queen",
+          "glb_node": "Item__src_bed_queen",
+          "label": "Channel-Tufted Queen Bed & Rug",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.12,
+          "z0": 4.32,
+          "x1": 2.2,
+          "z1": 6.04,
+          "y0": 0.0,
+          "y1": 1.14
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-nightstand-l",
+          "glb_node": "Item__src_bed_nightstand_l",
+          "label": "Walnut Nightstand & Moon Lamp (L)",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.12,
+          "z0": 3.77,
+          "x1": 0.54,
+          "z1": 4.23,
+          "y0": 0.0,
+          "y1": 0.64
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-nightstand-r",
+          "glb_node": "Item__src_bed_nightstand_r",
+          "label": "Walnut Nightstand & Moon Lamp (R)",
+          "room_id": "new-primary-bedroom",
+          "x0": 0.12,
+          "z0": 6.13,
+          "x1": 0.54,
+          "z1": 6.59,
+          "y0": 0.0,
+          "y1": 0.64
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bed-bench",
+          "glb_node": "Item__src_bed_bench",
+          "label": "Boucle Upholstered Suite Bench",
+          "room_id": "new-primary-bedroom",
+          "x0": 2.27,
+          "z0": 4.51,
+          "x1": 2.69,
+          "z1": 5.85,
+          "y0": 0.0,
+          "y1": 0.46
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-bath-stool",
+          "glb_node": "Item__src_bath_stool",
+          "label": "Teak Spa Towel Bench",
+          "room_id": "new-bathroom",
+          "x0": 6.59,
+          "z0": 6.4,
+          "x1": 7.17,
+          "z1": 6.76,
+          "y0": 0.0,
+          "y1": 0.46
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-bookshelf",
+          "glb_node": "Item__src_office_bookshelf",
+          "label": "Illuminated Walnut & Brass Bookcase",
+          "room_id": "new-office",
+          "x0": 9.74,
+          "z0": 6.54,
+          "x1": 10.98,
+          "z1": 6.9,
+          "y0": 0.0,
+          "y1": 1.92
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-desk",
+          "glb_node": "Item__src_office_desk",
+          "label": "Executive Walnut Desk, Display & Chair",
+          "room_id": "new-office",
+          "x0": 9.75,
+          "z0": 3.78,
+          "x1": 11.21,
+          "z1": 4.82,
+          "y0": 0.0,
+          "y1": 1.14
+        },
+        {
+          "kind": "furniture",
+          "item_id": "src-office-lounge",
+          "glb_node": "Item__src_office_lounge",
+          "label": "Boucle Study Lounge & Side Table",
+          "room_id": "new-office",
+          "x0": 8.2072,
+          "z0": 5.5672,
+          "x1": 9.3528,
+          "z1": 6.7128,
+          "y0": 0.0,
+          "y1": 0.8
+        }
+      ]
+    }
+  ],
+  "mover_plan": {
+    "entry_spawn": {
+      "x": 9.66,
+      "z": 3.03
+    },
+    "total_items": 17,
+    "steps": [
+      {
+        "step": 1,
+        "item_id": "src-kitchen-stools",
+        "glb_node": "Item__src_kitchen_stools",
+        "label": "Boucle Counter Stools (\u00d73)",
+        "room_id": "new-kitchen",
+        "target": {
+          "x": 7.38,
+          "z": 2.21,
+          "rot_deg": 180.0
+        },
+        "standoff": {
+          "x": 8.379,
+          "z": 2.534
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            8.32,
+            2.52
+          ]
+        ]
+      },
+      {
+        "step": 2,
+        "item_id": "src-foyer-console",
+        "glb_node": "Item__src_foyer_console",
+        "label": "Smoked-Glass Entry Console",
+        "room_id": "new-kitchen",
+        "target": {
+          "x": 7.58,
+          "z": 3.44,
+          "rot_deg": 180.0
+        },
+        "standoff": {
+          "x": 8.303,
+          "z": 3.205
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            8.32,
+            3.24
+          ]
+        ]
+      },
+      {
+        "step": 3,
+        "item_id": "src-living-media",
+        "glb_node": "Item__src_living_media",
+        "label": "Walnut Credenza & 65\" OLED TV",
+        "room_id": "new-living",
+        "target": {
+          "x": 0.34,
+          "z": 1.9,
+          "rot_deg": 270.0
+        },
+        "standoff": {
+          "x": 1.66,
+          "z": 1.9
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            1.6,
+            1.92
+          ]
+        ]
+      },
+      {
+        "step": 4,
+        "item_id": "src-living-sofa",
+        "glb_node": "Item__src_living_sofa",
+        "label": "Oatmeal Boucle 3-Seat Sofa & Rug",
+        "room_id": "new-living",
+        "target": {
+          "x": 2.48,
+          "z": 1.9,
+          "rot_deg": 90.0
+        },
+        "standoff": {
+          "x": 3.821,
+          "z": 2.336
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            3.88,
+            2.28
+          ]
+        ]
+      },
+      {
+        "step": 5,
+        "item_id": "src-living-coffee",
+        "glb_node": "Item__src_living_coffee",
+        "label": "Travertine & Walnut Coffee Table",
+        "room_id": "new-living",
+        "target": {
+          "x": 1.38,
+          "z": 1.9,
+          "rot_deg": 90.0
+        },
+        "standoff": {
+          "x": 1.661,
+          "z": 2.765
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            3.28,
+            3.0
+          ],
+          [
+            3.04,
+            3.12
+          ],
+          [
+            2.92,
+            3.12
+          ],
+          [
+            2.8,
+            3.12
+          ],
+          [
+            2.68,
+            3.12
+          ],
+          [
+            2.56,
+            3.12
+          ],
+          [
+            2.44,
+            3.12
+          ],
+          [
+            2.32,
+            3.12
+          ],
+          [
+            2.2,
+            3.12
+          ],
+          [
+            2.08,
+            3.12
+          ],
+          [
+            1.96,
+            3.12
+          ],
+          [
+            1.84,
+            3.12
+          ],
+          [
+            1.72,
+            2.76
+          ]
+        ]
+      },
+      {
+        "step": 6,
+        "item_id": "src-living-armchair",
+        "glb_node": "Item__src_living_armchair",
+        "label": "Curved Boucle Accent Chair",
+        "room_id": "new-living",
+        "target": {
+          "x": 1.38,
+          "z": 0.68,
+          "rot_deg": 0.0
+        },
+        "standoff": {
+          "x": 2.13,
+          "z": 0.68
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            5.32,
+            2.4
+          ],
+          [
+            3.04,
+            0.6
+          ],
+          [
+            2.08,
+            0.6
+          ]
+        ]
+      },
+      {
+        "step": 7,
+        "item_id": "src-living-dining",
+        "glb_node": "Item__src_living_dining",
+        "label": "Smoked-Glass 4-Seat Dining Set",
+        "room_id": "new-living",
+        "target": {
+          "x": 4.84,
+          "z": 1.32,
+          "rot_deg": 0.0
+        },
+        "standoff": {
+          "x": 5.858,
+          "z": 1.651
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            6.52,
+            2.64
+          ],
+          [
+            5.8,
+            1.68
+          ]
+        ]
+      },
+      {
+        "step": 8,
+        "item_id": "src-balcony-chair",
+        "glb_node": "Item__src_balcony_chair",
+        "label": "Outdoor Boucle Terrace Chair",
+        "room_id": "new-balcony",
+        "target": {
+          "x": 1.22,
+          "z": -0.96,
+          "rot_deg": 205.0
+        },
+        "standoff": {
+          "x": 1.794,
+          "z": -0.543
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            4.0,
+            2.28
+          ],
+          [
+            3.16,
+            -0.36
+          ],
+          [
+            1.84,
+            -0.6
+          ]
+        ]
+      },
+      {
+        "step": 9,
+        "item_id": "src-balcony-table",
+        "glb_node": "Item__src_balcony_table",
+        "label": "Bronze Riverfront Bistro Table",
+        "room_id": "new-balcony",
+        "target": {
+          "x": 4.56,
+          "z": -0.96,
+          "rot_deg": 0.0
+        },
+        "standoff": {
+          "x": 5.094,
+          "z": -0.572
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            4.0,
+            2.28
+          ],
+          [
+            3.52,
+            -0.12
+          ],
+          [
+            3.76,
+            -0.36
+          ],
+          [
+            5.08,
+            -0.6
+          ]
+        ]
+      },
+      {
+        "step": 10,
+        "item_id": "src-bed-queen",
+        "glb_node": "Item__src_bed_queen",
+        "label": "Channel-Tufted Queen Bed & Rug",
+        "room_id": "new-primary-bedroom",
+        "target": {
+          "x": 1.16,
+          "z": 5.34,
+          "rot_deg": 270.0
+        },
+        "standoff": {
+          "x": 2.491,
+          "z": 4.907
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            5.56,
+            3.0
+          ],
+          [
+            4.0,
+            3.36
+          ],
+          [
+            3.28,
+            4.32
+          ],
+          [
+            2.44,
+            4.92
+          ]
+        ]
+      },
+      {
+        "step": 11,
+        "item_id": "src-bed-nightstand-l",
+        "glb_node": "Item__src_bed_nightstand_l",
+        "label": "Walnut Nightstand & Moon Lamp (L)",
+        "room_id": "new-primary-bedroom",
+        "target": {
+          "x": 0.33,
+          "z": 4.16,
+          "rot_deg": 270.0
+        },
+        "standoff": {
+          "x": 0.92,
+          "z": 4.16
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            4.36,
+            3.0
+          ],
+          [
+            3.52,
+            4.08
+          ],
+          [
+            0.88,
+            4.2
+          ]
+        ]
+      },
+      {
+        "step": 12,
+        "item_id": "src-bed-nightstand-r",
+        "glb_node": "Item__src_bed_nightstand_r",
+        "label": "Walnut Nightstand & Moon Lamp (R)",
+        "room_id": "new-primary-bedroom",
+        "target": {
+          "x": 0.33,
+          "z": 6.52,
+          "rot_deg": 270.0
+        },
+        "standoff": {
+          "x": 0.92,
+          "z": 6.52
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            5.56,
+            3.0
+          ],
+          [
+            4.0,
+            3.36
+          ],
+          [
+            2.32,
+            6.48
+          ],
+          [
+            0.88,
+            6.48
+          ]
+        ]
+      },
+      {
+        "step": 13,
+        "item_id": "src-bed-bench",
+        "glb_node": "Item__src_bed_bench",
+        "label": "Boucle Upholstered Suite Bench",
+        "room_id": "new-primary-bedroom",
+        "target": {
+          "x": 2.86,
+          "z": 6.64,
+          "rot_deg": 180.0
+        },
+        "standoff": {
+          "x": 3.693,
+          "z": 6.035
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            5.56,
+            3.0
+          ],
+          [
+            4.0,
+            3.36
+          ],
+          [
+            3.88,
+            4.08
+          ],
+          [
+            3.64,
+            6.0
+          ]
+        ]
+      },
+      {
+        "step": 14,
+        "item_id": "src-bath-stool",
+        "glb_node": "Item__src_bath_stool",
+        "label": "Teak Spa Towel Bench",
+        "room_id": "new-bathroom",
+        "target": {
+          "x": 7.78,
+          "z": 4.1,
+          "rot_deg": 90.0
+        },
+        "standoff": {
+          "x": 7.13,
+          "z": 4.1
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            7.0,
+            3.12
+          ],
+          [
+            6.64,
+            3.6
+          ],
+          [
+            6.76,
+            3.96
+          ],
+          [
+            7.12,
+            4.08
+          ]
+        ]
+      },
+      {
+        "step": 15,
+        "item_id": "src-office-bookshelf",
+        "glb_node": "Item__src_office_bookshelf",
+        "label": "Illuminated Walnut & Brass Bookcase",
+        "room_id": "new-office",
+        "target": {
+          "x": 8.44,
+          "z": 5.66,
+          "rot_deg": 270.0
+        },
+        "standoff": {
+          "x": 8.743,
+          "z": 4.728
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            8.92,
+            3.36
+          ],
+          [
+            8.8,
+            4.68
+          ]
+        ]
+      },
+      {
+        "step": 16,
+        "item_id": "src-office-desk",
+        "glb_node": "Item__src_office_desk",
+        "label": "Executive Walnut Desk, Display & Chair",
+        "room_id": "new-office",
+        "target": {
+          "x": 10.22,
+          "z": 6.02,
+          "rot_deg": 180.0
+        },
+        "standoff": {
+          "x": 9.883,
+          "z": 4.983
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            8.92,
+            3.36
+          ],
+          [
+            8.92,
+            3.96
+          ],
+          [
+            9.88,
+            5.04
+          ]
+        ]
+      },
+      {
+        "step": 17,
+        "item_id": "src-office-lounge",
+        "glb_node": "Item__src_office_lounge",
+        "label": "Boucle Study Lounge & Side Table",
+        "room_id": "new-office",
+        "target": {
+          "x": 10.86,
+          "z": 4.3,
+          "rot_deg": 42.0
+        },
+        "standoff": {
+          "x": 10.109,
+          "z": 4.056
+        },
+        "waypoints": [
+          [
+            9.64,
+            3.0
+          ],
+          [
+            8.92,
+            3.36
+          ],
+          [
+            8.92,
+            3.96
+          ],
+          [
+            9.4,
+            4.08
+          ],
+          [
+            10.12,
+            4.08
+          ]
+        ]
+      }
+    ]
+  },
+  "category_catalog": {
+    "living": {
+      "room_id": "new-living",
+      "src_room_id": "src-living",
+      "type": "living",
+      "title": "Living & Dining",
+      "subtitle": "Curtain-wall lounge, OLED credenza & 4-seat dining",
+      "bounds": [
+        0.0,
+        0.0,
+        5.82,
+        3.66
+      ],
+      "preset": {
+        "x": 4.95,
+        "z": 2.92,
+        "yaw_deg": 68.0,
+        "pitch_deg": -3.0
+      },
+      "orbit_focus": [
+        2.85,
+        0.65,
+        1.85
+      ],
+      "default_samples": [
+        {
+          "name": "L1.jpg",
+          "url": "/samples/drive/L1.jpg",
+          "tag": "Backlit travertine media wall"
+        },
+        {
+          "name": "L2.jpg",
+          "url": "/samples/drive/L2.jpg",
+          "tag": "Boucle sofa & warm cove lighting"
+        },
+        {
+          "name": "L3.jpg",
+          "url": "/samples/drive/L3.jpg",
+          "tag": "Open-plan honey-oak flooring"
+        },
+        {
+          "name": "L4.jpg",
+          "url": "/samples/drive/L4.jpg",
+          "tag": "Floor-to-ceiling riverfront glass"
+        }
+      ]
+    },
+    "kitchen": {
+      "room_id": "new-kitchen",
+      "src_room_id": "src-kitchen",
+      "type": "kitchen",
+      "title": "Kitchen & Entry Foyer",
+      "subtitle": "Waterfall Calacatta island, sage shaker & globe pendants",
+      "bounds": [
+        5.82,
+        0.0,
+        9.42,
+        3.66
+      ],
+      "preset": {
+        "x": 8.68,
+        "z": 2.95,
+        "yaw_deg": 52.0,
+        "pitch_deg": -4.0
+      },
+      "orbit_focus": [
+        7.55,
+        0.75,
+        1.85
+      ],
+      "default_samples": [
+        {
+          "name": "K1.jpg",
+          "url": "/samples/drive/K1.jpg",
+          "tag": "Waterfall marble island & stools"
+        },
+        {
+          "name": "K2.jpg",
+          "url": "/samples/drive/K2.jpg",
+          "tag": "Sage-olive cabinetry & brass pulls"
+        },
+        {
+          "name": "K3.jpg",
+          "url": "/samples/drive/K3.jpg",
+          "tag": "Amber glass pendants & range hood"
+        },
+        {
+          "name": "K4.jpg",
+          "url": "/samples/drive/K4.jpg",
+          "tag": "Undermount window sink & walnut tower"
+        }
+      ]
+    },
+    "bedroom": {
+      "room_id": "new-primary-bedroom",
+      "src_room_id": "src-bedroom",
+      "type": "primary_bedroom",
+      "title": "Primary Bedroom",
+      "subtitle": "Channel-tufted queen suite, lunar lamps & smoked wardrobe",
+      "bounds": [
+        0.0,
+        3.66,
+        4.78,
+        6.99
+      ],
+      "preset": {
+        "x": 3.72,
+        "z": 4.24,
+        "yaw_deg": 122.0,
+        "pitch_deg": -5.0
+      },
+      "orbit_focus": [
+        2.25,
+        0.65,
+        5.32
+      ],
+      "default_samples": [
+        {
+          "name": "Be1.jpg",
+          "url": "/samples/drive/Be1.jpg",
+          "tag": "Boucle platform bed & halo medallion"
+        },
+        {
+          "name": "Be2.jpg",
+          "url": "/samples/drive/Be2.jpg",
+          "tag": "Walnut nightstands & warm globe lamps"
+        },
+        {
+          "name": "Be3.jpg",
+          "url": "/samples/drive/Be3.jpg",
+          "tag": "Window bench & pleated linen drapery"
+        }
+      ]
+    },
+    "bathroom": {
+      "room_id": "new-bathroom",
+      "src_room_id": "src-bathroom",
+      "type": "bathroom",
+      "title": "Spa Bathroom",
+      "subtitle": "Freestanding soaking tub, rain shower & backlit vanity",
+      "bounds": [
+        4.78,
+        3.66,
+        8.18,
+        6.99
+      ],
+      "preset": {
+        "x": 6.56,
+        "z": 4.1,
+        "yaw_deg": 172.0,
+        "pitch_deg": -6.0
+      },
+      "orbit_focus": [
+        6.48,
+        0.65,
+        5.38
+      ],
+      "default_samples": [
+        {
+          "name": "B1.jpg",
+          "url": "/samples/drive/B1.jpg",
+          "tag": "Soaking tub on LED teak plinth"
+        },
+        {
+          "name": "B2.jpg",
+          "url": "/samples/drive/B2.jpg",
+          "tag": "Floating walnut vanity & halo mirror"
+        },
+        {
+          "name": "B4.jpg",
+          "url": "/samples/drive/B4.jpg",
+          "tag": "Frameless glass rainfall shower"
+        }
+      ]
+    },
+    "office": {
+      "room_id": "new-office",
+      "src_room_id": "src-office",
+      "type": "office",
+      "title": "Office / Study",
+      "subtitle": "Executive walnut desk, lit bookcase & sunlit reading nook",
+      "bounds": [
+        8.18,
+        3.66,
+        11.58,
+        6.99
+      ],
+      "preset": {
+        "x": 8.82,
+        "z": 4.18,
+        "yaw_deg": 218.0,
+        "pitch_deg": -5.0
+      },
+      "orbit_focus": [
+        9.88,
+        0.65,
+        5.32
+      ],
+      "default_samples": [
+        {
+          "name": "O1.jpg",
+          "url": "/walkthrough/assets/samples/O1.jpg",
+          "tag": "Executive walnut desk & studio display"
+        },
+        {
+          "name": "O2.jpg",
+          "url": "/walkthrough/assets/samples/O2.jpg",
+          "tag": "Illuminated brass bookcase & study lounge"
+        }
+      ]
+    },
+    "balcony": {
+      "room_id": "new-balcony",
+      "src_room_id": "src-balcony",
+      "type": "outdoor",
+      "title": "Riverfront Balcony",
+      "subtitle": "Teak deck, glass guardrail & waterfront bistro lounge",
+      "bounds": [
+        0.36,
+        -1.65,
+        5.46,
+        0.0
+      ],
+      "preset": {
+        "x": 3.38,
+        "z": -0.78,
+        "yaw_deg": 195.0,
+        "pitch_deg": -2.0
+      },
+      "orbit_focus": [
+        2.9,
+        0.45,
+        -0.82
+      ],
+      "default_samples": []
+    }
+  }
 }
