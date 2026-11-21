@@ -1,0 +1,1688 @@
+[
+  {
+    "id": "new-layout-01",
+    "rank": 1,
+    "room_pair": [
+      "src-living->new-living",
+      "src-bedroom->new-primary-bedroom"
+    ],
+    "placements": [
+      {
+        "item_id": "src-sofa-01",
+        "category": "sofa",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 2.2,
+          "d": 0.92,
+          "h": 0.84
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 3.18,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.95,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:12"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-coffee-01",
+        "category": "coffee_table",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.62,
+          "h": 0.42
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.08,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.93,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:16"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-armchair-01",
+        "category": "armchair",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 0.82,
+          "d": 0.82,
+          "h": 0.82
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.08,
+          "z": 1.36,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:21"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-dining-table-01",
+        "category": "dining_table",
+        "group_id": "src-grp-dining",
+        "dims_m": {
+          "w": 1.25,
+          "d": 0.78,
+          "h": 0.75
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 5.2,
+          "z": 2.105,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.91,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:31"
+          ],
+          "scale_ref": "#4-189 DINE zone",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-tv-stand-01",
+        "category": "tv_stand",
+        "group_id": "src-grp-media",
+        "dims_m": {
+          "w": 1.6,
+          "d": 0.44,
+          "h": 0.54
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.45,
+          "z": 1.63,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.94,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:24"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-bed-queen",
+        "category": "bed",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 1.6,
+          "d": 2.05,
+          "h": 1.05
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.055,
+          "z": 5.62,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.96,
+        "matched_neighbors": [
+          "window",
+          "new-win-03-1"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:54"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-nightstand-01",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 0.5,
+          "d": 0.42,
+          "h": 0.56
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.255,
+          "z": 6.71,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "window",
+          "new-win-03-1"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:02"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-desk-01",
+        "category": "desk",
+        "group_id": "src-grp-work",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.58,
+          "h": 0.75
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.105,
+          "z": 3.98,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.88,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:10"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      }
+    ],
+    "costs": {
+      "fixture_mismatch": 0.0,
+      "wall_mismatch": 0.175,
+      "clearance_penalty": 0.1042,
+      "staging_distance": 0.1698,
+      "group_overlap": 0.0,
+      "group_distance_delta": 1.7972,
+      "total": 2.2462
+    },
+    "check": {
+      "overlaps": [],
+      "door_blocks": [],
+      "clearance_fails": 0,
+      "clearance_fail_paths": [],
+      "outside_room": [],
+      "relations_kept": 1.0,
+      "violations_total": 0,
+      "flagged_items": []
+    },
+    "judge_score": null,
+    "warnings": [],
+    "leftovers": [
+      {
+        "item_id": "src-sectional-oversize",
+        "reason": "needs 6.10 m; longest free wall is 5.82 m",
+        "suggestions": [
+          "move to a larger room or omit"
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/L1.jpg",
+          "photo_indices": [],
+          "seen_at": [
+            "00:44"
+          ],
+          "scale_ref": "oversized showroom sectional",
+          "from_listing": null,
+          "from_room": null,
+          "notes": null
+        }
+      }
+    ],
+    "provenance": {
+      "source": "arrange_engine",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": "Whole-residence layout 1 across 2 rooms"
+    }
+  },
+  {
+    "id": "new-layout-02",
+    "rank": 2,
+    "room_pair": [
+      "src-living->new-living",
+      "src-bedroom->new-primary-bedroom"
+    ],
+    "placements": [
+      {
+        "item_id": "src-sofa-01",
+        "category": "sofa",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 2.2,
+          "d": 0.92,
+          "h": 0.84
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 3.18,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.95,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:12"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-coffee-01",
+        "category": "coffee_table",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.62,
+          "h": 0.42
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.08,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.93,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:16"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-armchair-01",
+        "category": "armchair",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 0.82,
+          "d": 0.82,
+          "h": 0.82
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.08,
+          "z": 1.36,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:21"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-dining-table-01",
+        "category": "dining_table",
+        "group_id": "src-grp-dining",
+        "dims_m": {
+          "w": 1.25,
+          "d": 0.78,
+          "h": 0.75
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 5.2,
+          "z": 1.605,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.91,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:31"
+          ],
+          "scale_ref": "#4-189 DINE zone",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-tv-stand-01",
+        "category": "tv_stand",
+        "group_id": "src-grp-media",
+        "dims_m": {
+          "w": 1.6,
+          "d": 0.44,
+          "h": 0.54
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.45,
+          "z": 1.63,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.94,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:24"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-bed-queen",
+        "category": "bed",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 1.6,
+          "d": 2.05,
+          "h": 1.05
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.255,
+          "z": 5.62,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.96,
+        "matched_neighbors": [
+          "window",
+          "new-win-03-1"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:54"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-nightstand-01",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 0.5,
+          "d": 0.42,
+          "h": 0.56
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.455,
+          "z": 6.71,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "window",
+          "new-win-03-1"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:02"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-desk-01",
+        "category": "desk",
+        "group_id": "src-grp-work",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.58,
+          "h": 0.75
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.405,
+          "z": 3.98,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.88,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:10"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      }
+    ],
+    "costs": {
+      "fixture_mismatch": 0.0,
+      "wall_mismatch": 0.175,
+      "clearance_penalty": 0.1042,
+      "staging_distance": 0.1698,
+      "group_overlap": 0.0,
+      "group_distance_delta": 1.8626,
+      "total": 2.3116
+    },
+    "check": {
+      "overlaps": [],
+      "door_blocks": [],
+      "clearance_fails": 0,
+      "clearance_fail_paths": [],
+      "outside_room": [],
+      "relations_kept": 1.0,
+      "violations_total": 0,
+      "flagged_items": []
+    },
+    "judge_score": null,
+    "warnings": [],
+    "leftovers": [
+      {
+        "item_id": "src-sectional-oversize",
+        "reason": "needs 6.10 m; longest free wall is 5.82 m",
+        "suggestions": [
+          "move to a larger room or omit"
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/L1.jpg",
+          "photo_indices": [],
+          "seen_at": [
+            "00:44"
+          ],
+          "scale_ref": "oversized showroom sectional",
+          "from_listing": null,
+          "from_room": null,
+          "notes": null
+        }
+      }
+    ],
+    "provenance": {
+      "source": "arrange_engine",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": "Whole-residence layout 2 across 2 rooms"
+    }
+  },
+  {
+    "id": "new-layout-03",
+    "rank": 3,
+    "room_pair": [
+      "src-living->new-living",
+      "src-bedroom->new-primary-bedroom"
+    ],
+    "placements": [
+      {
+        "item_id": "src-sofa-01",
+        "category": "sofa",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 2.2,
+          "d": 0.92,
+          "h": 0.84
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 3.18,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.95,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:12"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-coffee-01",
+        "category": "coffee_table",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.62,
+          "h": 0.42
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.08,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.93,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:16"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-armchair-01",
+        "category": "armchair",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 0.82,
+          "d": 0.82,
+          "h": 0.82
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.08,
+          "z": 1.36,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:21"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-dining-table-01",
+        "category": "dining_table",
+        "group_id": "src-grp-dining",
+        "dims_m": {
+          "w": 1.25,
+          "d": 0.78,
+          "h": 0.75
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 5.2,
+          "z": 2.105,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.91,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:31"
+          ],
+          "scale_ref": "#4-189 DINE zone",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-tv-stand-01",
+        "category": "tv_stand",
+        "group_id": "src-grp-media",
+        "dims_m": {
+          "w": 1.6,
+          "d": 0.44,
+          "h": 0.54
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.45,
+          "z": 2.83,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.94,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:24"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-bed-queen",
+        "category": "bed",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 1.6,
+          "d": 2.05,
+          "h": 1.05
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.055,
+          "z": 5.62,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.96,
+        "matched_neighbors": [
+          "window",
+          "new-win-03-1"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:54"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-nightstand-01",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 0.5,
+          "d": 0.42,
+          "h": 0.56
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.255,
+          "z": 6.71,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "window",
+          "new-win-03-1"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:02"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-desk-01",
+        "category": "desk",
+        "group_id": "src-grp-work",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.58,
+          "h": 0.75
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.805,
+          "z": 3.98,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.88,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:10"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      }
+    ],
+    "costs": {
+      "fixture_mismatch": 0.0,
+      "wall_mismatch": 0.175,
+      "clearance_penalty": 0.1042,
+      "staging_distance": 0.1698,
+      "group_overlap": 0.0,
+      "group_distance_delta": 1.8757,
+      "total": 2.3247
+    },
+    "check": {
+      "overlaps": [],
+      "door_blocks": [],
+      "clearance_fails": 0,
+      "clearance_fail_paths": [],
+      "outside_room": [],
+      "relations_kept": 1.0,
+      "violations_total": 0,
+      "flagged_items": []
+    },
+    "judge_score": null,
+    "warnings": [],
+    "leftovers": [
+      {
+        "item_id": "src-sectional-oversize",
+        "reason": "needs 6.10 m; longest free wall is 5.82 m",
+        "suggestions": [
+          "move to a larger room or omit"
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/L1.jpg",
+          "photo_indices": [],
+          "seen_at": [
+            "00:44"
+          ],
+          "scale_ref": "oversized showroom sectional",
+          "from_listing": null,
+          "from_room": null,
+          "notes": null
+        }
+      }
+    ],
+    "provenance": {
+      "source": "arrange_engine",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": "Whole-residence layout 3 across 2 rooms"
+    }
+  },
+  {
+    "id": "new-layout-04",
+    "rank": 4,
+    "room_pair": [
+      "src-living->new-living",
+      "src-bedroom->new-primary-bedroom"
+    ],
+    "placements": [
+      {
+        "item_id": "src-sofa-01",
+        "category": "sofa",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 2.2,
+          "d": 0.92,
+          "h": 0.84
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 3.08,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.95,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:12"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-coffee-01",
+        "category": "coffee_table",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.62,
+          "h": 0.42
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 1.98,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.93,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:16"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-armchair-01",
+        "category": "armchair",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 0.82,
+          "d": 0.82,
+          "h": 0.82
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 1.98,
+          "z": 1.36,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:21"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-dining-table-01",
+        "category": "dining_table",
+        "group_id": "src-grp-dining",
+        "dims_m": {
+          "w": 1.25,
+          "d": 0.78,
+          "h": 0.75
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 5.2,
+          "z": 2.105,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.91,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:31"
+          ],
+          "scale_ref": "#4-189 DINE zone",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-tv-stand-01",
+        "category": "tv_stand",
+        "group_id": "src-grp-media",
+        "dims_m": {
+          "w": 1.6,
+          "d": 0.44,
+          "h": 0.54
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.25,
+          "z": 2.13,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.94,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:24"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-bed-queen",
+        "category": "bed",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 1.6,
+          "d": 2.05,
+          "h": 1.05
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.055,
+          "z": 5.86,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.96,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:54"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-nightstand-01",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 0.5,
+          "d": 0.42,
+          "h": 0.56
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.255,
+          "z": 4.77,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:02"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-desk-01",
+        "category": "desk",
+        "group_id": "src-grp-work",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.58,
+          "h": 0.75
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.805,
+          "z": 3.98,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.88,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:10"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      }
+    ],
+    "costs": {
+      "fixture_mismatch": 0.0,
+      "wall_mismatch": 0.175,
+      "clearance_penalty": 0.0,
+      "staging_distance": 0.1376,
+      "group_overlap": 0.0,
+      "group_distance_delta": 2.1621,
+      "total": 2.4747
+    },
+    "check": {
+      "overlaps": [],
+      "door_blocks": [],
+      "clearance_fails": 0,
+      "clearance_fail_paths": [],
+      "outside_room": [],
+      "relations_kept": 1.0,
+      "violations_total": 0,
+      "flagged_items": []
+    },
+    "judge_score": null,
+    "warnings": [],
+    "leftovers": [
+      {
+        "item_id": "src-sectional-oversize",
+        "reason": "needs 6.10 m; longest free wall is 5.82 m",
+        "suggestions": [
+          "move to a larger room or omit"
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/L1.jpg",
+          "photo_indices": [],
+          "seen_at": [
+            "00:44"
+          ],
+          "scale_ref": "oversized showroom sectional",
+          "from_listing": null,
+          "from_room": null,
+          "notes": null
+        }
+      }
+    ],
+    "provenance": {
+      "source": "arrange_engine",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": "Whole-residence layout 4 across 2 rooms"
+    }
+  },
+  {
+    "id": "new-layout-05",
+    "rank": 5,
+    "room_pair": [
+      "src-living->new-living",
+      "src-bedroom->new-primary-bedroom"
+    ],
+    "placements": [
+      {
+        "item_id": "src-sofa-01",
+        "category": "sofa",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 2.2,
+          "d": 0.92,
+          "h": 0.84
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 3.08,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.95,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:12"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-coffee-01",
+        "category": "coffee_table",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.62,
+          "h": 0.42
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 1.98,
+          "z": 2.53,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.93,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:16"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-armchair-01",
+        "category": "armchair",
+        "group_id": "src-grp-conv",
+        "dims_m": {
+          "w": 0.82,
+          "d": 0.82,
+          "h": 0.82
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 1.98,
+          "z": 1.36,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:21"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-dining-table-01",
+        "category": "dining_table",
+        "group_id": "src-grp-dining",
+        "dims_m": {
+          "w": 1.25,
+          "d": 0.78,
+          "h": 0.75
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 5.2,
+          "z": 1.605,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.91,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:31"
+          ],
+          "scale_ref": "#4-189 DINE zone",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-tv-stand-01",
+        "category": "tv_stand",
+        "group_id": "src-grp-media",
+        "dims_m": {
+          "w": 1.6,
+          "d": 0.44,
+          "h": 0.54
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.25,
+          "z": 2.13,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.94,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:24"
+          ],
+          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-bed-queen",
+        "category": "bed",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 1.6,
+          "d": 2.05,
+          "h": 1.05
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.255,
+          "z": 5.86,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.96,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "00:54"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-nightstand-01",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep",
+        "dims_m": {
+          "w": 0.5,
+          "d": 0.42,
+          "h": 0.56
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.455,
+          "z": 4.77,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.9,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:02"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      },
+      {
+        "item_id": "src-desk-01",
+        "category": "desk",
+        "group_id": "src-grp-work",
+        "dims_m": {
+          "w": 1.15,
+          "d": 0.58,
+          "h": 0.75
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.605,
+          "z": 3.98,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.88,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [
+            "01:10"
+          ],
+          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": null
+        }
+      }
+    ],
+    "costs": {
+      "fixture_mismatch": 0.0,
+      "wall_mismatch": 0.175,
+      "clearance_penalty": 0.0,
+      "staging_distance": 0.1376,
+      "group_overlap": 0.15,
+      "group_distance_delta": 2.3105,
+      "total": 2.7731
+    },
+    "check": {
+      "overlaps": [],
+      "door_blocks": [],
+      "clearance_fails": 0,
+      "clearance_fail_paths": [],
+      "outside_room": [],
+      "relations_kept": 1.0,
+      "violations_total": 0,
+      "flagged_items": []
+    },
+    "judge_score": null,
+    "warnings": [],
+    "leftovers": [
+      {
+        "item_id": "src-sectional-oversize",
+        "reason": "needs 6.10 m; longest free wall is 5.82 m",
+        "suggestions": [
+          "move to a larger room or omit"
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/L1.jpg",
+          "photo_indices": [],
+          "seen_at": [
+            "00:44"
+          ],
+          "scale_ref": "oversized showroom sectional",
+          "from_listing": null,
+          "from_room": null,
+          "notes": null
+        }
+      }
+    ],
+    "provenance": {
+      "source": "arrange_engine",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": "Whole-residence layout 5 across 2 rooms"
+    }
+  }
+]

@@ -1,0 +1,373 @@
+{
+  "id": "lst1-home",
+  "source": "listing",
+  "rooms": [
+    {
+      "id": "lst1-living",
+      "type": "living",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          5.82,
+          0.0
+        ],
+        [
+          5.82,
+          3.66
+        ],
+        [
+          0.0,
+          3.66
+        ]
+      ],
+      "ceiling_height_m": 2.7,
+      "doors": [
+        {
+          "id": "lst1-door-foyer",
+          "wall_index": 2,
+          "offset_m": 0.45,
+          "width_m": 0.9,
+          "swing": "open",
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan1.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": "Manhattan Park Plan P foyer entry"
+          }
+        },
+        {
+          "id": "lst1-door-balcony",
+          "wall_index": 0,
+          "offset_m": 2.1,
+          "width_m": 1.8,
+          "swing": "sliding",
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan1.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": "Sliding glass doors to balcony"
+          }
+        }
+      ],
+      "windows": [
+        {
+          "id": "lst1-win-living",
+          "wall_index": 0,
+          "offset_m": 0.6,
+          "width_m": 4.4,
+          "sill_height_m": 0.35,
+          "height_m": 2.1,
+          "provenance": {
+            "source": "data/drive_inputs/L1.jpg",
+            "photo_indices": [
+              0
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "lst1-tv-wall",
+          "room_id": "lst1-living",
+          "type": "tv_wall",
+          "footprint": [
+            [
+              0.02,
+              0.95
+            ],
+            [
+              0.16,
+              0.95
+            ],
+            [
+              0.16,
+              2.85
+            ],
+            [
+              0.02,
+              2.85
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/L1.jpg",
+            "photo_indices": [
+              0
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "null_reason": null,
+      "provenance": {
+        "source": "data/drive_inputs/plan1.webp",
+        "photo_indices": [],
+        "seen_at": [],
+        "scale_ref": "Manhattan Park Plan P label: 19'1\" x 12'0\" (5.82 m x 3.66 m)",
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    },
+    {
+      "id": "lst1-bedroom",
+      "type": "primary_bedroom",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          4.78,
+          0.0
+        ],
+        [
+          4.78,
+          3.33
+        ],
+        [
+          0.0,
+          3.33
+        ]
+      ],
+      "ceiling_height_m": 2.7,
+      "doors": [
+        {
+          "id": "lst1-door-bed",
+          "wall_index": 0,
+          "offset_m": 3.55,
+          "width_m": 0.81,
+          "swing": "inward_left",
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan1.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "windows": [
+        {
+          "id": "lst1-win-bed",
+          "wall_index": 2,
+          "offset_m": 0.85,
+          "width_m": 3.1,
+          "sill_height_m": 0.45,
+          "height_m": 1.95,
+          "provenance": {
+            "source": "data/drive_inputs/Be1.jpg",
+            "photo_indices": [
+              4
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "lst1-closet",
+          "room_id": "lst1-bedroom",
+          "type": "closet",
+          "footprint": [
+            [
+              4.12,
+              0.1
+            ],
+            [
+              4.74,
+              0.1
+            ],
+            [
+              4.74,
+              1.95
+            ],
+            [
+              4.12,
+              1.95
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan1.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "null_reason": null,
+      "provenance": {
+        "source": "data/drive_inputs/plan1.webp",
+        "photo_indices": [],
+        "seen_at": [],
+        "scale_ref": "Manhattan Park Plan P label: 15'8\" x 10'11\" (4.78 m x 3.33 m)",
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    }
+  ],
+  "fixtures": [],
+  "staging": [
+    {
+      "id": "lst1-stage-sofa",
+      "room_id": "lst1-living",
+      "category": "sofa",
+      "dims_m": {
+        "w": 2.4,
+        "d": 0.98,
+        "h": 0.84
+      },
+      "pose": {
+        "x": 3.65,
+        "z": 1.85,
+        "rot_deg": 90.0
+      },
+      "group_kind": "conversation",
+      "replaceable": true,
+      "null_reason": null,
+      "provenance": {
+        "source": "data/drive_inputs/L1.jpg",
+        "photo_indices": [
+          0
+        ],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    },
+    {
+      "id": "lst1-stage-bed",
+      "room_id": "lst1-bedroom",
+      "category": "bed",
+      "dims_m": {
+        "w": 1.65,
+        "d": 2.1,
+        "h": 1.06
+      },
+      "pose": {
+        "x": 1.25,
+        "z": 1.75,
+        "rot_deg": 270.0
+      },
+      "group_kind": "sleep",
+      "replaceable": true,
+      "null_reason": null,
+      "provenance": {
+        "source": "data/drive_inputs/Be1.jpg",
+        "photo_indices": [
+          4
+        ],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    }
+  ],
+  "features": [
+    {
+      "id": "lst1-feat-living",
+      "home_id": "lst1-home",
+      "room_id": "lst1-living",
+      "label": "19'1\" x 12'0\" living room with marble TV wall & floor-to-ceiling balcony glass",
+      "evidence": [
+        "0",
+        "plan1.webp"
+      ],
+      "judge_score": null,
+      "provenance": {
+        "source": "data/drive_inputs/L1.jpg",
+        "photo_indices": [
+          0
+        ],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    },
+    {
+      "id": "lst1-feat-bed",
+      "home_id": "lst1-home",
+      "room_id": "lst1-bedroom",
+      "label": "15'8\" x 10'11\" primary bedroom with skyline window & cove lighting",
+      "evidence": [
+        "4",
+        "plan1.webp"
+      ],
+      "judge_score": null,
+      "provenance": {
+        "source": "data/drive_inputs/Be1.jpg",
+        "photo_indices": [
+          4
+        ],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    }
+  ],
+  "conflicts": [],
+  "scale_check": {
+    "method": "plan_labels",
+    "reference": "Manhattan Park 30 River Rd Plan P labels",
+    "conflicts": [],
+    "null_reason": null,
+    "provenance": {
+      "source": "data/drive_inputs/plan1.webp",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": null
+    }
+  },
+  "provenance": {
+    "source": "data/drive_inputs/plan1.webp",
+    "photo_indices": [],
+    "seen_at": [],
+    "scale_ref": null,
+    "from_listing": null,
+    "from_room": null,
+    "notes": "Manhattan Park Plan P + L1..L4, Be1..Be3"
+  }
+}

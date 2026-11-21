@@ -1,0 +1,386 @@
+{
+  "id": "lst2-home",
+  "source": "listing",
+  "rooms": [
+    {
+      "id": "lst2-kitchen",
+      "type": "kitchen",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          3.6,
+          0.0
+        ],
+        [
+          3.6,
+          3.66
+        ],
+        [
+          0.0,
+          3.66
+        ]
+      ],
+      "ceiling_height_m": 2.7,
+      "doors": [
+        {
+          "id": "lst2-door-open",
+          "wall_index": 3,
+          "offset_m": 1.8,
+          "width_m": 1.45,
+          "swing": "open",
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan2.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": "The Eastline Residence 1713 open kitchen"
+          }
+        },
+        {
+          "id": "lst2-door-terrace",
+          "wall_index": 1,
+          "offset_m": 0.45,
+          "width_m": 0.86,
+          "swing": "outward_left",
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan2.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": "Terrace glass door"
+          }
+        }
+      ],
+      "windows": [
+        {
+          "id": "lst2-win-kitchen",
+          "wall_index": 1,
+          "offset_m": 1.55,
+          "width_m": 1.65,
+          "sill_height_m": 0.95,
+          "height_m": 1.35,
+          "provenance": {
+            "source": "data/drive_inputs/K1.jpg",
+            "photo_indices": [
+              1
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "lst2-counter-l",
+          "room_id": "lst2-kitchen",
+          "type": "counter",
+          "footprint": [
+            [
+              0.1,
+              0.08
+            ],
+            [
+              3.5,
+              0.08
+            ],
+            [
+              3.5,
+              0.68
+            ],
+            [
+              0.1,
+              0.68
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/K1.jpg",
+            "photo_indices": [
+              1
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        },
+        {
+          "id": "lst2-island-bar",
+          "room_id": "lst2-kitchen",
+          "type": "island",
+          "footprint": [
+            [
+              0.65,
+              1.55
+            ],
+            [
+              2.45,
+              1.55
+            ],
+            [
+              2.45,
+              2.4
+            ],
+            [
+              0.65,
+              2.4
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/K1.jpg",
+            "photo_indices": [
+              1
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "null_reason": null,
+      "provenance": {
+        "source": "data/drive_inputs/plan2.webp",
+        "photo_indices": [],
+        "seen_at": [],
+        "scale_ref": "The Eastline 1655 First Ave Residence 1713 door = 0.81 m",
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    },
+    {
+      "id": "lst2-bathroom",
+      "type": "bathroom",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          3.4,
+          0.0
+        ],
+        [
+          3.4,
+          3.33
+        ],
+        [
+          0.0,
+          3.33
+        ]
+      ],
+      "ceiling_height_m": 2.7,
+      "doors": [
+        {
+          "id": "lst2-door-bath",
+          "wall_index": 0,
+          "offset_m": 1.35,
+          "width_m": 0.76,
+          "swing": "inward_right",
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/plan2.webp",
+            "photo_indices": [],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "windows": [
+        {
+          "id": "lst2-win-bath",
+          "wall_index": 2,
+          "offset_m": 0.35,
+          "width_m": 1.35,
+          "sill_height_m": 0.9,
+          "height_m": 1.4,
+          "provenance": {
+            "source": "data/drive_inputs/B1.jpg",
+            "photo_indices": [
+              3
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "lst2-soaking-tub",
+          "room_id": "lst2-bathroom",
+          "type": "bath_tub",
+          "footprint": [
+            [
+              0.15,
+              2.42
+            ],
+            [
+              1.85,
+              2.42
+            ],
+            [
+              1.85,
+              3.22
+            ],
+            [
+              0.15,
+              3.22
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/B1.jpg",
+            "photo_indices": [
+              3
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        },
+        {
+          "id": "lst2-vanity",
+          "room_id": "lst2-bathroom",
+          "type": "vanity",
+          "footprint": [
+            [
+              2.75,
+              0.95
+            ],
+            [
+              3.32,
+              0.95
+            ],
+            [
+              3.32,
+              2.35
+            ],
+            [
+              2.75,
+              2.35
+            ]
+          ],
+          "null_reason": null,
+          "provenance": {
+            "source": "data/drive_inputs/B1.jpg",
+            "photo_indices": [
+              3
+            ],
+            "seen_at": [],
+            "scale_ref": null,
+            "from_listing": null,
+            "from_room": null,
+            "notes": null
+          }
+        }
+      ],
+      "null_reason": null,
+      "provenance": {
+        "source": "data/drive_inputs/B1.jpg",
+        "photo_indices": [],
+        "seen_at": [],
+        "scale_ref": "The Eastline Residence 1713 + B1.jpg soaking tub & arched shower",
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    }
+  ],
+  "fixtures": [],
+  "staging": [],
+  "features": [
+    {
+      "id": "lst2-feat-kitchen",
+      "home_id": "lst2-home",
+      "room_id": "lst2-kitchen",
+      "label": "Olive & waterfall-marble island kitchen with 3 counter stools & globe pendants",
+      "evidence": [
+        "1",
+        "plan2.webp"
+      ],
+      "judge_score": null,
+      "provenance": {
+        "source": "data/drive_inputs/K1.jpg",
+        "photo_indices": [
+          1
+        ],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    },
+    {
+      "id": "lst2-feat-bath",
+      "home_id": "lst2-home",
+      "room_id": "lst2-bathroom",
+      "label": "Spa bathroom with window soaking tub, arched rain shower & floating vanity",
+      "evidence": [
+        "3",
+        "plan2.webp"
+      ],
+      "judge_score": null,
+      "provenance": {
+        "source": "data/drive_inputs/B1.jpg",
+        "photo_indices": [
+          3
+        ],
+        "seen_at": [],
+        "scale_ref": null,
+        "from_listing": null,
+        "from_room": null,
+        "notes": null
+      }
+    }
+  ],
+  "conflicts": [],
+  "scale_check": {
+    "method": "door_width",
+    "reference": "Residence 1713 entry door = 0.81 m",
+    "conflicts": [],
+    "null_reason": null,
+    "provenance": {
+      "source": "data/drive_inputs/plan2.webp",
+      "photo_indices": [],
+      "seen_at": [],
+      "scale_ref": null,
+      "from_listing": null,
+      "from_room": null,
+      "notes": null
+    }
+  },
+  "provenance": {
+    "source": "data/drive_inputs/plan2.webp",
+    "photo_indices": [],
+    "seen_at": [],
+    "scale_ref": null,
+    "from_listing": null,
+    "from_room": null,
+    "notes": "The Eastline Residence 1713 + K1..K4, B1..B4"
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "home": {
+    "id": "new-home",
+    "source": "generated",
+    "rooms": [
+      {
+        "id": "new-living",
+        "type": "living",
+        "polygon": [[0.0, 0.0], [5.2, 0.0], [5.2, 4.0], [0.0, 4.0]],
+        "ceiling_height_m": 2.6,
+        "doors": [
+          {
+            "id": "new-door-01",
+            "wall_index": 3,
+            "offset_m": 0.4,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-living"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "new-win-01",
+            "wall_index": 1,
+            "offset_m": 1.0,
+            "width_m": 1.8,
+            "provenance": {"source": "plan", "photo_indices": [1]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "new-tv-wall-01",
+            "room_id": "new-living",
+            "type": "tv_wall",
+            "footprint": [[1.6, 0.0], [3.4, 0.0], [3.4, 0.25], [1.6, 0.25]],
+            "provenance": {"source": "photo:1", "photo_indices": [1]}
+          }
+        ],
+        "provenance": {
+          "source": "plan",
+          "from_listing": "lst1",
+          "from_room": "lst1-living"
+        }
+      }
+    ],
+    "fixtures": [],
+    "staging": [
+      {
+        "id": "new-stage-sofa-01",
+        "room_id": "new-living",
+        "category": "sofa",
+        "dims_m": {"w": 2.2, "d": 0.95, "h": 0.85},
+        "pose": {"x": 2.5, "z": 2.8, "rot_deg": 180.0},
+        "group_kind": "conversation",
+        "replaceable": true,
+        "provenance": {"source": "photo:1", "photo_indices": [1]}
+      }
+    ],
+    "features": [
+      {
+        "id": "lst1-feat-01",
+        "home_id": "lst1-home",
+        "room_id": "lst1-living",
+        "label": "East-facing picture window with wide living wall",
+        "evidence": ["1", "plan"],
+        "provenance": {"source": "photo:1", "photo_indices": [1]}
+      }
+    ],
+    "conflicts": [],
+    "scale_check": {
+      "method": "plan_labels",
+      "reference": "5.20 m x 4.00 m living room label",
+      "conflicts": [],
+      "provenance": {"source": "plan"}
+    },
+    "provenance": {"source": "weave_stage", "notes": "Merged from lst1 and lst2"}
+  },
+  "inventory": {
+    "home_id": "src-home",
+    "rooms": [
+      {
+        "id": "src-living",
+        "type": "living",
+        "polygon": [[0.0, 0.0], [4.8, 0.0], [4.8, 3.8], [0.0, 3.8]],
+        "ceiling_height_m": 2.5,
+        "doors": [
+          {
+            "id": "src-door-01",
+            "wall_index": 3,
+            "offset_m": 0.35,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {
+              "source": "video",
+              "seen_at": ["00:05"],
+              "scale_ref": "door src-door-01 = 0.81 m x 2.03 m"
+            }
+          }
+        ],
+        "windows": [
+          {
+            "id": "src-win-01",
+            "wall_index": 1,
+            "offset_m": 0.9,
+            "width_m": 1.6,
+            "provenance": {"source": "video", "seen_at": ["00:14"]}
+          }
+        ],
+        "fixtures": [],
+        "provenance": {
+          "source": "video",
+          "seen_at": ["00:03", "00:45"],
+          "scale_ref": "door src-door-01 = 0.81 m x 2.03 m"
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "src-sofa-01",
+        "room_id": "src-living",
+        "category": "sofa",
+        "dims_m": {"w": 2.3, "d": 0.95, "h": 0.85},
+        "pose": {"x": 2.4, "z": 3.25, "rot_deg": 180.0},
+        "front_dir": "toward_tv",
+        "against_wall": true,
+        "nearest_fixture": "window",
+        "group_id": "src-grp-conv-01",
+        "must_keep": true,
+        "confidence": 0.92,
+        "provenance": {
+          "source": "video",
+          "seen_at": ["00:12", "00:28"],
+          "scale_ref": "door src-door-01 = 0.81 m x 2.03 m"
+        }
+      },
+      {
+        "id": "src-coffee-01",
+        "room_id": "src-living",
+        "category": "coffee_table",
+        "dims_m": {"w": 1.2, "d": 0.65, "h": 0.45},
+        "pose": {"x": 2.4, "z": 2.05, "rot_deg": 180.0},
+        "front_dir": "toward_tv",
+        "against_wall": false,
+        "nearest_fixture": null,
+        "group_id": "src-grp-conv-01",
+        "must_keep": true,
+        "confidence": 0.89,
+        "provenance": {
+          "source": "video",
+          "seen_at": ["00:15"],
+          "scale_ref": "door src-door-01 = 0.81 m x 2.03 m"
+        }
+      },
+      {
+        "id": "src-sectional-01",
+        "room_id": "src-living",
+        "category": "sectional",
+        "dims_m": null,
+        "pose": null,
+        "front_dir": null,
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": null,
+        "must_keep": false,
+        "confidence": 0.48,
+        "null_reason": "occluded behind hallway corner at 00:51; no scale reference in hallway",
+        "provenance": {
+          "source": "video",
+          "seen_at": ["00:51"]
+        }
+      }
+    ],
+    "groups": [
+      {
+        "id": "src-grp-conv-01",
+        "room_id": "src-living",
+        "kind": "conversation",
+        "item_ids": ["src-sofa-01", "src-coffee-01"],
+        "provenance": {"source": "video", "seen_at": ["00:12", "00:15"]}
+      }
+    ],
+    "uncertain": [
+      {
+        "item_id": "src-sectional-01",
+        "confidence": 0.48,
+        "question": "Is the dark fabric piece glimpsed at 00:51 a separate sectional in the den?",
+        "provenance": {"source": "video", "seen_at": ["00:51"]}
+      }
+    ],
+    "scale_check": {
+      "method": "door_width",
+      "reference": "src-door-01 (0.81 m x 2.03 m)",
+      "conflicts": [],
+      "provenance": {"source": "video", "seen_at": ["00:05"]}
+    },
+    "provenance": {"source": "video", "seen_at": ["00:00", "01:02"]}
+  },
+  "layout": {
+    "id": "new-layout-01",
+    "rank": 1,
+    "room_pair": ["src-living", "new-living"],
+    "placements": [
+      {
+        "item_id": "src-sofa-01",
+        "category": "sofa",
+        "group_id": "src-grp-conv-01",
+        "dims_m": {"w": 2.3, "d": 0.95, "h": 0.85},
+        "room_id": "new-living",
+        "room_pair": ["src-living", "new-living"],
+        "pose": {"x": 2.6, "z": 3.45, "rot_deg": 180.0},
+        "confidence": 0.92,
+        "matched_neighbors": ["new-win-01", "new-tv-wall-01"],
+        "provenance": {
+          "source": "arrange_engine",
+          "from_room": "src-living",
+          "scale_ref": "door src-door-01 = 0.81 m x 2.03 m"
+        }
+      },
+      {
+        "item_id": "src-coffee-01",
+        "category": "coffee_table",
+        "group_id": "src-grp-conv-01",
+        "dims_m": {"w": 1.2, "d": 0.65, "h": 0.45},
+        "room_id": "new-living",
+        "room_pair": ["src-living", "new-living"],
+        "pose": {"x": 2.6, "z": 2.25, "rot_deg": 180.0},
+        "confidence": 0.89,
+        "matched_neighbors": ["src-sofa-01"],
+        "provenance": {
+          "source": "arrange_engine",
+          "from_room": "src-living",
+          "scale_ref": "door src-door-01 = 0.81 m x 2.03 m"
+        }
+      }
+    ],
+    "costs": {
+      "fixture_mismatch": 0.0,
+      "wall_mismatch": 0.0,
+      "clearance_penalty": 0.0,
+      "staging_distance": 0.065,
+      "group_overlap": 0.0,
+      "group_distance_delta": 0.0,
+      "total": 0.065
+    },
+    "check": {
+      "overlaps": [],
+      "door_blocks": [],
+      "clearance_fails": 0,
+      "clearance_fail_paths": [],
+      "outside_room": [],
+      "relations_kept": 1.0,
+      "violations_total": 0,
+      "flagged_items": []
+    },
+    "warnings": [],
+    "leftovers": [
+      {
+        "item_id": "src-sectional-01",
+        "reason": "missing_dimensions: occluded behind hallway corner at 00:51; no scale reference in hallway",
+        "suggestions": ["re-film with hallway door visible"],
+        "provenance": {"source": "video", "seen_at": ["00:51"]}
+      }
+    ],
+    "provenance": {"source": "arrange_engine", "notes": "Beam search rank 1"}
+  }
+}

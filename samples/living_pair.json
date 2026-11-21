@@ -1,0 +1,208 @@
+{
+  "src_room": {
+    "id": "src-living",
+    "type": "living",
+    "polygon": [[0.0, 0.0], [5.0, 0.0], [5.0, 4.2], [0.0, 4.2]],
+    "ceiling_height_m": 2.5,
+    "doors": [
+      {
+        "id": "src-door-01",
+        "wall_index": 3,
+        "offset_m": 0.4,
+        "width_m": 0.81,
+        "swing": "inward_left",
+        "provenance": {"source": "video", "seen_at": ["00:04"]}
+      }
+    ],
+    "windows": [
+      {
+        "id": "src-win-01",
+        "wall_index": 1,
+        "offset_m": 1.1,
+        "width_m": 1.8,
+        "provenance": {"source": "video", "seen_at": ["00:10"]}
+      }
+    ],
+    "fixtures": [
+      {
+        "id": "src-tv-wall-01",
+        "room_id": "src-living",
+        "type": "tv_wall",
+        "footprint": [[1.5, 0.0], [3.5, 0.0], [3.5, 0.15], [1.5, 0.15]],
+        "provenance": {"source": "video", "seen_at": ["00:18"]}
+      }
+    ],
+    "provenance": {"source": "video", "seen_at": ["00:00", "00:55"], "scale_ref": "src-door-01 = 0.81 m"}
+  },
+  "src_items": [
+    {
+      "id": "src-sofa-01",
+      "room_id": "src-living",
+      "category": "sofa",
+      "dims_m": {"w": 2.25, "d": 0.95, "h": 0.85},
+      "pose": {"x": 2.5, "z": 3.65, "rot_deg": 180.0},
+      "front_dir": "toward_tv",
+      "against_wall": true,
+      "nearest_fixture": "window",
+      "group_id": "src-grp-conv",
+      "must_keep": true,
+      "confidence": 0.94,
+      "provenance": {"source": "video", "seen_at": ["00:12"], "scale_ref": "src-door-01 = 0.81 m"}
+    },
+    {
+      "id": "src-coffee-01",
+      "room_id": "src-living",
+      "category": "coffee_table",
+      "dims_m": {"w": 1.2, "d": 0.65, "h": 0.45},
+      "pose": {"x": 2.5, "z": 2.45, "rot_deg": 180.0},
+      "front_dir": "toward_tv",
+      "against_wall": false,
+      "nearest_fixture": null,
+      "group_id": "src-grp-conv",
+      "must_keep": true,
+      "confidence": 0.91,
+      "provenance": {"source": "video", "seen_at": ["00:15"], "scale_ref": "src-door-01 = 0.81 m"}
+    },
+    {
+      "id": "src-armchair-01",
+      "room_id": "src-living",
+      "category": "armchair",
+      "dims_m": {"w": 0.85, "d": 0.85, "h": 0.88},
+      "pose": {"x": 4.15, "z": 2.55, "rot_deg": 90.0},
+      "front_dir": "toward_coffee_table",
+      "against_wall": true,
+      "nearest_fixture": "window",
+      "group_id": "src-grp-conv",
+      "must_keep": true,
+      "confidence": 0.88,
+      "provenance": {"source": "video", "seen_at": ["00:20"], "scale_ref": "src-door-01 = 0.81 m"}
+    },
+    {
+      "id": "src-tv-stand-01",
+      "room_id": "src-living",
+      "category": "tv_stand",
+      "dims_m": {"w": 1.6, "d": 0.45, "h": 0.55},
+      "pose": {"x": 2.5, "z": 0.3, "rot_deg": 0.0},
+      "front_dir": "toward_sofa",
+      "against_wall": true,
+      "nearest_fixture": "tv_wall",
+      "group_id": "src-grp-media",
+      "must_keep": true,
+      "confidence": 0.93,
+      "provenance": {"source": "video", "seen_at": ["00:19"], "scale_ref": "src-door-01 = 0.81 m"}
+    },
+    {
+      "id": "src-desk-01",
+      "room_id": "src-living",
+      "category": "desk",
+      "dims_m": {"w": 1.2, "d": 0.6, "h": 0.75},
+      "pose": {"x": 0.7, "z": 3.85, "rot_deg": 180.0},
+      "front_dir": "toward_wall",
+      "against_wall": true,
+      "nearest_fixture": null,
+      "group_id": "src-grp-work",
+      "must_keep": true,
+      "confidence": 0.86,
+      "provenance": {"source": "video", "seen_at": ["00:31"], "scale_ref": "src-door-01 = 0.81 m"}
+    },
+    {
+      "id": "src-sectional-oversize",
+      "room_id": "src-living",
+      "category": "sectional",
+      "dims_m": {"w": 5.8, "d": 1.6, "h": 0.85},
+      "pose": {"x": 2.5, "z": 1.2, "rot_deg": 0.0},
+      "front_dir": "toward_center",
+      "against_wall": true,
+      "nearest_fixture": null,
+      "group_id": "src-grp-extra",
+      "must_keep": false,
+      "confidence": 0.79,
+      "provenance": {"source": "video", "seen_at": ["00:44"], "scale_ref": "src-door-01 = 0.81 m"}
+    }
+  ],
+  "groups": [
+    {
+      "id": "src-grp-conv",
+      "room_id": "src-living",
+      "kind": "conversation",
+      "item_ids": ["src-sofa-01", "src-coffee-01", "src-armchair-01"],
+      "provenance": {"source": "video", "seen_at": ["00:12", "00:20"]}
+    },
+    {
+      "id": "src-grp-media",
+      "room_id": "src-living",
+      "kind": "storage",
+      "item_ids": ["src-tv-stand-01"],
+      "provenance": {"source": "video", "seen_at": ["00:19"]}
+    },
+    {
+      "id": "src-grp-work",
+      "room_id": "src-living",
+      "kind": "work",
+      "item_ids": ["src-desk-01"],
+      "provenance": {"source": "video", "seen_at": ["00:31"]}
+    },
+    {
+      "id": "src-grp-extra",
+      "room_id": "src-living",
+      "kind": "other",
+      "item_ids": ["src-sectional-oversize"],
+      "provenance": {"source": "video", "seen_at": ["00:44"]}
+    }
+  ],
+  "new_room": {
+    "id": "new-living",
+    "type": "living",
+    "polygon": [[0.0, 0.0], [5.4, 0.0], [5.4, 4.4], [0.0, 4.4]],
+    "ceiling_height_m": 2.6,
+    "doors": [
+      {
+        "id": "new-door-01",
+        "wall_index": 3,
+        "offset_m": 0.5,
+        "width_m": 0.81,
+        "swing": "inward_left",
+        "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-living"}
+      },
+      {
+        "id": "new-door-02",
+        "wall_index": 0,
+        "offset_m": 4.2,
+        "width_m": 0.81,
+        "swing": "inward_right",
+        "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-living"}
+      }
+    ],
+    "windows": [
+      {
+        "id": "new-win-01",
+        "wall_index": 1,
+        "offset_m": 1.2,
+        "width_m": 2.0,
+        "provenance": {"source": "plan", "photo_indices": [1]}
+      }
+    ],
+    "fixtures": [
+      {
+        "id": "new-tv-wall-01",
+        "room_id": "new-living",
+        "type": "tv_wall",
+        "footprint": [[1.4, 0.0], [3.4, 0.0], [3.4, 0.15], [1.4, 0.15]],
+        "provenance": {"source": "photo:1", "photo_indices": [1]}
+      }
+    ],
+    "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-living"}
+  },
+  "staging": [
+    {
+      "id": "new-stage-sofa-01",
+      "room_id": "new-living",
+      "category": "sofa",
+      "dims_m": {"w": 2.2, "d": 0.95, "h": 0.85},
+      "pose": {"x": 2.5, "z": 3.85, "rot_deg": 180.0},
+      "group_kind": "conversation",
+      "replaceable": true,
+      "provenance": {"source": "photo:1", "photo_indices": [1]}
+    }
+  ]
+}
