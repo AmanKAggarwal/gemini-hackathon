@@ -1,0 +1,2115 @@
+{
+ "perception_source": "offline_cache",
+ "perception_note": "Room sizes and item lists were estimated by hand from each photo and cached here. They are not live Gemini output; set GEMINI_API_KEY and re-run perceive.py to replace them.",
+ "plans": [
+  {
+   "id": "plan2",
+   "name": "The Eastline · Residence 1713",
+   "subtitle": "1 bed · 1 bath · terrace",
+   "image": "plan2.webp",
+   "size": [
+    1422,
+    800
+   ],
+   "view": [
+    640,
+    112,
+    1130,
+    690
+   ],
+   "px_per_m": 58.0,
+   "scale_ref": "no printed dimensions; scaled from the 60 in tub and the entry door swing",
+   "rooms": {
+    "kitchen": {
+     "label": "Kitchen",
+     "rect": [
+      667,
+      133,
+      917,
+      343
+     ],
+     "open": [
+      "S"
+     ],
+     "windows": [
+      {
+       "wall": "E",
+       "a": 150,
+       "b": 235
+      }
+     ],
+     "doors": [
+      [
+       857,
+       235,
+       917,
+       300
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      700,
+      340
+     ]
+    },
+    "living": {
+     "label": "Living room",
+     "rect": [
+      872,
+      343,
+      1105,
+      506
+     ],
+     "open": [
+      "W"
+     ],
+     "windows": [
+      {
+       "wall": "E",
+       "a": 350,
+       "b": 500
+      },
+      {
+       "wall": "N",
+       "a": 945,
+       "b": 1045
+      }
+     ],
+     "doors": [
+      [
+       872,
+       470,
+       905,
+       506
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      876,
+      430
+     ]
+    },
+    "bedroom": {
+     "label": "Primary bedroom",
+     "rect": [
+      835,
+      518,
+      1105,
+      665
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "E",
+       "a": 530,
+       "b": 655
+      }
+     ],
+     "doors": [
+      [
+       835,
+       518,
+       905,
+       570
+      ]
+     ],
+     "obstacles": [
+      [
+       835,
+       592,
+       880,
+       665
+      ]
+     ],
+     "entry": [
+      870,
+      525
+     ]
+    },
+    "bathroom": {
+     "label": "Bathroom",
+     "rect": [
+      680,
+      537,
+      830,
+      650
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       735,
+       537,
+       828,
+       585
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      795,
+      545
+     ]
+    }
+   },
+   "entrance": [
+    652,
+    392
+   ]
+  },
+  {
+   "id": "plan1",
+   "name": "Manhattan Park · Plan P",
+   "subtitle": "2 bed · 2 bath · balcony",
+   "image": "plan1.webp",
+   "size": [
+    618,
+    800
+   ],
+   "view": [
+    125,
+    195,
+    485,
+    470
+   ],
+   "px_per_m": 30.3,
+   "scale_ref": "printed: living room 19'1\" × 12'0\", master bedroom 15'8\" × 10'11\"",
+   "rooms": {
+    "kitchen": {
+     "label": "Kitchen",
+     "rect": [
+      255,
+      390,
+      325,
+      458
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       303,
+       400,
+       325,
+       442
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      322,
+      420
+     ]
+    },
+    "living": {
+     "label": "Living / dining",
+     "rect": [
+      250,
+      213,
+      360,
+      385
+     ],
+     "open": [
+      "S"
+     ],
+     "windows": [
+      {
+       "wall": "N",
+       "a": 255,
+       "b": 340
+      }
+     ],
+     "doors": [
+      [
+       250,
+       345,
+       272,
+       385
+      ],
+      [
+       335,
+       357,
+       360,
+       385
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      305,
+      382
+     ]
+    },
+    "bedroom": {
+     "label": "Master bedroom",
+     "rect": [
+      142,
+      243,
+      243,
+      383
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "N",
+       "a": 165,
+       "b": 215
+      }
+     ],
+     "doors": [
+      [
+       213,
+       345,
+       243,
+       383
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      240,
+      365
+     ]
+    },
+    "bathroom": {
+     "label": "Master bath",
+     "rect": [
+      178,
+      403,
+      244,
+      449
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       205,
+       403,
+       243,
+       418
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      225,
+      406
+     ]
+    }
+   },
+   "entrance": [
+    332,
+    462
+   ]
+  },
+  {
+   "id": "plan3",
+   "name": "224 W 124 · Apt 305",
+   "subtitle": "3 bed · 2 bath · 2 balconies",
+   "image": "plan3.webp",
+   "size": [
+    1035,
+    800
+   ],
+   "view": [
+    380,
+    175,
+    975,
+    515
+   ],
+   "px_per_m": 42.2,
+   "scale_ref": "printed: living room 12'6\" × 13'6\", master bedroom 10'6\" × 16'10\"",
+   "rooms": {
+    "kitchen": {
+     "label": "Kitchen",
+     "rect": [
+      410,
+      200,
+      563,
+      315
+     ],
+     "open": [
+      "E",
+      "S"
+     ],
+     "windows": [],
+     "doors": [],
+     "obstacles": [],
+     "entry": [
+      560,
+      260
+     ]
+    },
+    "living": {
+     "label": "Living room",
+     "rect": [
+      402,
+      318,
+      563,
+      491
+     ],
+     "open": [
+      "N"
+     ],
+     "windows": [
+      {
+       "wall": "W",
+       "a": 355,
+       "b": 450
+      }
+     ],
+     "doors": [
+      [
+       440,
+       463,
+       485,
+       491
+      ],
+      [
+       540,
+       318,
+       563,
+       348
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      555,
+      330
+     ]
+    },
+    "bedroom": {
+     "label": "Master bedroom",
+     "rect": [
+      820,
+      350,
+      958,
+      491
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "S",
+       "a": 860,
+       "b": 905
+      }
+     ],
+     "doors": [
+      [
+       820,
+       350,
+       868,
+       368
+      ],
+      [
+       905,
+       463,
+       955,
+       491
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      845,
+      353
+     ]
+    },
+    "bathroom": {
+     "label": "Bathroom",
+     "rect": [
+      707,
+      190,
+      808,
+      268
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       707,
+       228,
+       747,
+       268
+      ]
+     ],
+     "obstacles": [],
+     "entry": [
+      725,
+      262
+     ]
+    }
+   },
+   "entrance": [
+    636,
+    188
+   ]
+  }
+ ],
+ "photos": [
+  {
+   "id": "K1",
+   "cat": "kitchen",
+   "file": "K1.jpg",
+   "title": "Olive & Oak",
+   "vibe": "Olive cabinets, cream stone, oak floor, globe pendants",
+   "palette": {
+    "floor": "#c9a77c",
+    "floor2": "#b8946a",
+    "style": "wood",
+    "cab": "#5c6143",
+    "top": "#ebe2d0",
+    "accent": "#1f1d1a",
+    "soft": "#d8cbb8",
+    "rug": "#d9cdb9",
+    "glow": "#ffc46b",
+    "metal": "#2a2826"
+   },
+   "gauged": {
+    "w": 4.4,
+    "d": 4.0,
+    "conf": 0.72,
+    "ref": "counter depth 0.62 m and bar-stool seat 0.65 m"
+   },
+   "items": [
+    {
+     "id": "run-n",
+     "type": "counter",
+     "label": "Back counter run with hob",
+     "x": 0.6,
+     "z": 0,
+     "w": 3.8,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "hob",
+     "pri": 1
+    },
+    {
+     "id": "run-e",
+     "type": "counter",
+     "label": "Window counter with sink",
+     "x": 3.78,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 2.6,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "stretch": true,
+     "minw": 1.0,
+     "feat": "sink",
+     "pri": 1
+    },
+    {
+     "id": "tall",
+     "type": "tall",
+     "label": "Oven tower",
+     "x": 0,
+     "z": 0,
+     "w": 0.6,
+     "d": 1.2,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "tall": true,
+     "pri": 2
+    },
+    {
+     "id": "island",
+     "type": "island",
+     "label": "Island with 3 stools",
+     "x": 0.5,
+     "z": 2.0,
+     "w": 2.4,
+     "d": 1.45,
+     "walls": [],
+     "face": "S",
+     "n": 3,
+     "feat": "sink",
+     "pri": 1,
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "island cut to 1.7 m with 2 stools"
+     }
+    },
+    {
+     "id": "runner",
+     "type": "rug",
+     "label": "Runner rug",
+     "x": 3.0,
+     "z": 1.0,
+     "w": 0.7,
+     "d": 2.0,
+     "floor": true,
+     "parent": "run-e",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "K2",
+   "cat": "kitchen",
+   "file": "K2.jpg",
+   "title": "Graphite Gloss",
+   "vibe": "Gloss greige fronts, black stone, lit display towers",
+   "palette": {
+    "floor": "#e6dccb",
+    "floor2": "#d3c7b3",
+    "style": "marble",
+    "cab": "#cfc8bd",
+    "top": "#1f1d1c",
+    "accent": "#141312",
+    "soft": "#6f6a66",
+    "rug": "#cfc3ae",
+    "glow": "#ffbf66",
+    "metal": "#151515"
+   },
+   "gauged": {
+    "w": 4.6,
+    "d": 3.8,
+    "conf": 0.7,
+    "ref": "fridge width 0.90 m and counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "run-n",
+     "type": "counter",
+     "label": "Back counter run with hob",
+     "x": 0.62,
+     "z": 0,
+     "w": 3.0,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "hob",
+     "pri": 1
+    },
+    {
+     "id": "run-w",
+     "type": "counter",
+     "label": "Window counter with sink",
+     "x": 0,
+     "z": 0,
+     "w": 0.62,
+     "d": 2.4,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "stretch": true,
+     "minw": 1.0,
+     "feat": "sink",
+     "pri": 1
+    },
+    {
+     "id": "fridge",
+     "type": "fridge",
+     "label": "Black fridge",
+     "x": 3.85,
+     "z": 0.9,
+     "w": 0.75,
+     "d": 0.95,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "tall": true,
+     "pri": 1
+    },
+    {
+     "id": "tall",
+     "type": "tall",
+     "label": "Lit display tower",
+     "x": 4.0,
+     "z": 1.95,
+     "w": 0.6,
+     "d": 0.5,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "tall": true,
+     "pri": 3
+    },
+    {
+     "id": "island",
+     "type": "island",
+     "label": "Breakfast bar with 3 stools",
+     "x": 0.3,
+     "z": 2.3,
+     "w": 2.6,
+     "d": 1.2,
+     "walls": [],
+     "face": "S",
+     "n": 3,
+     "pri": 1,
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "bar cut to 1.7 m with 2 stools"
+     }
+    }
+   ]
+  },
+  {
+   "id": "K3",
+   "cat": "kitchen",
+   "file": "K3.jpg",
+   "title": "Walnut & Gold",
+   "vibe": "Walnut fronts, waterfall marble island, brass pendants",
+   "palette": {
+    "floor": "#d8c4a6",
+    "floor2": "#c6b08f",
+    "style": "marble",
+    "cab": "#7a4e2d",
+    "top": "#b9a78f",
+    "accent": "#c9a24a",
+    "soft": "#cdbfae",
+    "rug": "#b89a72",
+    "glow": "#ffb655",
+    "metal": "#4a4a4c"
+   },
+   "gauged": {
+    "w": 4.8,
+    "d": 4.2,
+    "conf": 0.68,
+    "ref": "fridge width 0.90 m and bar-stool seat 0.65 m"
+   },
+   "items": [
+    {
+     "id": "run-n",
+     "type": "counter",
+     "label": "Back counter run with hob",
+     "x": 0.8,
+     "z": 0,
+     "w": 2.8,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "hob",
+     "pri": 1
+    },
+    {
+     "id": "run-e",
+     "type": "counter",
+     "label": "Window counter with sink",
+     "x": 4.18,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 1.6,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "stretch": true,
+     "minw": 1.0,
+     "feat": "sink",
+     "pri": 1
+    },
+    {
+     "id": "fridge",
+     "type": "fridge",
+     "label": "Steel fridge",
+     "x": 4.05,
+     "z": 2.3,
+     "w": 0.75,
+     "d": 0.95,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "tall": true,
+     "pri": 1
+    },
+    {
+     "id": "tall",
+     "type": "tall",
+     "label": "Lit shelf tower",
+     "x": 0,
+     "z": 0,
+     "w": 0.5,
+     "d": 0.8,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "tall": true,
+     "pri": 3
+    },
+    {
+     "id": "island",
+     "type": "island",
+     "label": "Waterfall island with 3 stools",
+     "x": 0.4,
+     "z": 2.2,
+     "w": 2.2,
+     "d": 1.4,
+     "walls": [],
+     "face": "S",
+     "n": 3,
+     "pri": 1,
+     "alt": {
+      "len": 1.6,
+      "n": 2,
+      "label": "island cut to 1.6 m with 2 stools"
+     }
+    },
+    {
+     "id": "runner",
+     "type": "rug",
+     "label": "Jute runner",
+     "x": 2.9,
+     "z": 2.2,
+     "w": 0.9,
+     "d": 1.8,
+     "floor": true,
+     "parent": "island",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "K4",
+   "cat": "kitchen",
+   "file": "K4.jpg",
+   "title": "Champagne U",
+   "vibe": "U-shaped champagne gloss, grey marble, window sink",
+   "palette": {
+    "floor": "#e9dcc6",
+    "floor2": "#d6c6aa",
+    "style": "marble",
+    "cab": "#d9cdb8",
+    "top": "#8f8a84",
+    "accent": "#2b2a28",
+    "soft": "#cfc4b2",
+    "rug": "#cbbda4",
+    "glow": "#ffc873",
+    "metal": "#8c8c8e"
+   },
+   "gauged": {
+    "w": 4.2,
+    "d": 3.4,
+    "conf": 0.74,
+    "ref": "counter depth 0.62 m and 0.60 m base-unit doors"
+   },
+   "items": [
+    {
+     "id": "run-n",
+     "type": "counter",
+     "label": "Window counter with sink",
+     "x": 0,
+     "z": 0,
+     "w": 4.2,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "sink",
+     "pri": 1
+    },
+    {
+     "id": "run-w",
+     "type": "counter",
+     "label": "Left counter with hob",
+     "x": 0,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 2.4,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "stretch": true,
+     "minw": 1.0,
+     "feat": "hob",
+     "pri": 1
+    },
+    {
+     "id": "run-e",
+     "type": "counter",
+     "label": "Right counter",
+     "x": 3.58,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 1.5,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "stretch": true,
+     "minw": 0.6,
+     "pri": 2
+    },
+    {
+     "id": "fridge",
+     "type": "fridge",
+     "label": "Steel fridge",
+     "x": 3.45,
+     "z": 2.15,
+     "w": 0.75,
+     "d": 0.95,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "tall": true,
+     "pri": 1
+    }
+   ]
+  },
+  {
+   "id": "B1",
+   "cat": "bathroom",
+   "file": "B1.jpg",
+   "title": "Amber Stone Spa",
+   "vibe": "Raised tub, arched stone shower, amber step lights",
+   "palette": {
+    "floor": "#9a948a",
+    "floor2": "#857f75",
+    "style": "tile",
+    "cab": "#b07b45",
+    "top": "#efe7d8",
+    "accent": "#2a2622",
+    "soft": "#e7dccb",
+    "rug": "#d8c8b2",
+    "glow": "#ffb347",
+    "metal": "#2a2622",
+    "water": "#8fd0d6"
+   },
+   "gauged": {
+    "w": 3.4,
+    "d": 3.8,
+    "conf": 0.66,
+    "ref": "toilet depth 0.70 m and 0.60 m floor tiles"
+   },
+   "items": [
+    {
+     "id": "tub",
+     "type": "tub",
+     "label": "Raised soaking tub",
+     "x": 0,
+     "z": 0.4,
+     "w": 0.95,
+     "d": 1.8,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "shape": "built",
+     "pri": 1,
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "label": "standard 1.5 m tub"
+     }
+    },
+    {
+     "id": "shower",
+     "type": "shower",
+     "label": "Arched walk-in shower",
+     "x": 2.1,
+     "z": 0,
+     "w": 1.3,
+     "d": 1.6,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "tall": true,
+     "pri": 1,
+     "merge": "tub",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "vanity",
+     "type": "vanity",
+     "label": "Oak vanity",
+     "x": 2.85,
+     "z": 2.2,
+     "w": 0.55,
+     "d": 1.2,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "toilet",
+     "type": "toilet",
+     "label": "Toilet",
+     "x": 0,
+     "z": 2.6,
+     "w": 0.7,
+     "d": 0.45,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1
+    },
+    {
+     "id": "mat",
+     "type": "rug",
+     "label": "Shag mat",
+     "x": 1.2,
+     "z": 2.4,
+     "w": 0.9,
+     "d": 1.3,
+     "floor": true,
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "B2",
+   "cat": "bathroom",
+   "file": "B2.jpg",
+   "title": "Sage Sanctuary",
+   "vibe": "Sage marble, glass corner shower, freestanding tub",
+   "palette": {
+    "floor": "#9fb09a",
+    "floor2": "#8a9c85",
+    "style": "marble",
+    "cab": "#a9b8a2",
+    "top": "#e9efe4",
+    "accent": "#1e2420",
+    "soft": "#dfe7d9",
+    "rug": "#b9c7b2",
+    "glow": "#ffd28a",
+    "metal": "#1e2420",
+    "water": "#a9dcd8"
+   },
+   "gauged": {
+    "w": 3.2,
+    "d": 3.6,
+    "conf": 0.7,
+    "ref": "toilet width 0.38 m and vanity height 0.85 m"
+   },
+   "items": [
+    {
+     "id": "vanity",
+     "type": "vanity",
+     "label": "Floating sage vanity",
+     "x": 0,
+     "z": 1.0,
+     "w": 0.55,
+     "d": 1.4,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "shower",
+     "type": "shower",
+     "label": "Glass corner shower",
+     "x": 1.0,
+     "z": 0,
+     "w": 1.1,
+     "d": 1.1,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "tall": true,
+     "pri": 1,
+     "merge": "tub",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "toilet",
+     "type": "toilet",
+     "label": "Wall-hung toilet",
+     "x": 2.4,
+     "z": 0,
+     "w": 0.45,
+     "d": 0.7,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1
+    },
+    {
+     "id": "tub",
+     "type": "tub",
+     "label": "Freestanding oval tub",
+     "x": 2.3,
+     "z": 1.5,
+     "w": 0.85,
+     "d": 1.7,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "shape": "oval",
+     "pri": 1,
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "shape": "built",
+      "label": "built-in 1.5 m tub"
+     }
+    },
+    {
+     "id": "mat",
+     "type": "rug",
+     "label": "Sage bath mat",
+     "x": 0.9,
+     "z": 1.9,
+     "w": 1.0,
+     "d": 1.2,
+     "floor": true,
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "B3",
+   "cat": "bathroom",
+   "file": "B3.jpg",
+   "title": "Powder Blue",
+   "vibe": "Powder-blue walls, arched shower niche, white marble",
+   "palette": {
+    "floor": "#9fb4cc",
+    "floor2": "#8aa1bb",
+    "style": "tile",
+    "cab": "#f1f3f6",
+    "top": "#ffffff",
+    "accent": "#7f97b4",
+    "soft": "#e8eef5",
+    "rug": "#7f9cc0",
+    "glow": "#ffe2a8",
+    "metal": "#b9bec6",
+    "water": "#9fd6e6"
+   },
+   "gauged": {
+    "w": 3.0,
+    "d": 3.2,
+    "conf": 0.73,
+    "ref": "toilet depth 0.70 m and 0.60 m floor tiles"
+   },
+   "items": [
+    {
+     "id": "vanity",
+     "type": "vanity",
+     "label": "White gloss vanity",
+     "x": 0,
+     "z": 1.2,
+     "w": 0.5,
+     "d": 1.2,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "shower",
+     "type": "shower",
+     "label": "Arched shower niche",
+     "x": 0.5,
+     "z": 0,
+     "w": 1.0,
+     "d": 1.0,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "tall": true,
+     "pri": 1,
+     "merge": "tub",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "tub",
+     "type": "tub",
+     "label": "Built-in tub",
+     "x": 1.5,
+     "z": 0,
+     "w": 1.5,
+     "d": 0.75,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "shape": "built",
+     "pri": 1
+    },
+    {
+     "id": "toilet",
+     "type": "toilet",
+     "label": "Toilet",
+     "x": 2.3,
+     "z": 1.8,
+     "w": 0.7,
+     "d": 0.45,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1
+    },
+    {
+     "id": "mat",
+     "type": "rug",
+     "label": "Blue bath mat",
+     "x": 0.9,
+     "z": 2.0,
+     "w": 0.8,
+     "d": 1.1,
+     "floor": true,
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "B4",
+   "cat": "bathroom",
+   "file": "B4.jpg",
+   "title": "Midnight Marble",
+   "vibe": "Navy and white marble, brass fittings, starlight ceiling",
+   "palette": {
+    "floor": "#e8e6e3",
+    "floor2": "#cfccc8",
+    "style": "marble",
+    "cab": "#1c2a4a",
+    "top": "#f1efec",
+    "accent": "#c9a24a",
+    "soft": "#f3f1ee",
+    "rug": "#26365c",
+    "glow": "#ffd699",
+    "metal": "#c9a24a",
+    "water": "#dfe9ee"
+   },
+   "gauged": {
+    "w": 3.6,
+    "d": 4.4,
+    "conf": 0.64,
+    "ref": "freestanding tub length 1.70 m"
+   },
+   "items": [
+    {
+     "id": "vanity",
+     "type": "vanity",
+     "label": "Navy floating vanity",
+     "x": 0,
+     "z": 1.2,
+     "w": 0.55,
+     "d": 1.7,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "tub",
+     "type": "tub",
+     "label": "Marble freestanding tub",
+     "x": 0.9,
+     "z": 0.1,
+     "w": 1.7,
+     "d": 0.8,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "shape": "oval",
+     "pri": 1,
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "shape": "built",
+      "label": "built-in 1.5 m tub"
+     }
+    },
+    {
+     "id": "shower",
+     "type": "shower",
+     "label": "Brass-framed glass shower",
+     "x": 2.6,
+     "z": 0.8,
+     "w": 1.0,
+     "d": 2.2,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "tall": true,
+     "pri": 1,
+     "merge": "tub",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "toilet",
+     "type": "toilet",
+     "label": "Toilet",
+     "x": 0,
+     "z": 3.3,
+     "w": 0.7,
+     "d": 0.45,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "inferred": true
+    }
+   ]
+  },
+  {
+   "id": "L1",
+   "cat": "living",
+   "file": "L1.jpg",
+   "title": "Cream Cinema Lounge",
+   "vibe": "Deep cream sectional, marble media wall, cove lighting",
+   "palette": {
+    "floor": "#a99a86",
+    "floor2": "#978873",
+    "style": "carpet",
+    "cab": "#3a2c22",
+    "top": "#d9cfbf",
+    "accent": "#16130f",
+    "soft": "#ebe3d4",
+    "rug": "#8d7f6c",
+    "glow": "#ffcf8a",
+    "metal": "#16130f"
+   },
+   "gauged": {
+    "w": 6.0,
+    "d": 5.0,
+    "conf": 0.62,
+    "ref": "TV is about 85 in (1.88 m wide)"
+   },
+   "items": [
+    {
+     "id": "tv",
+     "type": "tv",
+     "label": "Media wall and console",
+     "x": 5.55,
+     "z": 0.8,
+     "w": 0.45,
+     "d": 3.6,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "stretch": true,
+     "minw": 1.5,
+     "pri": 1
+    },
+    {
+     "id": "sofa",
+     "type": "sectional",
+     "label": "Cream sectional",
+     "x": 0.2,
+     "z": 1.0,
+     "w": 2.6,
+     "d": 3.6,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "type": "sofa",
+      "len": 2.2,
+      "dep": 0.95,
+      "label": "2.2 m three-seat sofa"
+     }
+    },
+    {
+     "id": "coffee",
+     "type": "coffee",
+     "label": "Marble coffee table",
+     "x": 3.0,
+     "z": 2.1,
+     "w": 0.8,
+     "d": 1.4,
+     "walls": [],
+     "face": "E",
+     "parent": "sofa",
+     "pri": 2,
+     "alt": {
+      "len": 0.9,
+      "dep": 0.55,
+      "label": "0.9 m coffee table"
+     }
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Shag rug",
+     "x": 2.0,
+     "z": 1.3,
+     "w": 2.8,
+     "d": 3.0,
+     "floor": true,
+     "parent": "sofa",
+     "pri": 3
+    },
+    {
+     "id": "plant",
+     "type": "plant",
+     "label": "Olive tree",
+     "x": 5.3,
+     "z": 0.1,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "L2",
+   "cat": "living",
+   "file": "L2.jpg",
+   "title": "Stone Feature Wall",
+   "vibe": "Backlit carved stone, cream sofa, round walnut table",
+   "palette": {
+    "floor": "#d9c8ae",
+    "floor2": "#c5b294",
+    "style": "marble",
+    "cab": "#ede4d3",
+    "top": "#f3ecdf",
+    "accent": "#5a3d27",
+    "soft": "#ece4d6",
+    "rug": "#bfb19b",
+    "glow": "#ffbf5e",
+    "metal": "#15120f",
+    "pop": "#59603a"
+   },
+   "gauged": {
+    "w": 5.5,
+    "d": 5.0,
+    "conf": 0.66,
+    "ref": "TV is about 75 in (1.66 m wide)"
+   },
+   "items": [
+    {
+     "id": "tv",
+     "type": "tv",
+     "label": "Stone wall with floating console",
+     "x": 1.2,
+     "z": 0,
+     "w": 3.0,
+     "d": 0.45,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.5,
+     "pri": 1
+    },
+    {
+     "id": "sofa",
+     "type": "sofa",
+     "label": "Cream sofa",
+     "x": 1.5,
+     "z": 3.4,
+     "w": 2.6,
+     "d": 1.0,
+     "walls": [],
+     "face": "N",
+     "pri": 1,
+     "alt": {
+      "len": 2.0,
+      "dep": 0.95,
+      "label": "2.0 m sofa"
+     }
+    },
+    {
+     "id": "coffee",
+     "type": "coffee",
+     "label": "Round walnut coffee table",
+     "x": 2.2,
+     "z": 1.9,
+     "w": 1.2,
+     "d": 1.2,
+     "walls": [],
+     "face": "S",
+     "shape": "round",
+     "parent": "sofa",
+     "pri": 2,
+     "alt": {
+      "len": 0.8,
+      "dep": 0.8,
+      "label": "0.8 m round table"
+     }
+    },
+    {
+     "id": "pouf",
+     "type": "pouf",
+     "label": "Olive pouf",
+     "x": 0.5,
+     "z": 3.5,
+     "w": 0.8,
+     "d": 0.8,
+     "walls": [],
+     "face": "S",
+     "parent": "sofa",
+     "pri": 3
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Woven rug",
+     "x": 1.2,
+     "z": 1.5,
+     "w": 3.2,
+     "d": 2.7,
+     "floor": true,
+     "parent": "sofa",
+     "pri": 3
+    },
+    {
+     "id": "plant",
+     "type": "plant",
+     "label": "Potted olive",
+     "x": 4.7,
+     "z": 0.1,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "L3",
+   "cat": "living",
+   "file": "L3.jpg",
+   "title": "Rustic Ember",
+   "vibe": "Dark plaster, live-edge timber bench, bronze and candles",
+   "palette": {
+    "floor": "#5b3a22",
+    "floor2": "#4a2e1a",
+    "style": "wood",
+    "cab": "#4d3a2a",
+    "top": "#6a5340",
+    "accent": "#b08a4a",
+    "soft": "#3b2f27",
+    "rug": "#3d3a44",
+    "glow": "#ff9f3e",
+    "metal": "#0f0d0c",
+    "pop": "#7a4a22"
+   },
+   "gauged": {
+    "w": 4.5,
+    "d": 4.0,
+    "conf": 0.58,
+    "ref": "TV is about 65 in (1.44 m wide)"
+   },
+   "items": [
+    {
+     "id": "tv",
+     "type": "tv",
+     "label": "Live-edge timber bench under TV",
+     "x": 0.4,
+     "z": 0,
+     "w": 3.7,
+     "d": 0.55,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.5,
+     "pri": 1
+    },
+    {
+     "id": "sofa",
+     "type": "sofa",
+     "label": "Sofa",
+     "x": 1.1,
+     "z": 2.9,
+     "w": 2.3,
+     "d": 0.95,
+     "walls": [],
+     "face": "N",
+     "pri": 1,
+     "inferred": true,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Persian rug",
+     "x": 0.8,
+     "z": 0.9,
+     "w": 2.9,
+     "d": 1.9,
+     "floor": true,
+     "parent": "sofa",
+     "pri": 3
+    },
+    {
+     "id": "plant",
+     "type": "plant",
+     "label": "Bronze vase with blossom",
+     "x": 0,
+     "z": 0.6,
+     "w": 0.55,
+     "d": 0.55,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "L4",
+   "cat": "living",
+   "file": "L4.jpg",
+   "title": "Moss Conservatory",
+   "vibe": "Moss velvet sectional, linear fire, plants everywhere",
+   "palette": {
+    "floor": "#3b3128",
+    "floor2": "#2f2720",
+    "style": "wood",
+    "cab": "#2a231d",
+    "top": "#4a3b2c",
+    "accent": "#b3742e",
+    "soft": "#4b5a2e",
+    "rug": "#6b5a45",
+    "glow": "#ff9a3c",
+    "metal": "#14110e",
+    "pop": "#6d7a3a"
+   },
+   "gauged": {
+    "w": 5.0,
+    "d": 4.5,
+    "conf": 0.6,
+    "ref": "sofa seat depth 0.60 m and 0.45 m seat height"
+   },
+   "items": [
+    {
+     "id": "sofa",
+     "type": "sectional",
+     "label": "Moss velvet sectional",
+     "x": 0.1,
+     "z": 0.8,
+     "w": 2.4,
+     "d": 3.0,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "type": "sofa",
+      "len": 2.2,
+      "dep": 0.95,
+      "label": "2.2 m three-seat sofa"
+     }
+    },
+    {
+     "id": "fire",
+     "type": "fire",
+     "label": "Linear fireplace ledge",
+     "x": 2.8,
+     "z": 0,
+     "w": 1.9,
+     "d": 0.4,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "stretch": true,
+     "minw": 1.0,
+     "pri": 2
+    },
+    {
+     "id": "coffee",
+     "type": "coffee",
+     "label": "Round timber coffee table",
+     "x": 2.6,
+     "z": 1.9,
+     "w": 1.1,
+     "d": 1.1,
+     "walls": [],
+     "face": "S",
+     "shape": "round",
+     "parent": "sofa",
+     "pri": 2,
+     "alt": {
+      "len": 0.8,
+      "dep": 0.8,
+      "label": "0.8 m round table"
+     }
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Jute rug",
+     "x": 1.7,
+     "z": 1.1,
+     "w": 2.8,
+     "d": 2.8,
+     "floor": true,
+     "parent": "sofa",
+     "pri": 3
+    },
+    {
+     "id": "plant1",
+     "type": "plant",
+     "label": "Monstera",
+     "x": 4.3,
+     "z": 3.7,
+     "w": 0.65,
+     "d": 0.65,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 3
+    },
+    {
+     "id": "plant2",
+     "type": "plant",
+     "label": "Fern",
+     "x": 4.35,
+     "z": 0.6,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 3
+    },
+    {
+     "id": "plant3",
+     "type": "plant",
+     "label": "Palm",
+     "x": 0.1,
+     "z": 0.1,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "Be1",
+   "cat": "bedroom",
+   "file": "Be1.jpg",
+   "title": "Starlight Suite",
+   "vibe": "Low glowing platform bed, media wall, lounge corner",
+   "palette": {
+    "floor": "#9a7653",
+    "floor2": "#876544",
+    "style": "wood",
+    "cab": "#3b2d22",
+    "top": "#5a4636",
+    "accent": "#17130f",
+    "soft": "#e7dccb",
+    "rug": "#b7ab9b",
+    "glow": "#ffc070",
+    "metal": "#17130f",
+    "pop": "#7b5d43"
+   },
+   "gauged": {
+    "w": 5.0,
+    "d": 7.0,
+    "conf": 0.6,
+    "ref": "king bed 2.0 m wide"
+   },
+   "items": [
+    {
+     "id": "bed",
+     "type": "bed",
+     "label": "King platform bed",
+     "x": 0,
+     "z": 1.6,
+     "w": 2.15,
+     "d": 2.0,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.6,
+      "dep": 2.05,
+      "label": "queen bed (1.6 m)"
+     }
+    },
+    {
+     "id": "ns1",
+     "type": "nightstand",
+     "label": "Nightstand",
+     "x": 0,
+     "z": 1.05,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [],
+     "face": "E",
+     "parent": "bed",
+     "pri": 2
+    },
+    {
+     "id": "ns2",
+     "type": "nightstand",
+     "label": "Nightstand",
+     "x": 0,
+     "z": 3.65,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [],
+     "face": "E",
+     "parent": "bed",
+     "pri": 2
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Bedside rug",
+     "x": 0.4,
+     "z": 1.2,
+     "w": 3.1,
+     "d": 2.8,
+     "floor": true,
+     "parent": "bed",
+     "pri": 3
+    },
+    {
+     "id": "tv",
+     "type": "tv",
+     "label": "Media wall and console",
+     "x": 4.6,
+     "z": 1.4,
+     "w": 0.4,
+     "d": 2.4,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "stretch": true,
+     "minw": 1.2,
+     "pri": 2
+    },
+    {
+     "id": "lounge",
+     "type": "sofa",
+     "label": "Lounge sofa",
+     "x": 0.6,
+     "z": 5.6,
+     "w": 2.2,
+     "d": 1.0,
+     "walls": [],
+     "face": "N",
+     "pri": 3
+    },
+    {
+     "id": "coffee",
+     "type": "coffee",
+     "label": "Round lounge table",
+     "x": 1.2,
+     "z": 4.5,
+     "w": 0.9,
+     "d": 0.9,
+     "walls": [],
+     "face": "S",
+     "shape": "round",
+     "parent": "lounge",
+     "needs_parent": true,
+     "pri": 3
+    },
+    {
+     "id": "plant",
+     "type": "plant",
+     "label": "Palm",
+     "x": 4.3,
+     "z": 0.2,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "Be2",
+   "cat": "bedroom",
+   "file": "Be2.jpg",
+   "title": "Cloud Bed",
+   "vibe": "Round bed on a glowing platform, boucle everything",
+   "palette": {
+    "floor": "#eadfce",
+    "floor2": "#dccfba",
+    "style": "carpet",
+    "cab": "#f3eadb",
+    "top": "#fbf5ea",
+    "accent": "#c9b08a",
+    "soft": "#fbf6ee",
+    "rug": "#f6efe3",
+    "glow": "#ffcf8f",
+    "metal": "#c9b08a",
+    "pop": "#f0e4d2"
+   },
+   "gauged": {
+    "w": 5.0,
+    "d": 5.0,
+    "conf": 0.63,
+    "ref": "round bed about 2.4 m across"
+   },
+   "items": [
+    {
+     "id": "bed",
+     "type": "bed",
+     "label": "Round bed on glowing platform",
+     "x": 0.3,
+     "z": 1.0,
+     "w": 3.0,
+     "d": 3.0,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "shape": "round",
+     "pri": 1,
+     "alt": {
+      "len": 2.2,
+      "dep": 2.2,
+      "shape": "round",
+      "label": "2.2 m round bed without the platform"
+     }
+    },
+    {
+     "id": "ns",
+     "type": "nightstand",
+     "label": "Round side table with lamp",
+     "x": 0.2,
+     "z": 4.1,
+     "w": 0.55,
+     "d": 0.55,
+     "walls": [],
+     "face": "E",
+     "shape": "round",
+     "parent": "bed",
+     "pri": 2
+    },
+    {
+     "id": "chair",
+     "type": "armchair",
+     "label": "Boucle armchair",
+     "x": 3.7,
+     "z": 0.5,
+     "w": 0.9,
+     "d": 0.9,
+     "walls": [],
+     "face": "S",
+     "pri": 2
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Round shag rug",
+     "x": 1.4,
+     "z": 2.4,
+     "w": 2.6,
+     "d": 2.6,
+     "floor": true,
+     "shape": "round",
+     "parent": "bed",
+     "pri": 3
+    },
+    {
+     "id": "pouf",
+     "type": "pouf",
+     "label": "Boucle pouf",
+     "x": 3.6,
+     "z": 3.8,
+     "w": 0.8,
+     "d": 0.8,
+     "walls": [],
+     "face": "S",
+     "pri": 3
+    }
+   ]
+  },
+  {
+   "id": "Be3",
+   "cat": "bedroom",
+   "file": "Be3.jpg",
+   "title": "Moonlit Nook",
+   "vibe": "Round window seat, trailing ivy, moon lamp, flower rugs",
+   "palette": {
+    "floor": "#8b5e3c",
+    "floor2": "#774e30",
+    "style": "wood",
+    "cab": "#b98d5e",
+    "top": "#e9dcc6",
+    "accent": "#5f7a45",
+    "soft": "#f0e6d6",
+    "rug": "#f3ead9",
+    "glow": "#ffb85c",
+    "metal": "#3a2a1c",
+    "pop": "#c9a878"
+   },
+   "gauged": {
+    "w": 3.6,
+    "d": 3.8,
+    "conf": 0.69,
+    "ref": "double bed 1.4 to 1.6 m wide"
+   },
+   "items": [
+    {
+     "id": "bed",
+     "type": "bed",
+     "label": "Linen double bed",
+     "x": 0,
+     "z": 1.3,
+     "w": 2.05,
+     "d": 1.6,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.4,
+      "dep": 2.0,
+      "label": "1.4 m double bed"
+     }
+    },
+    {
+     "id": "ns",
+     "type": "nightstand",
+     "label": "Crate nightstand with moon lamp",
+     "x": 0,
+     "z": 3.0,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [],
+     "face": "E",
+     "parent": "bed",
+     "pri": 2
+    },
+    {
+     "id": "seat",
+     "type": "seat",
+     "label": "Round-window reading seat",
+     "x": 1.4,
+     "z": 0,
+     "w": 1.6,
+     "d": 0.6,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2
+    },
+    {
+     "id": "shelf",
+     "type": "tall",
+     "label": "Curved display shelf",
+     "x": 3.2,
+     "z": 0.4,
+     "w": 0.4,
+     "d": 1.6,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "tall": true,
+     "pri": 2,
+     "alt": {
+      "len": 0.9,
+      "label": "0.9 m shelf"
+     }
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Flower rug",
+     "x": 2.3,
+     "z": 2.7,
+     "w": 1.0,
+     "d": 1.0,
+     "floor": true,
+     "shape": "round",
+     "pri": 3
+    }
+   ]
+  }
+ ]
+}
