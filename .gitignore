@@ -6,5 +6,6 @@ __pycache__/
 .env
 data/renders/
 data/custom_uploads/
+data/scene_layout.json
 private_refs/
 *.blend1

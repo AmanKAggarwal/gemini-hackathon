@@ -36,6 +36,7 @@ from schemas import (
     Room,
     RoomType,
 )
+from layout_prompt import GROUP_DEFAULTS, default_scene_state, solve_and_verify_layout
 from style import build_default_style_bundle, extract_style_from_photo
 from weave import weave
 
@@ -272,6 +273,12 @@ class SpaceInputEntry(BaseModel):
 
 class BuildStyledResidenceReq(BaseModel):
     spaces: list[SpaceInputEntry]
+    layout_prompt: str = ""
+
+
+class LayoutPromptReq(BaseModel):
+    prompt: str
+    current_state: Optional[dict[str, dict[str, Any]]] = None
 
 
 def _persist_uploaded_photo_if_data_uri(photo_source: str, style_id: str) -> tuple[str | Path, Optional[str]]:
@@ -408,6 +415,23 @@ def api_build_styled_residence(req: BuildStyledResidenceReq) -> JSONResponse:
             extracted_summary[sp.room_type] = res.data.model_dump()
 
     styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+    layout_result = None
+    if req.layout_prompt.strip():
+        state_path = DATA_DIR / "scene_layout.json"
+        cur_state = (
+            json.loads(state_path.read_text(encoding="utf-8"))
+            if state_path.exists()
+            else default_scene_state()
+        )
+        layout_result = solve_and_verify_layout(req.layout_prompt, cur_state)
+        state_path.write_text(json.dumps(layout_result["state"], indent=2), encoding="utf-8")
+        # If text prompt requested style moods (e.g., "sage bathroom") without custom upload, apply them
+        if layout_result.get("style_overrides"):
+            for rtype, preset_id in layout_result["style_overrides"].items():
+                if preset_id in bundle.catalog and not str(bundle.by_room_type[rtype].style_id).startswith("U-"):
+                    bundle.by_room_type[rtype] = bundle.catalog[preset_id]
+            styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+
     home_json = json.loads((DATA_DIR / "home.json").read_text(encoding="utf-8"))
     layouts_json = json.loads((DATA_DIR / "layouts.json").read_text(encoding="utf-8"))
     return JSONResponse(
@@ -416,10 +440,53 @@ def api_build_styled_residence(req: BuildStyledResidenceReq) -> JSONResponse:
             "live_gemini": bool(os.environ.get("GEMINI_API_KEY")),
             "styles": bundle.model_dump(),
             "extracted": extracted_summary,
+            "layout_result": layout_result,
             "home": home_json,
             "layouts": layouts_json,
         }
     )
+
+
+@app.get("/layout/state")
+def api_layout_state() -> JSONResponse:
+    state_path = DATA_DIR / "scene_layout.json"
+    state = (
+        json.loads(state_path.read_text(encoding="utf-8"))
+        if state_path.exists()
+        else default_scene_state()
+    )
+    return JSONResponse({"ok": True, "defaults": GROUP_DEFAULTS, "state": state})
+
+
+@app.post("/layout/prompt")
+def api_layout_prompt(req: LayoutPromptReq) -> JSONResponse:
+    state_path = DATA_DIR / "scene_layout.json"
+    cur_state = req.current_state
+    if cur_state is None:
+        cur_state = (
+            json.loads(state_path.read_text(encoding="utf-8"))
+            if state_path.exists()
+            else default_scene_state()
+        )
+    res = solve_and_verify_layout(req.prompt, cur_state)
+    state_path.write_text(json.dumps(res["state"], indent=2), encoding="utf-8")
+
+    updated_styles = None
+    if res.get("style_overrides"):
+        styles_path = DATA_DIR / "styles.json"
+        bundle = (
+            HomeStyleBundle.model_validate_json(styles_path.read_text(encoding="utf-8"))
+            if styles_path.exists()
+            else build_default_style_bundle()
+        )
+        for rtype, preset_id in res["style_overrides"].items():
+            if preset_id in bundle.catalog:
+                bundle.by_room_type[rtype] = bundle.catalog[preset_id]
+        styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+        updated_styles = bundle.model_dump()
+
+    res["styles"] = updated_styles
+    return JSONResponse(res)
 
 
 @app.get("/home.json")

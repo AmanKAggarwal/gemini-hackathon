@@ -611,6 +611,114 @@
       font: 700 16px var(--display);
       color: var(--accent);
     }
+
+    /* Step-1 Spatial Text Prompt Box */
+    .prompt-panel {
+      background: rgba(22, 29, 41, 0.92);
+      border: 1px solid rgba(229, 184, 121, 0.34);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .prompt-panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .prompt-panel-head h2 {
+      font: 700 15px var(--display);
+      color: var(--text);
+    }
+    .prompt-panel textarea {
+      inline-size: 100%;
+      min-block-size: 62px;
+      resize: vertical;
+      background: rgba(9, 13, 20, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font: 400 13.5px/1.45 var(--sans);
+      padding: 10px 12px;
+      outline: none;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .prompt-panel textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(229, 184, 121, 0.16);
+    }
+    .prompt-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .prompt-chip {
+      font: 500 11.5px var(--sans);
+      padding: 5px 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .prompt-chip:hover {
+      color: var(--accent);
+      border-color: rgba(229, 184, 121, 0.55);
+      background: rgba(229, 184, 121, 0.12);
+    }
+
+    /* Live Floating 3D Text Command Bar */
+    #live-prompt-dock {
+      pointer-events: auto;
+      background: var(--glass-strong);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(229, 184, 121, 0.35);
+      border-radius: 13px;
+      padding: 7px 9px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      inline-size: min(520px, 92vw);
+    }
+    .dock-form {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .dock-form input {
+      flex: 1;
+      min-inline-size: 0;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font: 400 13px var(--sans);
+      padding: 7px 10px;
+      outline: none;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .dock-form input:focus {
+      border-color: var(--accent);
+    }
+    #dock-feedback {
+      font: 500 11.5px var(--mono);
+      color: var(--muted);
+      padding: 0 3px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    #dock-feedback .ok-pill {
+      color: #8fd19e;
+      font-weight: 600;
+    }
   </style>
   <script type="importmap">
     {
@@ -633,12 +741,11 @@
     <div class="studio-shell">
       <div class="studio-head">
         <div>
-          <span class="studio-pill" id="api-mode-pill">Gemini 4 Visual Transfer + Blender 5.2 PBR</span>
-          <h1>Input a Photo for Each Space → Photorealistic 3D Output</h1>
+          <span class="studio-pill" id="api-mode-pill">Gemini 4 Multimodal (Photos + Text) → Blender 5.2 PBR</span>
+          <h1>Style Photos + Spatial Prompt → Photorealistic 3D Output</h1>
           <p>
-            Pick any reference photo or upload your own picture for the <strong>Living Room</strong>,
-            <strong>Kitchen</strong>, <strong>Primary Bedroom</strong>, and <strong>Spa Bathroom</strong>.
-            Homeweave extracts stone, wood, cabinetry, upholstery, and lighting attributes and translates them directly onto our Blender 5.2 photorealistic 3D residence.
+            <strong>1. Style Photos:</strong> Pick or upload a picture for each space to extract stone, wood, cabinetry, upholstery &amp; lighting.<br />
+            <strong>2. Spatial Instructions:</strong> Type where you want the bed, TV, sofa, dining table, desk, or lighting placed — verified with <code>0</code> overlaps &amp; clear doorways.
           </p>
         </div>
         <div style="display:flex;gap:8px;align-items:center;">
@@ -650,9 +757,24 @@
       <input type="file" id="space-file-input" accept="image/*" style="display:none" />
       <div class="space-grid" id="space-cards-grid"></div>
 
+      <div class="prompt-panel">
+        <div class="prompt-panel-head">
+          <h2>Spatial Placement &amp; Mood Prompt (Optional Text Input)</h2>
+          <span class="studio-pill" style="font-size:10.5px;">gemini-4-neon + shapely hard-constraint check</span>
+        </div>
+        <textarea id="studio-layout-prompt" placeholder="Example: Put the bed against the north wall facing the window, move the TV to the south wall with the sofa facing it, put the dining table near the balcony, and use golden hour lighting."></textarea>
+        <div class="prompt-chips" id="studio-prompt-chips">
+          <button type="button" class="prompt-chip" data-prompt="Put the bed against the north wall facing the window, and move the TV to the south wall with the sofa facing it.">🛏️ Bed north wall + TV south wall</button>
+          <button type="button" class="prompt-chip" data-prompt="Put the bed against the east wall, move the dining table near the balcony, and use evening cove lighting.">🌙 Bed east wall + Dining by balcony + Evening</button>
+          <button type="button" class="prompt-chip" data-prompt="Swap the sofa and dining area, and make the lighting golden hour.">🌅 Swap sofa &amp; dining + Golden Hour</button>
+          <button type="button" class="prompt-chip" data-prompt="Move the bed under the south window and rotate the kitchen island.">🪟 Bed under south window + Rotate island</button>
+          <button type="button" class="prompt-chip" data-prompt="Reset layout to default.">↺ Reset default layout</button>
+        </div>
+      </div>
+
       <div class="studio-cta-bar">
         <div style="color:var(--muted);font-size:13px;" id="studio-status-msg">
-          4 spaces configured · translates finishes onto 512 Blender 3D architectural &amp; furniture meshes.
+          4 style spaces + spatial text directives · translates directly onto 512 Blender 3D meshes.
         </div>
         <div style="display:flex;gap:8px;align-items:center;">
           <button type="button" id="close-studio-btn" style="display:none">Cancel</button>
@@ -671,8 +793,8 @@
 
   <header id="hud-top">
     <div class="toolbar">
-      <button type="button" id="open-photo-studio-btn" class="active" title="Change or upload input photos for each space">
-        ✦ Photo Inputs <span class="kbd">P</span>
+      <button type="button" id="open-photo-studio-btn" class="active" title="Change space style photos or spatial prompt">
+        ✦ Photos &amp; Prompt <span class="kbd">P</span>
       </button>
       <div class="brand-chip">
         <span class="eyebrow" id="view-eyebrow">3D Cutaway Orbit · Styled</span>
@@ -720,7 +842,7 @@
 
   <footer id="hud-bottom">
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
-      <div id="style-ref-card" title="Input photo styling the current room">
+      <div id="style-ref-card" title="Click to change input photos & spatial prompt">
         <img id="ref-card-img" src="/drive_inputs/L2.jpg" alt="Room reference photo" />
         <div class="ref-meta">
           <span class="ref-kicker" id="ref-card-kicker">Living · L2</span>
@@ -728,7 +850,20 @@
           <div class="swatch-strip" id="ref-card-swatches" style="margin-top:3px;"></div>
         </div>
       </div>
-      <div id="controls-pill">
+
+      <div id="live-prompt-dock" role="region" aria-label="Live 3D furniture placement prompt">
+        <form class="dock-form" id="live-prompt-form">
+          <input type="text" id="live-prompt-input" placeholder="Move furniture by text: e.g. 'Put the bed on the north wall and TV on the south wall'…" autocomplete="off" />
+          <button type="submit" class="active" id="live-prompt-submit">Apply</button>
+          <button type="button" id="live-prompt-reset" title="Reset all furniture to default architect plan">↺</button>
+        </form>
+        <div id="dock-feedback">
+          <span id="dock-msg">Type a spatial command to move bed, TV, sofa, dining, desk, or island in 3D.</span>
+          <span class="ok-pill" id="dock-check">✓ 0 overlaps · 0 doors</span>
+        </div>
+      </div>
+
+      <div id="controls-pill" style="display:none">
         <strong>Drag</strong> to orbit 3D cutaway · <strong>Scroll</strong> zoom · Click <strong>Walk Inside (V)</strong> or <strong>1–5</strong> for eye-level walkthrough · <strong>P</strong> change space photos
       </div>
     </div>
@@ -1485,10 +1620,206 @@
     document.getElementById("close-studio-btn").addEventListener("click", closePhotoStudio);
     document.getElementById("style-ref-card").addEventListener("click", openPhotoStudio);
 
+    // -----------------------------------------------------------------------
+    // Rigid Furniture-Group Rigging & Text-to-3D Spatial Layout Controller
+    // -----------------------------------------------------------------------
+    const GROUP_MATCHERS = [
+      ["bed_group", /^(Bed_|Nightstand_|MoonLamp_|Bedroom_Rug)/, 1.16, 5.38],
+      ["desk_group", /^(Bedroom_Desk|Bedroom_ArtBook)/, 2.08, 4.10],
+      ["wardrobe_group", /^(Bedroom_Wardrobe|Wardrobe_)/, 4.42, 5.55],
+      ["bench_group", /^(Bedroom_WindowBench|Bedroom_BenchCushion)/, 2.375, 6.73],
+      ["tv_group", /^(TV_|OLED_|Media_|Niche_)/, 0.30, 1.83],
+      ["sofa_group", /^(Sofa_|CoffeeTable_|Coffee_|Accent_Armchair|Living_Area_Rug)/, 2.10, 1.90],
+      ["dining_group", /^Dining/, 4.58, 2.12],
+      ["living_art_group", /^Living_Art/, 1.825, 3.57],
+      ["island_group", /^(Island_|Stool_|Pendant_)/, 7.39, 2.08],
+      ["tub_group", /^(Tub_|Bath_TeakPlinth|Bath_PlinthLED)/, 5.80, 6.42],
+    ];
+
+    const groupPivots = {};
+    const groupTweens = [];
+    let currentLayoutState = null;
+    let baseColliders = [];
+
+    function rigFurnitureGroups(rootScene) {
+      rootScene.updateMatrixWorld(true);
+      const buckets = {};
+      for (const [gid, , px, pz] of GROUP_MATCHERS) {
+        const pivot = new THREE.Group();
+        pivot.name = `Pivot_${gid}`;
+        pivot.position.set(px, 0, pz);
+        rootScene.add(pivot);
+        pivot.updateMatrixWorld(true);
+        groupPivots[gid] = pivot;
+        buckets[gid] = [];
+      }
+      rootScene.traverse(node => {
+        if (!node.isMesh) return;
+        for (const [gid, re] of GROUP_MATCHERS) {
+          if (re.test(node.name)) {
+            buckets[gid].push(node);
+            break;
+          }
+        }
+      });
+      for (const [gid] of GROUP_MATCHERS) {
+        const pivot = groupPivots[gid];
+        for (const mesh of buckets[gid]) {
+          pivot.attach(mesh);
+        }
+      }
+    }
+
+    function shortestAngleDelta(fromRad, toRad) {
+      let d = (toRad - fromRad) % (Math.PI * 2);
+      if (d > Math.PI) d -= Math.PI * 2;
+      if (d < -Math.PI) d += Math.PI * 2;
+      return d;
+    }
+
+    function applyLayoutState(state, collidersMap = null, instant = false) {
+      if (!state) return;
+      currentLayoutState = state;
+      const now = performance.now();
+      for (const [gid, pose] of Object.entries(state)) {
+        const pivot = groupPivots[gid];
+        if (!pivot) continue;
+        pivot.visible = pose.visible !== false;
+        const targetX = Number(pose.x);
+        const targetZ = Number(pose.z);
+        const targetRot = THREE.MathUtils.degToRad(Number(pose.rot_deg || 0));
+        if (instant || reducedMotion) {
+          pivot.position.set(targetX, 0, targetZ);
+          pivot.rotation.y = targetRot;
+        } else {
+          const sx = pivot.position.x;
+          const sz = pivot.position.z;
+          const sr = pivot.rotation.y;
+          const dr = shortestAngleDelta(sr, targetRot);
+          if (Math.hypot(targetX - sx, targetZ - sz) > 0.005 || Math.abs(dr) > 0.005) {
+            for (let i = groupTweens.length - 1; i >= 0; i--) {
+              if (groupTweens[i].gid === gid) groupTweens.splice(i, 1);
+            }
+            groupTweens.push({
+              gid,
+              pivot,
+              t0: now,
+              dur: 680,
+              sx, sz, sr,
+              tx: targetX, tz: targetZ, tr: sr + dr,
+            });
+          }
+        }
+      }
+
+      // Sync live 3D walkthrough colliders & minimap with updated furniture AABBs
+      if (collidersMap && baseColliders.length) {
+        const replacedLabels = new Set();
+        const dynamicCols = [];
+        for (const [gid, info] of Object.entries(collidersMap)) {
+          for (const lb of info.replaces || []) replacedLabels.add(lb);
+          if (info.visible !== false) {
+            dynamicCols.push({
+              kind: "furniture",
+              label: `Dynamic_${gid}`,
+              x0: info.x0,
+              z0: info.z0,
+              x1: info.x1,
+              z1: info.z1,
+              y0: 0.0,
+              y1: 1.4,
+            });
+          }
+        }
+        meta.colliders = [
+          ...baseColliders.filter(c => !replacedLabels.has(c.label)),
+          ...dynamicCols,
+        ];
+      }
+    }
+
+    function stepGroupTweens(now) {
+      for (let i = groupTweens.length - 1; i >= 0; i--) {
+        const tw = groupTweens[i];
+        const rawT = Math.min(1, (now - tw.t0) / tw.dur);
+        const e = rawT < 0.5 ? 4 * rawT * rawT * rawT : 1 - Math.pow(-2 * rawT + 2, 3) / 2;
+        tw.pivot.position.set(tw.sx + (tw.tx - tw.sx) * e, 0, tw.sz + (tw.tz - tw.sz) * e);
+        tw.pivot.rotation.y = tw.sr + (tw.tr - tw.sr) * e;
+        if (rawT >= 1) groupTweens.splice(i, 1);
+      }
+    }
+
+    function applyLayoutResultPayload(res, instant = false) {
+      if (!res || !res.ok) return;
+      if (res.state) {
+        applyLayoutState(res.state, res.colliders || null, instant);
+      }
+      if (res.lighting_mode) {
+        const idxMap = { sunlit_day: 0, golden_hour: 1, evening_cove: 2 };
+        if (res.lighting_mode in idxMap) applyLightingMode(idxMap[res.lighting_mode]);
+      }
+      if (res.styles && res.styles.by_room_type) {
+        styleBundle = res.styles;
+        applyStylesToBlenderScene();
+      }
+      const chk = res.check || { overlaps: [], door_blocks: [], outside_room: [], violations_total: 0 };
+      const dockMsg = document.getElementById("dock-msg");
+      const dockCheck = document.getElementById("dock-check");
+      if (dockMsg) dockMsg.textContent = res.summary || "Layout updated.";
+      if (dockCheck) {
+        dockCheck.textContent =
+          chk.violations_total === 0
+            ? `✓ 0 overlaps · 0 doors (${res.engine || "solver"})`
+            : `⚠ ${chk.violations_total} violation(s)`;
+        dockCheck.style.color = chk.violations_total === 0 ? "#8fd19e" : "#f0a35e";
+      }
+    }
+
+    async function runLiveLayoutPrompt(promptText) {
+      const text = (promptText || "").trim();
+      if (!text) return;
+      const submitBtn = document.getElementById("live-prompt-submit");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Solving…";
+      try {
+        const resp = await fetch("/layout/prompt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: text, current_state: currentLayoutState }),
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          applyLayoutResultPayload(data, false);
+        }
+      } catch (_) {}
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Apply";
+    }
+
+    document.getElementById("studio-prompt-chips").addEventListener("click", e => {
+      const chip = e.target.closest("[data-prompt]");
+      if (!chip) return;
+      document.getElementById("studio-layout-prompt").value = chip.dataset.prompt;
+    });
+
+    document.getElementById("live-prompt-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const inp = document.getElementById("live-prompt-input");
+      const val = inp.value.trim();
+      if (!val) return;
+      runLiveLayoutPrompt(val);
+      inp.blur();
+    });
+
+    document.getElementById("live-prompt-reset").addEventListener("click", () => {
+      document.getElementById("live-prompt-input").value = "";
+      runLiveLayoutPrompt("Reset layout to default");
+    });
+
     document.getElementById("translate-3d-btn").addEventListener("click", async () => {
       const btn = document.getElementById("translate-3d-btn");
       btn.disabled = true;
-      btn.textContent = "Translating Visual Attributes to 3D…";
+      btn.textContent = "Translating Photos & Text to 3D…";
       try {
         const spaces = SPACE_SPECS.map(sp => {
           const d = spaceDrafts[sp.roomType];
@@ -1499,10 +1830,11 @@
             palette_hint: d.paletteHint,
           };
         });
+        const layoutPrompt = (document.getElementById("studio-layout-prompt").value || "").trim();
         const r = await fetch("/style/build-residence", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ spaces }),
+          body: JSON.stringify({ spaces, layout_prompt: layoutPrompt }),
         });
         if (r.ok) {
           const out = await r.json();
@@ -1515,6 +1847,10 @@
             }
           }
           applyStylesToBlenderScene();
+          if (out.layout_result) {
+            applyLayoutResultPayload(out.layout_result, false);
+            document.getElementById("live-prompt-input").value = layoutPrompt;
+          }
         }
       } catch (_) {}
       btn.disabled = false;
@@ -1930,6 +2266,11 @@
     }
 
     window.addEventListener("keydown", e => {
+      const tag = e.target && e.target.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") {
+        if (e.code === "Escape") e.target.blur();
+        return;
+      }
       if (document.getElementById("assumptions-dialog").open || document.getElementById("judge-dialog").open) return;
       const studioOpen = !document.getElementById("photo-studio-overlay").classList.contains("hidden");
       if (studioOpen) {
@@ -1997,6 +2338,7 @@
     function animate(now) {
       const dt = Math.min(0.05, (now - lastTime) / 1000);
       lastTime = now;
+      stepGroupTweens(now);
 
       if (viewMode === "dollhouse") {
         orbitControls.update();
@@ -2078,14 +2420,15 @@
     }
 
     async function boot() {
-      const [loadedMeta, loadedStyles, evalInfo] = await Promise.all([
+      const [loadedMeta, loadedStyles, evalInfo, savedLayout] = await Promise.all([
         fetchFirstJson(["/walkthrough/assets/apartment_meta.json", "./assets/apartment_meta.json"]),
         fetchFirstJson(["/styles.json"]),
         fetchFirstJson(["/eval/summary"]),
+        fetchFirstJson(["/layout/state"]),
       ]);
 
       if (evalInfo && evalInfo.live_gemini) {
-        document.getElementById("api-mode-pill").textContent = "Live Gemini 4 + Blender 5.2 PBR";
+        document.getElementById("api-mode-pill").textContent = "Live Gemini 4 (Photos + Text) → Blender 5.2 PBR";
       }
 
       if (loadedStyles && loadedStyles.by_room_type) {
@@ -2109,6 +2452,7 @@
 
       if (loadedMeta) {
         meta = loadedMeta;
+        baseColliders = (loadedMeta.colliders || []).map(c => ({ ...c }));
         player.x = meta.spawn.x;
         player.y = meta.spawn.y;
         player.z = meta.spawn.z;
@@ -2216,6 +2560,10 @@
         gltf.scene.add(kitchenFloorPatch);
 
         scene.add(gltf.scene);
+        rigFurnitureGroups(gltf.scene);
+        if (savedLayout && savedLayout.state) {
+          applyLayoutState(savedLayout.state, null, true);
+        }
         applyStylesToBlenderScene();
         setViewMode("dollhouse");
         document.getElementById("glb-ready-pill").textContent = "Blender 3D Ready ✓";
