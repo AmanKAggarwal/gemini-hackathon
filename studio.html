@@ -759,7 +759,7 @@ async function show(P,FIT,CAT,log,sp,alive,opts={}){reg={};ctx={};
   if(!alive())return;
   carry.classList.add('hide');man.rotation.y=0;
   for(let i=0;i<2;i++)await tween(260,t=>{man.position.y=Math.sin(t*Math.PI)*.35},sp);   // a little hop when the job is done
-  log('3d','Move-in done: '+jobs.length+' pieces carried in.');
+  if(!opts.final)log('3d','Move-in done: '+jobs.length+' pieces carried in.');
   // the job is done, so the mover walks out and leaves the scene
   const away=ent.clone().add(ent.clone().setY(0).normalize().multiplyScalar(2.6));await go(away,130);world.remove(man);man=null;
 }
