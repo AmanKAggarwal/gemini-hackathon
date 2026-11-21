@@ -33,6 +33,7 @@ from pydantic import BaseModel
 
 from studio_correspond import correspond
 from studio_review import inspect, review
+import studio_live
 
 BASE_DIR = Path(__file__).parent
 CATALOG_PATH = BASE_DIR / "data" / "studio_catalog.json"
@@ -555,6 +556,43 @@ async def studio_blender(request: Request) -> FileResponse:
     if not png.exists():
         raise HTTPException(status_code=500, detail=("Blender failed: " + (proc.stderr or proc.stdout)[-600:]))
     return FileResponse(png, media_type="image/png", headers={"X-Render-Seconds": f"{time.time() - t0:.1f}"})
+
+
+@router.get("/studio/live")
+def studio_live_status() -> dict[str, Any]:
+    return {"available": studio_live.live_available(),
+            "models": {"photo": studio_live.MODEL_PHOTO, "plan": studio_live.MODEL_PLAN, "review": studio_live.MODEL_DECISION}}
+
+
+def _live(fn, *args):
+    try:
+        return fn(*args)
+    except RuntimeError as exc:   # missing key, failed validation, missing rooms: show the reason as-is
+        raise HTTPException(status_code=422, detail=str(exc))
+    except Exception as exc:      # API or network failure
+        raise HTTPException(status_code=502, detail=f"{type(exc).__name__}: {str(exc)[:400]}")
+
+
+@router.post("/studio/perceive/photo/{cat}")
+async def studio_perceive_photo(cat: str, request: Request) -> dict[str, Any]:
+    """Body: image bytes. gemini-4-hydrogen gauges the photo; the result joins the catalogue."""
+    return _live(studio_live.perceive_photo, await request.body(), request.headers.get("x-filename", "photo.jpg"), cat)
+
+
+@router.post("/studio/perceive/plan")
+async def studio_perceive_plan(request: Request) -> dict[str, Any]:
+    """Body: image bytes. gemini-4-neon reads the floor plan; the result joins the catalogue."""
+    return _live(studio_live.perceive_plan, await request.body(), request.headers.get("x-filename", "plan.png"))
+
+
+class OpinionReq(BaseModel):
+    rooms: list[dict[str, Any]]
+
+
+@router.post("/studio/second-opinion")
+def studio_second_opinion(req: OpinionReq) -> dict[str, Any]:
+    """Decisions API (gemini-decision-1) scores a render of each finished room."""
+    return {"rooms": _live(studio_live.second_opinion, req.rooms)}
 
 
 class CheckReq(BaseModel):
