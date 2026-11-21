@@ -764,10 +764,11 @@
         </div>
         <textarea id="studio-layout-prompt" placeholder="Example: Put the bed against the north wall facing the window, move the TV to the south wall with the sofa facing it, put the dining table near the balcony, and use golden hour lighting."></textarea>
         <div class="prompt-chips" id="studio-prompt-chips">
+          <button type="button" class="prompt-chip" data-prompt="Put the TV in the bedroom and in the living room, NO TV.">📺 TV in bedroom, no TV in living</button>
           <button type="button" class="prompt-chip" data-prompt="Put the bed against the north wall facing the window, and move the TV to the south wall with the sofa facing it.">🛏️ Bed north wall + TV south wall</button>
           <button type="button" class="prompt-chip" data-prompt="Put the bed against the east wall, move the dining table near the balcony, and use evening cove lighting.">🌙 Bed east wall + Dining by balcony + Evening</button>
           <button type="button" class="prompt-chip" data-prompt="Swap the sofa and dining area, and make the lighting golden hour.">🌅 Swap sofa &amp; dining + Golden Hour</button>
-          <button type="button" class="prompt-chip" data-prompt="Move the bed under the south window and rotate the kitchen island.">🪟 Bed under south window + Rotate island</button>
+          <button type="button" class="prompt-chip" data-prompt="Put the soaking tub on the balcony and remove the study desk.">🛁 Tub on balcony + No desk</button>
           <button type="button" class="prompt-chip" data-prompt="Reset layout to default.">↺ Reset default layout</button>
         </div>
       </div>
@@ -1628,7 +1629,8 @@
       ["desk_group", /^(Bedroom_Desk|Bedroom_ArtBook)/, 2.08, 4.10],
       ["wardrobe_group", /^(Bedroom_Wardrobe|Wardrobe_)/, 4.42, 5.55],
       ["bench_group", /^(Bedroom_WindowBench|Bedroom_BenchCushion)/, 2.375, 6.73],
-      ["tv_group", /^(TV_|OLED_|Media_|Niche_)/, 0.30, 1.83],
+      ["tv_group", /^(TV_|OLED_|Media_)/, 0.30, 1.83],
+      ["tv_niches_group", /^Niche_/, 0.30, 1.83],
       ["sofa_group", /^(Sofa_|CoffeeTable_|Coffee_|Accent_Armchair|Living_Area_Rug)/, 2.10, 1.90],
       ["dining_group", /^Dining/, 4.58, 2.12],
       ["living_art_group", /^Living_Art/, 1.825, 3.57],
@@ -1767,11 +1769,16 @@
       const dockCheck = document.getElementById("dock-check");
       if (dockMsg) dockMsg.textContent = res.summary || "Layout updated.";
       if (dockCheck) {
-        dockCheck.textContent =
-          chk.violations_total === 0
-            ? `✓ 0 overlaps · 0 doors (${res.engine || "solver"})`
-            : `⚠ ${chk.violations_total} violation(s)`;
-        dockCheck.style.color = chk.violations_total === 0 ? "#8fd19e" : "#f0a35e";
+        if (res.matched === false) {
+          dockCheck.textContent = "ℹ No matching move";
+          dockCheck.style.color = "#f0a35e";
+        } else {
+          dockCheck.textContent =
+            chk.violations_total === 0
+              ? `✓ 0 overlaps · 0 doors (${res.engine || "solver"})`
+              : `⚠ ${chk.violations_total} violation(s)`;
+          dockCheck.style.color = chk.violations_total === 0 ? "#8fd19e" : "#f0a35e";
+        }
       }
     }
 
@@ -2541,7 +2548,13 @@
           if (node.name.startsWith("Vista_")) {
             vistaMeshes.push(node);
           }
-          if (node.name.startsWith("Wall_") || node.name.startsWith("Curtain_")) {
+          if (
+            node.name.startsWith("Wall_") ||
+            node.name.startsWith("Curtain_") ||
+            node.name.startsWith("Living_Art") ||
+            node.name.startsWith("Bedroom_Wardrobe") ||
+            node.name.startsWith("Wardrobe_")
+          ) {
             cutawayMeshes.push(node);
           }
         });
