@@ -140,6 +140,57 @@
     ul.list li code { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 11px; }
     .prov { display: block; color: var(--muted); font-size: 10.5px; margin-top: 2px; font-family: var(--mono); }
     #status-msg { font-size: 11.5px; color: var(--accent); min-height: 15px; font-weight: 500; }
+
+    /* Dedicated Step-1 Space Photo Input Studio Overlay */
+    #studio-overlay {
+      position: fixed; inset: 0; z-index: 50;
+      background: rgba(243, 241, 236, 0.96); backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      transition: opacity 0.25s ease;
+    }
+    #studio-overlay.hidden { display: none; }
+    .studio-shell {
+      width: 100%; max-width: 980px; background: var(--surface);
+      border: 1px solid var(--line); border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(24, 32, 44, 0.12);
+      padding: 24px 28px; display: flex; flex-direction: column; gap: 18px;
+      max-height: 94vh; overflow-y: auto;
+    }
+    .studio-hdr { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .studio-hdr h2 { font: 700 24px var(--display); color: var(--ink); text-transform: none; letter-spacing: -0.02em; margin: 2px 0 4px 0; }
+    .space-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .space-card {
+      background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px;
+      padding: 12px; display: flex; flex-direction: column; gap: 9px;
+    }
+    .space-card.dragover { border-color: var(--accent); background: #edf3fb; }
+    .space-drop {
+      position: relative; height: 150px; border-radius: 9px; overflow: hidden;
+      border: 1px dashed #b9b4a8; background: #e8e4dc; cursor: pointer;
+    }
+    .space-drop img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .space-drop .drop-cta {
+      position: absolute; right: 8px; bottom: 8px;
+      background: rgba(24, 32, 44, 0.82); color: #fff; font: 600 11px var(--sans);
+      padding: 5px 9px; border-radius: 6px; backdrop-filter: blur(4px);
+    }
+    .space-presets { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+    .preset-pills { display: flex; gap: 5px; }
+    .preset-pill {
+      font: 600 11px var(--mono); padding: 4px 8px; border-radius: 6px;
+      border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    }
+    .preset-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .studio-ftr {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 10px; border-top: 1px solid var(--line); gap: 12px;
+    }
+    .cta-generate {
+      font: 700 14px var(--display); padding: 11px 22px; border-radius: 10px;
+      background: var(--accent); color: #fff; border: 1px solid var(--accent);
+      box-shadow: 0 6px 18px rgba(30, 58, 95, 0.25);
+    }
+    .cta-generate:hover { background: #152c4a; }
   </style>
   <script type="importmap">
     {
@@ -151,9 +202,32 @@
   </script>
 </head>
 <body>
+<div id="studio-overlay">
+  <div class="studio-shell">
+    <div class="studio-hdr">
+      <div>
+        <div class="brand-tag">Step 1 · Space-by-Space Visual Input</div>
+        <h2>Choose or Upload a Picture for Each Space</h2>
+        <div class="sub">Drop in any inspiration or listing photo per room (or pick a sample). Homeweave extracts the flooring, wall textures, cabinetry, lighting mood, and fabrics and renders your furnished 3D residence.</div>
+      </div>
+      <button id="skip-to-3d-btn" style="border:1px solid var(--line);background:var(--surface-2);">View Current 3D →</button>
+    </div>
+
+    <div class="space-grid" id="studio-space-grid"></div>
+
+    <div class="studio-ftr">
+      <div id="studio-status" class="sub" style="font-family:var(--mono);color:var(--accent);">Ready · 4 spaces configured</div>
+      <button id="generate-3d-btn" class="cta-generate">Generate 3D Residence Output →</button>
+    </div>
+  </div>
+</div>
+
 <div id="app">
   <div id="viewport">
     <div id="hud-top">
+      <div class="bar">
+        <button id="open-studio-btn" class="primary">← Input Space Photos</button>
+      </div>
       <div class="bar" id="layout-buttons" aria-label="Switch layout">
         <span class="bar-label">Layout</span>
         <button data-idx="0" class="active">1</button>
@@ -1607,6 +1681,159 @@ async function fetchJsonWithFallback(paths) {
   return null;
 }
 
+// --- Step-1 Space Photo Input Studio Logic ---
+const studioOverlay = document.getElementById("studio-overlay");
+const studioState = {
+  living: { photo_source: "L2", style_id: "L2", preview: "/drive_inputs/L2.jpg", palette_hint: null },
+  kitchen: { photo_source: "K1", style_id: "K1", preview: "/drive_inputs/K1.jpg", palette_hint: null },
+  primary_bedroom: { photo_source: "Be1", style_id: "Be1", preview: "/drive_inputs/Be1.jpg", palette_hint: null },
+  bathroom: { photo_source: "B1", style_id: "B1", preview: "/drive_inputs/B1.jpg", palette_hint: null },
+};
+
+function renderStudioCards() {
+  const grid = document.getElementById("studio-space-grid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  const cat = styleBundle.catalog || {};
+
+  ROOM_PRESET_GROUPS.forEach(grp => {
+    const st = studioState[grp.rtype];
+    const meta = cat[st.style_id] || getStyleForRoomType(grp.rtype);
+    const card = document.createElement("div");
+    card.className = "space-card";
+
+    const topRow = document.createElement("div");
+    topRow.style.cssText = "display:flex;justify-content:space-between;align-items:baseline;";
+    topRow.innerHTML = `<b style="font:700 14px var(--display)">${grp.title}</b><span style="font-size:11px;color:var(--muted)">${meta.label || st.style_id}</span>`;
+    card.appendChild(topRow);
+
+    const drop = document.createElement("div");
+    drop.className = "space-drop";
+    drop.innerHTML = `<img src="${st.preview}" alt="${grp.title}" /><span class="drop-cta">Click or Drop Photo</span>`;
+
+    const localInput = document.createElement("input");
+    localInput.type = "file";
+    localInput.accept = "image/*";
+    localInput.style.display = "none";
+
+    const handleFileObj = file => {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dUrl = reader.result;
+        const im = new Image();
+        im.onload = () => {
+          const hint = sampleImageRegions(im);
+          hint.label = `Custom (${file.name.slice(0, 16)})`;
+          studioState[grp.rtype] = {
+            photo_source: dUrl,
+            style_id: `upload-${grp.rtype}`,
+            preview: dUrl,
+            palette_hint: hint
+          };
+          document.getElementById("studio-status").textContent = `Loaded ${file.name} for ${grp.title}`;
+          renderStudioCards();
+        };
+        im.src = dUrl;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    drop.addEventListener("click", () => { localInput.value = ""; localInput.click(); });
+    localInput.addEventListener("change", () => handleFileObj(localInput.files && localInput.files[0]));
+    card.addEventListener("dragover", e => { e.preventDefault(); card.classList.add("dragover"); });
+    card.addEventListener("dragleave", () => card.classList.remove("dragover"));
+    card.addEventListener("drop", e => {
+      e.preventDefault(); card.classList.remove("dragover");
+      handleFileObj(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]);
+    });
+    card.appendChild(drop);
+    card.appendChild(localInput);
+
+    const bottomRow = document.createElement("div");
+    bottomRow.className = "space-presets";
+    const pills = document.createElement("div");
+    pills.className = "preset-pills";
+    grp.ids.forEach(sid => {
+      const b = document.createElement("button");
+      b.className = "preset-pill" + (st.style_id === sid ? " active" : "");
+      b.textContent = sid;
+      b.title = cat[sid] ? cat[sid].label : sid;
+      b.addEventListener("click", () => {
+        studioState[grp.rtype] = {
+          photo_source: sid,
+          style_id: sid,
+          preview: `/drive_inputs/${sid}.jpg`,
+          palette_hint: null
+        };
+        renderStudioCards();
+      });
+      pills.appendChild(b);
+    });
+    bottomRow.appendChild(pills);
+
+    const sw = document.createElement("div");
+    sw.className = "swatch-bar";
+    const colors = st.palette_hint
+      ? [st.palette_hint.wall_hex, st.palette_hint.accent_hex, st.palette_hint.upholstery_hex, st.palette_hint.floor_hex]
+      : [meta.wall_hex, meta.cabinet_hex, meta.upholstery_hex, meta.floor_hex];
+    colors.forEach(hex => {
+      if (!hex) return;
+      const chip = document.createElement("span");
+      chip.className = "swatch-chip";
+      chip.style.background = hex;
+      sw.appendChild(chip);
+    });
+    bottomRow.appendChild(sw);
+    card.appendChild(bottomRow);
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("open-studio-btn").addEventListener("click", () => {
+  renderStudioCards();
+  studioOverlay.classList.remove("hidden");
+});
+document.getElementById("skip-to-3d-btn").addEventListener("click", () => {
+  studioOverlay.classList.add("hidden");
+});
+
+document.getElementById("generate-3d-btn").addEventListener("click", async () => {
+  const stEl = document.getElementById("studio-status");
+  const btn = document.getElementById("generate-3d-btn");
+  btn.disabled = true;
+  stEl.textContent = "Perceiving room materials, cabinetry, lighting & synthesizing 3D PBR Residence…";
+
+  try {
+    const spaces = Object.entries(studioState).map(([room_type, cfg]) => ({
+      room_type,
+      photo_source: cfg.photo_source,
+      style_id: cfg.style_id,
+      palette_hint: cfg.palette_hint
+    }));
+    const res = await fetch("/style/build-residence", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ spaces })
+    });
+    const out = await res.json();
+    if (out.ok) {
+      styleBundle = out.styles;
+      if (out.home) homeData = out.home;
+      if (out.layouts) layoutsData = out.layouts;
+      renderStylePicker();
+      if (homeData) buildHomeGeometry(homeData);
+      rebuildAllFurnitureMeshes();
+      studioOverlay.classList.add("hidden");
+      document.getElementById("status-msg").textContent = "3D Residence updated from your 4 space photos!";
+    }
+  } catch (err) {
+    stEl.textContent = `Error: ${err.message}`;
+  } finally {
+    btn.disabled = false;
+  }
+});
+
 async function init() {
   updateProjection();
   const [hJson, lJson, sJson] = await Promise.all([
@@ -1619,12 +1846,13 @@ async function init() {
   if (sJson && sJson.by_room_type) styleBundle = sJson;
 
   renderStylePicker();
+  renderStudioCards();
   if (homeData) {
     buildHomeGeometry(homeData);
     positionDollhouseCamera();
     const totalArea = (homeData.rooms || []).reduce((acc, r) => acc + polygonAreaM2(r.polygon || []), 0);
     document.getElementById("home-subtitle").textContent =
-      `${(homeData.rooms || []).length} Rooms · ${totalArea.toFixed(1)} m² (${Math.round(totalArea * 10.7639)} sq ft) · 15 Photo Presets + Upload`;
+      `${(homeData.rooms || []).length} Rooms · ${totalArea.toFixed(1)} m² (${Math.round(totalArea * 10.7639)} sq ft) · Photo-to-3D`;
   }
   if (layoutsData.length) applyLayout(0, false);
   requestAnimationFrame(tick);

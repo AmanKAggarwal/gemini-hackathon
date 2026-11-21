@@ -253,6 +253,17 @@ class ExtractStyleReq(BaseModel):
     palette_hint: Optional[dict[str, str]] = None
 
 
+class SpaceInputEntry(BaseModel):
+    room_type: RoomType
+    photo_source: str = Field(description="Preset ID ('L1'..'B4') or uploaded data:image/... URI.")
+    style_id: str = "custom"
+    palette_hint: Optional[dict[str, str]] = None
+
+
+class BuildStyledResidenceReq(BaseModel):
+    spaces: list[SpaceInputEntry]
+
+
 @app.get("/", response_class=HTMLResponse)
 @app.get("/viewer.html", response_class=HTMLResponse)
 def serve_viewer() -> HTMLResponse:
@@ -305,6 +316,44 @@ def api_extract_style(req: ExtractStyleReq) -> JSONResponse:
         bundle.catalog[res.data.style_id] = res.data
         styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
     return JSONResponse(res.model_dump())
+
+
+@app.post("/style/build-residence")
+def api_build_styled_residence(req: BuildStyledResidenceReq) -> JSONResponse:
+    """Process input pictures for each space (living, kitchen, bedroom, bathroom) and return full 3D payload."""
+    ensure_seed_data()
+    styles_path = DATA_DIR / "styles.json"
+    bundle = (
+        HomeStyleBundle.model_validate_json(styles_path.read_text(encoding="utf-8"))
+        if styles_path.exists()
+        else build_default_style_bundle()
+    )
+
+    extracted_summary: dict[str, Any] = {}
+    for sp in req.spaces:
+        res = extract_style_from_photo(
+            sp.photo_source,
+            room_type=sp.room_type,
+            style_id=sp.style_id,
+            client_palette_hint=sp.palette_hint,
+        )
+        if res.ok and res.data is not None:
+            bundle.by_room_type[sp.room_type] = res.data
+            bundle.catalog[res.data.style_id] = res.data
+            extracted_summary[sp.room_type] = res.data.model_dump()
+
+    styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+    home_json = json.loads((DATA_DIR / "home.json").read_text(encoding="utf-8"))
+    layouts_json = json.loads((DATA_DIR / "layouts.json").read_text(encoding="utf-8"))
+    return JSONResponse(
+        {
+            "ok": True,
+            "styles": bundle.model_dump(),
+            "extracted": extracted_summary,
+            "home": home_json,
+            "layouts": layouts_json,
+        }
+    )
 
 
 @app.get("/data/{filename}")

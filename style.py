@@ -567,43 +567,77 @@ def extract_style_from_photo(
         return validate_with_retry(_producer, RoomVisualStyle)
 
     # Offline fallback when user uploads a custom photo in browser without GEMINI_API_KEY:
-    # combines client-sampled canvas regional hex colors (top=wall, middle=accent/upholstery, bottom=floor)
+    # derives materials, wood/stone type, hardware metal, and lighting warmth from sampled regional RGB
     hint = client_palette_hint or {}
     wall_hex = hint.get("wall_hex", "#EAE3D7")
     accent_hex = hint.get("accent_hex", "#6D5B4B")
     floor_hex = hint.get("floor_hex", "#C4A784")
     upholstery_hex = hint.get("upholstery_hex", "#DDD5C8")
-    is_dark = int(wall_hex[1:3], 16) < 95
+
+    def _rgb(h: str) -> tuple[int, int, int]:
+        h = h.lstrip("#")
+        if len(h) != 6:
+            return (200, 190, 175)
+        return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+
+    wr, wg, wb = _rgb(wall_hex)
+    fr, fg, fb = _rgb(floor_hex)
+    ar, ag, ab = _rgb(accent_hex)
+    wall_luma = (wr + wg + wb) / 3.0
+    floor_luma = (fr + fg + fb) / 3.0
+    is_dark = wall_luma < 105
+    is_warm_wood_floor = (fr - fb) > 26 and floor_luma < 205
+    is_sage_hue = ag > ar + 8 and ag > ab + 8
+    is_glossy = hint.get("glossy") == "true"
+
+    if room_type == "bathroom" and is_sage_hue:
+        floor_mat = "sage_tile"
+    elif is_glossy or not is_warm_wood_floor:
+        floor_mat = "veined_marble" if floor_luma > 165 else "travertine_stone"
+    else:
+        floor_mat = "dark_walnut" if floor_luma < 125 else "wood_plank"
+
+    if is_dark:
+        acc_mat = "charcoal_gold_patina" if ar > ab + 18 else "obsidian_matte"
+    elif is_sage_hue or is_warm_wood_floor:
+        acc_mat = "fluted_panel"
+    else:
+        acc_mat = "calacatta_marble"
+
+    hw_metal = "brushed_gold" if (is_dark or (ar - ab) > 22) else ("chrome" if wb > wr + 10 else "matte_black")
+    mood_word = "Moody" if is_dark else ("Botanical" if is_sage_hue else "Luminous")
+    mat_word = floor_mat.replace("_", " ").title()
+    auto_label = hint.get("label") or f"{mood_word} {mat_word}"
 
     synthesized = RoomVisualStyle(
         style_id=style_id,
-        label=hint.get("label", f"Custom Photo Style ({style_id})"),
+        label=auto_label,
         room_type=room_type,
-        floor_material="veined_marble" if hint.get("glossy") == "true" else "wood_plank",
+        floor_material=floor_mat,  # type: ignore[arg-type]
         floor_hex=floor_hex,
         floor_grain_hex=accent_hex,
-        floor_roughness=0.18 if hint.get("glossy") == "true" else 0.58,
+        floor_roughness=0.16 if is_glossy else (0.58 if "wood" in floor_mat or "walnut" in floor_mat else 0.34),
         wall_hex=wall_hex,
         accent_wall_hex=accent_hex,
-        accent_material="obsidian_matte" if is_dark else "calacatta_marble",
-        cap_hex="#181b20",
+        accent_material=acc_mat,  # type: ignore[arg-type]
+        cap_hex="#141820" if is_dark else "#232a34",
         cabinet_hex=accent_hex,
-        countertop_hex=wall_hex,
+        countertop_hex=wall_hex if wall_luma > 150 else "#eae4da",
         countertop_vein_hex=accent_hex,
-        hardware_metal="brushed_gold" if is_dark else "matte_black",
+        hardware_metal=hw_metal,  # type: ignore[arg-type]
         upholstery_hex=upholstery_hex,
         accent_fabric_hex=accent_hex,
-        wood_tone_hex=floor_hex,
+        wood_tone_hex=floor_hex if is_warm_wood_floor else "#7a5638",
         table_shape="round" if is_dark else "rectangular",
-        rug_style="shag",
+        rug_style="jute" if is_warm_wood_floor else "shag",
         rug_hex=upholstery_hex,
         led_cove_glow=True,
-        led_glow_hex="#ffba66",
-        pendant_style="globe_glass" if room_type == "kitchen" else "none",
+        led_glow_hex="#ffb861" if wr >= wb else "#ffe8c2",
+        pendant_style="brass_spiral" if (room_type == "kitchen" and hw_metal == "brushed_gold") else ("globe_glass" if room_type == "kitchen" else "none"),
         fireplace_glow=is_dark and room_type == "living",
         greenery_accents=True,
         arched_shower=(room_type == "bathroom"),
-        provenance=Provenance(source="uploaded_photo", notes="Extracted from uploaded image palette"),
+        provenance=Provenance(source="uploaded_photo", notes="Visual attributes extracted from input photo"),
     )
     return ValidatedStageResult[RoomVisualStyle](ok=True, flagged=False, attempts=1, data=synthesized)
 
