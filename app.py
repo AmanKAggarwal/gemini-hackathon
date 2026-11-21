@@ -46,6 +46,7 @@ from schemas import (
     Provenance,
     Room,
 )
+from studio import router as studio_router
 from weave import weave
 
 BASE_DIR = Path(__file__).parent
@@ -216,6 +217,7 @@ def ensure_seed_data(force: bool = False) -> None:
 
 ensure_seed_data(force=False)
 app = FastAPI(title="Homeweave", version="2.0.0")
+app.include_router(studio_router)
 
 if (WALKTHROUGH_DIR / "assets").exists():
     app.mount(

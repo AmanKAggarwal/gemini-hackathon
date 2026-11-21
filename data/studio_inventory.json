@@ -1,0 +1,1426 @@
+{
+ "perception_source": "gemini_live",
+ "perception_note": "Every item was read from the home videos by gemini-4-hydrogen. Sizes are its estimates, not measurements.",
+ "sources": [
+  {
+   "id": "myhome2",
+   "label": "Myhome2",
+   "files": [
+    "Myhome2.mp4"
+   ],
+   "live": true,
+   "summary": "Cozy living room opening onto a balcony, containing a foreground sofa, round wooden coffee table, white floor rug, small ribbed pouf, white plant stand/side table, and a balcony bistro table.",
+   "uncertain": [
+    "Is the ribbed beige piece on the far left a separate pouf or part of an armchair?",
+    "Is the white stand under the potted plant a movable side table or a built-in fixture?",
+    "Do the balcony bistro table and two folding chairs belong to you or stay with the apartment?",
+    "What are the full dimensions of the foreground sofa and floor rug since both are partly out of frame?"
+   ]
+  },
+  {
+   "id": "myhome3",
+   "label": "Myhome3",
+   "files": [
+    "Myhome3.mp4"
+   ],
+   "live": true,
+   "summary": "A home tour showing a kitchen with built-in cabinetry, a hallway with a floating console, and a bedroom with a mustard yellow upholstered queen bed and matching white nightstands.",
+   "uncertain": [
+    "Is the wall-mounted beige console in the hallway movable or permanently built into the wall paneling?",
+    "Is the bedroom wardrobe built-in or a freestanding unit?",
+    "Is the decorative wooden partition with small shelves near the kitchen built-in?"
+   ]
+  },
+  {
+   "id": "myhome1",
+   "label": "Myhome1",
+   "files": [
+    "Myhome1.mp4"
+   ],
+   "live": true,
+   "summary": "A bright, modern living room containing a white sofa, a round two-tier coffee table on casters, a large cream round rug, a mauve wood-framed armchair, and two white consoles.",
+   "uncertain": [
+    "Is the white upholstered piece at the bottom left a separate ottoman or part of an L-shaped sectional sofa?",
+    "How wide are the two white consoles and the white sofa, as their outer ends are cropped out of the video frames?"
+   ]
+  },
+  {
+   "id": "myhome4",
+   "label": "myhome4",
+   "files": [
+    "myhome4.mp4"
+   ],
+   "live": true,
+   "summary": "A living room featuring two beige fabric sofas, a rectangular dark wood coffee table, and a partially visible dark area rug.",
+   "uncertain": [
+    "Is the foreground sofa a standalone couch or part of a larger L-shaped sectional?",
+    "What are the full dimensions of the dark area rug underneath the coffee table?",
+    "Is the marble TV bench built into the wall or a movable console?"
+   ]
+  }
+ ],
+ "items": [
+  {
+   "id": "src-myhome2-1-sofa",
+   "type": "sofa",
+   "label": "beige ribbed sofa with olive throw",
+   "w": 2.0,
+   "d": 0.95,
+   "h": 0.78,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.6,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.22,
+     0.63,
+     0.71,
+     1.0
+    ],
+    "scale_ref": "balcony door 0.81 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome2-2-coffee",
+   "type": "coffee",
+   "label": "round wood coffee table",
+   "w": 0.75,
+   "d": 0.75,
+   "h": 0.38,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living"
+   ],
+   "conf": 0.85,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.45,
+     0.75,
+     0.78,
+     0.93
+    ],
+    "scale_ref": "balcony door 0.81 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome2-3-rug",
+   "type": "rug",
+   "label": "cream shaggy area rug",
+   "w": 1.6,
+   "d": 1.2,
+   "h": 0.03,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.65,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.48,
+     0.83,
+     0.78,
+     0.99
+    ],
+    "scale_ref": "coffee table 0.75 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome2-4-vase",
+   "type": "vase",
+   "label": "green glass vase with red flowers",
+   "w": 0.22,
+   "d": 0.22,
+   "h": 0.3,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "kitchen"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.54,
+     0.67,
+     0.67,
+     0.8
+    ],
+    "scale_ref": "coffee table 0.75 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome2-5-plant",
+   "type": "plant",
+   "label": "tall bird of paradise plant in white pot",
+   "w": 0.65,
+   "d": 0.65,
+   "h": 1.65,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.58,
+     0.12,
+     0.78,
+     0.67
+    ],
+    "scale_ref": "balcony door 0.81 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome2-6-table",
+   "type": "table",
+   "label": "round black metal bistro table",
+   "w": 0.6,
+   "d": 0.6,
+   "h": 0.72,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "kitchen",
+    "living"
+   ],
+   "conf": 0.85,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.27,
+     0.54,
+     0.39,
+     0.69
+    ],
+    "scale_ref": "chair seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome2-7-armchair",
+   "type": "armchair",
+   "label": "black folding bistro chair with white cushion",
+   "w": 0.45,
+   "d": 0.42,
+   "h": 0.8,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "kitchen",
+    "living"
+   ],
+   "conf": 0.7,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.23,
+     0.54,
+     0.31,
+     0.68
+    ],
+    "scale_ref": "chair seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome2-8-armchair",
+   "type": "armchair",
+   "label": "black folding bistro chair with white cushion",
+   "w": 0.45,
+   "d": 0.42,
+   "h": 0.8,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "kitchen",
+    "living"
+   ],
+   "conf": 0.7,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.37,
+     0.54,
+     0.45,
+     0.68
+    ],
+    "scale_ref": "chair seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome2-9-plant",
+   "type": "plant",
+   "label": "potted pink flowering plant on balcony table",
+   "w": 0.25,
+   "d": 0.25,
+   "h": 0.28,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "kitchen"
+   ],
+   "conf": 0.8,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.28,
+     0.46,
+     0.35,
+     0.55
+    ],
+    "scale_ref": "bistro table 0.60 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome2-10-plant",
+   "type": "plant",
+   "label": "potted red flowering plant on balcony railing",
+   "w": 0.25,
+   "d": 0.25,
+   "h": 0.28,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "kitchen"
+   ],
+   "conf": 0.7,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.23,
+     0.45,
+     0.28,
+     0.54
+    ],
+    "scale_ref": "bistro table 0.60 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome2-11-plant",
+   "type": "plant",
+   "label": "potted green plant on balcony",
+   "w": 0.28,
+   "d": 0.28,
+   "h": 0.3,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "kitchen"
+   ],
+   "conf": 0.65,
+   "source": {
+    "group": "myhome2",
+    "file": "Myhome2.mp4",
+    "t": 11.0,
+    "bbox": [
+     0.37,
+     0.47,
+     0.44,
+     0.56
+    ],
+    "scale_ref": "bistro table 0.60 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.5,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome3-1-plant",
+   "type": "plant",
+   "label": "small green potted plant",
+   "w": 0.25,
+   "d": 0.25,
+   "h": 0.22,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.78,
+   "source": {
+    "group": "myhome3",
+    "file": "Myhome3.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.19,
+     0.25,
+     0.27,
+     0.35
+    ],
+    "scale_ref": "kitchen doorway 0.81 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.2,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome3-2-console",
+   "type": "console",
+   "label": "beige four-drawer floating console",
+   "w": 1.2,
+   "d": 0.35,
+   "h": 0.3,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.82,
+   "source": {
+    "group": "myhome3",
+    "file": "Myhome3.mp4",
+    "t": 9.0,
+    "bbox": [
+     0.54,
+     0.56,
+     0.73,
+     0.68
+    ],
+    "scale_ref": "interior door 0.81 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.2,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome3-3-bed",
+   "type": "bed",
+   "label": "yellow upholstered queen bed",
+   "w": 1.65,
+   "d": 2.1,
+   "h": 1.1,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "bedroom"
+   ],
+   "conf": 0.95,
+   "source": {
+    "group": "myhome3",
+    "file": "Myhome3.mp4",
+    "t": 13.0,
+    "bbox": [
+     0.29,
+     0.51,
+     0.65,
+     0.9
+    ],
+    "scale_ref": "queen bed 1.52 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.2,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome3-4-sidetable",
+   "type": "sidetable",
+   "label": "white two-drawer nightstand left",
+   "w": 0.5,
+   "d": 0.4,
+   "h": 0.55,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "bedroom",
+    "living"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome3",
+    "file": "Myhome3.mp4",
+    "t": 13.0,
+    "bbox": [
+     0.21,
+     0.72,
+     0.3,
+     0.86
+    ],
+    "scale_ref": "queen bed 1.52 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.2,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome3-5-sidetable",
+   "type": "sidetable",
+   "label": "white nightstand right",
+   "w": 0.5,
+   "d": 0.4,
+   "h": 0.55,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "bedroom",
+    "living"
+   ],
+   "conf": 0.72,
+   "source": {
+    "group": "myhome3",
+    "file": "Myhome3.mp4",
+    "t": 13.0,
+    "bbox": [
+     0.61,
+     0.67,
+     0.68,
+     0.74
+    ],
+    "scale_ref": "queen bed 1.52 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.2,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-1-sofa",
+   "type": "sofa",
+   "label": "white fabric sofa",
+   "w": 2.2,
+   "d": 0.95,
+   "h": 0.78,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living"
+   ],
+   "conf": 0.8,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 2.0,
+    "bbox": [
+     0.21,
+     0.52,
+     0.47,
+     0.78
+    ],
+    "scale_ref": "seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-2-coffee",
+   "type": "coffee",
+   "label": "round white and chrome coffee table",
+   "w": 0.95,
+   "d": 0.95,
+   "h": 0.42,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living"
+   ],
+   "conf": 0.95,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 2.0,
+    "bbox": [
+     0.43,
+     0.62,
+     0.77,
+     0.88
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome1-3-rug",
+   "type": "rug",
+   "label": "round cream area rug",
+   "w": 2.3,
+   "d": 2.3,
+   "h": 0.02,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.88,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 3.0,
+    "bbox": [
+     0.2,
+     0.73,
+     0.82,
+     0.99
+    ],
+    "scale_ref": "coffee table 0.95 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome1-4-armchair",
+   "type": "armchair",
+   "label": "mauve and light wood armchair",
+   "w": 0.78,
+   "d": 0.75,
+   "h": 0.76,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.96,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 3.0,
+    "bbox": [
+     0.39,
+     0.52,
+     0.62,
+     0.78
+    ],
+    "scale_ref": "seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-5-pillow",
+   "type": "pillow",
+   "label": "cream throw pillow on armchair",
+   "w": 0.42,
+   "d": 0.42,
+   "h": 0.42,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.94,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 3.0,
+    "bbox": [
+     0.46,
+     0.54,
+     0.56,
+     0.64
+    ],
+    "scale_ref": "armchair 0.75 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-6-art",
+   "type": "art",
+   "label": "wavy organic wall mirror",
+   "w": 0.62,
+   "d": 0.05,
+   "h": 0.95,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.95,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 3.0,
+    "bbox": [
+     0.46,
+     0.25,
+     0.64,
+     0.54
+    ],
+    "scale_ref": "armchair 0.75 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-7-art",
+   "type": "art",
+   "label": "framed botanical leaf print",
+   "w": 0.55,
+   "d": 0.05,
+   "h": 0.72,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.92,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 4.0,
+    "bbox": [
+     0.45,
+     0.33,
+     0.6,
+     0.51
+    ],
+    "scale_ref": "wall mirror 0.62 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-8-art",
+   "type": "art",
+   "label": "small framed picture near window",
+   "w": 0.28,
+   "d": 0.05,
+   "h": 0.36,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.85,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 2.0,
+    "bbox": [
+     0.31,
+     0.4,
+     0.37,
+     0.48
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-9-console",
+   "type": "console",
+   "label": "low white sideboard console",
+   "w": 1.35,
+   "d": 0.42,
+   "h": 0.45,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 4.0,
+    "bbox": [
+     0.39,
+     0.56,
+     0.61,
+     0.68
+    ],
+    "scale_ref": "armchair seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-10-console",
+   "type": "console",
+   "label": "white console cabinet on right",
+   "w": 1.15,
+   "d": 0.4,
+   "h": 0.7,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.78,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 3.0,
+    "bbox": [
+     0.73,
+     0.56,
+     0.88,
+     0.79
+    ],
+    "scale_ref": "armchair 0.75 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-11-plant",
+   "type": "plant",
+   "label": "large bird of paradise potted plant",
+   "w": 1.4,
+   "d": 1.2,
+   "h": 2.1,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.94,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 4.0,
+    "bbox": [
+     0.21,
+     0.06,
+     0.62,
+     0.68
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome1-12-plant",
+   "type": "plant",
+   "label": "tall fiddle leaf fig potted plant",
+   "w": 0.8,
+   "d": 0.75,
+   "h": 1.75,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.92,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 3.0,
+    "bbox": [
+     0.63,
+     0.2,
+     0.84,
+     0.74
+    ],
+    "scale_ref": "armchair 0.75 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome1-13-vase",
+   "type": "vase",
+   "label": "clear wavy glass vase with purple flowers",
+   "w": 0.26,
+   "d": 0.26,
+   "h": 0.35,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "kitchen"
+   ],
+   "conf": 0.95,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 1.0,
+    "bbox": [
+     0.23,
+     0.3,
+     0.88,
+     0.82
+    ],
+    "scale_ref": "coffee table 0.95 m wide"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome1-14-pillow",
+   "type": "pillow",
+   "label": "round mauve throw pillow on sofa",
+   "w": 0.35,
+   "d": 0.35,
+   "h": 0.35,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 2.0,
+    "bbox": [
+     0.29,
+     0.55,
+     0.39,
+     0.64
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome1-15-pillow",
+   "type": "pillow",
+   "label": "cream fluffy throw pillow on sofa",
+   "w": 0.48,
+   "d": 0.48,
+   "h": 0.48,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 2.0,
+    "bbox": [
+     0.34,
+     0.49,
+     0.48,
+     0.59
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome1-16-pillow",
+   "type": "pillow",
+   "label": "patterned beige throw pillow on sofa",
+   "w": 0.45,
+   "d": 0.45,
+   "h": 0.45,
+   "color": "#b9ab98",
+   "color2": "#6b4a33",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.85,
+   "source": {
+    "group": "myhome1",
+    "file": "Myhome1.mp4",
+    "t": 2.0,
+    "bbox": [
+     0.22,
+     0.5,
+     0.33,
+     0.6
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 22.1,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-1-sofa",
+   "type": "sofa",
+   "label": "light grey fabric sofa",
+   "w": 2.4,
+   "d": 0.95,
+   "h": 0.82,
+   "color": "#a8a29c",
+   "color2": "#7c756e",
+   "rooms": [
+    "living"
+   ],
+   "conf": 0.72,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.23,
+     0.73,
+     0.78,
+     0.96
+    ],
+    "scale_ref": "seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-2-sofa",
+   "type": "sofa",
+   "label": "beige upholstered sofa",
+   "w": 1.8,
+   "d": 0.9,
+   "h": 0.8,
+   "color": "#b29c87",
+   "color2": "#8b7663",
+   "rooms": [
+    "living"
+   ],
+   "conf": 0.78,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.23,
+     0.6,
+     0.43,
+     0.77
+    ],
+    "scale_ref": "seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-3-coffee",
+   "type": "coffee",
+   "label": "dark brown wood coffee table",
+   "w": 1.3,
+   "d": 0.8,
+   "h": 0.4,
+   "color": "#4f3220",
+   "color2": "#362013",
+   "rooms": [
+    "living"
+   ],
+   "conf": 0.88,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.39,
+     0.67,
+     0.74,
+     0.83
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-4-rug",
+   "type": "rug",
+   "label": "beige area rug",
+   "w": 2.4,
+   "d": 1.7,
+   "h": 0.02,
+   "color": "#c9bca9",
+   "color2": "#a69783",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.65,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.34,
+     0.75,
+     0.77,
+     0.87
+    ],
+    "scale_ref": "coffee table width 1.3 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-5-tv",
+   "type": "tv",
+   "label": "black flat-screen TV",
+   "w": 1.35,
+   "d": 0.1,
+   "h": 0.78,
+   "color": "#111111",
+   "color2": "#2b2b2b",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.95,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.49,
+     0.43,
+     0.71,
+     0.56
+    ],
+    "scale_ref": "coffee table width 1.3 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-6-plant",
+   "type": "plant",
+   "label": "potted palm plant",
+   "w": 0.8,
+   "d": 0.8,
+   "h": 1.6,
+   "color": "#3d5e31",
+   "color2": "#59483b",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.9,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.33,
+     0.41,
+     0.45,
+     0.64
+    ],
+    "scale_ref": "beige sofa height 0.8 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome4-7-vase",
+   "type": "vase",
+   "label": "white flowers in tall vase",
+   "w": 0.45,
+   "d": 0.45,
+   "h": 0.9,
+   "color": "#eceae6",
+   "color2": "#2f332c",
+   "rooms": [
+    "living",
+    "kitchen"
+   ],
+   "conf": 0.88,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.69,
+     0.49,
+     0.77,
+     0.65
+    ],
+    "scale_ref": "TV height 0.78 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   },
+   "shape": "round"
+  },
+  {
+   "id": "src-myhome4-8-pillow",
+   "type": "pillow",
+   "label": "brown patterned throw pillow",
+   "w": 0.45,
+   "d": 0.45,
+   "h": 0.45,
+   "color": "#8b725e",
+   "color2": "#cbbba8",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.7,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.23,
+     0.59,
+     0.27,
+     0.63
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  },
+  {
+   "id": "src-myhome4-9-pillow",
+   "type": "pillow",
+   "label": "taupe throw pillow",
+   "w": 0.45,
+   "d": 0.45,
+   "h": 0.45,
+   "color": "#9c8570",
+   "color2": "#d1c3b2",
+   "rooms": [
+    "living",
+    "bedroom"
+   ],
+   "conf": 0.75,
+   "source": {
+    "group": "myhome4",
+    "file": "myhome4.mp4",
+    "t": 0.0,
+    "bbox": [
+     0.26,
+     0.59,
+     0.31,
+     0.64
+    ],
+    "scale_ref": "sofa seat height 0.45 m"
+   },
+   "default": true,
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 19.0,
+    "attempts": 1
+   }
+  }
+ ]
+}
