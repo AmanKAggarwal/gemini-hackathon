@@ -5,3 +5,6 @@ __pycache__/
 .DS_Store
 .env
 data/renders/
+data/custom_uploads/
+data/custom_studio_photos.json
+

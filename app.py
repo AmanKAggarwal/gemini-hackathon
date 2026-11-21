@@ -1,8 +1,9 @@
 """FastAPI server for Homeweave (`app.py`).
 
 Wires all pure JSON stages (`perceive_listing`, `perceive_home_video`, `perceive_hard_plan`,
-`judge_features`, `weave`, `arrange`, `judge_layouts`, `run_gemini_baseline`) to `./data`
-and serves the architectural 3D Residence viewer (`viewer.html`) at `/`.
+`judge_features`, `weave`, `arrange`, `judge_layouts`, `extract_style_from_photo`, `studio`)
+to `./data`, serves the unified flagship Homeweave Studio at `/` and `/studio`, and keeps
+the classic 5-layout architectural cutaway viewer accessible at `/classic`.
 """
 
 from __future__ import annotations
@@ -36,6 +37,7 @@ from schemas import (
     RoomType,
 )
 from style import build_default_style_bundle, extract_style_from_photo
+from studio import router as studio_router
 from weave import weave
 
 BASE_DIR = Path(__file__).parent
@@ -203,7 +205,8 @@ def ensure_seed_data(force: bool = False) -> None:
 
 
 ensure_seed_data(force=False)
-app = FastAPI(title="Homeweave", version="1.2.0")
+app = FastAPI(title="Homeweave", version="2.0.0")
+app.include_router(studio_router)
 
 
 class PerceiveListingReq(BaseModel):
@@ -265,9 +268,41 @@ class BuildStyledResidenceReq(BaseModel):
 
 
 @app.get("/", response_class=HTMLResponse)
+def serve_root_studio() -> HTMLResponse:
+    return HTMLResponse((BASE_DIR / "studio.html").read_text(encoding="utf-8"))
+
+
+@app.get("/classic", response_class=HTMLResponse)
 @app.get("/viewer.html", response_class=HTMLResponse)
 def serve_viewer() -> HTMLResponse:
     return HTMLResponse((BASE_DIR / "viewer.html").read_text(encoding="utf-8"))
+
+
+@app.get("/eval/summary")
+def serve_eval_summary() -> JSONResponse:
+    """Return measured Engine vs. Gemini-4-Neon Baseline & Stress Breaking Points."""
+    import csv
+
+    rows: list[dict[str, str]] = []
+    csv_path = DATA_DIR / "results.csv"
+    if csv_path.exists():
+        with csv_path.open("r", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+    results_md = (DATA_DIR / "results.md").read_text(encoding="utf-8") if (DATA_DIR / "results.md").exists() else ""
+    breaking_md = (
+        (DATA_DIR / "breaking_points.md").read_text(encoding="utf-8")
+        if (DATA_DIR / "breaking_points.md").exists()
+        else ""
+    )
+    return JSONResponse(
+        {
+            "ok": True,
+            "live_gemini": bool(os.environ.get("GEMINI_API_KEY")),
+            "rows": rows,
+            "results_md": results_md,
+            "breaking_points_md": breaking_md,
+        }
+    )
 
 
 @app.get("/home.json")

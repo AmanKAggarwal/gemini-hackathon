@@ -19,7 +19,13 @@ chmod +x run.sh
 ./run.sh
 ```
 
-`./run.sh` creates an isolated `.venv`, installs pinned dependencies from `requirements.txt`, runs `reproduce.py` (generating `./data/home.json`, `./data/layouts.json`, `./data/results.csv`, `./data/results.md`, and `./data/breaking_points.md` from the bundled NYC apartment schematics & photos in `data/drive_inputs/`), and launches the interactive 3D Residence server at **http://127.0.0.1:8000**.
+`./run.sh` creates an isolated `.venv`, installs pinned dependencies from `requirements.txt`, runs `reproduce.py` (generating `./data/home.json`, `./data/layouts.json`, `./data/styles.json`, `./data/results.csv`, `./data/results.md`, and `./data/breaking_points.md` from the bundled NYC apartment schematics & photos in `data/drive_inputs/`), and launches the **Unified Flagship Homeweave Studio** at **http://127.0.0.1:8000**:
+
+- **`http://127.0.0.1:8000/` (Unified Flagship Demo):**
+  1. **1 · Pick or Upload:** Choose a real NYC floor plan (`plan1`–`plan3` or `schematic`), pick from `K1–B4` **or upload your own photo** for Kitchen, Living, Bedroom, and Bathroom (`POST /studio/upload-photo` extracts stone/wood/palette/lighting via `gemini-4-hydrogen` or regional vision), and toggle owned furniture cropped from walkthrough videos.
+  2. **2 · Weave:** Watch the 8-orientation (`4 rotations × mirror`) geometric search & correspondence engine fit rooms and owned pieces directly over the architectural plan.
+  3. **3 · Move in · 3D & Judge:** Watch the 3D mover carry your furniture in with procedural PBR accent walls (`chiseled_limestone`, `calacatta_marble`, `fluted_panel`, `charcoal_gold_patina`), hanging island pendants, camera tour, `.webm` video recording, `★ Judge 3D` (`gemini-decision-1` rubric scoring), and the measured Engine vs. `gemini-4-neon` Baseline benchmark table.
+- **`http://127.0.0.1:8000/classic` (Classic 5-Candidate Cutaway):** Direct 5-layout `arrange.py` beam-search residence cutaway inspector.
 
 To re-run live Gemini 4 perception, weaving, judging, and the `gemini-4-neon` spatial placement baseline with your own API key:
 
