@@ -19,11 +19,15 @@ from __future__ import annotations
 
 import json
 import math
+import os
+import shutil
+import subprocess
+import time
 from collections import deque
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 
@@ -486,6 +490,71 @@ def studio_fit(req: FitReq) -> dict[str, Any]:
     return {"plan": plan["id"], "perception_source": cat["perception_source"], "rooms": out,
             "own_requested": [o["id"] for o in own],
             "own_leftovers": [{"id": o["id"], "label": o["label"]} for o in own if o["id"] not in placed]}
+
+
+@router.get("/studio/rank/{plan_id}")
+def studio_rank(plan_id: str) -> dict[str, Any]:
+    """The agent's pick: fit every photo into this plan's room of the same type and rank by fit cost."""
+    cat = load_catalog()
+    plan = next((p for p in cat["plans"] if p["id"] == plan_id), None)
+    if plan is None:
+        raise HTTPException(status_code=404, detail=f"unknown plan {plan_id}")
+    out: dict[str, list[dict[str, Any]]] = {}
+    for ph in cat["photos"]:
+        if ph["cat"] not in plan["rooms"]:
+            continue
+        r = fit_room(ph, plan, ph["cat"])
+        b = r["candidates"][r["best"]]
+        kept = sum(1 for i in b["items"] if i["status"] == "kept")
+        why = []
+        if b["leftovers"]:
+            why.append(f"{len(b['leftovers'])} piece(s) do not fit")
+        changed = len(b["items"]) - kept
+        if changed:
+            why.append(f"{changed} resized or moved")
+        w = b["check"]["walkway"]
+        why.append(f"walkway {w['width_m']:.1f} m" if w["width_m"] else "walkway blocked")
+        why.append(f"room maps at {b['sx'] * 100:.0f}% × {b['sz'] * 100:.0f}%")
+        out.setdefault(ph["cat"], []).append({
+            "id": ph["id"], "cost": b["cost"], "score": round(100 * math.exp(-b["cost"] / 12)), "orientation": b["name"],
+            "kept": kept, "placed": len(b["items"]), "leftovers": len(b["leftovers"]), "why": ", ".join(why)})
+    for v in out.values():
+        v.sort(key=lambda x: x["cost"])
+    return {"plan": plan_id, "rank": out}
+
+
+def find_blender() -> str | None:
+    """BLENDER_EXE, then PATH, then a portable copy under the user's home folder."""
+    cands = [os.environ.get("BLENDER_EXE"), shutil.which("blender")]
+    cands += [str(p) for p in sorted((Path.home() / "blender-portable").glob("*/blender.exe"), reverse=True)]
+    cands += [str(p) for p in sorted(Path("C:/Program Files/Blender Foundation").glob("*/blender.exe"), reverse=True)]
+    return next((c for c in cands if c and Path(c).exists()), None)
+
+
+@router.get("/studio/blender")
+def studio_blender_status() -> dict[str, Any]:
+    exe = find_blender()
+    return {"available": exe is not None, "exe": Path(exe).parent.name if exe else None}
+
+
+@router.post("/studio/blender")
+async def studio_blender(request: Request) -> FileResponse:
+    """Body: the page's scene as binary glTF. Header X-Camera: JSON camera + render settings. Returns a PNG."""
+    exe = find_blender()
+    if exe is None:
+        raise HTTPException(status_code=503, detail="Blender not found. Set BLENDER_EXE or install Blender.")
+    out_dir = BASE_DIR / "data" / "renders"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stamp = time.strftime("%H%M%S")
+    glb, png, cam = out_dir / f"scene_{stamp}.glb", out_dir / f"blender_{stamp}.png", out_dir / f"camera_{stamp}.json"
+    glb.write_bytes(await request.body())
+    cam.write_text(request.headers.get("x-camera", "{}"), encoding="utf-8")
+    t0 = time.time()
+    proc = subprocess.run([exe, "-b", "--factory-startup", "-P", str(BASE_DIR / "blender_render.py"), "--", str(glb), str(png), str(cam)],
+                          capture_output=True, text=True, timeout=600)
+    if not png.exists():
+        raise HTTPException(status_code=500, detail=("Blender failed: " + (proc.stderr or proc.stdout)[-600:]))
+    return FileResponse(png, media_type="image/png", headers={"X-Render-Seconds": f"{time.time() - t0:.1f}"})
 
 
 class CheckReq(BaseModel):

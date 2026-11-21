@@ -109,6 +109,10 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 .log i.rv{color:#c58af9}.vd{display:inline-block;padding:1px 9px;border-radius:99px;font-size:12px;font-weight:600}.vd.approved{background:rgba(129,201,149,.16);color:var(--ok)}.vd.corrected{background:rgba(138,180,248,.16);color:var(--gold2)}.vd.needs{background:rgba(242,139,130,.16);color:var(--bad)}
 .drag{cursor:grab}.drag:active{cursor:grabbing}.badbox{fill:rgba(242,139,130,.18);stroke:#ea4335;stroke-width:.05}
 .edit{color:var(--mute);font-size:13px;margin:10px 4px 0}
+.fit{position:absolute;top:10px;left:46px;background:rgba(0,0,0,.6);padding:2px 9px;border-radius:99px;font-size:12px}.fit.top{background:var(--grad);color:#fff;font-weight:600}
+.card .why{display:block;color:var(--gold2);font-size:12px;margin-top:3px}
+#bl{position:absolute;inset:0;background:#131314;border-radius:18px;overflow:hidden;z-index:5}#bl img{width:100%;height:100%;object-fit:contain;display:block}
+#bl button{position:absolute;top:12px;right:12px}#bl span{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.6);border-radius:99px;padding:5px 12px;font-size:12.5px;color:var(--gold2)}
 </style>
 </head>
 <body>
@@ -129,13 +133,14 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
       <span class="seg hide" id="seg"><button id="v2d">2D plan</button><button id="v3d" class="on">3D</button></span>
       <button class="ghostbtn hide" id="tour">▶ Play tour</button>
       <button class="ghostbtn hide" id="rec">● Record video</button>
+      <button class="ghostbtn hide" id="blend">✦ Render in Blender</button>
       <button class="ghostbtn hide" id="walk">Walk inside</button>
       <button class="ghostbtn" id="skip">Skip animation</button>
       <button class="ghostbtn hide" id="replay">Replay</button>
       <button class="ghostbtn" id="back">Change picks</button>
     </div>
     <div class="weave">
-      <div class="stage" id="stage"><svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg><p class="edit hide" id="edit" style="color:#5f6368">Live edit: drag any piece on the plan, double-click to rotate it. The reviewer re-checks the room when you let go.</p><div id="three" class="hide"><div id="carry" class="hide"></div><div id="inset" class="hide"></div><div id="hint"></div></div></div>
+      <div class="stage" id="stage"><svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg><p class="edit hide" id="edit" style="color:#5f6368">Live edit: drag any piece on the plan, double-click to rotate it. The reviewer re-checks the room when you let go.</p><div id="three" class="hide"><div id="bl" class="hide"><img id="blImg" alt="Blender render of the current view"><span id="blCap"></span><button class="ghostbtn" id="blClose" style="background:rgba(0,0,0,.6)">Back to live 3D</button></div><div id="carry" class="hide"></div><div id="inset" class="hide"></div><div id="hint"></div></div></div>
       <div class="side">
         <div class="box" id="gbox"><h4>Gauging the photo</h4>
           <div class="gauge"><div class="photo"><img id="gImg" alt=""><div class="scan" id="scan"></div><span class="dim w" id="dimW"></span><span class="dim d" id="dimD"></span></div>
@@ -152,6 +157,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 <div class="tray" id="tray">
   <div class="slot" id="s-plan">plan</div><div class="slot" id="s-kitchen">K</div><div class="slot" id="s-living">L</div><div class="slot" id="s-bedroom">Be</div><div class="slot" id="s-bathroom">B</div>
   <div class="msg" id="trayMsg"></div>
+  <button class="ghostbtn" id="auto" disabled>✦ Let the agent pick</button>
   <button class="go" id="go" disabled>Weave into floor plan →</button>
 </div>
 <script>
@@ -184,7 +190,12 @@ async function init(){
     if(c.dataset.own){own.has(c.dataset.own)?own.delete(c.dataset.own):own.add(c.dataset.own)}else if(c.dataset.plan) plan=c.dataset.plan; else picks[c.dataset.cat]=c.dataset.id; syncPick();});
   syncPick();
 }
-function syncPick(){
+let RANK=null,rankFor=null;
+async function loadRank(){if(!plan||rankFor===plan)return;rankFor=plan;RANK=(await (await fetch('/studio/rank/'+plan)).json()).rank;
+  for(const k in RANK)RANK[k].forEach((r,n)=>{const c=document.querySelector(`.card[data-id="${r.id}"]`);if(!c)return;c.querySelectorAll('.fit,.why').forEach(e=>e.remove());
+    c.insertAdjacentHTML('afterbegin',`<span class="fit ${n?'':'top'}">${n?'':'✦ agent pick · '}fit ${r.score}</span>`);c.querySelector('.cap').insertAdjacentHTML('beforeend',`<span class="why">${r.orientation} · ${r.why}</span>`)});
+  $('auto').disabled=false}
+function syncPick(){loadRank();
   document.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel',c.dataset.own?own.has(c.dataset.own):c.dataset.plan?c.dataset.plan===plan:picks[c.dataset.cat]===c.dataset.id));
   if($('t-own'))$('t-own').textContent=own.size?'✓ '+own.size+' pieces':'';
   const P=CAT.plans.find(p=>p.id===plan);
@@ -368,8 +379,8 @@ function verifyCard(){
   <p>Still unverified: furniture sizes are read by eye from video frames (no LiDAR or tape measure), and photo room sizes are estimates. Measure one known object per room, such as a door (0.81 m), to confirm.</p></div>`}
 let dirty=false,editable=false;
 function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true)}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
-  $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
-function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec'].forEach(b=>$(b).classList.add('hide'))}
+  $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
+function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend'].forEach(b=>$(b).classList.add('hide'))}
 async function moveIn(){
   if(!window.Studio3D){logLine('3d','The 3D engine did not load (three.js comes from a CDN and needs internet).');return}
   const my=runId;$('seg').classList.remove('hide');view('3d');$('skip').classList.remove('hide');$('replay').classList.add('hide');
@@ -419,6 +430,11 @@ async function recheck(i,what){const f=FIT.rooms[i],key=f.room.key;
   $('room'+i).innerHTML=roomMarkup(i,f.candidates[f.best],false,f.final.items);renderSum();
   logLine('room','Live edit · '+f.room.label.toLowerCase());logLine('edit','You '+what+'.');
   for(const n of f.review.findings)logLine('review',n.text);logLine('review',vd(f.review)+(f.review.findings.length?'':' Placement looks fine.'))}
+$('blClose').onclick=()=>$('bl').classList.add('hide');
+$('blend').onclick=async()=>{const b=$('blend');b.disabled=true;b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing).');
+  try{const r=await Studio3D.blender();$('blImg').src=r.url;$('blCap').textContent=`Blender Cycles · ${r.seconds.toFixed(0)} s · same scene, ${r.kb} KB glTF`;$('bl').classList.remove('hide');logLine('3d',`Blender finished in ${r.seconds.toFixed(0)} s.`)}
+  catch(e){logLine('3d','Blender render failed: '+e.message)}b.disabled=false;b.textContent='✦ Render in Blender'};
+$('auto').onclick=()=>{if(!RANK)return;for(const k in RANK)picks[k]=RANK[k][0].id;syncPick()};
 $('go').onclick=start;
 $('skip').onclick=()=>{speed=0};
 $('replay').onclick=()=>{reset3d();run()};
@@ -438,6 +454,7 @@ import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
 
 const box=document.getElementById('three'), hint=document.getElementById('hint'), carry=document.getElementById('carry'), inset=document.getElementById('inset');
 const renderer=new THREE.WebGLRenderer({antialias:true});
@@ -551,7 +568,7 @@ async function show(P,FIT,CAT,log,sp,alive){
     fl.rotation.x=-Math.PI/2;fl.position.set(ox+r.w/2,.012,oz+r.d/2);fl.receiveShadow=true;world.add(fl);
     const pl=new THREE.PointLight(p.glow,3.2,Math.max(r.w,r.d)*1.7,1.5);pl.position.set(ox+r.w/2,2.0,oz+r.d/2);world.add(pl);
     // inward-facing wall planes: from outside you look straight through the near walls
-    const wallC=p.wall?lt(p.wall,.12):lt(mixc(p.floor,p.top,.5),.25),wm=new THREE.MeshStandardMaterial({color:wallC,roughness:.95,envMapIntensity:.15}),cove=M(p.glow,{glow:2.4});
+    const wallC=p.wall?lt(p.wall,.12):lt(mixc(p.floor,p.top,.5),.25),wm=new THREE.MeshStandardMaterial({color:wallC,roughness:.95,envMapIntensity:.15,name:'wall'}),cove=M(p.glow,{glow:2.4});
     const touch={N:0,E:0,S:0,W:0};f.final.items.forEach(i=>{if(i.floor)return;const q=i.rect;if(q[1]<.06)touch.N++;if(q[1]+q[3]>r.d-.06)touch.S++;if(q[0]<.06)touch.W++;if(q[0]+q[2]>r.w-.06)touch.E++});
     let artSide=null;
     for(const side of 'NESW'){if(r.open.includes(side))continue;const horiz=side==='N'||side==='S',L=horiz?r.w:r.d;let gaps=[];
@@ -628,7 +645,13 @@ renderer.setAnimationLoop(()=>{const raw=clock.getDelta(),dt=Math.min(raw,.1);
     if(f)fps.moveForward(f*v);if(r)fps.moveRight(r*v);cam.position.x=Math.max(-bounds.x,Math.min(bounds.x,cam.position.x));cam.position.z=Math.max(-bounds.z,Math.min(bounds.z,cam.position.z));cam.position.y=1.6}
   else if(!touring)orbit.update();
   if(!box.classList.contains('hide'))composer.render()});
-window.Studio3D={show,walk,resize,tour,stopTour(){touring=false}};
+async function blender(opts={}){if(!world)throw new Error('no scene');
+  const glb=await new Promise((res,rej)=>new GLTFExporter().parse(world,res,rej,{binary:true,onlyVisible:true}));
+  const camera={position:cam.position.toArray(),target:orbit.target.toArray(),fov:cam.fov,width:1280,height:Math.round(1280/cam.aspect),...opts};
+  const r=await fetch('/studio/blender',{method:'POST',headers:{'Content-Type':'model/gltf-binary','X-Camera':JSON.stringify(camera)},body:glb});
+  if(!r.ok)throw new Error((await r.json()).detail||'render failed');
+  return {url:URL.createObjectURL(await r.blob()),seconds:+r.headers.get('X-Render-Seconds'),kb:Math.round(glb.byteLength/1024)}}
+window.Studio3D={show,walk,resize,tour,blender,stopTour(){touring=false}};
 
 </script>
 </body>
