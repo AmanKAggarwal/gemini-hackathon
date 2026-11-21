@@ -126,7 +126,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 <main>
   <section id="pick">
     <h1>Pick the rooms you love</h1>
-    <p class="lede">Choose the floor plan of the new home, one photo for each room, and the furniture you want to bring from your videos. The agent gauges each photo, fits it into the real room, then moves your own pieces in.</p>
+    <p class="lede">Choose the floor plan of the new home, then one look for every room on it, then the things you want to bring. The plan's layout is kept exactly: the bathtub, counters and closets stay where they are drawn. Photos only give each room its colours, materials and decor.</p>
     <div id="rows"></div>
   </section>
   <section id="weave" class="hide">
@@ -159,7 +159,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 </main>
 <input type="file" id="file" accept="image/*" class="hide">
 <div class="tray" id="tray">
-  <div class="slot" id="s-plan">plan</div><div class="slot" id="s-kitchen">K</div><div class="slot" id="s-living">L</div><div class="slot" id="s-bedroom">Be</div><div class="slot" id="s-bathroom">B</div>
+  <div id="slots" style="display:flex;gap:8px;flex-wrap:wrap"></div>
   <div class="msg" id="trayMsg"></div>
   <button class="ghostbtn" id="auto" disabled>✦ Let the agent pick</button>
   <button class="go" id="go" disabled>Weave into floor plan →</button>
@@ -172,48 +172,51 @@ const sleep=ms=>speed?new Promise(r=>setTimeout(r,ms*speed)):Promise.resolve();
 const ft=m=>{const t=Math.round(m/0.0254);return Math.floor(t/12)+"'"+(t%12)+'"'};
 
 /* ---------- pick ---------- */
-let LIVE={available:false};
+let LIVE={available:false},RANK=null,rankFor=null;
+const TYPE_NAME={kitchen:'kitchen',living:'living room',bedroom:'bedroom',bathroom:'bathroom'};
+const planObj=()=>CAT&&CAT.plans.find(p=>p.id===plan);
 async function init(){
   CAT=await (await fetch('/studio/catalog')).json();
   try{LIVE=await (await fetch('/studio/live')).json()}catch(_){}
   $('percBadge').textContent=LIVE.available?'Gemini live · key loaded':'no API key · cached perception';
   $('percBadge').title=CAT.perception_note;
-  let h='<div class="row"><h3>Floor plan of the new home <small>choose 1 of '+CAT.plans.length+'</small><span class="tick" id="t-plan"></span><button class="ghostbtn add" data-add="plan">+ Add a floor plan · Gemini Neon reads it</button></h3><div class="cards">';
-  for(const p of CAT.plans) h+=`<button class="card plan" data-plan="${p.id}">${p.live?'<span class="livetag" style="top:10px">read live</span>':''}<img src="${IMG(p.image)}" alt="Floor plan: ${p.name}"><div class="cap"><b>${p.name}</b><span>${p.subtitle}</span></div></button>`;
-  h+='</div></div>';
-  for(const [k,label] of CATS){
-    const ph=CAT.photos.filter(p=>p.cat===k);
-    h+=`<div class="row"><h3>${label} <small>choose 1 of ${ph.length}</small><span class="tick" id="t-${k}"></span><button class="ghostbtn add" data-add="${k}">+ Add a photo · Gemini Hydrogen gauges it</button></h3><div class="cards">`;
-    for(const p of ph) h+=`<button class="card" data-cat="${k}" data-id="${p.id}"><span class="tag">${p.id}</span>${p.live?'<span class="livetag">gauged live</span>':''}<img src="${IMG(p.file)}" alt="${p.title}: ${p.vibe}" loading="lazy"><div class="sw">${(p.swatches||[]).map(c=>`<i style="background:${c}"></i>`).join('')}</div><div class="cap"><b>${p.title}</b><span>${p.vibe}</span></div></button>`;
-    h+='</div></div>';
-  }
+  let h='<div class="row"><h3>Floor plan of the new home <small>choose 1 of '+CAT.plans.length+' · its layout is kept as drawn</small><span class="tick" id="t-plan"></span><button class="ghostbtn add" data-add="plan">+ Add a floor plan · Gemini Neon reads it</button></h3><div class="cards">';
+  for(const p of CAT.plans) h+=`<button class="card plan" data-plan="${p.id}">${p.live?'<span class="livetag" style="top:10px">read by Gemini</span>':''}<img src="${IMG(p.image)}" alt="Floor plan: ${p.name}"><div class="cap"><b>${p.name}</b><span>${p.subtitle} · ${Object.keys(p.rooms).length} rooms to style</span></div></button>`;
+  h+='</div></div><div id="roomRows"></div>';
   const inv=CAT.inventory||{items:[],sources:[]};
-  if(inv.items.length){h+=`<div class="row"><h3>Your furniture <small>seen in your videos · choose what moves with you</small><span class="tick" id="t-own"></span></h3><div class="cards">`;
-    for(const it of inv.items){const g=inv.sources.find(x=>x.id===it.source.group);if(it.default)own.add(it.id);
-      h+=`<button class="card own" data-own="${it.id}"><span class="src">${g?g.label:''} · ${it.source.t.toFixed(0)}s</span><img src="/studio/item/${it.id}.jpg" alt="${it.label}" loading="lazy"><div class="cap"><b>${it.label}</b><span>≈ ${it.w.toFixed(2)} × ${it.d.toFixed(2)} m · confidence ${it.conf.toFixed(2)}</span></div></button>`}
+  if(inv.items.length){h+=`<div class="row"><h3>Your things <small>pointed out in your home videos by Gemini · tick what moves with you</small><span class="tick" id="t-own"></span></h3><div class="cards">`;
+    for(const it of inv.items){const g=inv.sources.find(x=>x.id===it.source.group);if(it.default&&!init.done)own.add(it.id);
+      h+=`<button class="card own" data-own="${it.id}"><span class="src">${g?g.label:''} · ${it.source.t.toFixed(0)}s · ${it.type}</span><img src="/studio/item/${it.id}.jpg" alt="${it.label}" loading="lazy"><div class="cap"><b>${it.label}</b><span>≈ ${it.w.toFixed(2)} × ${it.d.toFixed(2)} m · confidence ${it.conf.toFixed(2)}</span></div></button>`}
     h+='</div></div>'}
+  init.done=true;
   $('rows').innerHTML=h;
   if(!init.bound){init.bound=true;$('rows').addEventListener('click',e=>{const a=e.target.closest('[data-add]');if(a){addKind=a.dataset.add;$('file').click();return}const c=e.target.closest('.card');if(!c)return;
-    if(c.dataset.own){own.has(c.dataset.own)?own.delete(c.dataset.own):own.add(c.dataset.own)}else if(c.dataset.plan) plan=c.dataset.plan; else picks[c.dataset.cat]=c.dataset.id; syncPick();})}
-  rankFor=null;
-  syncPick();
+    if(c.dataset.own){own.has(c.dataset.own)?own.delete(c.dataset.own):own.add(c.dataset.own)}else if(c.dataset.plan){plan=c.dataset.plan;buildRooms();return}else picks[c.dataset.room]=c.dataset.id;syncPick()})}
+  buildRooms();
 }
-let RANK=null,rankFor=null;
-async function loadRank(){if(!plan||rankFor===plan)return;rankFor=plan;RANK=(await (await fetch('/studio/rank/'+plan)).json()).rank;
-  for(const k in RANK)RANK[k].forEach((r,n)=>{const c=document.querySelector(`.card[data-id="${r.id}"]`);if(!c)return;c.querySelectorAll('.fit,.why').forEach(e=>e.remove());
-    c.insertAdjacentHTML('afterbegin',`<span class="fit ${n?'':'top'}">${n?'':'✦ agent pick · '}fit ${r.score}</span>`);c.querySelector('.cap').insertAdjacentHTML('beforeend',`<span class="why">${r.orientation} · ${r.why}</span>`)});
+function buildRooms(){
+  const P_=planObj();let h='';rankFor=null;RANK=null;
+  if(!P_){$('roomRows').innerHTML='<p class="lede">Choose a floor plan first. You then pick one look for every room on it, so a 2-bedroom, 2-bath plan asks for two bedroom looks and two bathroom looks.</p>';syncPick();return}
+  for(const k of Object.keys(picks))if(!P_.rooms[k])delete picks[k];
+  for(const [k,r] of Object.entries(P_.rooms)){const ph=CAT.photos.filter(p=>p.cat===r.type),nf=(r.fixtures||[]).length;
+    h+=`<div class="row"><h3>${r.label} <small>${nf?nf+' fixture'+(nf>1?'s':'')+' stay as drawn · ':''}choose a ${TYPE_NAME[r.type]} look, 1 of ${ph.length}</small><span class="tick" id="t-${k}"></span><button class="ghostbtn add" data-add="${r.type}">+ Add a photo · Gemini Hydrogen gauges it</button></h3><div class="cards">`;
+    for(const p of ph)h+=`<button class="card" data-room="${k}" data-id="${p.id}"><span class="tag">${p.id}</span>${p.live?'<span class="livetag">gauged live</span>':''}<img src="${IMG(p.file)}" alt="${p.title}: ${p.vibe}" loading="lazy"><div class="sw">${(p.swatches||[]).map(c=>`<i style="background:${c}"></i>`).join('')}</div><div class="cap"><b>${p.title}</b><span>${p.vibe}</span></div></button>`;
+    h+='</div></div>'}
+  $('roomRows').innerHTML=h;syncPick();
+}
+async function loadRank(){if(!plan||rankFor===plan)return;rankFor=plan;const mine=plan;const rk=(await (await fetch('/studio/rank/'+plan)).json()).rank;if(mine!==plan)return;RANK=rk;
+  for(const k in RANK)RANK[k].forEach((r,n)=>{const c=document.querySelector(`.card[data-room="${k}"][data-id="${r.id}"]`);if(!c)return;c.querySelectorAll('.fit,.why').forEach(e=>e.remove());
+    c.insertAdjacentHTML('afterbegin',`<span class="fit ${n?'':'top'}">${n?'':'✦ agent pick · '}match ${r.score}</span>`);c.querySelector('.cap').insertAdjacentHTML('beforeend',`<span class="why">${r.why}</span>`)});
   $('auto').disabled=false}
 function syncPick(){loadRank();
-  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel',c.dataset.own?own.has(c.dataset.own):c.dataset.plan?c.dataset.plan===plan:picks[c.dataset.cat]===c.dataset.id));
-  if($('t-own'))$('t-own').textContent=own.size?'✓ '+own.size+' pieces':'';
-  const P=CAT.plans.find(p=>p.id===plan);
-  $('s-plan').innerHTML=P?`<img src="${IMG(P.image)}" alt="" style="object-fit:contain;background:#f6f1e7">`:'plan';
-  $('t-plan').textContent=P?'✓ '+P.name:'';
-  let n=P?1:0;
-  for(const [k,,short] of CATS){const p=CAT.photos.find(x=>x.id===picks[k]);
-    $('s-'+k).innerHTML=p?`<img src="${IMG(p.file)}" alt="">`:short; $('t-'+k).textContent=p?'✓ '+p.title:''; if(p)n++;}
-  $('go').disabled=n<5;
-  $('trayMsg').textContent=n<5?`${n} of 5 chosen. Pick a plan and one photo per room.`:`All set. ${own.size} of your own pieces will move in.`;
+  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('sel',c.dataset.own?own.has(c.dataset.own):c.dataset.plan?c.dataset.plan===plan:picks[c.dataset.room]===c.dataset.id));
+  if($('t-own'))$('t-own').textContent=own.size?'✓ '+own.size+' things':'';
+  const P_=planObj();$('t-plan').textContent=P_?'✓ '+P_.name:'';
+  let sl=`<div class="slot">${P_?`<img src="${IMG(P_.image)}" alt="" style="object-fit:contain;background:#f8fafd">`:'plan'}</div>`,n=0,tot=0;
+  if(P_)for(const [k,r] of Object.entries(P_.rooms)){tot++;const p=CAT.photos.find(x=>x.id===picks[k]);if(p)n++;
+    sl+=`<div class="slot" title="${r.label}">${p?`<img src="${IMG(p.file)}" alt="">`:r.type[0].toUpperCase()+(r.type==='bedroom'||r.type==='bathroom'?r.type[1]:'')}</div>`;const t=$('t-'+k);if(t)t.textContent=p?'✓ '+p.title:''}
+  $('slots').innerHTML=sl;const ready=!!P_&&n===tot;$('go').disabled=!ready;
+  $('trayMsg').textContent=!P_?'Pick a floor plan to start.':ready?`All ${tot} rooms have a look. ${own.size} of your own things will move in.`:`${n} of ${tot} rooms have a look.`;
 }
 
 /* ---------- colour + drawing helpers (units: metres) ---------- */
@@ -232,7 +235,7 @@ const DRAW={
     if(o.feat==='hob'){const cx=w/2;s+=R(cx-.3,.1,.6,d-.2,'#151413',.03);for(const[a,b]of[[-.15,.2],[.15,.2],[-.15,d-.2],[.15,d-.2]])s+=C(cx+a,b,.075,'none','stroke="#8a8782" stroke-width=".018"');}
     if(o.feat==='sink'){const cx=w/2;s+=R(cx-.3,.12,.6,d-.24,dk(p.top,.22),.06)+C(cx,.08,.03,p.metal);}
     return s},
-  island(w,d,p,o){const td=d-.45,n=o.n||3;let s=glow(-.04,-.04,w+.08,td+.08,p.glow)+R(0,0,w,td,p.top,.04)+R(.06,.06,w-.12,td-.12,lt(p.top,.12),.03,'stroke="rgba(0,0,0,.12)" stroke-width=".015"');
+  island(w,d,p,o){const td=o.plan?d:d-.45,n=o.plan?0:(o.n||3);let s=glow(-.04,-.04,w+.08,td+.08,p.glow)+R(0,0,w,td,p.top,.04)+R(.06,.06,w-.12,td-.12,lt(p.top,.12),.03,'stroke="rgba(0,0,0,.12)" stroke-width=".015"');
     if(o.feat==='sink')s+=R(w/2-.28,.18,.56,td-.4,dk(p.top,.22),.05);
     for(let i=0;i<n;i++){const x=w*(i+.5)/n;s+=C(x,td+.22,.19,p.soft)+`<path d="M${x-.16} ${td+.3} a.17 .17 0 0 0 .32 0" fill="none" stroke="${dk(p.soft,.35)}" stroke-width=".05"/>`}
     return s},
@@ -267,17 +270,23 @@ const DRAW={
     return s+R(0,0,w,d,'rgba(190,230,245,.18)',.02,'stroke="#bfe6f2" stroke-width=".045"')+C(w/2,d*.3,.12,'none',`stroke="${p.metal}" stroke-width=".025"`)+R(w/2-.12,d*.7,.24,.05,'#55504a',.01,'')}
 };
 Object.assign(DRAW,{
+  closet(w,d,p){let s=R(0,0,w,d,dk(p.cab,.25),.03);const cols=[p.soft,p.accent,p.rug,p.top,'#f1ece2'],dd=Math.min(d,.55);for(let x=.1,i=0;x<w-.08;x+=.13,i++)s+=R(x,.06,.09,dd-.12,cols[i%5],.02,'stroke="rgba(0,0,0,.25)" stroke-width=".01"');return s+glow(.05,dd,w-.1,.05,p.glow)},
+  washer(w,d,p){return R(0,0,w,d,'#eef0f2',.04)+C(w/2,d/2,Math.min(w,d)*.3,'#9aa3ad')},
+  art(w,d,p){return R(0,0,w,d,p.pop,.01)+R(.03,0,w-.06,d,p.soft,.01,'')},
+  vase(w,d,p){return C(w/2,d/2,w*.3,p.soft)+C(w/2-.06,d/2-.05,.06,p.pop,'')+C(w/2+.07,d/2,.06,p.pop,'')+C(w/2,d/2+.07,.05,'#6f8a52','')},
+  pillow(w,d,p){return R(0,0,w,d,p.soft,.1)+R(.08,.08,w-.16,d-.16,'none',.06,`stroke="${p.pop}" stroke-width=".02"`)},
+  owntv(w,d,p){return R(0,0,w,Math.max(d,.08),'#0b0a09',.02)},
   sidetable(w,d,p){return C(w/2,d/2,w/2,p.soft)+C(w/2,d/2,w/2-.06,lt(p.soft,.15),'stroke="rgba(0,0,0,.2)" stroke-width=".012"')},
   bookshelf(w,d,p){let s=R(0,0,w,d,p.soft,.02);for(let i=1;i<5;i++)s+=`<line x1="${w*i/5}" y1="0" x2="${w*i/5}" y2="${d}" stroke="rgba(255,255,255,.25)" stroke-width=".015"/>`;return s+R(w*.1,.08,w*.12,d-.16,p.pop,.01,'')},
   console(w,d,p){return R(0,0,w,d,p.pop,.08)+R(.03,.03,w-.06,d-.06,lt(p.pop,.2),.06,'stroke="rgba(0,0,0,.12)" stroke-width=".012"')+C(w*.25,d/2,.13,'#7fa39a')+C(w*.25+.08,d/2-.05,.07,'#b8566a','')},
   table(w,d,p){return R(0,0,w,d,p.soft,.03)+C(w*.2,d/2,.07,'#b9bcc0')+C(w*.75,d/2,.05,'#f6f2ea')+C(w*.82,d/2+.08,.05,'#f6f2ea')},
   bench(w,d,p){let s=R(0,0,w,d,p.soft,.03);for(let x=.08;x<w;x+=.08)s+=`<line x1="${x}" y1=".03" x2="${x}" y2="${d-.03}" stroke="rgba(0,0,0,.18)" stroke-width=".012"/>`;return s}});
-const ownPal=(p,it)=>({...p,soft:it.color,pop:it.color2,top:it.color,cab:it.color2,rug:it.color,accent:it.color2});
+const ownPal=(p,it)=>({...p,soft:it.color,pop:it.color2,top:it.color,cab:it.color2,rug:it.color,accent:it.color2,metal:it.color});
 function drawItem(it,p,delay){
   if(it.own)p=ownPal(p,it);
   const [x,z,bw,bd]=it.rect, cx=x+bw/2, cz=z+bd/2, ang={S:0,W:90,N:180,E:270}[it.face]||0;
   const w=(it.face==='E'||it.face==='W')?bd:bw, d=(it.face==='E'||it.face==='W')?bw:bd;
-  const fn=DRAW[it.type]||((w,d)=>R(0,0,w,d,'#888'));
+  const fn=DRAW[it.own&&it.type==='tv'?'owntv':it.type]||((w,d)=>R(0,0,w,d,'#888'));
   return `<g class="${delay===null?'':'item '}drag" data-id="${it.id}" style="animation-delay:${delay||0}s"><g transform="translate(${cx} ${cz}) rotate(${ang}) ${it.flip&&it.type==='sectional'?'scale(-1 1)':''} translate(${-w/2} ${-d/2})"><title>${it.label}${it.note?' — '+it.note:''}</title>${fn(w,d,p,it)}${it.own?`<rect class="yours" x="-.05" y="-.05" width="${w+.1}" height="${d+.1}" rx=".08"/>`:''}</g></g>`;
 }
 function floorPattern(id,p){
@@ -304,7 +313,7 @@ function roomMarkup(i,cand,animate,list){
   const f=FIT.rooms[i], r=f.room, ph=CAT.photos.find(x=>x.id===f.photo_id), p=ph.palette;
   let s=`<g clip-path="url(#cp${i})"><rect class="fadein" width="${r.w}" height="${r.d}" fill="url(#fl${i})"/>`;
   r.obstacles.forEach(o=>s+=`<rect x="${o[0]}" y="${o[1]}" width="${o[2]}" height="${o[3]}" fill="#f6f1e7" stroke="#7d8798" stroke-width=".04"/>`);
-  const items=[...(list||cand.items)].sort((a,b)=>(b.floor-a.floor)||((a.own?1:0)-(b.own?1:0)));
+  const lay=i=>(i.on||i.wall)?3:i.floor?0:i.own?2:1;const items=[...(list||cand.items)].sort((a,b)=>lay(a)-lay(b));
   items.forEach((it,n)=>s+=drawItem(it,p,animate?0.15+n*0.22:null));
   const bad=new Set((f.final&&f.final.check.bad_ids)||[]);if(list)list.filter(it=>bad.has(it.id)).forEach(it=>s+=`<rect class="badbox" x="${it.rect[0]}" y="${it.rect[1]}" width="${it.rect[2]}" height="${it.rect[3]}" rx=".05" pointer-events="none"/>`);
   s+=`<rect class="fadein" width="${r.w}" height="${r.d}" fill="url(#vg${i})" pointer-events="none"/></g>`;
@@ -351,15 +360,16 @@ async function run(){
     $('dimW').textContent='≈ '+f.gauged.w.toFixed(1)+' m wide';$('dimD').textContent='≈ '+f.gauged.d.toFixed(1)+' m deep';$('dimW').classList.add('show');$('dimD').classList.add('show');
     logLine('gauge',f.log[0].text);
     for(const it of ph.items){$('gChips').insertAdjacentHTML('beforeend',`<span class="chip">${it.label} · ${Math.max(it.w,it.d).toFixed(1)} m${it.inferred?' · assumed':''}</span>`);await sleep(160)}
-    logLine('gauge',f.log[1].text);await sleep(500);
+    logLine(f.log[1].phase,f.log[1].text);await sleep(500);
     // pair
-    logLine('pair',f.log[2].text);await sleep(900);
+    logLine(f.log[2].phase,f.log[2].text);await sleep(700);logLine(f.log[3].phase,f.log[3].text);await sleep(500);
     // search
-    for(let n=0;n<f.candidates.length;n++){if(my!==runId)return;const c=f.candidates[n];
+    if(!f.has_loose)$('cands').innerHTML='<div class="cand win" style="grid-column:1/-1"><b>Layout fixed by the plan</b><span>fixtures are not moved, so there is nothing to try</span></div>';
+    for(let n=0;n<(f.has_loose?f.candidates.length:0);n++){if(my!==runId)return;const c=f.candidates[n];
       $('cd'+n).className='cand try';$('cd'+n).querySelector('span').textContent='cost '+c.cost.toFixed(1)+' · '+c.why;
       $('over'+i).innerHTML=ghostMarkup(i,c);$('morph').innerHTML=morph(f,c);await sleep(520);$('cd'+n).className='cand seen';}
-    $('cd'+f.best).className='cand win';$('morph').innerHTML=morph(f,best);
-    logLine('search',f.log[3].text);logLine('search',f.log[4].text);await sleep(500);
+    if(f.has_loose)$('cd'+f.best).className='cand win';$('morph').innerHTML=morph(f,best);
+    logLine(f.log[4].phase,f.log[4].text);await sleep(500);
     // place
     $('over'+i).innerHTML='';$('room'+i).innerHTML=roomMarkup(i,best,!!speed);
     for(const l of f.log.slice(5)){logLine(l.phase,l.text);await sleep(380)}
@@ -389,11 +399,12 @@ let dirty=false,editable=false;
 function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true)}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
   $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
 function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin'].forEach(b=>$(b).classList.add('hide'))}
+let moveP=Promise.resolve();
 async function moveIn(){
   if(!window.Studio3D){logLine('3d','The 3D engine did not load (three.js comes from a CDN and needs internet).');return}
   const my=runId;$('seg').classList.remove('hide');view('3d');$('skip').classList.remove('hide');$('replay').classList.add('hide');
   $('wTitle').textContent='Moving in · '+P.name;logLine('room','Move-in: the mover carries each piece to its spot');
-  await Studio3D.show(P,FIT,CAT,logLine,()=>speed,()=>my===runId);
+  moveP=Studio3D.show(P,FIT,CAT,logLine,()=>speed,()=>my===runId);await moveP;
   if(my!==runId)return;$('skip').classList.add('hide');$('replay').classList.remove('hide');$('wTitle').textContent='Your new home in 3D · '+P.name;editable=true;
 }
 function finish(){
@@ -438,7 +449,7 @@ async function recheck(i,what){const f=FIT.rooms[i],key=f.room.key;
   $('room'+i).innerHTML=roomMarkup(i,f.candidates[f.best],false,f.final.items);renderSum();
   logLine('room','Live edit · '+f.room.label.toLowerCase());logLine('edit','You '+what+'.');
   for(const n of f.review.findings)logLine('review',n.text);logLine('review',vd(f.review)+(f.review.findings.length?'':' Placement looks fine.'))}
-$('opin').onclick=async()=>{const b=$('opin');b.disabled=true;b.textContent='✦ Asking Gemini…';logLine('room','Second opinion · Decisions API');
+$('opin').onclick=async()=>{const b=$('opin');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='✦ Asking Gemini…';logLine('room','Second opinion · Decisions API');
   try{const shots=Studio3D.roomShots(FIT);const r=await fetch('/studio/second-opinion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({rooms:shots})});const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);
     for(const o of j.rooms){const f=FIT.rooms.find(x=>x.room.key===o.key),ours=(f.final.check.walkway.width_m||0)>=0.8;
       const line=Object.values(o.answers).map(v=>`<span class="op">${v.question} <b>${v.type==='noul'?Math.round(v.value*100)+'% yes':v.value.toFixed(1)+' / 5'}</b></span>`).join('<br>');
@@ -446,20 +457,20 @@ $('opin').onclick=async()=>{const b=$('opin');b.disabled=true;b.textContent='✦
       if(o.says_walkable!==null)logLine('review',o.says_walkable===ours?`Agrees with the rule reviewer on the walkway (${ours?'clear':'blocked'}).`:`<span class="warn">Disagrees with the rule reviewer: Gemini says the path is ${o.says_walkable?'clear':'blocked'}, the grid check says ${ours?'clear':'blocked'}.</span>`)}}
   catch(e){logLine('review','<span class="bad">Second opinion failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Gemini second opinion'};
 $('blClose').onclick=()=>$('bl').classList.add('hide');
-$('blend').onclick=async()=>{const b=$('blend');b.disabled=true;b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing).');
-  try{const r=await Studio3D.blender();$('blImg').src=r.url;$('blCap').textContent=`Blender Cycles · ${r.seconds.toFixed(0)} s · same scene, ${r.kb} KB glTF`;$('bl').classList.remove('hide');logLine('3d',`Blender finished in ${r.seconds.toFixed(0)} s.`)}
+$('blend').onclick=async()=>{const b=$('blend');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing).');
+  try{const r=await Studio3D.blender({room:'living'});$('blImg').src=r.url;$('blCap').textContent=`Blender Cycles · living room at eye level · ${r.seconds.toFixed(0)} s · same scene, ${r.kb} KB glTF`;$('bl').classList.remove('hide');logLine('3d',`Blender finished in ${r.seconds.toFixed(0)} s.`)}
   catch(e){logLine('3d','Blender render failed: '+e.message)}b.disabled=false;b.textContent='✦ Render in Blender'};
 let addKind=null;
 $('file').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const plan_=addKind==='plan';
   $('trayMsg').textContent=plan_?`Gemini Neon is reading ${f.name}…`:`Gemini Hydrogen is gauging ${f.name}…`;const t0=performance.now();
   const r=await fetch(plan_?'/studio/perceive/plan':'/studio/perceive/photo/'+addKind,{method:'POST',headers:{'Content-Type':f.type||'application/octet-stream','X-Filename':encodeURIComponent(f.name)},body:f});
   const j=await r.json();if(!r.ok){$('trayMsg').innerHTML='<span class="bad">Could not add it: '+(j.detail||r.status)+'</span>';return}
-  if(plan_)plan=j.id;else picks[addKind]=j.id;await init();const secs=((performance.now()-t0)/1000).toFixed(1);
+  if(plan_)plan=j.id;await init();if(!plan_){const P_=planObj();if(P_){const ks=Object.keys(P_.rooms).filter(k=>P_.rooms[k].type===addKind),k=ks.find(k=>!picks[k])||ks[0];if(k)picks[k]=j.id;syncPick()}}const secs=((performance.now()-t0)/1000).toFixed(1);
   $('trayMsg').textContent=plan_?`Added ${j.name}: ${Object.keys(j.rooms).length} rooms at ${j.px_per_m} px/m in ${secs} s.`:`Added ${j.id} “${j.title}”: about ${j.gauged.w} × ${j.gauged.d} m, ${j.items.length} items, confidence ${j.gauged.conf}, in ${secs} s.`;
   const card=document.querySelector(`.card[data-${plan_?'plan':'id'}="${j.id}"]`);if(card)card.scrollIntoView({block:'center'})};
-$('auto').onclick=()=>{if(!RANK)return;for(const k in RANK)picks[k]=RANK[k][0].id;syncPick()};
+$('auto').onclick=()=>{if(!RANK)return;const used=new Set();for(const k in RANK){const c=RANK[k].find(r=>!used.has(r.id))||RANK[k][0];picks[k]=c.id;used.add(c.id)}syncPick()};
 $('go').onclick=start;
-$('skip').onclick=()=>{speed=0};
+$('skip').onclick=()=>{speed=0;if(window.Studio3D)Studio3D.flush()};
 $('replay').onclick=()=>{reset3d();run()};
 $('v2d').onclick=()=>view('2d');$('v3d').onclick=()=>view('3d');$('walk').onclick=()=>Studio3D.walk();
 $('tour').onclick=()=>{speed=0;Studio3D.tour(P,false)};
@@ -518,7 +529,7 @@ const GL={glow:2.6}, PUFF={r:.12,rough:.95,puff:1}, STONE={rough:.22,env:.9}, WO
 const MAKE={
   counter(g,w,d,p,o){B(g,w,.86,d,p.cab,0,0,0,WOOD);B(g,w+.02,.04,d+.02,p.top,0,.86,0,STONE);B(g,w-.06,.02,.02,p.glow,0,.08,d/2,GL);
     if(o.feat==='hob')B(g,.6,.012,d-.2,'#101010',0,.9,0,{rough:.15,sharp:1,env:1});if(o.feat==='sink'){B(g,.56,.012,d-.24,dk(p.top,.35),0,.9,0,{sharp:1});Cy(g,.015,.25,p.metal,0,.9,-d/2+.08,{metal:.9,rough:.25})}},
-  island(g,w,d,p,o){const td=d-.45,zc=-.225,n=o.n||3;B(g,w-.12,.86,td-.12,p.cab,0,0,zc,WOOD);B(g,w,.05,td,p.top,0,.86,zc,STONE);B(g,w-.1,.02,td-.1,p.glow,0,.02,zc,GL);
+  island(g,w,d,p,o){const td=o.plan?d:d-.45,zc=o.plan?0:-.225,n=o.plan?0:(o.n||3);B(g,w-.12,.86,td-.12,p.cab,0,0,zc,WOOD);B(g,w,.05,td,p.top,0,.86,zc,STONE);B(g,w-.1,.02,td-.1,p.glow,0,.02,zc,GL);
     if(o.feat==='sink')B(g,.56,.012,td-.4,dk(p.top,.35),0,.91,zc,{sharp:1});
     for(let i=0;i<n;i++){const x=-w/2+w*(i+.5)/n,z=-d/2+td+.22;Cy(g,.18,.07,p.soft,x,.64,z,PUFF);Cy(g,.02,.64,p.metal,x,0,z,{metal:.8,rough:.3});Cy(g,.15,.015,p.metal,x,0,z,{metal:.8,rough:.3});B(g,.32,.26,.05,p.soft,x,.72,z+.17,PUFF)}},
   fridge(g,w,d,p){B(g,w,1.85,d,p.metal,0,0,0,{metal:.75,rough:.3,env:1});B(g,.03,.9,.03,lt(p.metal,.4),-w*.08,.6,d/2+.02,{metal:.9,sharp:1})},
@@ -561,7 +572,20 @@ const MAKE={
     for(let i=0;i<3;i++)Cy(g,.045,.22+i*.05,'#f6f2ea',w*.3+i*.1-.1,h+.02,(i%2)*.1-.05);Cy(g,.1,.03,'#f1ece2',0,h+.02,.05)},
   bench(g,w,d,p,o){const h=o.h||.45;B(g,w,.06,d,p.soft,0,h-.06,0,WOOD);B(g,w-.08,.02,d-.08,p.pop,0,h,0,{rough:1,sharp:1});[-1,1].forEach(s=>[-1,1].forEach(t=>B(g,.05,h-.06,.05,p.soft,s*(w/2-.05),0,t*(d/2-.05),WOOD)));B(g,w-.1,.04,.04,p.soft,0,.14,0,WOOD)}
 };
-const ownPal=(p,it)=>({...p,soft:it.color,pop:it.color2,top:it.color,cab:it.color2,rug:it.color,accent:it.color2});
+const ownPal=(p,it)=>({...p,soft:it.color,pop:it.color2,top:it.color,cab:it.color2,rug:it.color,accent:it.color2,metal:it.color});
+Object.assign(MAKE,{
+  /* a fitted wardrobe wall: carcass, shelf, shoe ledge, a rail of clothes in the room's colours, and a light */
+  closet(g,w,d,p){const c=dk(p.cab,.25),dd=Math.min(d,.6),z=-d/2+dd/2,cols=[p.soft,p.accent,p.rug,p.top,'#f1ece2',p.pop||p.cab];
+    B(g,w,2.2,.03,c,0,0,-d/2+.015,{sharp:1});B(g,.04,2.2,dd,c,-w/2+.02,0,z,WOOD);B(g,.04,2.2,dd,c,w/2-.02,0,z,WOOD);B(g,w,.04,dd,c,0,1.95,z,WOOD);B(g,w,.04,dd,c,0,.28,z,WOOD);B(g,w,.04,dd,c,0,0,z,WOOD);
+    Cy(g,.012,w-.08,p.metal,0,1.82,z,{metal:.9,rough:.3}).rotation.z=Math.PI/2;B(g,w-.1,.02,.03,p.glow,0,1.92,z+dd/2-.05,GL);
+    for(let x=-w/2+.12,i=0;x<w/2-.1;x+=.13,i++)B(g,.09,.75+((i*7)%4)*.07,dd*.62,cols[i%6],x,1.0-((i*7)%4)*.07,z,{rough:.95,r:.02});
+    for(let x=-w/2+.16,i=0;x<w/2-.14;x+=.3,i++){B(g,.22,.1,.26,cols[(i+2)%6],x,.32,z,{r:.03});B(g,.2,.12,.3,'#f1ece2',x,2.0,z,{r:.02})}},
+  washer(g,w,d,p){B(g,w,.88,d,'#eef0f2',0,0,0,{rough:.3,env:.8});B(g,w*.5,w*.5,.02,'#3a4048',0,.25,d/2+.005,{sharp:1,rough:.1,env:1.2})},
+  art(g,w,d,p,o){const hh=Math.min(.9,Math.max(.4,(o.h&&o.h<1.4?o.h:w*.7)));B(g,w,hh,.035,p.pop,0,-hh/2,0,{sharp:1});B(g,w-.07,hh-.07,.04,p.soft,0,-hh/2+.035,.002,{sharp:1,rough:.6})},
+  vase(g,w,d,p){Cy(g,.07,.24,p.soft,0,0,0,{rough:.15,env:1});[[0,.42,0],[.07,.36,.03],[-.06,.38,-.04],[.02,.5,.05],[-.03,.46,.06]].forEach(([x,y,z],i)=>Sp(g,.065,i%2?p.pop:'#6f8a52',x,y,z))},
+  pillow(g,w,d,p){const m=B(g,w*.9,w*.9,.14,p.soft,0,0,-d*.2,PUFF);m.rotation.x=-.25},
+  owntv(g,w,d,p){B(g,w,w*.56,.05,'#06080a',0,.95,0,{rough:.1,env:1.2,sharp:1});B(g,w*.3,.02,.2,'#1a1a1a',0,.9,0,{sharp:1})}
+});
 function floorTex(p){const c=document.createElement('canvas');c.width=c.height=512;const x=c.getContext('2d');x.fillStyle=p.floor;x.fillRect(0,0,512,512);x.strokeStyle=p.floor2;x.fillStyle=p.floor2;
   if(p.style==='wood'){for(let i=0;i<8;i++){x.globalAlpha=.18+.18*((i*7)%3);x.fillRect(0,i*64,512,62);x.globalAlpha=.7;x.fillRect((i*190)%512,i*64,3,64);x.globalAlpha=.12;for(let k=0;k<5;k++)x.fillRect(0,i*64+8+k*11,512,1)}}
   else if(p.style==='tile'){x.globalAlpha=.9;x.lineWidth=4;for(let i=0;i<=2;i++){x.beginPath();x.moveTo(i*256,0);x.lineTo(i*256,512);x.moveTo(0,i*256);x.lineTo(512,i*256);x.stroke()}}
@@ -616,12 +640,12 @@ async function show(P,FIT,CAT,log,sp,alive){
       fr.add(new THREE.Mesh(new THREE.PlaneGeometry(aw+.08,ah+.08),M('#17120d')));const pic=new THREE.Mesh(new THREE.PlaneGeometry(aw,ah),new THREE.MeshBasicMaterial({map:t,toneMapped:false}));pic.position.z=.005;fr.add(pic);
       const horiz=artSide==='N'||artSide==='S';fr.position.set(artSide==='W'?ox+.02:artSide==='E'?ox+r.w-.02:ox+r.w/2,1.75,artSide==='N'?oz+.02:artSide==='S'?oz+r.d-.02:oz+r.d/2);
       fr.rotation.y={N:0,S:Math.PI,W:Math.PI/2,E:-Math.PI/2}[artSide];art.add(fr)}
-    const items=[...f.final.items].sort((a,c)=>(c.floor-a.floor)||((a.own?1:0)-(c.own?1:0)));
+    const lay=i=>(i.on||i.wall)?3:i.floor?0:i.own?2:1;const items=[...f.final.items].sort((a,c)=>lay(a)-lay(c));
     items.forEach(it=>{const [x,z,bw,bd]=it.rect,ew=it.face==='E'||it.face==='W',w=ew?bd:bw,d=ew?bw:bd,g=new THREE.Group();
-      (MAKE[it.type]||((g,w,d)=>B(g,w,.5,d,'#888888')))(g,w,d,it.own?ownPal(p,it):p,it);
+      (MAKE[it.own&&it.type==='tv'?'owntv':it.type]||((g,w,d)=>B(g,w,.5,d,'#888888')))(g,w,d,it.own?ownPal(p,it):p,it);
       g.rotation.y={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2}[it.face]||0;if(it.flip&&it.type==='sectional')g.scale.x=-1;
-      const target=new THREE.Vector3(ox+x+bw/2,0,oz+z+bd/2);world.add(g);
-      if(it.own&&!it.floor){const ring=new THREE.Mesh(new THREE.RingGeometry(Math.max(bw,bd)/2+.06,Math.max(bw,bd)/2+.1,48),M('#8ab4f8',{glow:1.8}));ring.rotation.x=-Math.PI/2;ring.position.set(target.x,.03,target.z);ring.visible=false;world.add(ring);g.userData.ring=ring}
+      const target=new THREE.Vector3(ox+x+bw/2,it.at_h||0,oz+z+bd/2);world.add(g);
+      if(it.own&&!it.floor){const ring=new THREE.Mesh(new THREE.RingGeometry(Math.max(bw,bd)/2+.06,Math.max(bw,bd)/2+.1,48),M('#8ab4f8',{glow:1.8}));ring.rotation.x=-Math.PI/2;ring.position.set(target.x,.03,target.z);ring.visible=false;ring.userData.ring=true;world.add(ring);g.userData.ring=ring}
       if(it.own||!anyOwn){g.visible=false;jobs.push({g,target,it,room:r,door:new THREE.Vector3(ox+r.entry[0],0,oz+r.entry[1])})}else g.position.copy(target)});
     // one eye-level camera shot per room for the tour
     const c=new THREE.Vector3(ox+r.w/2,0,oz+r.d/2),e=new THREE.Vector3(ox+Math.min(Math.max(r.entry[0],.25),r.w-.25),0,oz+Math.min(Math.max(r.entry[1],.25),r.d-.25));
@@ -640,7 +664,7 @@ async function show(P,FIT,CAT,log,sp,alive){
     carry.classList.remove('hide');carry.innerHTML=(j.it.own?'<img src="/studio/item/'+j.it.id+'.jpg" alt="">':'')+'<span>Mover is carrying: <b>'+j.it.label+'</b>'+(j.it.note?'<br><i>'+j.it.note+'</i>':'')+'</span>';
     const rot=j.g.rotation.y,sx=j.g.scale.x,sg=Math.sign(sx);j.g.visible=true;j.g.scale.set(.32*sg,.32,.32);j.g.position.set(man.position.x,1.05,man.position.z);
     await go(j.door,150,j.g);await go(j.target,150,j.g);
-    await tween(320,t=>{const e=ease(t),k=.32+.68*e;j.g.scale.set(k*sg,k,k);j.g.position.set(j.target.x,1.05*(1-e),j.target.z);j.g.rotation.y=rot},sp);
+    await tween(320,t=>{const e=ease(t),k=.32+.68*e;j.g.scale.set(k*sg,k,k);j.g.position.set(j.target.x,1.05*(1-e)+j.target.y*e,j.target.z);j.g.rotation.y=rot},sp);
     j.g.scale.set(sx,1,1);j.g.position.copy(j.target);if(j.g.userData.ring)j.g.userData.ring.visible=true;
     await go(j.door,70);await go(ent,70)}
   if(!alive())return;
@@ -676,8 +700,11 @@ renderer.setAnimationLoop(()=>{const raw=clock.getDelta(),dt=Math.min(raw,.1);
   else if(!touring)orbit.update();
   if(!box.classList.contains('hide'))composer.render()});
 async function blender(opts={}){if(!world)throw new Error('no scene');
-  const glb=await new Promise((res,rej)=>new GLTFExporter().parse(world,res,rej,{binary:true,onlyVisible:true}));
-  const camera={position:cam.position.toArray(),target:orbit.target.toArray(),fov:cam.fov,width:1280,height:Math.round(1280/cam.aspect),...opts};
+  const pend=()=>{let n=0;world.traverse(o=>{const m=o.material;if(!m)return;for(const k of ['map','normalMap','roughnessMap']){const t=m[k];if(t&&!(t.image&&t.image.width))n++}});return n};
+  for(let i=0;i<80&&pend();i++)await new Promise(r=>setTimeout(r,100));   // textures must be loaded before they can be exported
+  const shot=opts.room?(shots.find(x=>x.room.key===opts.room)||shots[0]):null;if(shot)tall(true);if(man)man.visible=!shot;const rings=[];world.traverse(o=>{if(o.userData.ring&&o.isMesh&&o.visible){rings.push(o);o.visible=false}});
+  const glb=await new Promise((res,rej)=>new GLTFExporter().parse(world,res,rej,{binary:true,onlyVisible:true}));if(shot)tall(false);if(man)man.visible=true;rings.forEach(o=>o.visible=true);
+  const camera=shot?{position:shot.from.toArray(),target:shot.look.toArray(),fov:70,width:1440,height:900,samples:72,sun_strength:1.4,room_light_w:160,ambient:2.2,exposure:.5,...opts}:{position:cam.position.toArray(),target:orbit.target.toArray(),fov:cam.fov,width:1280,height:Math.round(1280/cam.aspect),...opts};
   const r=await fetch('/studio/blender',{method:'POST',headers:{'Content-Type':'model/gltf-binary','X-Camera':JSON.stringify(camera)},body:glb});
   if(!r.ok)throw new Error((await r.json()).detail||'render failed');
   return {url:URL.createObjectURL(await r.blob()),seconds:+r.headers.get('X-Render-Seconds'),kb:Math.round(glb.byteLength/1024)}}
@@ -685,7 +712,8 @@ function roomShots(FIT){const keep={p:cam.position.clone(),q:cam.quaternion.clon
   for(const s of shots){const r=s.room,t=Math.tan(THREE.MathUtils.degToRad(25)),H=Math.max(r.d/(2*t),r.w/(2*t*cam.aspect))*1.15;cam.fov=50;cam.up.set(0,0,-1);cam.position.set(s.look.x,H,s.look.z);cam.lookAt(s.look.x,0,s.look.z);cam.updateProjectionMatrix();composer.render();
     const f=FIT.rooms.find(x=>x.room.key===r.key);out.push({key:r.key,label:r.label,has_bed:f.final.items.some(i=>i.type==='bed'),image:renderer.domElement.toDataURL('image/jpeg',.85)})}
   cam.up.copy(keep.up);cam.position.copy(keep.p);cam.quaternion.copy(keep.q);cam.fov=keep.fov;cam.updateProjectionMatrix();return out}
-window.Studio3D={show,walk,resize,tour,blender,roomShots,stopTour(){touring=false}};
+function flush(){for(const t of tweens.splice(0)){t.fn(1);t.res()}}
+window.Studio3D={show,walk,resize,tour,blender,roomShots,flush,stopTour(){touring=false}};
 
 </script>
 </body>

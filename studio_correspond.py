@@ -29,12 +29,21 @@ COMPAT: dict[str, dict[str, float]] = {
     "rug": {"rug": 0.0},
     "bed": {"bed": 0.0},
     "bookshelf": {"tall": 0.2},
+    "tv": {"tv": 0.0},
+    "plant": {"plant": 0.0},
 }
+# Small things that sit on or against something else instead of taking floor space.
+ACCESSORY = {"art", "vase", "pillow"}
+HOSTS = {"pillow": ("sofa", "sectional", "bed", "armchair"),
+         "vase": ("console", "coffee", "sidetable", "table", "nightstand", "counter", "island", "vanity")}
+TOP_M = {"sofa": 0.5, "sectional": 0.5, "bed": 0.58, "armchair": 0.5, "console": 0.85, "coffee": 0.4, "sidetable": 0.5, "table": 0.76,
+         "nightstand": 0.52, "counter": 0.9, "island": 0.91, "vanity": 0.89}
 # Staging types that are furniture (replaceable). Everything else is a fixture of the new home.
-MOVABLE = {"living": {"sofa", "sectional", "coffee", "armchair", "pouf", "rug", "plant"},
-           "bedroom": {"bed", "nightstand", "armchair", "pouf", "rug", "plant", "tall", "sofa", "coffee"},
+MOVABLE = {"living": {"sofa", "sectional", "coffee", "armchair", "pouf", "rug", "plant", "tv"},
+           "bedroom": {"bed", "nightstand", "armchair", "pouf", "rug", "plant", "tall", "sofa", "coffee", "tv"},
            "kitchen": {"rug"}, "bathroom": set()}
-WALL_TYPES = {"bookshelf", "console", "table", "bench", "sofa", "bed"}
+WALL_TYPES = {"bookshelf", "console", "table", "bench", "sofa", "bed", "tv", "fridge", "plant"}
+TALL_TYPES = {"bookshelf", "fridge"}
 MATCH_LIMIT = 1.0
 
 
@@ -93,7 +102,7 @@ def _along_wall(room, wall, length, dep, solids, tall, start=None):
 
 
 def _own_rec(o: dict[str, Any]) -> dict[str, Any]:
-    return {"id": o["id"], "type": o["type"], "label": o["label"], "pri": 1, "floor": o["type"] == "rug", "face": "S",
+    return {"id": o["id"], "type": o["type"], "label": o["label"], "pri": 1, "floor": o["type"] == "rug" or o["type"] in ACCESSORY, "face": "S",
             "flip": False, "shape": o.get("shape"), "feat": None, "n": None, "inferred": False, "status": "own",
             "note": "", "moved_m": 0.0, "own": True, "color": o["color"], "color2": o.get("color2", o["color"]),
             "h": o.get("h"), "len": o["w"], "dep": o["d"], "source": o["source"], "conf": o["conf"]}
@@ -102,10 +111,17 @@ def _own_rec(o: dict[str, Any]) -> dict[str, Any]:
 def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) -> None:
     """Attach `final` to every fitted room. `rooms` come from `studio.fit_room`."""
     by_key = {r["room"]["key"]: r for r in rooms}
+
+    def keys_for(o: dict[str, Any]) -> list[str]:
+        """Room ids this piece may go to, in preference order (a 2-bedroom plan offers both bedrooms)."""
+        return [k for t in o["rooms"] for k in by_key if by_key[k]["room"]["type"] == t]
+
+    accessories = [o for o in own if o["type"] in ACCESSORY]
+    own = [o for o in own if o["type"] not in ACCESSORY]
     state: dict[str, dict[str, Any]] = {}
     for key, r in by_key.items():
         best = r["candidates"][r["best"]]
-        mov = MOVABLE.get(key, set())
+        mov = MOVABLE.get(r["room"]["type"], set())
         state[key] = {"fixed": [dict(i) for i in best["items"] if i["type"] not in mov],
                       "staging": [dict(i) for i in best["items"] if i["type"] in mov],
                       "own": [], "pairs": [], "dropped": [], "photo_leftovers": best["leftovers"]}
@@ -114,14 +130,12 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
     # ---- 1. match owned items to staging items (greedy over all compatible pairs, cheapest first) ----
     cands = []
     for o in own:
-        for rank, key in enumerate(o["rooms"]):
-            if key not in state:
-                continue
+        for rank, key in enumerate(keys_for(o)):
             for s in state[key]["staging"]:
                 base = COMPAT.get(o["type"], {}).get(s["type"])
                 if base is None:
                     continue
-                cost = base + 0.15 * abs(o["w"] - s["len"]) + 0.3 * rank
+                cost = base + 0.15 * abs(o["w"] - s["len"]) + 0.3 * min(rank, 2)
                 if cost < MATCH_LIMIT:
                     cands.append((cost, o["id"], key, s["id"]))
     cands.sort()
@@ -159,7 +173,7 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
             if sz < 0.05: z = 0.0
             if sx + sw > room["w"] - 0.05: x = room["w"] - bw
             if sz + sd > room["d"] - 0.05: z = room["d"] - bd
-            res = _spiral(room, x, z, bw, bd, solid_rects(key), o["type"] == "bookshelf", 1.5) if bw <= room["w"] and bd <= room["d"] else None
+            res = _spiral(room, x, z, bw, bd, solid_rects(key), o["type"] in TALL_TYPES, 1.5) if bw <= room["w"] and bd <= room["d"] else None
         if res is None:
             matched.pop(o["id"])
             continue
@@ -176,12 +190,10 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
         if o["id"] in matched:
             continue
         done, why = False, ""
-        for key in o["rooms"]:
-            if key not in state:
-                continue
+        for key in keys_for(o):
             st, room = state[key], by_key[key]["room"]
             rec = _own_rec(o)
-            tall = o["type"] == "bookshelf"
+            tall = o["type"] in TALL_TYPES
             if rec["floor"]:
                 bw, bd = min(o["w"], room["w"] - 0.3), min(o["d"], room["d"] - 0.3)
                 rec["rect"] = [round((room["w"] - bw) / 2, 3), round((room["d"] - bd) / 2, 3), round(bw, 3), round(bd, 3)]
@@ -214,7 +226,6 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
 
     # ---- 4. staging the user did not replace stays as a gap, unless one of their pieces now sits there ----
     for key, st in state.items():
-        room = by_key[key]["room"]
         own_solid = [i["rect"] for i in st["own"] if not i["floor"]]
         keep = []
         for s in st["staging"]:
@@ -223,6 +234,59 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
             else:
                 s["gap"] = bool(own)
                 keep.append(s)
+        st["staging"] = keep
+
+    # ---- 5. accessories: pillows go on a sofa or bed, vases on a surface, pictures on a free wall ----
+    load: dict[str, int] = {}
+    art_n: dict[str, int] = {}
+    for o in sorted(accessories, key=lambda o: -o["conf"]):
+        done = False
+        for key in keys_for(o):
+            st, room = state[key], by_key[key]["room"]
+            rec = _own_rec(o)
+            if o["type"] == "art":
+                sides = [w for w in WALLS if w not in room["open"] and not any(wn["wall"] == w for wn in room["windows"])]
+                if not sides:
+                    continue
+                wl = max(sides, key=lambda w: (room["w"] if w in "NS" else room["d"]))
+                L = room["w"] if wl in "NS" else room["d"]
+                n = art_n.get(key + wl, 0)
+                if n >= max(1, int(L // 1.1)):
+                    continue
+                art_n[key + wl] = n + 1
+                w = min(o["w"], L - 0.4)
+                a = min(max(L * (n + 1) / (max(1, int(L // 1.1)) + 1) - w / 2, 0.2), L - w - 0.2)
+                rec["rect"] = [round(a, 3), 0.0 if wl == "N" else round(room["d"] - 0.05, 3), round(w, 3), 0.05] if wl in "NS" else \
+                              [0.0 if wl == "W" else round(room["w"] - 0.05, 3), round(a, 3), 0.05, round(w, 3)]
+                rec.update(face=WALLS[(WALLS.index(wl) + 2) % 4], wall=wl, at_h=1.55, note=f"hung on the {WALL_NAME[wl]} wall")
+            else:
+                pool = [i for i in st["own"] + st["staging"] + st["fixed"] if i["type"] in HOSTS[o["type"]] and not i["floor"]]
+                pool = [i for i in pool if load.get(i["id"], 0) < (3 if o["type"] == "pillow" else 1)]
+                if not pool:
+                    continue
+                host = min(pool, key=lambda i: (0 if i.get("own") else 1, load.get(i["id"], 0)))
+                k = load.get(host["id"], 0)
+                load[host["id"]] = k + 1
+                hx, hz, hw, hd = host["rect"]
+                s_ = min(o["w"], 0.4)
+                along = (k - 1) * 0.5 if o["type"] == "pillow" else 0.0
+                cx = hx + hw / 2 + (along if hw >= hd else 0.0)
+                cz = hz + hd / 2 + (along if hd > hw else 0.0)
+                cx, cz = min(max(cx, hx + s_ / 2), hx + hw - s_ / 2), min(max(cz, hz + s_ / 2), hz + hd - s_ / 2)
+                rec["rect"] = [round(cx - s_ / 2, 3), round(cz - s_ / 2, 3), round(s_, 3), round(s_, 3)]
+                rec.update(on=host["id"], at_h=host.get("h") if host.get("own") and host.get("h") and host["type"] not in ("sofa", "bed", "armchair") else TOP_M.get(host["type"], 0.5),
+                           note=f"set on {'your' if host.get('own') else 'the'} {host['label'].lower()}")
+            st["own"].append(rec)
+            done = True
+            break
+        if not done:
+            leftovers.append({"id": o["id"], "label": o["label"], "pri": 3, "own": True,
+                              "reason": {"pillow": "no sofa, bed or armchair left to put it on", "vase": "no free table or counter top for it", "art": "no free wall without a window"}[o["type"]]})
+    own = own + accessories
+
+    for key, st in state.items():
+        room = by_key[key]["room"]
+        keep = st["staging"]
         items = st["fixed"] + keep + st["own"]
         sol = [i for i in items if not i["floor"]]
         n_ov = sum(1 for a in range(len(sol)) for b in range(a + 1, len(sol)) if overlap(sol[a]["rect"], sol[b]["rect"]))
@@ -234,7 +298,7 @@ def correspond(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway) 
         by_key[key]["final"] = {
             "items": items, "pairs": st["pairs"], "dropped": st["dropped"],
             "gaps": [s["label"] for s in keep if s.get("gap") and not s["floor"]],
-            "leftovers": st["photo_leftovers"] + [l for l in leftovers if any(key == k for k in next(o for o in own if o["id"] == l["id"])["rooms"][:1])],
+            "leftovers": st["photo_leftovers"] + [l for l in leftovers if key in keys_for(next(o for o in own if o["id"] == l["id"]))[:1]],
             "check": {"overlaps": n_ov, "door_blocks": door, "outside_room": outside, "walkway": walkway(room, sol)},
             "log": log,
         }
