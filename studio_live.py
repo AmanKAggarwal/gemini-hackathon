@@ -165,6 +165,7 @@ Report what the drawing shows. If a required room is missing from the plan, leav
 
 
 def _client():
+    load_env()
     from google import genai  # imported lazily so the studio still runs offline without the SDK configured
     return genai.Client()
 
@@ -347,7 +348,7 @@ def perceive_plan(image: bytes, original_name: str, producer=None) -> dict[str, 
     try:
         size = list(Image.open(path).size)
         prompt = PROMPT_PLAN.format(w=size[0], h=size[1])
-        res = producer(prompt) if producer else _structured(MODEL_PLAN, _media(path), prompt, LivePlan, thinking="high")
+        res = producer(prompt) if producer else _structured(MODEL_PLAN, _media(path), prompt, LivePlan, thinking=os.environ.get("STUDIO_PLAN_THINKING", "low"))
         if not res.ok or res.data is None:
             raise RuntimeError("Gemini's answer failed schema validation twice: " + "; ".join(res.errors)[-400:])
         meta = {"model": MODEL_PLAN, "seconds": round(time.time() - t0, 1), "attempts": res.attempts, "source_file": original_name}
