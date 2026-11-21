@@ -19,7 +19,9 @@ chmod +x run.sh
 ./run.sh
 ```
 
-`./run.sh` creates an isolated `.venv`, installs pinned dependencies from `requirements.txt`, runs `reproduce.py` (generating `./data/home.json`, `./data/layouts.json`, `./data/results.csv`, `./data/results.md`, and `./data/breaking_points.md` from the bundled NYC apartment schematics & photos in `data/drive_inputs/`), and launches the interactive 3D Residence server at **http://127.0.0.1:8000**.
+`./run.sh` creates an isolated `.venv`, installs pinned dependencies from `requirements.txt`, runs `reproduce.py` (generating `./data/home.json`, `./data/layouts.json`, `./data/results.csv`, `./data/results.md`, and `./data/breaking_points.md` from the bundled NYC apartment schematics & photos in `data/drive_inputs/`), and launches the interactive server:
+- **Homeweave Floor-Plan & Constraint Studio:** **http://127.0.0.1:8000**
+- **Photorealistic First-Person 3D Walkthrough (Blender 5.2 + Three.js GLB):** **http://127.0.0.1:8000/walkthrough** (see [walkthrough/README.md](walkthrough/README.md) for standalone Three.js instructions, editable `.blend` rebuild scripts, controls, and layout assumptions).
 
 To re-run live Gemini 4 perception, weaving, judging, and the `gemini-4-neon` spatial placement baseline with your own API key:
 

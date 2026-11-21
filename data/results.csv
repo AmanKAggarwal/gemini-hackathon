@@ -1,4 +1,4 @@
 method,n_cases,zero_violation_mean,zero_violation_ci_lo,zero_violation_ci_hi,mean_violations,violations_ci_lo,violations_ci_hi,placement_rate_mean,placement_rate_ci_lo,placement_rate_ci_hi,relations_kept_mean,relations_kept_ci_lo,relations_kept_ci_hi,runtime_sec_mean,runtime_sec_ci_lo,runtime_sec_ci_hi,json_failures
-engine_top1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8889,0.8333,1.0,1.0,1.0,1.0,0.0928,0.0715,0.1116,0
-engine_judge_top5,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8889,0.8333,1.0,1.0,1.0,1.0,0.1304,0.1051,0.1543,0
-gemini_baseline,3,0.0,0.0,0.0,6.0,2.0,10.0,1.0,1.0,1.0,0.7778,0.3333,1.0,0.0001,0.0001,0.0001,0
+engine_top1,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8889,0.8333,1.0,1.0,1.0,1.0,0.0876,0.0522,0.1054,0
+engine_judge_top5,3,1.0,1.0,1.0,0.0,0.0,0.0,0.8889,0.8333,1.0,1.0,1.0,1.0,0.1232,0.0853,0.1451,0
+gemini_baseline,3,0.0,0.0,0.0,6.0,2.0,10.0,1.0,1.0,1.0,0.7778,0.3333,1.0,0.0001,0.0,0.0001,0

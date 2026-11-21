@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Homeweave — Photorealistic First-Person 3D Apartment Walkthrough</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <style>
+    :root {
+      --target-size: 28px;
+      --bg-ink: #0f141c;
+      --glass: rgba(15, 20, 28, 0.72);
+      --glass-strong: rgba(15, 20, 28, 0.88);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: #f8f7f4;
+      --muted: #b8c0cc;
+      --accent: #e5b879;
+      --accent-ink: #17130d;
+      --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      --display: "Space Grotesk", "Inter", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    }
+    @media (pointer: coarse) {
+      :root {
+        --target-size: 44px;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      background: var(--bg-ink);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 13.5px;
+      overflow-wrap: break-word;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    h1, h2, h3 { text-wrap: balance; margin: 0; }
+    p, li { text-wrap: pretty; }
+    :where(a, code) { overflow-wrap: anywhere; }
+    :where(button, [role="button"], nav a) {
+      min-block-size: var(--target-size);
+      min-inline-size: var(--target-size);
+    }
+
+    #stage {
+      position: fixed;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      touch-action: none;
+    }
+    canvas#webgl {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+      touch-action: none;
+    }
+
+    /* Top HUD with safe-area insets */
+    #hud-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding-top: max(0.85rem, env(safe-area-inset-top, 0px));
+      padding-left: max(0.85rem, env(safe-area-inset-left, 0px));
+      padding-right: max(0.85rem, env(safe-area-inset-right, 0px));
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 20;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      pointer-events: auto;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    }
+    :where(.toolbar > :not(button, a, [role="button"])) {
+      min-inline-size: 0;
+    }
+
+    .brand-chip {
+      display: flex;
+      flex-direction: column;
+      padding: 2px 8px;
+    }
+    .brand-chip .eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .brand-chip .room-now {
+      font: 700 14px var(--display);
+      color: var(--text);
+    }
+
+    button, .btn-link {
+      font: 600 12.5px var(--sans);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 6px 11px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    button:hover, .btn-link:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--border);
+    }
+    button.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-ink);
+    }
+    .kbd {
+      font: 500 10.5px var(--mono);
+      opacity: 0.72;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.24);
+    }
+    button.active .kbd {
+      background: rgba(0, 0, 0, 0.14);
+      opacity: 0.85;
+    }
+
+    /* Subtle center reticle when pointer locked */
+    #reticle {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      inline-size: 8px;
+      block-size: 8px;
+      margin-left: -4px;
+      margin-top: -4px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.78);
+      background: rgba(229, 184, 121, 0.35);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 15;
+    }
+    #reticle.visible { opacity: 1; }
+
+    /* Bottom HUD: Controls hint + Live Minimap */
+    #hud-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding-bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
+      padding-left: max(0.85rem, env(safe-area-inset-left, 0px));
+      padding-right: max(0.85rem, env(safe-area-inset-right, 0px));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      pointer-events: none;
+      z-index: 20;
+    }
+    #controls-pill {
+      pointer-events: auto;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 13px;
+      color: var(--muted);
+      font-size: 12px;
+      max-inline-size: 560px;
+    }
+    #controls-pill strong { color: var(--text); }
+
+    #minimap-wrap {
+      pointer-events: auto;
+      background: var(--glass-strong);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    #minimap-wrap.hidden { display: none; }
+    #minimap-meta {
+      display: flex;
+      justify-content: space-between;
+      font: 500 10.5px var(--mono);
+      color: var(--muted);
+      padding: 0 2px;
+    }
+    canvas#minimap {
+      display: block;
+      inline-size: 196px;
+      block-size: 158px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Mobile Touch Thumbstick */
+    #touch-joystick {
+      position: fixed;
+      left: max(1.1rem, env(safe-area-inset-left, 0px));
+      bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+      inline-size: 112px;
+      block-size: 112px;
+      border-radius: 50%;
+      background: rgba(15, 20, 28, 0.48);
+      border: 1.5px solid rgba(255, 255, 255, 0.24);
+      backdrop-filter: blur(8px);
+      display: none;
+      touch-action: none;
+      z-index: 25;
+    }
+    #touch-knob {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      inline-size: 46px;
+      block-size: 46px;
+      margin-left: -23px;
+      margin-top: -23px;
+      border-radius: 50%;
+      background: rgba(229, 184, 121, 0.88);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+    }
+    @media (pointer: coarse) {
+      #touch-joystick { display: block; }
+      #controls-pill { display: none; }
+    }
+
+    /* Loading Banner */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 42%, #1c2432 0%, #0d1118 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 40;
+      transition: opacity 0.35s ease;
+    }
+    #loader.done {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #loader h1 {
+      font: 700 24px var(--display);
+      color: var(--text);
+    }
+    #loader p {
+      color: var(--muted);
+      font-size: 13.5px;
+      margin: 0;
+    }
+    .progress-track {
+      inline-size: min(300px, 78vw);
+      block-size: 5px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+    #progress-bar {
+      inline-size: 12%;
+      block-size: 100%;
+      background: var(--accent);
+      transition: inline-size 0.15s ease;
+    }
+
+    /* Native Modal Dialog for Layout Assumptions & Controls */
+    dialog#assumptions-dialog {
+      background: #151c27;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      max-inline-size: min(520px, 92vw);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+    dialog#assumptions-dialog::backdrop {
+      background: rgba(6, 9, 14, 0.65);
+      backdrop-filter: blur(4px);
+    }
+    dialog#assumptions-dialog h2 {
+      font: 700 18px var(--display);
+      margin-bottom: 8px;
+    }
+    dialog#assumptions-dialog ul {
+      padding-left: 18px;
+      margin: 8px 0 16px 0;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      line-height: 1.45;
+    }
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="loader" role="status" aria-live="polite">
+    <h1>Homeweave Dream Residence</h1>
+    <p id="loader-status">Loading textured Blender GLB walkthrough…</p>
+    <div class="progress-track"><div id="progress-bar"></div></div>
+  </div>
+
+  <div id="stage">
+    <canvas id="webgl" aria-label="First-person 3D walkthrough of the composite apartment"></canvas>
+  </div>
+  <div id="reticle" aria-hidden="true"></div>
+
+  <header id="hud-top">
+    <div class="toolbar">
+      <a class="btn-link" href="/" title="Return to Homeweave Floor-Plan & Constraint Studio">← Studio</a>
+      <div class="brand-chip">
+        <span class="eyebrow">Eye-Level Walkthrough · 1.65 m</span>
+        <span class="room-now" id="room-indicator">Living &amp; Dining Room</span>
+      </div>
+    </div>
+
+    <nav class="toolbar" id="room-nav" aria-label="Teleport to room">
+      <button type="button" data-room="0" class="active">Living <span class="kbd">1</span></button>
+      <button type="button" data-room="1">Kitchen &amp; Foyer <span class="kbd">2</span></button>
+      <button type="button" data-room="2">Bedroom <span class="kbd">3</span></button>
+      <button type="button" data-room="3">Spa Bath <span class="kbd">4</span></button>
+      <button type="button" data-room="4">Balcony <span class="kbd">5</span></button>
+    </nav>
+
+    <div class="toolbar">
+      <button type="button" id="lighting-btn" title="Cycle Daylight, Golden Hour, and Evening Cove lighting">
+        Sunlit Day <span class="kbd">L</span>
+      </button>
+      <button type="button" id="crouch-btn" title="Toggle eye level (1.65 m) vs counter/joinery level (1.08 m)">
+        Eye 1.65 m <span class="kbd">C</span>
+      </button>
+      <button type="button" id="minimap-btn" class="active" title="Toggle live floor-plan radar">
+        Map <span class="kbd">M</span>
+      </button>
+      <button type="button" commandfor="assumptions-dialog" command="show-modal">
+        Notes &amp; Specs
+      </button>
+    </div>
+  </header>
+
+  <div id="touch-joystick" aria-label="Virtual movement thumbstick">
+    <div id="touch-knob"></div>
+  </div>
+
+  <footer id="hud-bottom">
+    <div id="controls-pill">
+      <strong>Click view</strong> for mouse-look (or drag to look) · <strong>WASD / Arrows</strong> walk ·
+      <strong>Shift</strong> brisk pace · <strong>1–5</strong> rooms · <strong>Esc</strong> unlock cursor
+    </div>
+
+    <div id="minimap-wrap" role="region" aria-label="Live floor plan position map">
+      <div id="minimap-meta">
+        <span id="coord-readout">x 5.15 · z 2.85 m</span>
+        <span>Collisions ON</span>
+      </div>
+      <canvas id="minimap" width="196" height="158"></canvas>
+    </div>
+  </footer>
+
+  <dialog id="assumptions-dialog" aria-labelledby="dialog-title">
+    <h2 id="dialog-title">Reference Synthesis &amp; Layout Assumptions</h2>
+    <p style="color:var(--muted);margin-top:4px;">
+      Cohesive 4-room + Riverfront Balcony residence anchored to Homeweave’s metric floor plan
+      (<code>data/home.json</code>), Manhattan Park Plan P, and The Eastline Residence 1713:
+    </p>
+    <ul id="assumptions-list">
+      <li><strong>Living &amp; Dining (19'1" × 12'0"):</strong> Backlit veined travertine TV wall &amp; illuminated walnut niches matched to <code>L1/L2</code>; dining chandelier &amp; triptych canvases rectified from walkthrough video.</li>
+      <li><strong>Open Island Kitchen &amp; Foyer (11'10" × 12'0"):</strong> Waterfall Calacatta marble island, sage-olive cabinetry, recessed undermount sink &amp; amber globe pendants from <code>K1/K3</code>; entry console &amp; red/black painting homography-rectified from foyer footage.</li>
+      <li><strong>Primary Bedroom (15'8" × 10'11") &amp; Spa Bath (11'2" × 10'11"):</strong> Channel-tufted platform bed with warm cove halo &amp; moon lamps (<code>Be1–Be3</code>); freestanding soaking tub on LED teak plinth, glass rain shower &amp; backlit vanity mirror (<code>B1/B2</code>).</li>
+    </ul>
+    <div class="dialog-footer">
+      <button type="button" class="active" commandfor="assumptions-dialog" command="close">
+        Resume Walkthrough
+      </button>
+    </div>
+  </dialog>
+
+  <script type="module">
+    if (!("commandForElement" in HTMLButtonElement.prototype)) {
+      import("https://esm.run/invokers-polyfill").catch(() => {});
+    }
+
+    import * as THREE from "three";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+    import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+    import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+    import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+    import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+    import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+    const canvas = document.getElementById("webgl");
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      powerPreference: "high-performance",
+      preserveDrawingBuffer: true,
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.04;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xc9dff2);
+
+    // Subtle PBR environment reflections for marble, glass, brass & honey-oak satin finish
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envTex = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+    scene.environment = envTex;
+    scene.environmentIntensity = 0.36;
+
+    const camera = new THREE.PerspectiveCamera(
+      66,
+      window.innerWidth / window.innerHeight,
+      0.06,
+      80
+    );
+    camera.rotation.order = "YXZ";
+
+    // Post-processing with gentle architectural bloom for LED coves & globe pendants
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      0.16,
+      0.38,
+      0.88
+    );
+    composer.addPass(bloomPass);
+    composer.addPass(new OutputPass());
+
+    // Calibrated Daylight + Architectural Interior Lighting Rig
+    const hemiLight = new THREE.HemisphereLight(0xeef6ff, 0xd8c8b0, 0.58);
+    hemiLight.position.set(4.5, 8.0, 3.0);
+    scene.add(hemiLight);
+
+    const sunLight = new THREE.DirectionalLight(0xfff5e4, 2.35);
+    sunLight.position.set(1.8, 7.6, -5.8);
+    sunLight.target.position.set(4.2, 0.0, 2.6);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.set(2048, 2048);
+    sunLight.shadow.camera.near = 1.0;
+    sunLight.shadow.camera.far = 24.0;
+    sunLight.shadow.camera.left = -7.5;
+    sunLight.shadow.camera.right = 7.5;
+    sunLight.shadow.camera.top = 7.5;
+    sunLight.shadow.camera.bottom = -7.5;
+    sunLight.shadow.bias = -0.0004;
+    sunLight.shadow.normalBias = 0.018;
+    scene.add(sunLight);
+    scene.add(sunLight.target);
+
+    // Warm interior architectural point lights (living, kitchen island pendants, bedroom, spa bath)
+    const interiorLights = [];
+    const addWarmLight = (x, y, z, intensity, distance, color = 0xffdca8, castShadow = false) => {
+      const l = new THREE.PointLight(color, intensity, distance, 1.8);
+      l.position.set(x, y, z);
+      if (castShadow) {
+        l.castShadow = true;
+        l.shadow.mapSize.set(1024, 1024);
+        l.shadow.bias = -0.0006;
+      }
+      scene.add(l);
+      interiorLights.push({ light: l, baseIntensity: intensity });
+      return l;
+    };
+
+    addWarmLight(2.45, 2.52, 1.95, 2.6, 8.5, 0xffe4bd, true);   // Living tray ceiling
+    addWarmLight(0.42, 1.45, 1.85, 1.1, 4.2, 0xffd599, false);  // Backlit TV feature wall glow
+    addWarmLight(4.58, 1.95, 2.12, 1.8, 6.0, 0xffe0b2, false);  // Dining linear chandelier
+    addWarmLight(7.39, 1.72, 1.94, 2.8, 7.5, 0xffd296, true);   // Kitchen amber globe pendants
+    addWarmLight(8.75, 2.42, 2.95, 1.4, 5.0, 0xffe6c4, false);  // Entry foyer downlight
+    addWarmLight(2.15, 2.52, 5.38, 2.3, 7.5, 0xffdfb3, true);   // Bedroom tray cove
+    addWarmLight(0.35, 0.72, 4.20, 0.9, 3.2, 0xffcc88, false);  // Nightstand moon lamp L
+    addWarmLight(0.35, 0.72, 6.56, 0.9, 3.2, 0xffcc88, false);  // Nightstand moon lamp R
+    addWarmLight(6.48, 2.48, 5.25, 2.4, 7.0, 0xfaf2e6, false);  // Spa bathroom ceiling + mirror
+
+    const LIGHTING_MODES = [
+      {
+        name: "Sunlit Day",
+        sky: 0xc9dff2,
+        sun: 1.85,
+        sunColor: 0xfff5e4,
+        hemi: 0.42,
+        interiorMul: 0.72,
+        env: 0.32,
+        exposure: 0.96,
+      },
+      {
+        name: "Golden Hour",
+        sky: 0xe6b48a,
+        sun: 2.05,
+        sunColor: 0xffb870,
+        hemi: 0.40,
+        interiorMul: 1.25,
+        env: 0.28,
+        exposure: 1.02,
+      },
+      {
+        name: "Evening Cove",
+        sky: 0x131b2b,
+        sun: 0.14,
+        sunColor: 0x6c88b5,
+        hemi: 0.16,
+        interiorMul: 1.75,
+        env: 0.16,
+        exposure: 0.98,
+      },
+    ];
+    let lightingIdx = 0;
+
+    function applyLightingMode(idx) {
+      lightingIdx = (idx + LIGHTING_MODES.length) % LIGHTING_MODES.length;
+      const m = LIGHTING_MODES[lightingIdx];
+      scene.background.setHex(m.sky);
+      sunLight.intensity = m.sun;
+      sunLight.color.setHex(m.sunColor);
+      hemiLight.intensity = m.hemi;
+      scene.environmentIntensity = m.env;
+      renderer.toneMappingExposure = m.exposure;
+      for (const item of interiorLights) {
+        item.light.intensity = item.baseIntensity * m.interiorMul;
+      }
+      document.getElementById("lighting-btn").innerHTML = `${m.name} <span class="kbd">L</span>`;
+    }
+
+    // State & Metadata
+    let meta = {
+      eye_height_m: 1.65,
+      player_radius_m: 0.25,
+      spawn: { x: 5.15, y: 1.65, z: 2.85, yaw_deg: 68, pitch_deg: -3 },
+      rooms: [],
+      colliders: [],
+    };
+
+    const player = {
+      x: 5.15,
+      y: 1.65,
+      z: 2.85,
+      vx: 0,
+      vz: 0,
+      yaw: THREE.MathUtils.degToRad(68),
+      pitch: THREE.MathUtils.degToRad(-3),
+      crouched: false,
+      bobPhase: 0,
+    };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const keys = new Set();
+    let pointerLocked = false;
+    let mouseDragging = false;
+    let lastPointer = { x: 0, y: 0 };
+
+    // Touch controls state
+    const touchMove = { active: false, id: null, dx: 0, dy: 0 };
+    const touchLook = { active: false, id: null, lx: 0, ly: 0 };
+
+    // 2D Circle-vs-AABB Sliding Collision Resolver
+    function resolveCollisions(nx, nz, eyeY) {
+      const r = meta.player_radius_m || 0.25;
+      let px = nx;
+      let pz = nz;
+
+      // Outer apartment + balcony safety envelope
+      px = Math.max(-0.1, Math.min(9.45, px));
+      pz = Math.max(-1.62, Math.min(6.95, pz));
+
+      const cols = meta.colliders || [];
+      for (let pass = 0; pass < 3; pass++) {
+        for (let i = 0; i < cols.length; i++) {
+          const c = cols[i];
+          if (c.y1 <= 0.12 || c.y0 >= eyeY + 0.12) continue;
+
+          const closestX = Math.max(c.x0, Math.min(px, c.x1));
+          const closestZ = Math.max(c.z0, Math.min(pz, c.z1));
+          const dx = px - closestX;
+          const dz = pz - closestZ;
+          const distSq = dx * dx + dz * dz;
+
+          if (distSq < r * r) {
+            if (distSq > 1e-8) {
+              const dist = Math.sqrt(distSq);
+              const push = r - dist;
+              px += (dx / dist) * push;
+              pz += (dz / dist) * push;
+            } else {
+              // Center landed inside box: push out along shallowest axis
+              const penLeft = Math.abs(px - c.x0);
+              const penRight = Math.abs(c.x1 - px);
+              const penTop = Math.abs(pz - c.z0);
+              const penBot = Math.abs(c.z1 - pz);
+              const minPen = Math.min(penLeft, penRight, penTop, penBot);
+              if (minPen === penLeft) px = c.x0 - r;
+              else if (minPen === penRight) px = c.x1 + r;
+              else if (minPen === penTop) pz = c.z0 - r;
+              else pz = c.z1 + r;
+            }
+          }
+        }
+      }
+      return [px, pz];
+    }
+
+    function teleportToRoom(roomIdx) {
+      const rm = (meta.rooms || [])[roomIdx];
+      if (!rm || !rm.preset) return;
+      player.x = rm.preset.x;
+      player.z = rm.preset.z;
+      player.vx = 0;
+      player.vz = 0;
+      player.yaw = THREE.MathUtils.degToRad(rm.preset.yaw_deg || 0);
+      player.pitch = THREE.MathUtils.degToRad(rm.preset.pitch_deg || 0);
+      updateRoomIndicator();
+    }
+
+    function updateRoomIndicator() {
+      const rooms = meta.rooms || [];
+      let activeIdx = -1;
+      for (let i = 0; i < rooms.length; i++) {
+        const [x0, z0, x1, z1] = rooms[i].bounds;
+        if (player.x >= x0 - 0.1 && player.x <= x1 + 0.1 && player.z >= z0 - 0.1 && player.z <= z1 + 0.1) {
+          activeIdx = i;
+          break;
+        }
+      }
+      if (activeIdx >= 0) {
+        document.getElementById("room-indicator").textContent = rooms[activeIdx].name;
+        document.querySelectorAll("#room-nav button").forEach((btn, idx) => {
+          btn.classList.toggle("active", idx === activeIdx);
+        });
+      }
+      document.getElementById("coord-readout").textContent =
+        `x ${player.x.toFixed(2)} · z ${player.z.toFixed(2)} m`;
+    }
+
+    // Live 2D Minimap Renderer
+    const minimapCanvas = document.getElementById("minimap");
+    const mctx = minimapCanvas.getContext("2d");
+
+    function drawMinimap() {
+      const wrap = document.getElementById("minimap-wrap");
+      if (wrap.classList.contains("hidden")) return;
+
+      const W = minimapCanvas.width;
+      const H = minimapCanvas.height;
+      mctx.clearRect(0, 0, W, H);
+
+      const scale = 16.2;
+      const ox = 16;
+      const oz = 32;
+      const toX = x => ox + x * scale;
+      const toY = z => oz + z * scale;
+
+      // Room floor fills
+      for (const r of meta.rooms || []) {
+        const [x0, z0, x1, z1] = r.bounds;
+        mctx.fillStyle = r.id === "new-balcony" ? "rgba(120, 175, 195, 0.18)" : "rgba(255, 248, 236, 0.10)";
+        mctx.fillRect(toX(x0), toY(z0), (x1 - x0) * scale, (z1 - z0) * scale);
+      }
+
+      // Colliders (walls bright, furniture subtle)
+      for (const c of meta.colliders || []) {
+        if (c.kind === "window") continue;
+        mctx.fillStyle = c.kind === "wall" || c.kind === "railing"
+          ? "rgba(248, 247, 244, 0.78)"
+          : "rgba(229, 184, 121, 0.36)";
+        mctx.fillRect(
+          toX(c.x0),
+          toY(c.z0),
+          Math.max(1.5, (c.x1 - c.x0) * scale),
+          Math.max(1.5, (c.z1 - c.z0) * scale)
+        );
+      }
+
+      // Player FOV cone & dot
+      const px = toX(player.x);
+      const py = toY(player.z);
+      const lookX = -Math.sin(player.yaw);
+      const lookZ = -Math.cos(player.yaw);
+      const ang = Math.atan2(lookZ, lookX);
+
+      mctx.beginPath();
+      mctx.moveTo(px, py);
+      mctx.arc(px, py, 24, ang - 0.52, ang + 0.52);
+      mctx.closePath();
+      mctx.fillStyle = "rgba(229, 184, 121, 0.28)";
+      mctx.fill();
+
+      mctx.beginPath();
+      mctx.arc(px, py, 4.2, 0, Math.PI * 2);
+      mctx.fillStyle = "#e5b879";
+      mctx.fill();
+      mctx.strokeStyle = "#0f141c";
+      mctx.lineWidth = 1.5;
+      mctx.stroke();
+    }
+
+    // Desktop PointerLock + Drag-to-Look Fallback
+    canvas.addEventListener("click", () => {
+      if (window.matchMedia("(pointer: coarse)").matches) return;
+      if (!pointerLocked && canvas.requestPointerLock) {
+        canvas.requestPointerLock();
+      }
+    });
+
+    document.addEventListener("pointerlockchange", () => {
+      pointerLocked = document.pointerLockElement === canvas;
+      document.getElementById("reticle").classList.toggle("visible", pointerLocked);
+    });
+
+    canvas.addEventListener("mousedown", e => {
+      if (pointerLocked) return;
+      mouseDragging = true;
+      lastPointer = { x: e.clientX, y: e.clientY };
+    });
+    window.addEventListener("mouseup", () => { mouseDragging = false; });
+    window.addEventListener("mousemove", e => {
+      if (pointerLocked) {
+        player.yaw -= e.movementX * 0.0022;
+        player.pitch = Math.max(-1.32, Math.min(1.25, player.pitch - e.movementY * 0.0022));
+      } else if (mouseDragging) {
+        const dx = e.clientX - lastPointer.x;
+        const dy = e.clientY - lastPointer.y;
+        lastPointer = { x: e.clientX, y: e.clientY };
+        player.yaw -= dx * 0.0038;
+        player.pitch = Math.max(-1.32, Math.min(1.25, player.pitch - dy * 0.0038));
+      }
+    });
+
+    // Touch Thumbstick (Move) + Right-Screen Touch Drag (Look)
+    const joyEl = document.getElementById("touch-joystick");
+    const knobEl = document.getElementById("touch-knob");
+
+    joyEl.addEventListener("pointerdown", e => {
+      e.stopPropagation();
+      joyEl.setPointerCapture(e.pointerId);
+      touchMove.active = true;
+      touchMove.id = e.pointerId;
+      updateJoystick(e);
+    });
+    joyEl.addEventListener("pointermove", e => {
+      if (!touchMove.active || e.pointerId !== touchMove.id) return;
+      updateJoystick(e);
+    });
+    const endJoy = e => {
+      if (e.pointerId !== touchMove.id) return;
+      touchMove.active = false;
+      touchMove.dx = 0;
+      touchMove.dy = 0;
+      knobEl.style.transform = "translate(0px, 0px)";
+    };
+    joyEl.addEventListener("pointerup", endJoy);
+    joyEl.addEventListener("pointercancel", endJoy);
+
+    function updateJoystick(e) {
+      const rect = joyEl.getBoundingClientRect();
+      const cx = rect.left + rect.width * 0.5;
+      const cy = rect.top + rect.height * 0.5;
+      const maxR = rect.width * 0.36;
+      let dx = e.clientX - cx;
+      let dy = e.clientY - cy;
+      const dist = Math.hypot(dx, dy);
+      if (dist > maxR) {
+        dx = (dx / dist) * maxR;
+        dy = (dy / dist) * maxR;
+      }
+      knobEl.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+      touchMove.dx = dx / maxR;
+      touchMove.dy = dy / maxR;
+    }
+
+    canvas.addEventListener("pointerdown", e => {
+      if (e.pointerType !== "touch") return;
+      touchLook.active = true;
+      touchLook.id = e.pointerId;
+      touchLook.lx = e.clientX;
+      touchLook.ly = e.clientY;
+    });
+    canvas.addEventListener("pointermove", e => {
+      if (!touchLook.active || e.pointerId !== touchLook.id) return;
+      const dx = e.clientX - touchLook.lx;
+      const dy = e.clientY - touchLook.ly;
+      touchLook.lx = e.clientX;
+      touchLook.ly = e.clientY;
+      player.yaw -= dx * 0.0045;
+      player.pitch = Math.max(-1.30, Math.min(1.22, player.pitch - dy * 0.0045));
+    });
+    const endLook = e => {
+      if (e.pointerId === touchLook.id) touchLook.active = false;
+    };
+    canvas.addEventListener("pointerup", endLook);
+    canvas.addEventListener("pointercancel", endLook);
+
+    // Keyboard & HUD Button Bindings
+    function toggleCrouch() {
+      player.crouched = !player.crouched;
+      const btn = document.getElementById("crouch-btn");
+      btn.classList.toggle("active", player.crouched);
+      btn.innerHTML = player.crouched
+        ? `Inspect 1.08 m <span class="kbd">C</span>`
+        : `Eye 1.65 m <span class="kbd">C</span>`;
+    }
+
+    function toggleMinimap() {
+      const wrap = document.getElementById("minimap-wrap");
+      const hidden = wrap.classList.toggle("hidden");
+      document.getElementById("minimap-btn").classList.toggle("active", !hidden);
+    }
+
+    window.addEventListener("keydown", e => {
+      if (document.getElementById("assumptions-dialog").open) return;
+      keys.add(e.code);
+      if (e.key >= "1" && e.key <= "5") teleportToRoom(Number(e.key) - 1);
+      else if (e.code === "KeyL") applyLightingMode(lightingIdx + 1);
+      else if (e.code === "KeyC") toggleCrouch();
+      else if (e.code === "KeyM") toggleMinimap();
+    });
+    window.addEventListener("keyup", e => keys.delete(e.code));
+
+    document.querySelectorAll("#room-nav button").forEach(btn => {
+      btn.addEventListener("click", () => teleportToRoom(Number(btn.dataset.room)));
+    });
+    document.getElementById("lighting-btn").addEventListener("click", () => applyLightingMode(lightingIdx + 1));
+    document.getElementById("crouch-btn").addEventListener("click", toggleCrouch);
+    document.getElementById("minimap-btn").addEventListener("click", toggleMinimap);
+
+    window.addEventListener("resize", () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+      composer.setSize(w, h);
+      bloomPass.setSize(w, h);
+    });
+
+    // Expose programmatic inspection hook for automated multi-angle QA checks
+    window.__walkthrough = {
+      setPose(x, y, z, yawDeg, pitchDeg = 0) {
+        player.x = x;
+        player.y = y;
+        player.z = z;
+        player.yaw = THREE.MathUtils.degToRad(yawDeg);
+        player.pitch = THREE.MathUtils.degToRad(pitchDeg);
+        camera.position.set(x, y, z);
+        camera.rotation.y = player.yaw;
+        camera.rotation.x = player.pitch;
+        updateRoomIndicator();
+        drawMinimap();
+        composer.render();
+      },
+      stepMove(dx, dz) {
+        const [rx, rz] = resolveCollisions(player.x + dx, player.z + dz, player.y);
+        player.x = rx;
+        player.z = rz;
+        return { x: rx, z: rz };
+      },
+      getState() {
+        return { x: player.x, y: player.y, z: player.z, colliders: (meta.colliders || []).length };
+      },
+    };
+
+    // Animation & Physics Loop
+    let lastTime = performance.now();
+    function animate(now) {
+      const dt = Math.min(0.05, (now - lastTime) / 1000);
+      lastTime = now;
+
+      let forwardInput = 0;
+      let strafeInput = 0;
+      if (keys.has("KeyW") || keys.has("ArrowUp")) forwardInput += 1;
+      if (keys.has("KeyS") || keys.has("ArrowDown")) forwardInput -= 1;
+      if (keys.has("KeyD") || keys.has("ArrowRight")) strafeInput += 1;
+      if (keys.has("KeyA") || keys.has("ArrowLeft")) strafeInput -= 1;
+
+      if (touchMove.active) {
+        forwardInput -= touchMove.dy;
+        strafeInput += touchMove.dx;
+      }
+
+      const inputMag = Math.hypot(forwardInput, strafeInput);
+      if (inputMag > 1) {
+        forwardInput /= inputMag;
+        strafeInput /= inputMag;
+      }
+
+      const maxSpeed = (keys.has("ShiftLeft") || keys.has("ShiftRight")) ? 3.85 : 2.35;
+      const fx = -Math.sin(player.yaw);
+      const fz = -Math.cos(player.yaw);
+      const rx = Math.cos(player.yaw);
+      const rz = -Math.sin(player.yaw);
+
+      const targetVx = (fx * forwardInput + rx * strafeInput) * maxSpeed;
+      const targetVz = (fz * forwardInput + rz * strafeInput) * maxSpeed;
+      const accel = 1 - Math.exp(-12.0 * dt);
+      player.vx += (targetVx - player.vx) * accel;
+      player.vz += (targetVz - player.vz) * accel;
+
+      const targetEyeY = player.crouched ? 1.08 : (meta.eye_height_m || 1.65);
+      player.y += (targetEyeY - player.y) * (1 - Math.exp(-10.0 * dt));
+
+      const substeps = 3;
+      for (let s = 0; s < substeps; s++) {
+        const nx = player.x + (player.vx * dt) / substeps;
+        const nz = player.z + (player.vz * dt) / substeps;
+        const [cx, cz] = resolveCollisions(nx, nz, player.y);
+        player.x = cx;
+        player.z = cz;
+      }
+
+      const speedNow = Math.hypot(player.vx, player.vz);
+      let bobOffset = 0;
+      if (!reducedMotion && speedNow > 0.15) {
+        player.bobPhase += dt * (6.2 + speedNow * 1.4);
+        bobOffset = Math.sin(player.bobPhase) * 0.014 * Math.min(1, speedNow / 2.2);
+      }
+
+      // Slight balcony step-down (-0.02 m) when outside z < -0.05
+      const floorStep = player.z < -0.05 ? -0.02 : 0.0;
+      camera.position.set(player.x, player.y + floorStep + bobOffset, player.z);
+      camera.rotation.y = player.yaw;
+      camera.rotation.x = player.pitch;
+
+      updateRoomIndicator();
+      drawMinimap();
+      composer.render();
+      requestAnimationFrame(animate);
+    }
+
+    async function fetchFirstJson(urls) {
+      for (const u of urls) {
+        try {
+          const r = await fetch(u);
+          if (r.ok) return await r.json();
+        } catch (_) {}
+      }
+      return null;
+    }
+
+    async function boot() {
+      const loadedMeta = await fetchFirstJson([
+        "/walkthrough/assets/apartment_meta.json",
+        "./assets/apartment_meta.json",
+      ]);
+      if (loadedMeta) {
+        meta = loadedMeta;
+        player.x = meta.spawn.x;
+        player.y = meta.spawn.y;
+        player.z = meta.spawn.z;
+        player.yaw = THREE.MathUtils.degToRad(meta.spawn.yaw_deg);
+        player.pitch = THREE.MathUtils.degToRad(meta.spawn.pitch_deg);
+        if (Array.isArray(meta.assumptions) && meta.assumptions.length) {
+          const ul = document.getElementById("assumptions-list");
+          meta.assumptions.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            ul.appendChild(li);
+          });
+        }
+      }
+
+      const glbUrls = [
+        "/walkthrough/assets/dream_apartment.glb",
+        "./assets/dream_apartment.glb",
+      ];
+      const loader = new GLTFLoader();
+      const progressBar = document.getElementById("progress-bar");
+      const statusTxt = document.getElementById("loader-status");
+
+      let gltf = null;
+      for (const url of glbUrls) {
+        try {
+          gltf = await new Promise((resolve, reject) => {
+            loader.load(
+              url,
+              resolve,
+              xhr => {
+                if (xhr.total > 0) {
+                  const pct = Math.round((xhr.loaded / xhr.total) * 100);
+                  progressBar.style.inlineSize = `${Math.max(15, pct)}%`;
+                  statusTxt.textContent = `Streaming apartment GLB (${pct}%)…`;
+                }
+              },
+              reject
+            );
+          });
+          if (gltf) break;
+        } catch (_) {}
+      }
+
+      if (gltf && gltf.scene) {
+        const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+        gltf.scene.traverse(node => {
+          if (!node.isMesh) return;
+          const mname = (node.material && node.material.name) || "";
+          const isGlassOrVista = mname.includes("Glass") || mname.includes("Vista") || mname.includes("Water");
+          node.castShadow = !isGlassOrVista;
+          node.receiveShadow = !mname.includes("Vista");
+          if (node.material) {
+            for (const key of ["map", "normalMap", "roughnessMap", "emissiveMap"]) {
+              const tex = node.material[key];
+              if (tex) {
+                tex.anisotropy = maxAniso;
+                tex.needsUpdate = true;
+              }
+            }
+          }
+        });
+        scene.add(gltf.scene);
+      } else {
+        statusTxt.textContent = "Failed to load dream_apartment.glb — check server path.";
+      }
+
+      document.getElementById("loader").classList.add("done");
+      window.__walkthroughReady = true;
+      requestAnimationFrame(animate);
+    }
+
+    applyLightingMode(0);
+    boot();
+  </script>
+</body>
+</html>
