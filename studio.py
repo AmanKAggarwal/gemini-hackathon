@@ -35,6 +35,7 @@ from pydantic import BaseModel
 from studio_correspond import correspond
 from studio_review import ESSENTIAL, fam, inspect, review
 import studio_live
+import studio_prompt
 
 BASE_DIR = Path(__file__).parent
 CATALOG_PATH = BASE_DIR / "data" / "studio_catalog.json"
@@ -645,6 +646,41 @@ class OpinionReq(BaseModel):
 def studio_second_opinion(req: OpinionReq) -> dict[str, Any]:
     """Decisions API (gemini-decision-1) scores a render of each finished room."""
     return {"rooms": _live(studio_live.second_opinion, req.rooms)}
+
+
+class PromptReq(BaseModel):
+    plan: str
+    text: str
+    rooms: dict[str, list[dict[str, Any]]]
+    truck: list[dict[str, Any]] = []
+
+
+@router.post("/studio/prompt")
+def studio_prompt_route(req: PromptReq) -> dict[str, Any]:
+    """A typed instruction changes the layout: gemini-4-neon reads it, the engine applies it, the reviewer re-inspects."""
+    cat = load_catalog()
+    plan = next((p for p in cat["plans"] if p["id"] == req.plan), None)
+    if plan is None:
+        raise HTTPException(status_code=404, detail=f"unknown plan {req.plan}")
+    rooms = {k: target_room(plan, k) for k in req.rooms if k in plan["rooms"]}
+    items = {k: [dict(i) for i in req.rooms[k]] for k in rooms}
+    truck = [dict(t) for t in req.truck]
+    try:
+        directives, secs = studio_prompt.parse(req.text, rooms, items, truck)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"{type(exc).__name__}: {str(exc)[:300]}")
+    notes = studio_prompt.apply(directives, rooms, items, truck, {i["id"]: i for i in cat["inventory"]["items"]})
+    out = {}
+    for k, room in rooms.items():
+        chk, findings = inspect(k, room, items[k], walkway)
+        errors = [f for f in findings if f["level"] == "error"]
+        out[k] = {"items": items[k], "check": chk, "review": {"verdict": "needs attention" if errors else "approved", "findings": findings, "fixes": 0}}
+    seen: set[str] = set()
+    truck = [t for t in truck if not (t["id"] in seen or seen.add(t["id"]))]
+    return {"rooms": out, "truck": truck, "notes": notes, "summary": directives.summary, "directives": [d.model_dump() for d in directives.directives],
+            "seconds": secs, "model": studio_live.MODEL_PLAN}
 
 
 class BaselineReq(BaseModel):
