@@ -118,6 +118,10 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 .ghostb{fill:rgba(234,67,53,.16);stroke:#ea4335;stroke-width:.04;stroke-dasharray:.1 .07}.ghostb.ok{fill:rgba(234,67,53,.05);stroke:#f28b82}
 .cmp td.n,.cmp th.n{text-align:center}.cmp .tot td{border-top:1px solid var(--line);font-weight:600}
 #ptext{flex:1;min-width:240px;background:var(--panel);border:1px solid var(--line);border-radius:99px;color:var(--ink);font:inherit;padding:11px 18px;outline:none}#ptext:focus{border-color:var(--gold)}
+/* trimmed toolbar: these actions are kept in code but not shown */
+#base,#blend,#walk,#replay,#back{display:none!important}
+#st1{cursor:pointer}
+#fin{position:absolute;inset:0;background:#131314;border-radius:18px;overflow:hidden;z-index:6}#fin iframe{width:100%;height:100%;border:0;display:block}#fin button{position:absolute;top:12px;right:12px;background:rgba(19,19,20,.75)}
 </style>
 </head>
 <body>
@@ -149,7 +153,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
     </div>
     <div class="bar hide" id="pbar"><input id="ptext" placeholder="Tell the agent what to change: put the TV in the bedroom · remove the coffee table · no plants in the living room" autocomplete="off"><button class="go" id="pgo" style="padding:10px 20px">Apply</button></div>
     <div class="weave">
-      <div class="stage" id="stage"><svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg><p class="edit hide" id="edit" style="color:#5f6368">Live edit: drag any piece on the plan, double-click to rotate it. The reviewer re-checks the room when you let go.</p><div id="three" class="hide"><div id="bl" class="hide"><img id="blImg" alt="Blender render of the current view"><span id="blCap"></span><button class="ghostbtn" id="blClose" style="background:rgba(0,0,0,.6)">Back to live 3D</button></div><div id="carry" class="hide"></div><div id="inset" class="hide"></div><div id="hint"></div></div></div>
+      <div class="stage" id="stage"><svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg><p class="edit hide" id="edit" style="color:#5f6368">Live edit: drag any piece on the plan, double-click to rotate it. The reviewer re-checks the room when you let go.</p><div id="three" class="hide"><div id="bl" class="hide"><img id="blImg" alt="Blender render of the current view"><span id="blCap"></span><button class="ghostbtn" id="blClose" style="background:rgba(0,0,0,.6)">Back to live 3D</button></div><div id="fin" class="hide"><iframe id="finFrame" title="Final design: photoreal walkthrough" allow="fullscreen"></iframe><button class="ghostbtn" id="finClose">Back to the plan view</button></div><div id="carry" class="hide"></div><div id="inset" class="hide"></div><div id="hint"></div></div></div>
       <div class="side">
         <div class="box" id="gbox"><h4>Gauging the photo</h4>
           <div class="gauge"><div class="photo"><img id="gImg" alt=""><div class="scan" id="scan"></div><span class="dim w" id="dimW"></span><span class="dim d" id="dimD"></span></div>
@@ -404,7 +408,7 @@ function verifyCard(){
 let dirty=false,editable=false;
 function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true,{final:true})}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
   $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin','base','final'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
-function reset3d(){editable=false;dirty=false;$('pbar').classList.add('hide');if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin','base','final'].forEach(b=>$(b).classList.add('hide'))}
+function reset3d(){editable=false;dirty=false;$('fin').classList.add('hide');$('pbar').classList.add('hide');if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin','base','final'].forEach(b=>$(b).classList.add('hide'))}
 let moveP=Promise.resolve();
 async function alignGemini(f,pv){const r=await fetch('/studio/align',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,key:f.room.key,items:f.final.items})});
   const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);if(!j.removed.length)return;
@@ -488,7 +492,9 @@ $('base').onclick=async()=>{const b=$('base');b.disabled=true;speed=0;Studio3D.f
     for(const br of Object.values(j.rooms))if(br.gemini)logLine('review',`<span class="op">${br.label}: Gemini alone had <b>${br.gemini.overlaps}</b> overlaps, <b>${br.gemini.door_blocks}</b> in door zones, <b>${br.gemini.outside_room}</b> outside the room; engine <b>${br.engine.hard_violations}</b> violations.</span>`);
     view('2d');document.querySelector('.cmp').scrollIntoView({behavior:'smooth',block:'center'})}
   catch(e){logLine('review','<span class="bad">Baseline failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Baseline: Gemini places it'};
-$('final').onclick=()=>{logLine('room','Final design');logLine('3d','Opened the photoreal showcase home built in Blender (a fixed 6-zone residence, not the plan picked here).');window.open('/walkthrough?mode=walkthrough','_blank')};
+$('final').onclick=()=>{view('3d');if(!$('finFrame').src)$('finFrame').src='/walkthrough?embed=1';$('fin').classList.remove('hide');$('wTitle').textContent='Final design · '+P.name;logLine('room','Final design');logLine('3d','Showing the photoreal Blender home. It is a fixed showcase residence, not the floor plan picked here.')};
+$('finClose').onclick=()=>{$('fin').classList.add('hide');$('wTitle').textContent='Your new home in 3D · '+P.name};
+$('st1').onclick=()=>{if(!$('weave').classList.contains('hide'))$('back').click()};
 $('ptext').addEventListener('keydown',e=>{if(e.key==='Enter')$('pgo').click()});
 $('pgo').onclick=async()=>{const text=$('ptext').value.trim();if(!text||!FIT)return;const b=$('pgo');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='Gemini is reading…';
   logLine('room','Your instruction');logLine('edit','“'+text.replace(/</g,'&lt;')+'”');
