@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from studio_correspond import ACCESSORY, EPS, TALL_TYPES, WALLS, WALL_NAME, WALL_TYPES, _along_wall, _spiral, overlap
+from studio_correspond import ACCESSORY, EPS, TALL_TYPES, WALLS, WALL_NAME, WALL_TYPES, _along_wall, _spiral, _valid, overlap
 
 FAMILY = {"sectional": "sofa"}
 NAMES = {"tv": "TV", "plant": "plant", "fridge": "fridge", "sofa": "sofa", "bed": "bed", "coffee": "coffee table", "rug": "rug", "armchair": "armchair", "table": "table",
@@ -202,6 +202,72 @@ def review(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway, fix:
                     break
                 was = f"{cur['width_m']:.1f} m" if cur["width_m"] else "blocked"
                 remove(key, best, f"The walkway in the {room['label'].lower()} was {was}.", "walkway")
+
+    if fix:
+        # Rule 3: a TV hangs on the wall its sofa (or bed) faces. If that side of the room is open, turn the sofa to a real wall.
+        for key, r in by_key.items():
+            room, F = r["room"], r["final"]
+            tv = next((i for i in F["items"] if i["type"] == "tv" and i.get("own")), None)
+            if tv is None:
+                continue
+            area = lambda i: i["rect"][2] * i["rect"][3]
+            seats = sorted((i for i in F["items"] if i["type"] in ("sofa", "sectional") and not i["floor"]), key=lambda i: (0 if i.get("own") else 1, -area(i)))
+            seats = seats or [i for i in F["items"] if i["type"] == "bed"]
+            if not seats:
+                continue
+            seat, W, D, ln = seats[0], room["w"], room["d"], max(tv["rect"][2], tv["rect"][3])
+            kind = "bed" if seat["type"] == "bed" else "sofa"
+            sx, sz, sw, sd = seat["rect"]
+
+            def on_wall(rect: list[float], wl: str) -> bool:
+                return {"N": rect[1] < 0.06, "S": rect[1] + rect[3] > D - 0.06, "W": rect[0] < 0.06, "E": rect[0] + rect[2] > W - 0.06}[wl]
+
+            def centre(rect: list[float], wl: str) -> float:
+                return rect[0] + rect[2] / 2 if wl in "NS" else rect[1] + rect[3] / 2
+
+            wl = seat["face"]
+            if on_wall(tv["rect"], wl) and abs(centre(tv["rect"], wl) - centre(seat["rect"], wl)) < 1.0:
+                continue   # already opposite
+            others = [i["rect"] for i in F["items"] if not i["floor"] and i is not tv]
+            rect = None if wl in room["open"] else _along_wall(room, wl, ln, 0.1, others, False, start=centre(seat["rect"], wl) - ln / 2)
+            if rect:
+                tv.update(rect=rect, face=WALLS[(WALLS.index(wl) + 2) % 4], note=f"on the {WALL_NAME[wl]} wall, facing the {kind}")
+                notes[key].append({"rule": "tv", "level": "fixed", "text": f"The TV was not opposite the {kind}. Moved it to the {WALL_NAME[wl]} wall, facing your {seat['label'].lower()}."})
+                continue
+            if kind == "bed":
+                notes[key].append({"rule": "tv", "level": "info", "text": f"No free wall faces the bed in the {room['label'].lower()}, so the TV stays on the {WALL_NAME[next((w for w in WALLS if on_wall(tv['rect'], w)), 'N')]} wall."})
+                continue
+            rest = [i["rect"] for i in F["items"] if not i["floor"] and i is not tv and i is not seat]
+            L, dp, done = max(sw, sd), min(sw, sd), False
+            for w2 in sorted((w for w in WALLS if w not in room["open"]), key=lambda w: (any(n["wall"] == w for n in room["windows"]), -(W if w in "NS" else D))):
+                trect = _along_wall(room, w2, ln, 0.1, rest, False)
+                if not trect:
+                    continue
+                tc, span = centre(trect, w2), (W if w2 in "NS" else D)
+                a = min(max(tc - L / 2, 0.0), span - L)
+                for dist in (2.6, 2.2, 3.0, 1.8, 1.5):
+                    cand = {"N": [a, dist, L, dp], "S": [a, D - dist - dp, L, dp], "W": [dist, a, dp, L], "E": [W - dist - dp, a, dp, L]}[w2]
+                    cand = [round(v, 3) for v in cand]
+                    if _valid(room, cand, rest + [trect], False):
+                        ox, oz = cand[0] + cand[2] / 2, cand[1] + cand[3] / 2
+                        for n, rd in enumerate(i for i in F["items"] if i.get("on") == seat["id"]):
+                            off = (n - 1) * 0.5
+                            rd["rect"] = [round(ox - rd["rect"][2] / 2 + (off if w2 in "NS" else 0), 3), round(oz - rd["rect"][3] / 2 + (0 if w2 in "NS" else off), 3), rd["rect"][2], rd["rect"][3]]
+                        seat.update(rect=cand, face=w2, note=f"turned to face the {WALL_NAME[w2]} wall, where the TV is")
+                        tv.update(rect=trect, face=WALLS[(WALLS.index(w2) + 2) % 4], note=f"on the {WALL_NAME[w2]} wall, facing the sofa")
+                        notes[key].append({"rule": "tv", "level": "fixed", "text": f"Your {seat['label'].lower()} faced an open side with no wall for the TV. Turned it to face the {WALL_NAME[w2]} wall and hung the TV there."})
+                        done = True
+                        break
+                if done:
+                    break
+            if not done:
+                # last resort in an open-plan room: the TV goes on a stand at the open side, straight across from the sofa
+                rect = _along_wall(room, wl, ln, 0.1, others, False, start=centre(seat["rect"], wl) - ln / 2)
+                if rect:
+                    tv.update(rect=rect, face=WALLS[(WALLS.index(wl) + 2) % 4], note=f"on a stand at the open {WALL_NAME[wl]} side, facing the sofa")
+                    notes[key].append({"rule": "tv", "level": "fixed", "text": f"The TV was not opposite the sofa, and the side your {seat['label'].lower()} faces has no wall. Stood the TV at that open {WALL_NAME[wl]} side, straight across from it."})
+                else:
+                    notes[key].append({"rule": "tv", "level": "info", "text": f"Could not find a spot where the TV and your {seat['label'].lower()} face each other in the {room['label'].lower()}."})
 
     for key, r in by_key.items():
         room, F = r["room"], r["final"]

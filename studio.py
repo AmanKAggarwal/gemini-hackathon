@@ -50,6 +50,7 @@ COST = {"left1": 10.0, "left2": 5.0, "left3": 1.5, "swap": 3.0, "merge": 2.5, "m
         "open_edge": 6.0, "aspect": 2.0, "walkway": 4.0}
 DOOR_MARGIN = 0.25   # m kept clear around every door swing the plan draws
 ENTRY_CLEAR = 0.9    # m square kept clear just inside each doorway
+OPEN_PAD = 1.0       # m of floor counted as walkable beyond an open-plan side
 WALK_WIDTHS = [0.9, 0.8, 0.7, 0.6]  # spec hard constraint is 0.9 m; narrower widths are reported, not hidden
 
 
@@ -147,9 +148,16 @@ def walkway(room: dict[str, Any], solids: list[dict[str, Any]]) -> dict[str, Any
     """Widest walkway (from WALK_WIDTHS) that reaches every must/nice item from the room entry.
 
     Approximation: 0.1 m grid, obstacles inflated by half the walkway width, 4-connected flood fill.
+    On an open-plan side there is no wall, so people can step past the room's edge: the grid
+    extends OPEN_PAD metres beyond every open side.
     """
     W, D = room["w"], room["d"]
-    nx, nz = max(1, int(round(W / STEP))), max(1, int(round(D / STEP)))
+    opn = room.get("open", [])
+    x_lo, z_lo = (-OPEN_PAD if "W" in opn else 0.0), (-OPEN_PAD if "N" in opn else 0.0)
+    x_hi, z_hi = W + (OPEN_PAD if "E" in opn else 0.0), D + (OPEN_PAD if "S" in opn else 0.0)
+    nx, nz = max(1, int(round((x_hi - x_lo) / STEP))), max(1, int(round((z_hi - z_lo) / STEP)))
+    X = lambda i: x_lo + (i + 0.5) * STEP
+    Z = lambda j: z_lo + (j + 0.5) * STEP
     blocks = [s["rect"] for s in solids] + room["obstacles"]
     targets = [s for s in solids if s["pri"] <= 2]
 
@@ -158,7 +166,7 @@ def walkway(room: dict[str, Any], solids: list[dict[str, Any]]) -> dict[str, Any
         free = [[True] * nz for _ in range(nx)]
         for i in range(nx):
             for j in range(nz):
-                cx, cz = (i + 0.5) * STEP, (j + 0.5) * STEP
+                cx, cz = X(i), Z(j)
                 for b in blocks:
                     ddx = max(b[0] - cx, 0, cx - (b[0] + b[2]))
                     ddz = max(b[1] - cz, 0, cz - (b[1] + b[3]))
@@ -170,7 +178,7 @@ def walkway(room: dict[str, Any], solids: list[dict[str, Any]]) -> dict[str, Any
         for i in range(nx):
             for j in range(nz):
                 if free[i][j]:
-                    dd = math.hypot((i + 0.5) * STEP - ex, (j + 0.5) * STEP - ez)
+                    dd = math.hypot(X(i) - ex, Z(j) - ez)
                     if dd < bd:
                         best, bd = (i, j), dd
         if best is None:
@@ -187,11 +195,7 @@ def walkway(room: dict[str, Any], solids: list[dict[str, Any]]) -> dict[str, Any
         for t in targets:
             b = t["rect"]
             reach = r + 0.35
-            ok = any(
-                math.hypot(max(b[0] - (i + 0.5) * STEP, 0, (i + 0.5) * STEP - (b[0] + b[2])),
-                           max(b[1] - (j + 0.5) * STEP, 0, (j + 0.5) * STEP - (b[1] + b[3]))) <= reach
-                for (i, j) in seen
-            )
+            ok = any(math.hypot(max(b[0] - X(i), 0, X(i) - (b[0] + b[2])), max(b[1] - Z(j), 0, Z(j) - (b[1] + b[3]))) <= reach for (i, j) in seen)
             if not ok:
                 missed.append(t["id"])
         return not missed, missed

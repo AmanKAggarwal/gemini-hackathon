@@ -416,7 +416,7 @@ def second_opinion(rooms: list[dict[str, Any]], runner=None) -> list[dict[str, A
     for r in rooms:
         questions = build_layout_questions(include_bed_question=bool(r.get("has_bed")))
         header, b64 = r["image"].split(",", 1)
-        shared = [{"type": "text", "text": f"Top-down render of a furnished {r['label']} in a planned apartment. Furniture inside a blue ring belongs to the resident."},
+        shared = [{"type": "text", "text": f"Top-down render of a furnished {r['label']} in a planned apartment."},
                   {"type": "image", "data": b64, "mime_type": header.split(";")[0].replace("data:", "") or "image/jpeg"}]
         t0 = time.time()
         answers = runner(shared, questions) if runner else (client.decisions.create(model=MODEL_DECISION, input=shared, questions=questions).answers or {})
