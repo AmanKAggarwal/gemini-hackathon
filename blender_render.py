@@ -91,10 +91,28 @@ if engine == "CYCLES":
     scene.render.engine = "CYCLES"
     scene.cycles.samples = cfg.get("samples", 48)
     scene.cycles.use_denoising = True
-    scene.cycles.max_bounces = 6
+    scene.cycles.max_bounces = 4
+    # Use the GPU when Blender can see one; otherwise this stays on the CPU.
+    try:
+        prefs = bpy.context.preferences.addons["cycles"].preferences
+        for kind in ("OPTIX", "CUDA", "HIP", "ONEAPI"):
+            try:
+                prefs.compute_device_type = kind
+                prefs.get_devices()
+                gpus = [d for d in prefs.devices if d.type != "CPU"]
+                if gpus:
+                    for d in prefs.devices:
+                        d.use = d.type != "CPU"
+                    scene.cycles.device = "GPU"
+                    print("HOMEWEAVE_DEVICE", kind, [d.name for d in gpus])
+                    break
+            except Exception:
+                continue
+    except Exception:
+        pass
     try:
         scene.cycles.use_adaptive_sampling = True
-        scene.cycles.adaptive_threshold = 0.05
+        scene.cycles.adaptive_threshold = 0.1
     except Exception:
         pass
 else:
