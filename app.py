@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from shapely.geometry import Polygon
@@ -46,6 +46,7 @@ from schemas import (
     Provenance,
     Room,
 )
+from studio import router as studio_router
 from weave import weave
 
 BASE_DIR = Path(__file__).parent
@@ -215,7 +216,11 @@ def ensure_seed_data(force: bool = False) -> None:
 
 
 ensure_seed_data(force=False)
+import studio_live
+
+studio_live.load_env()   # the key lives in .env; make it visible to every module that reads GEMINI_API_KEY
 app = FastAPI(title="Homeweave", version="2.0.0")
+app.include_router(studio_router)
 
 if (WALKTHROUGH_DIR / "assets").exists():
     app.mount(
@@ -283,7 +288,12 @@ class CustomChatReq(BaseModel):
     use_gemini: bool = True
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
+def serve_front_door() -> RedirectResponse:
+    """The product starts at the Studio: pick a plan, a look per room, and what moves with you."""
+    return RedirectResponse("/studio")
+
+
 @app.get("/walkthrough", response_class=HTMLResponse)
 @app.get("/walkthrough/", response_class=HTMLResponse)
 @app.get("/walkthrough/index.html", response_class=HTMLResponse)
