@@ -499,13 +499,20 @@ function tall(on){if(walls)walls.scale.y=on?WALL_FULL/WALL_LOW:1;if(art)art.visi
 fps.addEventListener('unlock',()=>{walking=false;tall(false);orbit.enabled=true;if(saved){cam.position.copy(saved.p);orbit.target.copy(saved.t)}hint.textContent=HINT_O});
 
 const hx=c=>new THREE.Color(c), mixc=(a,b,t)=>'#'+hx(a).lerp(hx(b),t).getHexString(), dk=(c,t=.25)=>mixc(c,'#000000',t), lt=(c,t=.25)=>mixc(c,'#ffffff',t);
-const mats={};
-function M(c,o={}){const k=c+JSON.stringify(o);if(!mats[k])mats[k]=new THREE.MeshStandardMaterial({color:c,roughness:o.rough??.8,metalness:o.metal??0,emissive:o.glow?c:'#000000',emissiveIntensity:o.glow||0,transparent:!!o.op,opacity:o.op||1,envMapIntensity:o.env??.35});return mats[k]}
+const mats={},TXC={},TXL=new THREE.TextureLoader();
+/* PBR texture set shared with the team's walkthrough (walkthrough/assets/textures) */
+function tx(name,rx=1,ry=1,srgb=false,onErr){const k=name+rx+'x'+ry;if(!TXC[k]){const t=TXL.load('/walkthrough/assets/textures/'+name,undefined,undefined,onErr);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx,ry);t.anisotropy=8;if(srgb)t.colorSpace=THREE.SRGBColorSpace;TXC[k]=t}return TXC[k]}
+const FLOORS={wood:['oak_floor_color.jpg','oak_floor_normal.png','oak_floor_rough.jpg',2.2,.5],marble:['calacatta_color.jpg',null,'calacatta_rough.jpg',2.4,.18],tile:['spa_tile_color.jpg','spa_tile_normal.png',null,1.2,.4],carpet:['rug_color.jpg','rug_normal.png',null,2,.95]};
+function floorMat(p,r){const [c,n,ro,size,rough]=FLOORS[p.style]||FLOORS.wood,rx=r.w/size,ry=r.d/size;
+  const m=new THREE.MeshStandardMaterial({color:lt(p.floor,.5),roughness:rough,envMapIntensity:p.style==='marble'?.9:.35});
+  m.map=tx(c,rx,ry,true,()=>{const f=floorTex(p);f.repeat.set(r.w/2.4,r.d/2.4);m.color.set('#ffffff');m.map=f;m.needsUpdate=true});
+  if(n){m.normalMap=tx(n,rx,ry);m.normalScale.set(.7,.7)}if(ro)m.roughnessMap=tx(ro,rx,ry);return m}
+function M(c,o={}){const k=c+JSON.stringify(o);if(!mats[k]){mats[k]=new THREE.MeshStandardMaterial({color:c,roughness:o.rough??.8,metalness:o.metal??0,emissive:o.glow?c:'#000000',emissiveIntensity:o.glow||0,transparent:!!o.op,opacity:o.op||1,envMapIntensity:o.env??.35});if(o.puff){mats[k].normalMap=tx('boucle_normal.png',3,3);mats[k].normalScale.set(.55,.55)}}return mats[k]}
 function B(g,w,h,d,c,x=0,y=0,z=0,o){const mn=Math.min(w,h,d),soft=!(o&&(o.glow||o.op||o.sharp))&&mn>.1;
   const m=new THREE.Mesh(soft?new RoundedBoxGeometry(w,h,d,3,Math.min(o&&o.r||.035,mn/3)):new THREE.BoxGeometry(w,h,d),M(c,o));m.position.set(x,y+h/2,z);m.castShadow=!(o&&(o.glow||o.op));m.receiveShadow=true;g.add(m);return m}
 function Cy(g,r,h,c,x=0,y=0,z=0,o){const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,36),M(c,o));m.position.set(x,y+h/2,z);m.castShadow=!(o&&o.glow);m.receiveShadow=true;g.add(m);return m}
 function Sp(g,r,c,x,y,z,o){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),M(c,o));m.position.set(x,y,z);m.castShadow=!(o&&o.glow);g.add(m);return m}
-const GL={glow:2.6}, PUFF={r:.12,rough:.95}, STONE={rough:.22,env:.9}, WOOD={rough:.55};
+const GL={glow:2.6}, PUFF={r:.12,rough:.95,puff:1}, STONE={rough:.22,env:.9}, WOOD={rough:.55};
 
 /* local frame: width w along x, depth d along z, back at -d/2, front at +d/2 */
 const MAKE={
@@ -587,11 +594,11 @@ async function show(P,FIT,CAT,log,sp,alive){
   const H=WALL_LOW,jobs=[],anyOwn=FIT.rooms.some(f=>f.final.items.some(i=>i.own));
   const ent=new THREE.Vector3(X(P.entrance[0]),0,Z(P.entrance[1]));
   FIT.rooms.forEach(f=>{const r=f.room,ph=CAT.photos.find(x=>x.id===f.photo_id),p=ph.palette,ox=X(r.rect_px[0]),oz=Z(r.rect_px[1]);
-    const ft=floorTex(p);ft.repeat.set(r.w/2.4,r.d/2.4);const fl=new THREE.Mesh(new THREE.PlaneGeometry(r.w,r.d),new THREE.MeshStandardMaterial({map:ft,roughness:p.style==='marble'?.16:p.style==='wood'?.5:.85,envMapIntensity:p.style==='marble'?.9:.35}));
+    const fl=new THREE.Mesh(new THREE.PlaneGeometry(r.w,r.d),floorMat(p,r));
     fl.rotation.x=-Math.PI/2;fl.position.set(ox+r.w/2,.012,oz+r.d/2);fl.receiveShadow=true;world.add(fl);
     const pl=new THREE.PointLight(p.glow,3.2,Math.max(r.w,r.d)*1.7,1.5);pl.position.set(ox+r.w/2,2.0,oz+r.d/2);world.add(pl);
     // inward-facing wall planes: from outside you look straight through the near walls
-    const wallC=p.wall?lt(p.wall,.12):lt(mixc(p.floor,p.top,.5),.25),wm=new THREE.MeshStandardMaterial({color:wallC,roughness:.95,envMapIntensity:.15,name:'wall'}),cove=M(p.glow,{glow:2.4});
+    const wallC=p.wall?lt(p.wall,.12):lt(mixc(p.floor,p.top,.5),.25),wm=new THREE.MeshStandardMaterial({color:wallC,roughness:.95,envMapIntensity:.15,name:'wall',normalMap:tx('plaster_normal.png',2,1)}),cove=M(p.glow,{glow:2.4});
     const touch={N:0,E:0,S:0,W:0};f.final.items.forEach(i=>{if(i.floor)return;const q=i.rect;if(q[1]<.06)touch.N++;if(q[1]+q[3]>r.d-.06)touch.S++;if(q[0]<.06)touch.W++;if(q[0]+q[2]>r.w-.06)touch.E++});
     let artSide=null;
     for(const side of 'NESW'){if(r.open.includes(side))continue;const horiz=side==='N'||side==='S',L=horiz?r.w:r.d;let gaps=[];
