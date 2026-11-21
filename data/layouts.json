@@ -305,7 +305,17 @@
       "violations_total": 0,
       "flagged_items": []
     },
-    "judge_score": null,
+    "judge_score": {
+      "scope_is_furnished_render_p": 0.92,
+      "conversation_faces_seat_or_tv_p": 0.92,
+      "clear_path_from_doors_p": 0.92,
+      "blocks_window_p": 0.06,
+      "bed_clear_long_side_p": 0.92,
+      "balance_score": 4.3,
+      "comfort_score": 4.3,
+      "mean_confidence": 0.8714,
+      "total_score": 12.3
+    },
     "warnings": [],
     "leftovers": [
       {

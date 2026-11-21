@@ -11,5 +11,7 @@ fi
 
 .venv/bin/python reproduce.py "$@"
 echo ""
-echo "Starting Homeweave 3D Residence Viewer at http://127.0.0.1:8000 ..."
+echo "Starting Homeweave Studio & Photoreal Walkthrough Server..."
+echo "  -> Constraint Studio:      http://127.0.0.1:8000"
+echo "  -> Photoreal Walkthrough:  http://127.0.0.1:8000/walkthrough"
 exec .venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000

@@ -15,6 +15,7 @@ from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from shapely.geometry import Polygon
 
@@ -39,6 +40,7 @@ from weave import weave
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
 SAMPLES_DIR = BASE_DIR / "samples"
+WALKTHROUGH_DIR = BASE_DIR / "walkthrough"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -197,8 +199,14 @@ def ensure_seed_data(force: bool = False) -> None:
 
 
 ensure_seed_data(force=False)
-app = FastAPI(title="Homeweave", version="1.1.0")
+app = FastAPI(title="Homeweave", version="1.2.0")
 app.include_router(studio_router)
+if (WALKTHROUGH_DIR / "assets").exists():
+    app.mount(
+        "/walkthrough/assets",
+        StaticFiles(directory=str(WALKTHROUGH_DIR / "assets")),
+        name="walkthrough_assets",
+    )
 
 
 class PerceiveListingReq(BaseModel):
@@ -245,6 +253,16 @@ class JudgeRendersReq(BaseModel):
 @app.get("/viewer.html", response_class=HTMLResponse)
 def serve_viewer() -> HTMLResponse:
     return HTMLResponse((BASE_DIR / "viewer.html").read_text(encoding="utf-8"))
+
+
+@app.get("/walkthrough", response_class=HTMLResponse)
+@app.get("/walkthrough/", response_class=HTMLResponse)
+@app.get("/walkthrough/index.html", response_class=HTMLResponse)
+def serve_walkthrough() -> HTMLResponse:
+    wt_file = WALKTHROUGH_DIR / "index.html"
+    if not wt_file.exists():
+        raise HTTPException(status_code=404, detail="walkthrough/index.html not found")
+    return HTMLResponse(wt_file.read_text(encoding="utf-8"))
 
 
 @app.get("/home.json")
