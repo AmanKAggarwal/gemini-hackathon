@@ -1,8 +1,12 @@
 """FastAPI server for Homeweave (`app.py`).
 
-Wires all pure JSON stages (`perceive_listing`, `perceive_home_video`, `perceive_hard_plan`,
-`judge_features`, `weave`, `arrange`, `judge_layouts`, `run_gemini_baseline`) to `./data`
-and serves the architectural 3D Residence viewer (`viewer.html`) at `/`.
+Serves:
+- `/` & `/walkthrough` — Flagship Homeweave Multi-Room Ensemble Studio, Live Tiny-Mover 3D Build,
+  3 Validated Furniture Orientation Tabs, and First-Person 1.65 m PBR Walkthrough (`walkthrough/index.html`).
+- `/pipeline` & `/viewer.html` — Stage-by-stage JSON pipeline inspector (`viewer.html`).
+- `/api/presets` & `/api/ensemble` — Multi-category room image ensemble, 3-orientation solver, and
+  collision-free Tiny-Mover A* path planner (`ensemble.py`).
+- All Prompt 1–8 JSON endpoints (`/perceive/*`, `/judge/*`, `/weave`, `/arrange`, `/judge`).
 """
 
 from __future__ import annotations
@@ -14,13 +18,21 @@ from pathlib import Path
 from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from shapely.geometry import Polygon
 
 from arrange import arrange
 from check import check_layout
+from ensemble import (
+    ROOM_META,
+    build_canonical_home,
+    build_canonical_inventory,
+    build_three_orientations,
+    parse_custom_chat_request,
+    synthesize_ensemble,
+)
 from judge import judge_features, judge_layouts
 from perceive import perceive_home_video, perceive_listing
 from schemas import (
@@ -40,6 +52,7 @@ from weave import weave
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
 SAMPLES_DIR = BASE_DIR / "samples"
+DRIVE_INPUTS_DIR = DATA_DIR / "drive_inputs"
 WALKTHROUGH_DIR = BASE_DIR / "walkthrough"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -57,7 +70,11 @@ def pair_rooms(src_rooms: list[Room], new_rooms: list[Room]) -> list[tuple[Room,
             na = Polygon(nr.polygon).area if nr.polygon and len(nr.polygon) >= 3 else 15.0
             if sr.type == nr.type:
                 type_cost = 0.0
-            elif {sr.type, nr.type} <= living_family or {sr.type, nr.type} <= bed_family or {sr.type, nr.type} <= bath_family:
+            elif (
+                {sr.type, nr.type} <= living_family
+                or {sr.type, nr.type} <= bed_family
+                or {sr.type, nr.type} <= bath_family
+            ):
                 type_cost = 0.35
             else:
                 type_cost = 5.0
@@ -178,7 +195,7 @@ def arrange_whole_home(inv: HomeVideoInventory, home: Home) -> tuple[list[Layout
 
 
 def ensure_seed_data(force: bool = False) -> None:
-    """Seed `./data/home.json`, `./data/inventory.json`, and `./data/layouts.json` from 1BR residence."""
+    """Seed `./data/home.json`, `./data/inventory.json`, and `./data/layouts.json`."""
     home_file = DATA_DIR / "home.json"
     layouts_file = DATA_DIR / "layouts.json"
     inv_file = DATA_DIR / "inventory.json"
@@ -199,13 +216,23 @@ def ensure_seed_data(force: bool = False) -> None:
 
 
 ensure_seed_data(force=False)
-app = FastAPI(title="Homeweave", version="1.2.0")
+import studio_live
+
+studio_live.load_env()   # the key lives in .env; make it visible to every module that reads GEMINI_API_KEY
+app = FastAPI(title="Homeweave", version="2.0.0")
 app.include_router(studio_router)
+
 if (WALKTHROUGH_DIR / "assets").exists():
     app.mount(
         "/walkthrough/assets",
         StaticFiles(directory=str(WALKTHROUGH_DIR / "assets")),
         name="walkthrough_assets",
+    )
+if DRIVE_INPUTS_DIR.exists():
+    app.mount(
+        "/samples/drive",
+        StaticFiles(directory=str(DRIVE_INPUTS_DIR)),
+        name="drive_samples",
     )
 
 
@@ -249,20 +276,81 @@ class JudgeRendersReq(BaseModel):
     has_bed: bool = False
 
 
-@app.get("/", response_class=HTMLResponse)
-@app.get("/viewer.html", response_class=HTMLResponse)
-def serve_viewer() -> HTMLResponse:
-    return HTMLResponse((BASE_DIR / "viewer.html").read_text(encoding="utf-8"))
+class EnsembleReq(BaseModel):
+    categories: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    custom_requests: list[dict[str, Any]] = Field(default_factory=list)
+    use_gemini: bool = True
+
+
+class CustomChatReq(BaseModel):
+    message: str = ""
+    attachments: list[dict[str, Any]] = Field(default_factory=list)
+    use_gemini: bool = True
+
+
+@app.get("/")
+def serve_front_door() -> RedirectResponse:
+    """The product starts at the Studio: pick a plan, a look per room, and what moves with you."""
+    return RedirectResponse("/studio")
 
 
 @app.get("/walkthrough", response_class=HTMLResponse)
 @app.get("/walkthrough/", response_class=HTMLResponse)
 @app.get("/walkthrough/index.html", response_class=HTMLResponse)
-def serve_walkthrough() -> HTMLResponse:
+def serve_flagship_app() -> HTMLResponse:
     wt_file = WALKTHROUGH_DIR / "index.html"
     if not wt_file.exists():
         raise HTTPException(status_code=404, detail="walkthrough/index.html not found")
     return HTMLResponse(wt_file.read_text(encoding="utf-8"))
+
+
+@app.get("/pipeline", response_class=HTMLResponse)
+@app.get("/viewer.html", response_class=HTMLResponse)
+def serve_pipeline_viewer() -> HTMLResponse:
+    return HTMLResponse((BASE_DIR / "viewer.html").read_text(encoding="utf-8"))
+
+
+@app.get("/api/presets")
+def api_get_presets() -> JSONResponse:
+    return JSONResponse(
+        {
+            "gemini_key_present": bool(os.environ.get("GEMINI_API_KEY")),
+            "categories": ROOM_META,
+        }
+    )
+
+
+@app.post("/api/chat")
+def api_custom_chat(req: CustomChatReq) -> JSONResponse:
+    return JSONResponse(
+        parse_custom_chat_request(
+            req.message,
+            req.attachments,
+            use_gemini=req.use_gemini,
+        )
+    )
+
+
+@app.post("/api/ensemble")
+def api_ensemble_rooms(req: EnsembleReq) -> JSONResponse:
+    result = synthesize_ensemble(
+        req.categories,
+        custom_requests=req.custom_requests,
+        use_gemini=req.use_gemini,
+    )
+
+    # Persist ensembled 6-zone Home + Inventory + 3 Validated Orientations to ./data
+    enabled = result["enabled_categories"]
+    home = build_canonical_home(enabled)
+    inv = build_canonical_inventory(enabled)
+    layouts, _, _ = build_three_orientations(home, inv, enabled)
+    (DATA_DIR / "home.json").write_text(home.model_dump_json(indent=2), encoding="utf-8")
+    (DATA_DIR / "inventory.json").write_text(inv.model_dump_json(indent=2), encoding="utf-8")
+    (DATA_DIR / "layouts.json").write_text(
+        json.dumps([lay.model_dump() for lay in layouts], indent=2),
+        encoding="utf-8",
+    )
+    return JSONResponse(result)
 
 
 @app.get("/home.json")
@@ -391,9 +479,14 @@ def api_judge_layouts(req: JudgeRendersReq) -> JSONResponse:
     if not os.environ.get("GEMINI_API_KEY"):
         def _fallback_runner(_inp: list[dict[str, Any]], qs: dict[str, dict[str, Any]]) -> dict[str, dict[str, float]]:
             return {
-                k: ({"noul": 0.06 if k == "blocks_window" else 0.92, "confidence": 0.88} if q["type"] == "noul" else {"score": 3.3, "confidence": 0.85})
+                k: (
+                    {"noul": 0.06 if k == "blocks_window" else 0.92, "confidence": 0.88}
+                    if q["type"] == "noul"
+                    else {"score": 3.3, "confidence": 0.85}
+                )
                 for k, q in qs.items()
             }
+
         judged = judge_layouts(
             target_layouts, renders_map, has_bed=req.has_bed, decision_runner=_fallback_runner
         )

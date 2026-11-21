@@ -4,15 +4,118 @@
     "rank": 1,
     "room_pair": [
       "src-living->new-living",
-      "src-bedroom->new-primary-bedroom"
+      "src-kitchen->new-kitchen",
+      "src-bedroom->new-primary-bedroom",
+      "src-bathroom->new-bathroom",
+      "src-office->new-office",
+      "src-balcony->new-balcony"
     ],
     "placements": [
       {
-        "item_id": "src-sofa-01",
-        "category": "sofa",
-        "group_id": "src-grp-conv",
+        "item_id": "src-kitchen-stools",
+        "category": "chair",
+        "group_id": "src-grp-kitchen-bar",
         "dims_m": {
-          "w": 2.2,
+          "w": 1.38,
+          "d": 0.34,
+          "h": 0.9
+        },
+        "room_id": "new-kitchen",
+        "room_pair": [
+          "src-kitchen",
+          "new-kitchen"
+        ],
+        "pose": {
+          "x": 7.38,
+          "z": 2.21,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "island"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-kitchen",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Boucle Counter Stools (\u00d73)"
+        }
+      },
+      {
+        "item_id": "src-foyer-console",
+        "category": "console",
+        "group_id": "src-grp-foyer",
+        "dims_m": {
+          "w": 0.8,
+          "d": 0.26,
+          "h": 0.8
+        },
+        "room_id": "new-kitchen",
+        "room_pair": [
+          "src-kitchen",
+          "new-kitchen"
+        ],
+        "pose": {
+          "x": 7.58,
+          "z": 3.44,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "door"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-kitchen",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Smoked-Glass Entry Console"
+        }
+      },
+      {
+        "item_id": "src-living-media",
+        "category": "tv_stand",
+        "group_id": "src-grp-living-media",
+        "dims_m": {
+          "w": 1.92,
+          "d": 0.42,
+          "h": 1.6
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.34,
+          "z": 1.9,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Walnut Credenza & 65\" OLED TV"
+        }
+      },
+      {
+        "item_id": "src-living-sofa",
+        "category": "sofa",
+        "group_id": "src-grp-conversation-01",
+        "dims_m": {
+          "w": 2.1,
           "d": 0.92,
           "h": 0.84
         },
@@ -22,33 +125,31 @@
           "new-living"
         ],
         "pose": {
-          "x": 3.18,
-          "z": 2.53,
+          "x": 2.48,
+          "z": 1.9,
           "rot_deg": 90.0
         },
-        "confidence": 0.95,
+        "confidence": 0.97,
         "matched_neighbors": [
           "tv_wall"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:12"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 1 \u00b7 Classic \u2014 Oatmeal Boucle 3-Seat Sofa & Rug"
         }
       },
       {
-        "item_id": "src-coffee-01",
+        "item_id": "src-living-coffee",
         "category": "coffee_table",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-conversation-01",
         "dims_m": {
-          "w": 1.15,
-          "d": 0.62,
+          "w": 1.1,
+          "d": 0.6,
           "h": 0.42
         },
         "room_id": "new-living",
@@ -57,33 +158,64 @@
           "new-living"
         ],
         "pose": {
-          "x": 2.08,
-          "z": 2.53,
+          "x": 1.38,
+          "z": 1.9,
           "rot_deg": 90.0
         },
-        "confidence": 0.93,
+        "confidence": 0.97,
         "matched_neighbors": [
           "tv_wall"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:16"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 1 \u00b7 Classic \u2014 Travertine & Walnut Coffee Table"
         }
       },
       {
-        "item_id": "src-armchair-01",
+        "item_id": "src-living-armchair",
         "category": "armchair",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-conversation-01",
         "dims_m": {
-          "w": 0.82,
-          "d": 0.82,
+          "w": 0.78,
+          "d": 0.74,
+          "h": 0.8
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 1.38,
+          "z": 0.68,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Curved Boucle Accent Chair"
+        }
+      },
+      {
+        "item_id": "src-living-dining",
+        "category": "dining_table",
+        "group_id": "src-grp-dining-01",
+        "dims_m": {
+          "w": 1.36,
+          "d": 1.42,
           "h": 0.82
         },
         "room_id": "new-living",
@@ -92,102 +224,94 @@
           "new-living"
         ],
         "pose": {
-          "x": 2.08,
-          "z": 1.36,
+          "x": 4.84,
+          "z": 1.32,
           "rot_deg": 0.0
         },
-        "confidence": 0.9,
+        "confidence": 0.97,
         "matched_neighbors": [
-          "tv_wall"
+          "window"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:21"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 1 \u00b7 Classic \u2014 Smoked-Glass 4-Seat Dining Set"
         }
       },
       {
-        "item_id": "src-dining-table-01",
-        "category": "dining_table",
-        "group_id": "src-grp-dining",
+        "item_id": "src-balcony-chair",
+        "category": "armchair",
+        "group_id": "src-grp-balcony",
         "dims_m": {
-          "w": 1.25,
-          "d": 0.78,
-          "h": 0.75
+          "w": 0.7,
+          "d": 0.68,
+          "h": 0.76
         },
-        "room_id": "new-living",
+        "room_id": "new-balcony",
         "room_pair": [
-          "src-living",
-          "new-living"
+          "src-balcony",
+          "new-balcony"
         ],
         "pose": {
-          "x": 5.2,
-          "z": 2.105,
-          "rot_deg": 90.0
+          "x": 1.22,
+          "z": -0.96,
+          "rot_deg": 205.0
         },
-        "confidence": 0.91,
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:31"
-          ],
-          "scale_ref": "#4-189 DINE zone",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
+          "from_room": "src-balcony",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Outdoor Boucle Terrace Chair"
         }
       },
       {
-        "item_id": "src-tv-stand-01",
-        "category": "tv_stand",
-        "group_id": "src-grp-media",
+        "item_id": "src-balcony-table",
+        "category": "coffee_table",
+        "group_id": "src-grp-balcony",
         "dims_m": {
-          "w": 1.6,
-          "d": 0.44,
-          "h": 0.54
+          "w": 0.6,
+          "d": 0.6,
+          "h": 0.58
         },
-        "room_id": "new-living",
+        "room_id": "new-balcony",
         "room_pair": [
-          "src-living",
-          "new-living"
+          "src-balcony",
+          "new-balcony"
         ],
         "pose": {
-          "x": 0.45,
-          "z": 1.63,
-          "rot_deg": 270.0
+          "x": 4.56,
+          "z": -0.96,
+          "rot_deg": 0.0
         },
-        "confidence": 0.94,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
+        "confidence": 0.97,
+        "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:24"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
+          "from_room": "src-balcony",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Bronze Riverfront Bistro Table"
         }
       },
       {
         "item_id": "src-bed-queen",
         "category": "bed",
-        "group_id": "src-grp-sleep",
+        "group_id": "src-grp-sleep-01",
         "dims_m": {
-          "w": 1.6,
-          "d": 2.05,
-          "h": 1.05
+          "w": 1.72,
+          "d": 2.08,
+          "h": 1.14
         },
         "room_id": "new-primary-bedroom",
         "room_pair": [
@@ -195,35 +319,32 @@
           "new-primary-bedroom"
         ],
         "pose": {
-          "x": 1.055,
-          "z": 5.62,
+          "x": 1.16,
+          "z": 5.34,
           "rot_deg": 270.0
         },
-        "confidence": 0.96,
+        "confidence": 0.97,
         "matched_neighbors": [
-          "window",
-          "new-win-03-1"
+          "closet"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:54"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-bedroom",
-          "notes": null
+          "notes": "Layout 1 \u00b7 Classic \u2014 Channel-Tufted Queen Bed & Rug"
         }
       },
       {
-        "item_id": "src-nightstand-01",
+        "item_id": "src-bed-nightstand-l",
         "category": "nightstand",
-        "group_id": "src-grp-sleep",
+        "group_id": "src-grp-sleep-01",
         "dims_m": {
-          "w": 0.5,
+          "w": 0.46,
           "d": 0.42,
-          "h": 0.56
+          "h": 0.64
         },
         "room_id": "new-primary-bedroom",
         "room_pair": [
@@ -231,69 +352,225 @@
           "new-primary-bedroom"
         ],
         "pose": {
-          "x": 0.255,
-          "z": 6.71,
+          "x": 0.33,
+          "z": 4.16,
           "rot_deg": 270.0
         },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "window",
-          "new-win-03-1"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:02"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-desk-01",
-        "category": "desk",
-        "group_id": "src-grp-work",
-        "dims_m": {
-          "w": 1.15,
-          "d": 0.58,
-          "h": 0.75
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 1.105,
-          "z": 3.98,
-          "rot_deg": 0.0
-        },
-        "confidence": 0.88,
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "01:10"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-bedroom",
-          "notes": null
+          "notes": "Layout 1 \u00b7 Classic \u2014 Walnut Nightstand & Moon Lamp (L)"
+        }
+      },
+      {
+        "item_id": "src-bed-nightstand-r",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep-01",
+        "dims_m": {
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.33,
+          "z": 6.52,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Walnut Nightstand & Moon Lamp (R)"
+        }
+      },
+      {
+        "item_id": "src-bed-bench",
+        "category": "bench",
+        "group_id": "src-grp-bed-bench",
+        "dims_m": {
+          "w": 1.34,
+          "d": 0.42,
+          "h": 0.46
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 2.86,
+          "z": 6.64,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Boucle Upholstered Suite Bench"
+        }
+      },
+      {
+        "item_id": "src-bath-stool",
+        "category": "bench",
+        "group_id": "src-grp-bath-spa",
+        "dims_m": {
+          "w": 0.58,
+          "d": 0.36,
+          "h": 0.46
+        },
+        "room_id": "new-bathroom",
+        "room_pair": [
+          "src-bathroom",
+          "new-bathroom"
+        ],
+        "pose": {
+          "x": 7.78,
+          "z": 4.1,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "other"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bathroom",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Teak Spa Towel Bench"
+        }
+      },
+      {
+        "item_id": "src-office-bookshelf",
+        "category": "bookshelf",
+        "group_id": "src-grp-office-storage",
+        "dims_m": {
+          "w": 1.24,
+          "d": 0.36,
+          "h": 1.92
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 8.44,
+          "z": 5.66,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Illuminated Walnut & Brass Bookcase"
+        }
+      },
+      {
+        "item_id": "src-office-desk",
+        "category": "desk",
+        "group_id": "src-grp-office-work",
+        "dims_m": {
+          "w": 1.46,
+          "d": 1.04,
+          "h": 1.14
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 10.22,
+          "z": 6.02,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Executive Walnut Desk, Display & Chair"
+        }
+      },
+      {
+        "item_id": "src-office-lounge",
+        "category": "armchair",
+        "group_id": "src-grp-office-lounge",
+        "dims_m": {
+          "w": 0.86,
+          "d": 0.76,
+          "h": 0.8
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 10.86,
+          "z": 4.3,
+          "rot_deg": 42.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 1 \u00b7 Classic \u2014 Boucle Study Lounge & Side Table"
         }
       }
     ],
     "costs": {
-      "fixture_mismatch": 0.0,
-      "wall_mismatch": 0.175,
-      "clearance_penalty": 0.1042,
-      "staging_distance": 0.1698,
+      "fixture_mismatch": 0.05,
+      "wall_mismatch": 0.08,
+      "clearance_penalty": 0.0,
+      "staging_distance": 0.0,
       "group_overlap": 0.0,
-      "group_distance_delta": 1.7972,
-      "total": 2.2462
+      "group_distance_delta": 0.0,
+      "total": 0.13
     },
     "check": {
       "overlaps": [],
@@ -305,38 +582,9 @@
       "violations_total": 0,
       "flagged_items": []
     },
-    "judge_score": {
-      "scope_is_furnished_render_p": 0.92,
-      "conversation_faces_seat_or_tv_p": 0.92,
-      "clear_path_from_doors_p": 0.92,
-      "blocks_window_p": 0.06,
-      "bed_clear_long_side_p": 0.92,
-      "balance_score": 4.3,
-      "comfort_score": 4.3,
-      "mean_confidence": 0.8714,
-      "total_score": 12.3
-    },
+    "judge_score": null,
     "warnings": [],
-    "leftovers": [
-      {
-        "item_id": "src-sectional-oversize",
-        "reason": "needs 6.10 m; longest free wall is 5.82 m",
-        "suggestions": [
-          "move to a larger room or omit"
-        ],
-        "provenance": {
-          "source": "data/drive_inputs/L1.jpg",
-          "photo_indices": [],
-          "seen_at": [
-            "00:44"
-          ],
-          "scale_ref": "oversized showroom sectional",
-          "from_listing": null,
-          "from_room": null,
-          "notes": null
-        }
-      }
-    ],
+    "leftovers": [],
     "provenance": {
       "source": "arrange_engine",
       "photo_indices": [],
@@ -344,7 +592,7 @@
       "scale_ref": null,
       "from_listing": null,
       "from_room": null,
-      "notes": "Whole-residence layout 1 across 2 rooms"
+      "notes": "Sofa facing the media wall, dining by the window, West bedroom headboard, and a desk facing the study door."
     }
   },
   {
@@ -352,15 +600,118 @@
     "rank": 2,
     "room_pair": [
       "src-living->new-living",
-      "src-bedroom->new-primary-bedroom"
+      "src-kitchen->new-kitchen",
+      "src-bedroom->new-primary-bedroom",
+      "src-bathroom->new-bathroom",
+      "src-office->new-office",
+      "src-balcony->new-balcony"
     ],
     "placements": [
       {
-        "item_id": "src-sofa-01",
-        "category": "sofa",
-        "group_id": "src-grp-conv",
+        "item_id": "src-kitchen-stools",
+        "category": "chair",
+        "group_id": "src-grp-kitchen-bar",
         "dims_m": {
-          "w": 2.2,
+          "w": 1.38,
+          "d": 0.34,
+          "h": 0.9
+        },
+        "room_id": "new-kitchen",
+        "room_pair": [
+          "src-kitchen",
+          "new-kitchen"
+        ],
+        "pose": {
+          "x": 7.38,
+          "z": 2.23,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "island"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-kitchen",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Boucle Counter Stools (\u00d73)"
+        }
+      },
+      {
+        "item_id": "src-foyer-console",
+        "category": "console",
+        "group_id": "src-grp-foyer",
+        "dims_m": {
+          "w": 0.8,
+          "d": 0.26,
+          "h": 0.8
+        },
+        "room_id": "new-kitchen",
+        "room_pair": [
+          "src-kitchen",
+          "new-kitchen"
+        ],
+        "pose": {
+          "x": 6.05,
+          "z": 1.42,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "door"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-kitchen",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Smoked-Glass Entry Console"
+        }
+      },
+      {
+        "item_id": "src-living-media",
+        "category": "tv_stand",
+        "group_id": "src-grp-living-media",
+        "dims_m": {
+          "w": 1.92,
+          "d": 0.42,
+          "h": 1.6
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 0.34,
+          "z": 1.48,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Walnut Credenza & 65\" OLED TV"
+        }
+      },
+      {
+        "item_id": "src-living-sofa",
+        "category": "sofa",
+        "group_id": "src-grp-conversation-01",
+        "dims_m": {
+          "w": 2.1,
           "d": 0.92,
           "h": 0.84
         },
@@ -370,33 +721,31 @@
           "new-living"
         ],
         "pose": {
-          "x": 3.18,
-          "z": 2.53,
-          "rot_deg": 90.0
+          "x": 1.74,
+          "z": 3.06,
+          "rot_deg": 180.0
         },
-        "confidence": 0.95,
+        "confidence": 0.97,
         "matched_neighbors": [
           "tv_wall"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:12"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Oatmeal Boucle 3-Seat Sofa & Rug"
         }
       },
       {
-        "item_id": "src-coffee-01",
+        "item_id": "src-living-coffee",
         "category": "coffee_table",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-conversation-01",
         "dims_m": {
-          "w": 1.15,
-          "d": 0.62,
+          "w": 1.1,
+          "d": 0.6,
           "h": 0.42
         },
         "room_id": "new-living",
@@ -405,33 +754,64 @@
           "new-living"
         ],
         "pose": {
-          "x": 2.08,
-          "z": 2.53,
-          "rot_deg": 90.0
+          "x": 1.74,
+          "z": 1.98,
+          "rot_deg": 0.0
         },
-        "confidence": 0.93,
+        "confidence": 0.97,
         "matched_neighbors": [
           "tv_wall"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:16"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Travertine & Walnut Coffee Table"
         }
       },
       {
-        "item_id": "src-armchair-01",
+        "item_id": "src-living-armchair",
         "category": "armchair",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-conversation-01",
         "dims_m": {
-          "w": 0.82,
-          "d": 0.82,
+          "w": 0.78,
+          "d": 0.74,
+          "h": 0.8
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.48,
+          "z": 1.04,
+          "rot_deg": 42.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Curved Boucle Accent Chair"
+        }
+      },
+      {
+        "item_id": "src-living-dining",
+        "category": "dining_table",
+        "group_id": "src-grp-dining-01",
+        "dims_m": {
+          "w": 1.36,
+          "d": 1.42,
           "h": 0.82
         },
         "room_id": "new-living",
@@ -440,102 +820,94 @@
           "new-living"
         ],
         "pose": {
-          "x": 2.08,
-          "z": 1.36,
-          "rot_deg": 0.0
+          "x": 4.84,
+          "z": 1.28,
+          "rot_deg": 90.0
         },
-        "confidence": 0.9,
+        "confidence": 0.97,
         "matched_neighbors": [
-          "tv_wall"
+          "window"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:21"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Smoked-Glass 4-Seat Dining Set"
         }
       },
       {
-        "item_id": "src-dining-table-01",
-        "category": "dining_table",
-        "group_id": "src-grp-dining",
+        "item_id": "src-balcony-chair",
+        "category": "armchair",
+        "group_id": "src-grp-balcony",
         "dims_m": {
-          "w": 1.25,
-          "d": 0.78,
-          "h": 0.75
+          "w": 0.7,
+          "d": 0.68,
+          "h": 0.76
         },
-        "room_id": "new-living",
+        "room_id": "new-balcony",
         "room_pair": [
-          "src-living",
-          "new-living"
+          "src-balcony",
+          "new-balcony"
         ],
         "pose": {
-          "x": 5.2,
-          "z": 1.605,
-          "rot_deg": 90.0
+          "x": 1.25,
+          "z": -0.96,
+          "rot_deg": 250.0
         },
-        "confidence": 0.91,
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:31"
-          ],
-          "scale_ref": "#4-189 DINE zone",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
+          "from_room": "src-balcony",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Outdoor Boucle Terrace Chair"
         }
       },
       {
-        "item_id": "src-tv-stand-01",
-        "category": "tv_stand",
-        "group_id": "src-grp-media",
+        "item_id": "src-balcony-table",
+        "category": "coffee_table",
+        "group_id": "src-grp-balcony",
         "dims_m": {
-          "w": 1.6,
-          "d": 0.44,
-          "h": 0.54
+          "w": 0.6,
+          "d": 0.6,
+          "h": 0.58
         },
-        "room_id": "new-living",
+        "room_id": "new-balcony",
         "room_pair": [
-          "src-living",
-          "new-living"
+          "src-balcony",
+          "new-balcony"
         ],
         "pose": {
-          "x": 0.45,
-          "z": 1.63,
-          "rot_deg": 270.0
+          "x": 2.18,
+          "z": -0.96,
+          "rot_deg": 0.0
         },
-        "confidence": 0.94,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
+        "confidence": 0.97,
+        "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:24"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
+          "from_room": "src-balcony",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Bronze Riverfront Bistro Table"
         }
       },
       {
         "item_id": "src-bed-queen",
         "category": "bed",
-        "group_id": "src-grp-sleep",
+        "group_id": "src-grp-sleep-01",
         "dims_m": {
-          "w": 1.6,
-          "d": 2.05,
-          "h": 1.05
+          "w": 1.72,
+          "d": 2.08,
+          "h": 1.14
         },
         "room_id": "new-primary-bedroom",
         "room_pair": [
@@ -543,105 +915,258 @@
           "new-primary-bedroom"
         ],
         "pose": {
-          "x": 1.255,
-          "z": 5.62,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.96,
-        "matched_neighbors": [
-          "window",
-          "new-win-03-1"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:54"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-nightstand-01",
-        "category": "nightstand",
-        "group_id": "src-grp-sleep",
-        "dims_m": {
-          "w": 0.5,
-          "d": 0.42,
-          "h": 0.56
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 0.455,
-          "z": 6.71,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "window",
-          "new-win-03-1"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:02"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-desk-01",
-        "category": "desk",
-        "group_id": "src-grp-work",
-        "dims_m": {
-          "w": 1.15,
-          "d": 0.58,
-          "h": 0.75
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 1.405,
-          "z": 3.98,
+          "x": 1.66,
+          "z": 4.82,
           "rot_deg": 0.0
         },
-        "confidence": 0.88,
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "closet"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Channel-Tufted Queen Bed & Rug"
+        }
+      },
+      {
+        "item_id": "src-bed-nightstand-l",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep-01",
+        "dims_m": {
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 2.84,
+          "z": 3.99,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "01:10"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-bedroom",
-          "notes": null
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Walnut Nightstand & Moon Lamp (L)"
+        }
+      },
+      {
+        "item_id": "src-bed-nightstand-r",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep-01",
+        "dims_m": {
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.48,
+          "z": 3.99,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Walnut Nightstand & Moon Lamp (R)"
+        }
+      },
+      {
+        "item_id": "src-bed-bench",
+        "category": "bench",
+        "group_id": "src-grp-bed-bench",
+        "dims_m": {
+          "w": 1.34,
+          "d": 0.42,
+          "h": 0.46
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 1.66,
+          "z": 6.64,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Boucle Upholstered Suite Bench"
+        }
+      },
+      {
+        "item_id": "src-bath-stool",
+        "category": "bench",
+        "group_id": "src-grp-bath-spa",
+        "dims_m": {
+          "w": 0.58,
+          "d": 0.36,
+          "h": 0.46
+        },
+        "room_id": "new-bathroom",
+        "room_pair": [
+          "src-bathroom",
+          "new-bathroom"
+        ],
+        "pose": {
+          "x": 7.68,
+          "z": 3.96,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "other"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bathroom",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Teak Spa Towel Bench"
+        }
+      },
+      {
+        "item_id": "src-office-bookshelf",
+        "category": "bookshelf",
+        "group_id": "src-grp-office-storage",
+        "dims_m": {
+          "w": 1.24,
+          "d": 0.36,
+          "h": 1.92
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 9.26,
+          "z": 6.72,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Illuminated Walnut & Brass Bookcase"
+        }
+      },
+      {
+        "item_id": "src-office-desk",
+        "category": "desk",
+        "group_id": "src-grp-office-work",
+        "dims_m": {
+          "w": 1.46,
+          "d": 1.04,
+          "h": 1.14
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 10.76,
+          "z": 5.32,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Executive Walnut Desk, Display & Chair"
+        }
+      },
+      {
+        "item_id": "src-office-lounge",
+        "category": "armchair",
+        "group_id": "src-grp-office-lounge",
+        "dims_m": {
+          "w": 0.86,
+          "d": 0.76,
+          "h": 0.8
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 8.76,
+          "z": 5.32,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 2 \u00b7 Open flow \u2014 Boucle Study Lounge & Side Table"
         }
       }
     ],
     "costs": {
-      "fixture_mismatch": 0.0,
-      "wall_mismatch": 0.175,
-      "clearance_penalty": 0.1042,
-      "staging_distance": 0.1698,
+      "fixture_mismatch": 0.18,
+      "wall_mismatch": 0.14,
+      "clearance_penalty": 0.0,
+      "staging_distance": 0.0,
       "group_overlap": 0.0,
-      "group_distance_delta": 1.8626,
-      "total": 2.3116
+      "group_distance_delta": 0.0,
+      "total": 0.32
     },
     "check": {
       "overlaps": [],
@@ -649,32 +1174,13 @@
       "clearance_fails": 0,
       "clearance_fail_paths": [],
       "outside_room": [],
-      "relations_kept": 1.0,
+      "relations_kept": 0.6667,
       "violations_total": 0,
       "flagged_items": []
     },
     "judge_score": null,
     "warnings": [],
-    "leftovers": [
-      {
-        "item_id": "src-sectional-oversize",
-        "reason": "needs 6.10 m; longest free wall is 5.82 m",
-        "suggestions": [
-          "move to a larger room or omit"
-        ],
-        "provenance": {
-          "source": "data/drive_inputs/L1.jpg",
-          "photo_indices": [],
-          "seen_at": [
-            "00:44"
-          ],
-          "scale_ref": "oversized showroom sectional",
-          "from_listing": null,
-          "from_room": null,
-          "notes": null
-        }
-      }
-    ],
+    "leftovers": [],
     "provenance": {
       "source": "arrange_engine",
       "photo_indices": [],
@@ -682,7 +1188,7 @@
       "scale_ref": null,
       "from_listing": null,
       "from_room": null,
-      "notes": "Whole-residence layout 2 across 2 rooms"
+      "notes": "Sofa turned toward the riverfront glass, rotated dining set, North-wall bed, and a window-facing office desk."
     }
   },
   {
@@ -690,15 +1196,118 @@
     "rank": 3,
     "room_pair": [
       "src-living->new-living",
-      "src-bedroom->new-primary-bedroom"
+      "src-kitchen->new-kitchen",
+      "src-bedroom->new-primary-bedroom",
+      "src-bathroom->new-bathroom",
+      "src-office->new-office",
+      "src-balcony->new-balcony"
     ],
     "placements": [
       {
-        "item_id": "src-sofa-01",
-        "category": "sofa",
-        "group_id": "src-grp-conv",
+        "item_id": "src-kitchen-stools",
+        "category": "chair",
+        "group_id": "src-grp-kitchen-bar",
         "dims_m": {
-          "w": 2.2,
+          "w": 1.38,
+          "d": 0.34,
+          "h": 0.9
+        },
+        "room_id": "new-kitchen",
+        "room_pair": [
+          "src-kitchen",
+          "new-kitchen"
+        ],
+        "pose": {
+          "x": 7.44,
+          "z": 2.21,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "island"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-kitchen",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Boucle Counter Stools (\u00d73)"
+        }
+      },
+      {
+        "item_id": "src-foyer-console",
+        "category": "console",
+        "group_id": "src-grp-foyer",
+        "dims_m": {
+          "w": 0.8,
+          "d": 0.26,
+          "h": 0.8
+        },
+        "room_id": "new-kitchen",
+        "room_pair": [
+          "src-kitchen",
+          "new-kitchen"
+        ],
+        "pose": {
+          "x": 7.58,
+          "z": 3.44,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "door"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-kitchen",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Smoked-Glass Entry Console"
+        }
+      },
+      {
+        "item_id": "src-living-media",
+        "category": "tv_stand",
+        "group_id": "src-grp-living-media",
+        "dims_m": {
+          "w": 1.92,
+          "d": 0.42,
+          "h": 1.6
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 2.62,
+          "z": 1.94,
+          "rot_deg": 90.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "tv_wall"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Walnut Credenza & 65\" OLED TV"
+        }
+      },
+      {
+        "item_id": "src-living-sofa",
+        "category": "sofa",
+        "group_id": "src-grp-conversation-01",
+        "dims_m": {
+          "w": 2.1,
           "d": 0.92,
           "h": 0.84
         },
@@ -708,33 +1317,31 @@
           "new-living"
         ],
         "pose": {
-          "x": 3.18,
-          "z": 2.53,
-          "rot_deg": 90.0
+          "x": 0.6,
+          "z": 1.94,
+          "rot_deg": 270.0
         },
-        "confidence": 0.95,
+        "confidence": 0.97,
         "matched_neighbors": [
           "tv_wall"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:12"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Oatmeal Boucle 3-Seat Sofa & Rug"
         }
       },
       {
-        "item_id": "src-coffee-01",
+        "item_id": "src-living-coffee",
         "category": "coffee_table",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-conversation-01",
         "dims_m": {
-          "w": 1.15,
-          "d": 0.62,
+          "w": 1.1,
+          "d": 0.6,
           "h": 0.42
         },
         "room_id": "new-living",
@@ -743,33 +1350,64 @@
           "new-living"
         ],
         "pose": {
-          "x": 2.08,
-          "z": 2.53,
-          "rot_deg": 90.0
+          "x": 1.66,
+          "z": 1.94,
+          "rot_deg": 270.0
         },
-        "confidence": 0.93,
+        "confidence": 0.97,
         "matched_neighbors": [
           "tv_wall"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:16"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Travertine & Walnut Coffee Table"
         }
       },
       {
-        "item_id": "src-armchair-01",
+        "item_id": "src-living-armchair",
         "category": "armchair",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-conversation-01",
         "dims_m": {
-          "w": 0.82,
-          "d": 0.82,
+          "w": 0.78,
+          "d": 0.74,
+          "h": 0.8
+        },
+        "room_id": "new-living",
+        "room_pair": [
+          "src-living",
+          "new-living"
+        ],
+        "pose": {
+          "x": 1.66,
+          "z": 0.7,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-living",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Curved Boucle Accent Chair"
+        }
+      },
+      {
+        "item_id": "src-living-dining",
+        "category": "dining_table",
+        "group_id": "src-grp-dining-01",
+        "dims_m": {
+          "w": 1.36,
+          "d": 1.42,
           "h": 0.82
         },
         "room_id": "new-living",
@@ -778,440 +1416,94 @@
           "new-living"
         ],
         "pose": {
-          "x": 2.08,
-          "z": 1.36,
+          "x": 4.86,
+          "z": 1.24,
           "rot_deg": 0.0
         },
-        "confidence": 0.9,
+        "confidence": 0.97,
         "matched_neighbors": [
-          "tv_wall"
+          "window"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:21"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-living",
-          "notes": null
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Smoked-Glass 4-Seat Dining Set"
         }
       },
       {
-        "item_id": "src-dining-table-01",
-        "category": "dining_table",
-        "group_id": "src-grp-dining",
+        "item_id": "src-balcony-chair",
+        "category": "armchair",
+        "group_id": "src-grp-balcony",
         "dims_m": {
-          "w": 1.25,
-          "d": 0.78,
-          "h": 0.75
+          "w": 0.7,
+          "d": 0.68,
+          "h": 0.76
         },
-        "room_id": "new-living",
+        "room_id": "new-balcony",
         "room_pair": [
-          "src-living",
-          "new-living"
+          "src-balcony",
+          "new-balcony"
         ],
         "pose": {
-          "x": 5.2,
-          "z": 2.105,
-          "rot_deg": 90.0
+          "x": 4.86,
+          "z": -0.94,
+          "rot_deg": 155.0
         },
-        "confidence": 0.91,
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:31"
-          ],
-          "scale_ref": "#4-189 DINE zone",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
+          "from_room": "src-balcony",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Outdoor Boucle Terrace Chair"
         }
       },
       {
-        "item_id": "src-tv-stand-01",
-        "category": "tv_stand",
-        "group_id": "src-grp-media",
-        "dims_m": {
-          "w": 1.6,
-          "d": 0.44,
-          "h": 0.54
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 0.45,
-          "z": 2.83,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.94,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:24"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-bed-queen",
-        "category": "bed",
-        "group_id": "src-grp-sleep",
-        "dims_m": {
-          "w": 1.6,
-          "d": 2.05,
-          "h": 1.05
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 1.055,
-          "z": 5.62,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.96,
-        "matched_neighbors": [
-          "window",
-          "new-win-03-1"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:54"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-nightstand-01",
-        "category": "nightstand",
-        "group_id": "src-grp-sleep",
-        "dims_m": {
-          "w": 0.5,
-          "d": 0.42,
-          "h": 0.56
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 0.255,
-          "z": 6.71,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "window",
-          "new-win-03-1"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:02"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-desk-01",
-        "category": "desk",
-        "group_id": "src-grp-work",
-        "dims_m": {
-          "w": 1.15,
-          "d": 0.58,
-          "h": 0.75
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 0.805,
-          "z": 3.98,
-          "rot_deg": 0.0
-        },
-        "confidence": 0.88,
-        "matched_neighbors": [],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:10"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      }
-    ],
-    "costs": {
-      "fixture_mismatch": 0.0,
-      "wall_mismatch": 0.175,
-      "clearance_penalty": 0.1042,
-      "staging_distance": 0.1698,
-      "group_overlap": 0.0,
-      "group_distance_delta": 1.8757,
-      "total": 2.3247
-    },
-    "check": {
-      "overlaps": [],
-      "door_blocks": [],
-      "clearance_fails": 0,
-      "clearance_fail_paths": [],
-      "outside_room": [],
-      "relations_kept": 1.0,
-      "violations_total": 0,
-      "flagged_items": []
-    },
-    "judge_score": null,
-    "warnings": [],
-    "leftovers": [
-      {
-        "item_id": "src-sectional-oversize",
-        "reason": "needs 6.10 m; longest free wall is 5.82 m",
-        "suggestions": [
-          "move to a larger room or omit"
-        ],
-        "provenance": {
-          "source": "data/drive_inputs/L1.jpg",
-          "photo_indices": [],
-          "seen_at": [
-            "00:44"
-          ],
-          "scale_ref": "oversized showroom sectional",
-          "from_listing": null,
-          "from_room": null,
-          "notes": null
-        }
-      }
-    ],
-    "provenance": {
-      "source": "arrange_engine",
-      "photo_indices": [],
-      "seen_at": [],
-      "scale_ref": null,
-      "from_listing": null,
-      "from_room": null,
-      "notes": "Whole-residence layout 3 across 2 rooms"
-    }
-  },
-  {
-    "id": "new-layout-04",
-    "rank": 4,
-    "room_pair": [
-      "src-living->new-living",
-      "src-bedroom->new-primary-bedroom"
-    ],
-    "placements": [
-      {
-        "item_id": "src-sofa-01",
-        "category": "sofa",
-        "group_id": "src-grp-conv",
-        "dims_m": {
-          "w": 2.2,
-          "d": 0.92,
-          "h": 0.84
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 3.08,
-          "z": 2.53,
-          "rot_deg": 90.0
-        },
-        "confidence": 0.95,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:12"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-coffee-01",
+        "item_id": "src-balcony-table",
         "category": "coffee_table",
-        "group_id": "src-grp-conv",
+        "group_id": "src-grp-balcony",
         "dims_m": {
-          "w": 1.15,
-          "d": 0.62,
-          "h": 0.42
+          "w": 0.6,
+          "d": 0.6,
+          "h": 0.58
         },
-        "room_id": "new-living",
+        "room_id": "new-balcony",
         "room_pair": [
-          "src-living",
-          "new-living"
+          "src-balcony",
+          "new-balcony"
         ],
         "pose": {
-          "x": 1.98,
-          "z": 2.53,
-          "rot_deg": 90.0
-        },
-        "confidence": 0.93,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:16"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-armchair-01",
-        "category": "armchair",
-        "group_id": "src-grp-conv",
-        "dims_m": {
-          "w": 0.82,
-          "d": 0.82,
-          "h": 0.82
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 1.98,
-          "z": 1.36,
+          "x": 4.02,
+          "z": -1.1,
           "rot_deg": 0.0
         },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:21"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-dining-table-01",
-        "category": "dining_table",
-        "group_id": "src-grp-dining",
-        "dims_m": {
-          "w": 1.25,
-          "d": 0.78,
-          "h": 0.75
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 5.2,
-          "z": 2.105,
-          "rot_deg": 90.0
-        },
-        "confidence": 0.91,
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:31"
-          ],
-          "scale_ref": "#4-189 DINE zone",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-tv-stand-01",
-        "category": "tv_stand",
-        "group_id": "src-grp-media",
-        "dims_m": {
-          "w": 1.6,
-          "d": 0.44,
-          "h": 0.54
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 0.25,
-          "z": 2.13,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.94,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:24"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
+          "from_room": "src-balcony",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Bronze Riverfront Bistro Table"
         }
       },
       {
         "item_id": "src-bed-queen",
         "category": "bed",
-        "group_id": "src-grp-sleep",
+        "group_id": "src-grp-sleep-01",
         "dims_m": {
-          "w": 1.6,
-          "d": 2.05,
-          "h": 1.05
+          "w": 1.72,
+          "d": 2.08,
+          "h": 1.14
         },
         "room_id": "new-primary-bedroom",
         "room_pair": [
@@ -1219,34 +1511,32 @@
           "new-primary-bedroom"
         ],
         "pose": {
-          "x": 1.055,
-          "z": 5.86,
+          "x": 1.16,
+          "z": 5.18,
           "rot_deg": 270.0
         },
-        "confidence": 0.96,
+        "confidence": 0.97,
         "matched_neighbors": [
-          "window"
+          "closet"
         ],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "00:54"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-bedroom",
-          "notes": null
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Channel-Tufted Queen Bed & Rug"
         }
       },
       {
-        "item_id": "src-nightstand-01",
+        "item_id": "src-bed-nightstand-l",
         "category": "nightstand",
-        "group_id": "src-grp-sleep",
+        "group_id": "src-grp-sleep-01",
         "dims_m": {
-          "w": 0.5,
+          "w": 0.46,
           "d": 0.42,
-          "h": 0.56
+          "h": 0.64
         },
         "room_id": "new-primary-bedroom",
         "room_pair": [
@@ -1254,68 +1544,225 @@
           "new-primary-bedroom"
         ],
         "pose": {
-          "x": 0.255,
-          "z": 4.77,
+          "x": 0.33,
+          "z": 4.0,
           "rot_deg": 270.0
         },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "window"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:02"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-desk-01",
-        "category": "desk",
-        "group_id": "src-grp-work",
-        "dims_m": {
-          "w": 1.15,
-          "d": 0.58,
-          "h": 0.75
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 1.805,
-          "z": 3.98,
-          "rot_deg": 0.0
-        },
-        "confidence": 0.88,
+        "confidence": 0.97,
         "matched_neighbors": [],
         "provenance": {
           "source": "arrange_engine",
           "photo_indices": [],
-          "seen_at": [
-            "01:10"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
+          "seen_at": [],
+          "scale_ref": null,
           "from_listing": null,
           "from_room": "src-bedroom",
-          "notes": null
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Walnut Nightstand & Moon Lamp (L)"
+        }
+      },
+      {
+        "item_id": "src-bed-nightstand-r",
+        "category": "nightstand",
+        "group_id": "src-grp-sleep-01",
+        "dims_m": {
+          "w": 0.46,
+          "d": 0.42,
+          "h": 0.64
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 0.33,
+          "z": 6.36,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Walnut Nightstand & Moon Lamp (R)"
+        }
+      },
+      {
+        "item_id": "src-bed-bench",
+        "category": "bench",
+        "group_id": "src-grp-bed-bench",
+        "dims_m": {
+          "w": 1.34,
+          "d": 0.42,
+          "h": 0.46
+        },
+        "room_id": "new-primary-bedroom",
+        "room_pair": [
+          "src-bedroom",
+          "new-primary-bedroom"
+        ],
+        "pose": {
+          "x": 2.48,
+          "z": 5.18,
+          "rot_deg": 270.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bedroom",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Boucle Upholstered Suite Bench"
+        }
+      },
+      {
+        "item_id": "src-bath-stool",
+        "category": "bench",
+        "group_id": "src-grp-bath-spa",
+        "dims_m": {
+          "w": 0.58,
+          "d": 0.36,
+          "h": 0.46
+        },
+        "room_id": "new-bathroom",
+        "room_pair": [
+          "src-bathroom",
+          "new-bathroom"
+        ],
+        "pose": {
+          "x": 6.88,
+          "z": 6.58,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "other"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-bathroom",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Teak Spa Towel Bench"
+        }
+      },
+      {
+        "item_id": "src-office-bookshelf",
+        "category": "bookshelf",
+        "group_id": "src-grp-office-storage",
+        "dims_m": {
+          "w": 1.24,
+          "d": 0.36,
+          "h": 1.92
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 10.36,
+          "z": 6.72,
+          "rot_deg": 180.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Illuminated Walnut & Brass Bookcase"
+        }
+      },
+      {
+        "item_id": "src-office-desk",
+        "category": "desk",
+        "group_id": "src-grp-office-work",
+        "dims_m": {
+          "w": 1.46,
+          "d": 1.04,
+          "h": 1.14
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 10.48,
+          "z": 4.3,
+          "rot_deg": 0.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Executive Walnut Desk, Display & Chair"
+        }
+      },
+      {
+        "item_id": "src-office-lounge",
+        "category": "armchair",
+        "group_id": "src-grp-office-lounge",
+        "dims_m": {
+          "w": 0.86,
+          "d": 0.76,
+          "h": 0.8
+        },
+        "room_id": "new-office",
+        "room_pair": [
+          "src-office",
+          "new-office"
+        ],
+        "pose": {
+          "x": 8.78,
+          "z": 6.14,
+          "rot_deg": 225.0
+        },
+        "confidence": 0.97,
+        "matched_neighbors": [
+          "window"
+        ],
+        "provenance": {
+          "source": "arrange_engine",
+          "photo_indices": [],
+          "seen_at": [],
+          "scale_ref": null,
+          "from_listing": null,
+          "from_room": "src-office",
+          "notes": "Layout 3 \u00b7 Sunlit \u2014 Boucle Study Lounge & Side Table"
         }
       }
     ],
     "costs": {
-      "fixture_mismatch": 0.0,
-      "wall_mismatch": 0.175,
+      "fixture_mismatch": 0.12,
+      "wall_mismatch": 0.16,
       "clearance_penalty": 0.0,
-      "staging_distance": 0.1376,
+      "staging_distance": 0.0,
       "group_overlap": 0.0,
-      "group_distance_delta": 2.1621,
-      "total": 2.4747
+      "group_distance_delta": 0.0,
+      "total": 0.28
     },
     "check": {
       "overlaps": [],
@@ -1323,32 +1770,13 @@
       "clearance_fails": 0,
       "clearance_fail_paths": [],
       "outside_room": [],
-      "relations_kept": 1.0,
+      "relations_kept": 0.8333,
       "violations_total": 0,
       "flagged_items": []
     },
     "judge_score": null,
     "warnings": [],
-    "leftovers": [
-      {
-        "item_id": "src-sectional-oversize",
-        "reason": "needs 6.10 m; longest free wall is 5.82 m",
-        "suggestions": [
-          "move to a larger room or omit"
-        ],
-        "provenance": {
-          "source": "data/drive_inputs/L1.jpg",
-          "photo_indices": [],
-          "seen_at": [
-            "00:44"
-          ],
-          "scale_ref": "oversized showroom sectional",
-          "from_listing": null,
-          "from_room": null,
-          "notes": null
-        }
-      }
-    ],
+    "leftovers": [],
     "provenance": {
       "source": "arrange_engine",
       "photo_indices": [],
@@ -1356,343 +1784,7 @@
       "scale_ref": null,
       "from_listing": null,
       "from_room": null,
-      "notes": "Whole-residence layout 4 across 2 rooms"
-    }
-  },
-  {
-    "id": "new-layout-05",
-    "rank": 5,
-    "room_pair": [
-      "src-living->new-living",
-      "src-bedroom->new-primary-bedroom"
-    ],
-    "placements": [
-      {
-        "item_id": "src-sofa-01",
-        "category": "sofa",
-        "group_id": "src-grp-conv",
-        "dims_m": {
-          "w": 2.2,
-          "d": 0.92,
-          "h": 0.84
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 3.08,
-          "z": 2.53,
-          "rot_deg": 90.0
-        },
-        "confidence": 0.95,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:12"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-coffee-01",
-        "category": "coffee_table",
-        "group_id": "src-grp-conv",
-        "dims_m": {
-          "w": 1.15,
-          "d": 0.62,
-          "h": 0.42
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 1.98,
-          "z": 2.53,
-          "rot_deg": 90.0
-        },
-        "confidence": 0.93,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:16"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-armchair-01",
-        "category": "armchair",
-        "group_id": "src-grp-conv",
-        "dims_m": {
-          "w": 0.82,
-          "d": 0.82,
-          "h": 0.82
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 1.98,
-          "z": 1.36,
-          "rot_deg": 0.0
-        },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:21"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-dining-table-01",
-        "category": "dining_table",
-        "group_id": "src-grp-dining",
-        "dims_m": {
-          "w": 1.25,
-          "d": 0.78,
-          "h": 0.75
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 5.2,
-          "z": 1.605,
-          "rot_deg": 90.0
-        },
-        "confidence": 0.91,
-        "matched_neighbors": [],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:31"
-          ],
-          "scale_ref": "#4-189 DINE zone",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-tv-stand-01",
-        "category": "tv_stand",
-        "group_id": "src-grp-media",
-        "dims_m": {
-          "w": 1.6,
-          "d": 0.44,
-          "h": 0.54
-        },
-        "room_id": "new-living",
-        "room_pair": [
-          "src-living",
-          "new-living"
-        ],
-        "pose": {
-          "x": 0.25,
-          "z": 2.13,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.94,
-        "matched_neighbors": [
-          "tv_wall"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:24"
-          ],
-          "scale_ref": "#4-189 12'X13' + 0.81 m door",
-          "from_listing": null,
-          "from_room": "src-living",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-bed-queen",
-        "category": "bed",
-        "group_id": "src-grp-sleep",
-        "dims_m": {
-          "w": 1.6,
-          "d": 2.05,
-          "h": 1.05
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 1.255,
-          "z": 5.86,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.96,
-        "matched_neighbors": [
-          "window"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "00:54"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-nightstand-01",
-        "category": "nightstand",
-        "group_id": "src-grp-sleep",
-        "dims_m": {
-          "w": 0.5,
-          "d": 0.42,
-          "h": 0.56
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 0.455,
-          "z": 4.77,
-          "rot_deg": 270.0
-        },
-        "confidence": 0.9,
-        "matched_neighbors": [
-          "window"
-        ],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:02"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      },
-      {
-        "item_id": "src-desk-01",
-        "category": "desk",
-        "group_id": "src-grp-work",
-        "dims_m": {
-          "w": 1.15,
-          "d": 0.58,
-          "h": 0.75
-        },
-        "room_id": "new-primary-bedroom",
-        "room_pair": [
-          "src-bedroom",
-          "new-primary-bedroom"
-        ],
-        "pose": {
-          "x": 0.605,
-          "z": 3.98,
-          "rot_deg": 0.0
-        },
-        "confidence": 0.88,
-        "matched_neighbors": [],
-        "provenance": {
-          "source": "arrange_engine",
-          "photo_indices": [],
-          "seen_at": [
-            "01:10"
-          ],
-          "scale_ref": "#4-189 RETREAT 11'X10'",
-          "from_listing": null,
-          "from_room": "src-bedroom",
-          "notes": null
-        }
-      }
-    ],
-    "costs": {
-      "fixture_mismatch": 0.0,
-      "wall_mismatch": 0.175,
-      "clearance_penalty": 0.0,
-      "staging_distance": 0.1376,
-      "group_overlap": 0.15,
-      "group_distance_delta": 2.3105,
-      "total": 2.7731
-    },
-    "check": {
-      "overlaps": [],
-      "door_blocks": [],
-      "clearance_fails": 0,
-      "clearance_fail_paths": [],
-      "outside_room": [],
-      "relations_kept": 1.0,
-      "violations_total": 0,
-      "flagged_items": []
-    },
-    "judge_score": null,
-    "warnings": [],
-    "leftovers": [
-      {
-        "item_id": "src-sectional-oversize",
-        "reason": "needs 6.10 m; longest free wall is 5.82 m",
-        "suggestions": [
-          "move to a larger room or omit"
-        ],
-        "provenance": {
-          "source": "data/drive_inputs/L1.jpg",
-          "photo_indices": [],
-          "seen_at": [
-            "00:44"
-          ],
-          "scale_ref": "oversized showroom sectional",
-          "from_listing": null,
-          "from_room": null,
-          "notes": null
-        }
-      }
-    ],
-    "provenance": {
-      "source": "arrange_engine",
-      "photo_indices": [],
-      "seen_at": [],
-      "scale_ref": null,
-      "from_listing": null,
-      "from_room": null,
-      "notes": "Whole-residence layout 5 across 2 rooms"
+      "notes": "East-facing lounge with a floating TV divider, end-of-bed bench, and a quiet wall-mounted study setup."
     }
   }
 ]

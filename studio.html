@@ -117,6 +117,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 .op{color:var(--mute);font-size:12.5px}.op b{color:var(--ink);font-weight:500}
 .ghostb{fill:rgba(234,67,53,.16);stroke:#ea4335;stroke-width:.04;stroke-dasharray:.1 .07}.ghostb.ok{fill:rgba(234,67,53,.05);stroke:#f28b82}
 .cmp td.n,.cmp th.n{text-align:center}.cmp .tot td{border-top:1px solid var(--line);font-weight:600}
+#ptext{flex:1;min-width:240px;background:var(--panel);border:1px solid var(--line);border-radius:99px;color:var(--ink);font:inherit;padding:11px 18px;outline:none}#ptext:focus{border-color:var(--gold)}
 </style>
 </head>
 <body>
@@ -137,6 +138,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
       <span class="seg hide" id="seg"><button id="v2d">2D plan</button><button id="v3d" class="on">3D</button></span>
       <button class="ghostbtn hide" id="tour">▶ Play tour</button>
       <button class="ghostbtn hide" id="rec">● Record video</button>
+      <button class="ghostbtn hide" id="final">✦ Final design · photoreal</button>
       <button class="ghostbtn hide" id="base">✦ Baseline: Gemini places it</button>
       <button class="ghostbtn hide" id="opin">✦ Gemini second opinion</button>
       <button class="ghostbtn hide" id="blend">✦ Render in Blender</button>
@@ -145,6 +147,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
       <button class="ghostbtn hide" id="replay">Replay</button>
       <button class="ghostbtn" id="back">Change picks</button>
     </div>
+    <div class="bar hide" id="pbar"><input id="ptext" placeholder="Tell the agent what to change: put the TV in the bedroom · remove the coffee table · no plants in the living room" autocomplete="off"><button class="go" id="pgo" style="padding:10px 20px">Apply</button></div>
     <div class="weave">
       <div class="stage" id="stage"><svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg><p class="edit hide" id="edit" style="color:#5f6368">Live edit: drag any piece on the plan, double-click to rotate it. The reviewer re-checks the room when you let go.</p><div id="three" class="hide"><div id="bl" class="hide"><img id="blImg" alt="Blender render of the current view"><span id="blCap"></span><button class="ghostbtn" id="blClose" style="background:rgba(0,0,0,.6)">Back to live 3D</button></div><div id="carry" class="hide"></div><div id="inset" class="hide"></div><div id="hint"></div></div></div>
       <div class="side">
@@ -400,8 +403,8 @@ function verifyCard(){
   <p>Still unverified: furniture sizes are read by eye from video frames (no LiDAR or tape measure), and photo room sizes are estimates. Measure one known object per room, such as a door (0.81 m), to confirm.</p></div>`}
 let dirty=false,editable=false;
 function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true,{final:true})}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
-  $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin','base'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
-function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin','base'].forEach(b=>$(b).classList.add('hide'))}
+  $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin','base','final'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
+function reset3d(){editable=false;dirty=false;$('pbar').classList.add('hide');if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin','base','final'].forEach(b=>$(b).classList.add('hide'))}
 let moveP=Promise.resolve();
 async function alignGemini(f,pv){const r=await fetch('/studio/align',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,key:f.room.key,items:f.final.items})});
   const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);if(!j.removed.length)return;
@@ -418,7 +421,7 @@ async function moveIn(){
   moveP=(async()=>{await Studio3D.show(P,FIT,CAT,logLine,()=>speed,()=>my===runId);if(my!==runId)return;$('wTitle').textContent='Review walk · '+P.name;
     await Studio3D.review(P,FIT,logLine,()=>speed,()=>my===runId,LIVE.available?askGemini:null,alignGemini);if(my!==runId)return;
     FIT.rooms.forEach((f,i)=>$('room'+i).innerHTML=roomMarkup(i,f.candidates[f.best],false,f.final.items));renderSum()})();await moveP;
-  if(my!==runId)return;$('skip').classList.add('hide');$('replay').classList.remove('hide');$('wTitle').textContent='Your new home in 3D · '+P.name;editable=true;
+  if(my!==runId)return;$('skip').classList.add('hide');$('replay').classList.remove('hide');$('wTitle').textContent='Your new home in 3D · '+P.name;editable=true;$('pbar').classList.remove('hide');
 }
 function finish(){
   FIT.rooms.forEach((f,i)=>{$('over'+i).innerHTML='';$('room'+i).innerHTML=roomMarkup(i,f.candidates[f.best],false,f.final.items)});
@@ -485,6 +488,17 @@ $('base').onclick=async()=>{const b=$('base');b.disabled=true;speed=0;Studio3D.f
     for(const br of Object.values(j.rooms))if(br.gemini)logLine('review',`<span class="op">${br.label}: Gemini alone had <b>${br.gemini.overlaps}</b> overlaps, <b>${br.gemini.door_blocks}</b> in door zones, <b>${br.gemini.outside_room}</b> outside the room; engine <b>${br.engine.hard_violations}</b> violations.</span>`);
     view('2d');document.querySelector('.cmp').scrollIntoView({behavior:'smooth',block:'center'})}
   catch(e){logLine('review','<span class="bad">Baseline failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Baseline: Gemini places it'};
+$('final').onclick=()=>{logLine('room','Final design');logLine('3d','Opened the photoreal showcase home built in Blender (a fixed 6-zone residence, not the plan picked here).');window.open('/walkthrough?mode=walkthrough','_blank')};
+$('ptext').addEventListener('keydown',e=>{if(e.key==='Enter')$('pgo').click()});
+$('pgo').onclick=async()=>{const text=$('ptext').value.trim();if(!text||!FIT)return;const b=$('pgo');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='Gemini is reading…';
+  logLine('room','Your instruction');logLine('edit','“'+text.replace(/</g,'&lt;')+'”');
+  try{const rooms={};FIT.rooms.forEach(f=>rooms[f.room.key]=f.final.items);
+    const r=await fetch('/studio/prompt',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,text,rooms,truck:FIT.own_leftovers||[]})});const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);
+    FIT.rooms.forEach((f,i)=>{const n=j.rooms[f.room.key];if(!n)return;f.final.items=n.items;f.final.check=n.check;f.review=n.review;$('room'+i).innerHTML=roomMarkup(i,f.candidates[f.best],false,f.final.items)});FIT.own_leftovers=j.truck;
+    logLine('review',`<b>${j.model}</b> (${j.seconds}s): ${j.summary}`);j.notes.forEach(n=>logLine('review',n));
+    FIT.rooms.forEach(f=>f.review.findings.filter(n=>n.level==='error').forEach(n=>logLine('review','<span class="bad">'+f.room.label+': '+n.text+'</span>')));
+    renderSum();dirty=true;if(!$('three').classList.contains('hide')){dirty=false;await Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true,{final:true})}$('ptext').value=''}
+  catch(e){logLine('review','<span class="bad">Could not apply that: '+e.message+'</span>')}b.disabled=false;b.textContent='Apply'};
 $('blClose').onclick=()=>$('bl').classList.add('hide');
 $('blend').onclick=async()=>{const b=$('blend');b.disabled=true;speed=0;Studio3D.flush();await moveP;const t0=Date.now(),tick=setInterval(()=>{b.textContent='✦ Blender is rendering… '+Math.round((Date.now()-t0)/1000)+' s'},1000);b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing). This takes about a minute; the button counts the seconds.');
   try{const r=await Studio3D.blender({room:'living'});$('blImg').src=r.url;$('blCap').textContent=`Blender Cycles · living room at eye level · ${r.seconds.toFixed(0)} s · same scene, ${r.kb} KB glTF`;$('bl').classList.remove('hide');logLine('3d',`Blender finished in ${r.seconds.toFixed(0)} s.`)}
