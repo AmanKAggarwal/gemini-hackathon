@@ -115,6 +115,8 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
 #bl button{position:absolute;top:12px;right:12px}#bl span{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.6);border-radius:99px;padding:5px 12px;font-size:12.5px;color:var(--gold2)}
 .add{margin-left:auto;font-size:12.5px;padding:6px 13px}.row h3{flex-wrap:wrap}.livetag{position:absolute;top:38px;left:10px;background:var(--grad);color:#fff;padding:1px 8px;border-radius:99px;font-size:11px;font-weight:600}
 .op{color:var(--mute);font-size:12.5px}.op b{color:var(--ink);font-weight:500}
+.ghostb{fill:rgba(234,67,53,.16);stroke:#ea4335;stroke-width:.04;stroke-dasharray:.1 .07}.ghostb.ok{fill:rgba(234,67,53,.05);stroke:#f28b82}
+.cmp td.n,.cmp th.n{text-align:center}.cmp .tot td{border-top:1px solid var(--line);font-weight:600}
 </style>
 </head>
 <body>
@@ -135,6 +137,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
       <span class="seg hide" id="seg"><button id="v2d">2D plan</button><button id="v3d" class="on">3D</button></span>
       <button class="ghostbtn hide" id="tour">▶ Play tour</button>
       <button class="ghostbtn hide" id="rec">● Record video</button>
+      <button class="ghostbtn hide" id="base">✦ Baseline: Gemini places it</button>
       <button class="ghostbtn hide" id="opin">✦ Gemini second opinion</button>
       <button class="ghostbtn hide" id="blend">✦ Render in Blender</button>
       <button class="ghostbtn hide" id="walk">Walk inside</button>
@@ -340,7 +343,7 @@ const vd=rv=>`<span class="vd ${rv.verdict.split(' ')[0]}">${rv.verdict}${rv.fix
 function logLine(phase,text){const l=$('log');l.insertAdjacentHTML('beforeend',phase==='room'?`<div class="room">${text}</div>`:`<div><i class="${phase==='review'?'rv':''}">${phase}</i><span>${text}</span></div>`);l.scrollTop=l.scrollHeight}
 
 async function run(){
-  const my=++runId; speed=1; reset3d();
+  const my=++runId; speed=1; reset3d(); BASE=null;
   $('log').innerHTML='';$('sum').innerHTML='';$('replay').classList.add('hide');$('skip').classList.remove('hide');
   ['gbox','mbox','cbox'].forEach(b=>$(b).classList.remove('hide'));
   $('st1').className='step done';$('st2').className='step on';$('st3').className='step';
@@ -397,8 +400,8 @@ function verifyCard(){
   <p>Still unverified: furniture sizes are read by eye from video frames (no LiDAR or tape measure), and photo room sizes are estimates. Measure one known object per room, such as a door (0.81 m), to confirm.</p></div>`}
 let dirty=false,editable=false;
 function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true,{final:true})}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
-  $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
-function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin'].forEach(b=>$(b).classList.add('hide'))}
+  $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin','base'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
+function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin','base'].forEach(b=>$(b).classList.add('hide'))}
 let moveP=Promise.resolve();
 async function alignGemini(f,pv){const r=await fetch('/studio/align',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,key:f.room.key,items:f.final.items})});
   const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);if(!j.removed.length)return;
@@ -426,7 +429,7 @@ function finish(){
   speed=1;moveIn();
 }
 function renderSum(){
-  $('sum').innerHTML=verifyCard()+FIT.rooms.map(f=>{const ph=CAT.photos.find(x=>x.id===f.photo_id),b=f.candidates[f.best],F=f.final,w=F.check.walkway;
+  $('sum').innerHTML=baseCard()+verifyCard()+FIT.rooms.map(f=>{const ph=CAT.photos.find(x=>x.id===f.photo_id),b=f.candidates[f.best],F=f.final,w=F.check.walkway;
     const ch=b.items.filter(x=>x.status!=='kept').map(x=>`<p>• ${x.label}: ${x.note}</p>`).join('');
     const mine=F.items.filter(x=>x.own).map(x=>`<p style="color:var(--gold2)">• Yours: ${x.label} — ${x.note}</p>`).join('');
     const lo=F.leftovers.map(x=>`<p class="warn">• Left over: ${x.label} (${x.reason})</p>`).join('');
@@ -466,6 +469,22 @@ $('opin').onclick=async()=>{const b=$('opin');b.disabled=true;speed=0;Studio3D.f
       logLine('review',`<b>${o.label}</b> · ${o.model} · ${o.seconds}s<br>${line}`);
       if(o.says_walkable!==null)logLine('review',o.says_walkable===ours?`Agrees with the rule reviewer on the walkway (${ours?'clear':'blocked'}).`:`<span class="warn">Disagrees with the rule reviewer: Gemini says the path is ${o.says_walkable?'clear':'blocked'}, the grid check says ${ours?'clear':'blocked'}.</span>`)}}
   catch(e){logLine('review','<span class="bad">Second opinion failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Gemini second opinion'};
+let BASE=null;
+function baseCard(){if(!BASE)return '';const c=(x,k)=>`<td class="n ${x[k]?'bad':'ok'}">${x[k]}</td>`,wk=x=>`<td class="n ${x.walkway_m>=.8?'ok':x.walkway_m?'warn':'bad'}">${x.walkway_m?x.walkway_m.toFixed(1)+' m':'blocked'}</td>`;
+  const row=(name,x)=>`<td>${name}</td>${c(x,'overlaps')}${c(x,'door_blocks')}${c(x,'outside_room')}${c(x,'not_placed')}${wk(x)}<td class="n ${x.hard_violations?'bad':'ok'}"><b>${x.hard_violations}</b></td>`;
+  const rows=Object.values(BASE.rooms).map(r=>r.error?`<tr><td>${r.label}</td><td colspan="7" class="warn">Gemini call failed: ${r.error}</td></tr>`:
+    `<tr><td rowspan="2">${r.label}<br><span style="color:var(--mute)">${r.n} pieces</span></td>${row('Engine + reviewers',r.engine)}</tr><tr>${row(r.model+' alone · '+r.seconds+'s',r.gemini)}</tr>`).join('');
+  const t=BASE.total;return `<div class="verify cmp"><h3>Proof: same furniture, same rooms, two placers</h3><p>Both layouts are scored by the same checker. ${t.pieces} of your pieces across ${t.rooms} rooms: the engine has <b class="${t.engine?'bad':'ok'}">${t.engine}</b> hard violations, Gemini placing by coordinates alone has <b class="${t.gemini?'bad':'ok'}">${t.gemini}</b>. Red dashed boxes on the 2D plan show where Gemini put things.</p>
+  <table><tr><th>Room</th><th>Placer</th><th class="n">Overlaps</th><th class="n">In a door zone</th><th class="n">Outside room</th><th class="n">Not placed</th><th class="n">Walkway</th><th class="n">Hard violations</th></tr>${rows}</table>
+  <p>${Object.values(BASE.rooms).flatMap(r=>(r.findings||[]).slice(0,2).map(f=>r.label+': '+f)).slice(0,5).join(' · ')}</p></div>`}
+$('base').onclick=async()=>{const b=$('base');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='✦ Gemini is placing…';logLine('room','Baseline · Gemini Neon places the same furniture by itself');
+  try{const rooms={};FIT.rooms.forEach(f=>rooms[f.room.key]=f.final.items);const r=await fetch('/studio/baseline',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,rooms})});const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);
+    BASE=j;renderSum();FIT.rooms.forEach((f,i)=>{const br=j.rooms[f.room.key];if(!br||!br.gemini_items)return;const bad=new Set(br.bad_ids);
+      $('over'+i).innerHTML=br.gemini_items.map(it=>`<rect class="ghostb ${bad.has(it.id)?'':'ok'}" x="${it.rect[0]}" y="${it.rect[1]}" width="${it.rect[2]}" height="${it.rect[3]}" rx=".05"><title>Gemini put ${it.label} here</title></rect>`).join('')});
+    logLine('review',`Same checker, ${j.total.pieces} pieces in ${j.total.rooms} rooms: engine ${j.total.engine} hard violations, Gemini alone ${j.total.gemini}.`);
+    for(const br of Object.values(j.rooms))if(br.gemini)logLine('review',`<span class="op">${br.label}: Gemini alone had <b>${br.gemini.overlaps}</b> overlaps, <b>${br.gemini.door_blocks}</b> in door zones, <b>${br.gemini.outside_room}</b> outside the room; engine <b>${br.engine.hard_violations}</b> violations.</span>`);
+    view('2d');document.querySelector('.cmp').scrollIntoView({behavior:'smooth',block:'center'})}
+  catch(e){logLine('review','<span class="bad">Baseline failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Baseline: Gemini places it'};
 $('blClose').onclick=()=>$('bl').classList.add('hide');
 $('blend').onclick=async()=>{const b=$('blend');b.disabled=true;speed=0;Studio3D.flush();await moveP;b.textContent='✦ Blender is rendering…';logLine('room','Blender render');logLine('3d','Sent this exact scene and camera to Blender (Cycles path tracing).');
   try{const r=await Studio3D.blender({room:'living'});$('blImg').src=r.url;$('blCap').textContent=`Blender Cycles · living room at eye level · ${r.seconds.toFixed(0)} s · same scene, ${r.kb} KB glTF`;$('bl').classList.remove('hide');logLine('3d',`Blender finished in ${r.seconds.toFixed(0)} s.`)}

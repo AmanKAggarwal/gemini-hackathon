@@ -537,3 +537,65 @@ def perceive_video(path: Path, group: str, producer=None) -> list[dict[str, Any]
         inv["items"] = out + [i for i in inv["items"] if i["source"]["group"] != group]
         INVENTORY_PATH.write_text(json.dumps(inv, ensure_ascii=False, indent=1), encoding="utf-8")
     return out
+
+
+# ---------------- baseline: Gemini places the furniture itself ----------------
+
+class BaselinePose(BaseModel):
+    id: str
+    x: float = Field(description="left edge of the footprint, metres from the west wall")
+    z: float = Field(description="top edge of the footprint, metres from the north wall")
+    rotated: bool = Field(default=False, description="true to swap the item's width and depth")
+
+
+class BaselineLayout(BaseModel):
+    placements: list[BaselinePose]
+    notes: str = ""
+
+
+PROMPT_BASELINE = """You are arranging furniture in one room of the attached floor plan. Place every item yourself by giving coordinates.
+
+Room: {label}, a rectangle {w:.2f} m wide (x, west to east) by {d:.2f} m deep (z, north to south). The origin is the room's north-west corner. On the plan image this room is the pixel rectangle {rect_px}.
+Sides with no wall (open plan): {open_sides}.
+
+Already in the room and fixed, as [x, z, width, depth] in metres:
+{fixed}
+
+Keep-clear zones (door swings and doorways), as [x, z, width, depth]:
+{doors}
+
+Windows: {windows}
+
+Items to place, each with its footprint width and depth in metres:
+{items}
+
+Rules: every item fully inside the room; no item may overlap another item, a fixed rectangle or a keep-clear zone; leave a walkway at least 0.9 m wide from the doorway to every item; sofas face the TV or each other; beds and sofas stand against a wall.
+
+Return one JSON object matching the schema: for each item its id, the x and z of the top-left corner of its footprint, and rotated = true if you swap its width and depth. Place every item. No prose.
+"""
+
+
+def baseline_room(plan: dict[str, Any], room: dict[str, Any], fixed: list[dict[str, Any]], movers: list[dict[str, Any]], producer=None) -> dict[str, Any]:
+    """Ask gemini-4-neon for poses directly. Returns the items at its poses; scoring happens in the caller with the same checker."""
+    if producer is None:
+        require_key()
+    prompt = PROMPT_BASELINE.format(
+        label=room["label"], w=room["w"], d=room["d"], rect_px=room["rect_px"], open_sides=", ".join(room["open"]) or "none",
+        fixed="\n".join(f"- {i['label']}: {[round(v, 2) for v in i['rect']]}" for i in fixed) or "- nothing",
+        doors="\n".join(f"- {[round(v, 2) for v in z]}" for z in room["doors"]) or "- none",
+        windows=", ".join(f"{w['wall']} wall from {w['a']:.1f} to {w['b']:.1f} m" for w in room["windows"]) or "none",
+        items="\n".join(f"- id {i['id']}: {i['label']}, {i['len']:.2f} x {i['dep']:.2f} m" for i in movers))
+    t0 = time.time()
+    res = producer(prompt) if producer else _structured(MODEL_PLAN, _media(IMG_DIR / plan["image"]), prompt, BaselineLayout, thinking=os.environ.get("STUDIO_PLAN_THINKING", "low"))
+    if not res.ok or res.data is None:
+        raise RuntimeError("Gemini's answer failed schema validation twice: " + "; ".join(res.errors)[-300:])
+    poses = {p.id: p for p in res.data.placements}
+    placed, missing = [], []
+    for i in movers:
+        p = poses.get(i["id"])
+        if p is None:
+            missing.append(i["label"])
+            continue
+        w, d = (i["dep"], i["len"]) if p.rotated else (i["len"], i["dep"])
+        placed.append({**i, "rect": [round(p.x, 3), round(p.z, 3), round(w, 3), round(d, 3)], "face": "S" if not p.rotated else "E"})
+    return {"items": placed, "missing": missing, "seconds": round(time.time() - t0, 1), "model": MODEL_PLAN, "notes": res.data.notes}

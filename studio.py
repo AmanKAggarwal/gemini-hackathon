@@ -643,6 +643,56 @@ def studio_second_opinion(req: OpinionReq) -> dict[str, Any]:
     return {"rooms": _live(studio_live.second_opinion, req.rooms)}
 
 
+class BaselineReq(BaseModel):
+    plan: str
+    rooms: dict[str, list[dict[str, Any]]]
+
+
+@router.post("/studio/baseline")
+def studio_baseline(req: BaselineReq) -> dict[str, Any]:
+    """Proof step. The same furniture, the same rooms, two placers: our engine and gemini-4-neon alone.
+
+    Both layouts are scored by the same `inspect` checker (overlaps, door zones, room bounds, walkway).
+    """
+    from concurrent.futures import ThreadPoolExecutor
+    cat = load_catalog()
+    plan = next((p for p in cat["plans"] if p["id"] == req.plan), None)
+    if plan is None:
+        raise HTTPException(status_code=404, detail=f"unknown plan {req.plan}")
+
+    def score(chk: dict[str, Any], missing: int = 0) -> dict[str, Any]:
+        w = chk["walkway"]
+        hard = chk["overlaps"] + chk["door_blocks"] + chk["outside_room"] + missing + (0 if w["width_m"] else 1)
+        return {"overlaps": chk["overlaps"], "door_blocks": chk["door_blocks"], "outside_room": chk["outside_room"], "not_placed": missing,
+                "walkway_m": w["width_m"], "hard_violations": hard}
+
+    def one(key: str) -> tuple[str, dict[str, Any]]:
+        items = req.rooms[key]
+        room = target_room(plan, key)
+        movers = [i for i in items if i.get("own") and not i["floor"]]
+        fixed = [i for i in items if not i.get("own") and not i["floor"]]
+        ours, _ = inspect(key, room, [i for i in items if not i["floor"]], walkway)
+        try:
+            b = studio_live.baseline_room(plan, room, fixed, movers)
+        except Exception as exc:
+            return key, {"label": room["label"], "n": len(movers), "engine": score(ours), "error": f"{type(exc).__name__}: {str(exc)[:200]}"}
+        theirs, findings = inspect(key, room, fixed + b["items"], walkway)
+        return key, {"label": room["label"], "n": len(movers), "engine": score(ours), "gemini": score(theirs, len(b["missing"])),
+                     "gemini_items": b["items"], "bad_ids": theirs["bad_ids"], "findings": [f["text"] for f in findings if f["level"] == "error"][:6],
+                     "seconds": b["seconds"], "model": b["model"]}
+
+    try:
+        studio_live.require_key()
+    except RuntimeError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    keys = [k for k, items in req.rooms.items() if k in plan["rooms"] and any(i.get("own") and not i["floor"] for i in items)]
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        rooms = dict(pool.map(one, keys))
+    done = [r for r in rooms.values() if "gemini" in r]
+    return {"rooms": rooms, "total": {"pieces": sum(r["n"] for r in done), "engine": sum(r["engine"]["hard_violations"] for r in done),
+                                      "gemini": sum(r["gemini"]["hard_violations"] for r in done), "rooms": len(done)}}
+
+
 class AlignReq(BaseModel):
     plan: str
     key: str
