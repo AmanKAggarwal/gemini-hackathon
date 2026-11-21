@@ -50,6 +50,14 @@ COST = {"left1": 10.0, "left2": 5.0, "left3": 1.5, "swap": 3.0, "merge": 2.5, "m
 WALK_WIDTHS = [0.9, 0.8, 0.7, 0.6]  # spec hard constraint is 0.9 m; narrower widths are reported, not hidden
 
 
+FIXTURE_NAMES = {"counter": "Kitchen counter", "island": "Kitchen island", "fridge": "Fridge", "tub": "Bathtub", "shower": "Shower",
+                 "vanity": "Vanity", "toilet": "Toilet", "closet": "Closet", "washer": "Washer / dryer"}
+# What a photo may contribute as loose furniture. Everything built-in comes from the plan and never moves.
+LOOSE = {"living": {"sofa", "sectional", "coffee", "rug", "plant", "pouf", "armchair", "tv"},
+         "bedroom": {"bed", "nightstand", "rug", "plant", "pouf", "armchair", "tv", "sofa", "coffee"},
+         "kitchen": {"rug"}, "bathroom": {"rug"}}
+
+
 def load_catalog() -> dict[str, Any]:
     cat = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
     cat["inventory"] = json.loads(INVENTORY_PATH.read_text(encoding="utf-8")) if INVENTORY_PATH.exists() else {"items": [], "sources": []}
@@ -101,8 +109,20 @@ def target_room(plan: dict[str, Any], key: str) -> dict[str, Any]:
     for w in r.get("windows", []):
         o = x0 if w["wall"] in "NS" else y0
         wins.append({"wall": w["wall"], "a": (w["a"] - o) / s, "b": (w["b"] - o) / s})
+    fixtures = []
+    for n, f in enumerate(r.get("fixtures", [])):
+        fr = [round(v, 3) for v in rect_m(f["rect"])]
+        gaps = {"N": fr[1], "S": D - fr[1] - fr[3], "W": fr[0], "E": W - fr[0] - fr[2]}
+        sides = "NS" if fr[2] > fr[3] * 1.25 else "WE" if fr[3] > fr[2] * 1.25 else "NSWE"   # a run faces away from the wall behind its long side
+        wall = min(sides, key=lambda s: gaps[s])
+        face = WALLS[(WALLS.index(wall) + 2) % 4]
+        ln, dp = (fr[2], fr[3]) if face in "NS" else (fr[3], fr[2])
+        fixtures.append({"id": f"fx-{key}-{n}", "type": f["type"], "label": FIXTURE_NAMES.get(f["type"], f["type"]), "pri": 3, "floor": False,
+                         "face": face, "flip": False, "shape": "built" if f["type"] == "tub" else None, "feat": f.get("feat"), "n": f.get("n"),
+                         "inferred": False, "status": "plan", "note": "stays where the plan draws it", "moved_m": 0.0, "rect": fr,
+                         "len": round(ln, 2), "dep": round(dp, 2), "plan": True})
     return {
-        "key": key, "label": r["label"], "w": round(W, 2), "d": round(D, 2), "rect_px": r["rect"],
+        "key": key, "type": r.get("type", key), "fixtures": fixtures, "label": r["label"], "w": round(W, 2), "d": round(D, 2), "rect_px": r["rect"],
         "open": r.get("open", []), "windows": wins,
         "doors": [rect_m(b) for b in r.get("doors", [])],
         "obstacles": [rect_m(b) for b in r.get("obstacles", [])],
@@ -406,31 +426,42 @@ def place_candidate(photo: dict[str, Any], room: dict[str, Any], k: int, m: bool
 
 
 def fit_room(photo: dict[str, Any], plan: dict[str, Any], key: str) -> dict[str, Any]:
+    """Style one plan room from one photo. The plan's fixtures stay put; only the photo's loose furniture is fitted around them."""
     room = target_room(plan, key)
-    cands = [place_candidate(photo, room, k, m) for m in (False, True) for k in range(4)]
+    loose = [i for i in photo["items"] if i["type"] in LOOSE.get(room["type"], set())]
+    ids = {i["id"] for i in loose}
+    loose = [({k: v for k, v in i.items() if k != "parent"} if i.get("parent") not in ids else i) for i in loose]
+    fit_photo = {**photo, "items": loose}
+    fit_space = {**room, "obstacles": room["obstacles"] + [f["rect"] for f in room["fixtures"]]}
+    cands = [place_candidate(fit_photo, fit_space, k, m) for m in (False, True) for k in range(4)]
     best = min(range(len(cands)), key=lambda i: (cands[i]["cost"], i))
+    for c in cands:
+        c["items"] = [dict(f) for f in room["fixtures"]] + c["items"]
     b = cands[best]
     g = photo["gauged"]
+    fx = room["fixtures"]
     log = [
-        {"phase": "gauge", "text": f"Gauged {photo['id']} “{photo['title']}”: about {g['w']:.1f} × {g['d']:.1f} m ({g['w'] * g['d']:.0f} m²), scaled from {g['ref']}. Confidence {g['conf']:.2f}."},
-        {"phase": "gauge", "text": f"Found {len(photo['items'])} things to carry over: " + ", ".join(i["label"].lower() for i in photo["items"]) + "."},
-        {"phase": "pair", "text": f"Paired with {room['label']} on the plan: {room['w']:.2f} × {room['d']:.2f} m ({room['w'] * room['d']:.1f} m²). Plan scale {plan['px_per_m']:.1f} px/m ({plan['scale_ref']})."},
-        {"phase": "search", "text": f"Tried 8 orientations (4 rotations × mirror). Best is {b['name']} at cost {b['cost']:.1f}; worst was {max(c['cost'] for c in cands):.1f}."},
-        {"phase": "search", "text": f"In that orientation the photo's room maps at {b['sx'] * 100:.0f}% width and {b['sz'] * 100:.0f}% depth. Furniture stays rigid; only built-in runs are re-cut."},
+        {"phase": "gauge", "text": f"Gauged {photo['id']} “{photo['title']}”: about {g['w']:.1f} × {g['d']:.1f} m, scaled from {g['ref']}. Confidence {g['conf']:.2f}."},
+        {"phase": "pair", "text": f"{room['label']} on the plan is {room['w']:.2f} × {room['d']:.2f} m ({room['w'] * room['d']:.1f} m²). Plan scale {plan['px_per_m']:.1f} px/m."},
+        {"phase": "layout", "text": (f"Layout kept from the plan: {len(fx)} fixture(s) stay exactly where they are drawn (" + ", ".join(f["label"].lower() for f in fx) + ")."
+                                     if fx else "The plan draws no built-in fixtures in this room.")},
+        {"phase": "style", "text": f"From the photo: floor, wall, cabinet and upholstery colours, the {photo['palette']['style']} floor and the glow lighting."},
     ]
+    if loose:
+        log.append({"phase": "search", "text": f"Loose pieces from the photo ({', '.join(i['label'].lower() for i in loose)}) fitted around the fixtures: tried 8 orientations, best is {b['name']} at cost {b['cost']:.1f}."})
+    else:
+        log.append({"phase": "search", "text": "Nothing in this photo needs placing: this room is all built-in, so only the look is transferred."})
     for p in b["items"]:
+        if p.get("plan"):
+            continue
         if p["status"] != "kept":
             log.append({"phase": "place", "text": f"{p['label']}: {p['note']}."})
-        if p["inferred"]:
-            log.append({"phase": "place", "text": f"{p['label']}: not visible in the photo, added so the room works."})
-    kept = sum(1 for p in b["items"] if p["status"] == "kept")
-    log.append({"phase": "place", "text": f"{kept} of {len(b['items'])} placed items kept their photo size and spot."})
     for l in b["leftovers"]:
         log.append({"phase": "place", "text": f"Left over: {l['label']} ({l['reason']})."})
     w = b["check"]["walkway"]
     wtxt = (f"walkway {w['width_m']:.1f} m" + ("" if w["meets_0_9"] else " (under the 0.9 m target)")) if w["width_m"] else "no 0.6 m walkway reaches " + ", ".join(w["unreached"])
     log.append({"phase": "check", "text": f"Checks: {b['check']['overlaps']} overlaps, {b['check']['door_blocks']} blocked doors, {wtxt}."})
-    return {"room": room, "photo_id": photo["id"], "gauged": g, "candidates": cands, "best": best, "log": log}
+    return {"room": room, "photo_id": photo["id"], "gauged": g, "candidates": cands, "best": best, "log": log, "has_loose": bool(loose)}
 
 
 # ---------- routes ----------
@@ -478,10 +509,10 @@ def studio_fit(req: FitReq) -> dict[str, Any]:
         raise HTTPException(status_code=404, detail=f"unknown plan {req.plan}")
     photos = {p["id"]: p for p in cat["photos"]}
     out = []
-    for key in ("kitchen", "living", "bedroom", "bathroom"):
+    for key, pr in plan["rooms"].items():
         pid = req.picks.get(key)
-        if pid not in photos or photos[pid]["cat"] != key:
-            raise HTTPException(status_code=400, detail=f"pick one {key} photo")
+        if pid not in photos or photos[pid]["cat"] != pr.get("type", key):
+            raise HTTPException(status_code=400, detail=f"pick one {pr.get('type', key)} photo for {pr['label']}")
         out.append(fit_room(photos[pid], plan, key))
     inv = {i["id"]: i for i in cat["inventory"]["items"]}
     own = [inv[i] for i in req.own if i in inv]
@@ -501,24 +532,26 @@ def studio_rank(plan_id: str) -> dict[str, Any]:
     if plan is None:
         raise HTTPException(status_code=404, detail=f"unknown plan {plan_id}")
     out: dict[str, list[dict[str, Any]]] = {}
-    for ph in cat["photos"]:
-        if ph["cat"] not in plan["rooms"]:
-            continue
-        r = fit_room(ph, plan, ph["cat"])
-        b = r["candidates"][r["best"]]
-        kept = sum(1 for i in b["items"] if i["status"] == "kept")
-        why = []
-        if b["leftovers"]:
-            why.append(f"{len(b['leftovers'])} piece(s) do not fit")
-        changed = len(b["items"]) - kept
-        if changed:
-            why.append(f"{changed} resized or moved")
-        w = b["check"]["walkway"]
-        why.append(f"walkway {w['width_m']:.1f} m" if w["width_m"] else "walkway blocked")
-        why.append(f"room maps at {b['sx'] * 100:.0f}% × {b['sz'] * 100:.0f}%")
-        out.setdefault(ph["cat"], []).append({
-            "id": ph["id"], "cost": b["cost"], "score": round(100 * math.exp(-b["cost"] / 12)), "orientation": b["name"],
-            "kept": kept, "placed": len(b["items"]), "leftovers": len(b["leftovers"]), "why": ", ".join(why)})
+    for key, pr in plan["rooms"].items():
+        for ph in cat["photos"]:
+            if ph["cat"] != pr.get("type", key):
+                continue
+            r = fit_room(ph, plan, key)
+            b = r["candidates"][r["best"]]
+            room = r["room"]
+            conf = ph["gauged"].get("conf", 0.6)
+            size = (ph["gauged"]["w"] * ph["gauged"]["d"]) / max(0.1, room["w"] * room["d"])
+            adj = b["cost"] + 8 * (1 - conf) + 4 * abs(math.log(size))
+            why = [f"photo room is {size:.1f}× this room's area"]
+            if r["has_loose"]:
+                loose = [i for i in b["items"] if not i.get("plan")]
+                why.append(f"{len(loose)} loose piece(s) fit" + (f", {len(b['leftovers'])} do not" if b["leftovers"] else ""))
+            else:
+                why.append("fixtures stay as drawn; look only")
+            if conf < 0.6:
+                why.append(f"gauged at only {conf:.2f} confidence")
+            out.setdefault(key, []).append({"id": ph["id"], "cost": round(adj, 2), "score": round(100 * math.exp(-adj / 12)), "orientation": b["name"],
+                                            "why": ", ".join(why)})
     for v in out.values():
         v.sort(key=lambda x: x["cost"])
     return {"plan": plan_id, "rank": out}
@@ -619,13 +652,18 @@ def studio_check(req: CheckReq) -> dict[str, Any]:
 
 if __name__ == "__main__":
     cat = load_catalog()
-    ph = {p["id"]: p for p in cat["photos"]}
+    n = 0
     for plan in cat["plans"]:
-        print(f"== {plan['name']}")
-        for p in cat["photos"]:
-            r = fit_room(p, plan, p["cat"])
-            b = r["candidates"][r["best"]]
-            assert b["check"]["overlaps"] == 0 and b["check"]["door_blocks"] == 0, (plan["id"], p["id"])
-            st = [x["status"] for x in b["items"]]
-            print(f"  {p['id']:4s} -> {r['room']['w']:.1f}x{r['room']['d']:.1f}  {b['name']:14s} cost {b['cost']:5.1f}  "
-                  f"placed {len(b['items'])} (swap {st.count('swapped')}, merged {len(b['merged'])})  left {[l['id'] for l in b['leftovers']]}  walk {b['check']['walkway']['width_m']}")
+        print(f"== {plan['name']}: " + ", ".join(plan["rooms"]))
+        for key, pr in plan["rooms"].items():
+            for p in cat["photos"]:
+                if p["cat"] != pr.get("type", key):
+                    continue
+                r = fit_room(p, plan, key)
+                b = r["candidates"][r["best"]]
+                loose = [x for x in b["items"] if not x.get("plan")]
+                sol = [x for x in loose if not x["floor"]]
+                assert not any(overlap(a["rect"], f["rect"]) for a in sol for f in r["room"]["fixtures"]), (plan["id"], key, p["id"])
+                assert b["check"]["door_blocks"] == 0, (plan["id"], key, p["id"])
+                n += 1
+    print(f"{n} room fits, no loose piece overlaps a plan fixture or blocks a door")

@@ -13,21 +13,21 @@ from __future__ import annotations
 
 from typing import Any
 
-from studio_correspond import EPS, WALLS, WALL_NAME, WALL_TYPES, _along_wall, _spiral, overlap
+from studio_correspond import ACCESSORY, EPS, TALL_TYPES, WALLS, WALL_NAME, WALL_TYPES, _along_wall, _spiral, overlap
 
 FAMILY = {"sectional": "sofa"}
-NAMES = {"sofa": "sofa", "bed": "bed", "coffee": "coffee table", "rug": "rug", "armchair": "armchair", "table": "table",
+NAMES = {"tv": "TV", "plant": "plant", "fridge": "fridge", "sofa": "sofa", "bed": "bed", "coffee": "coffee table", "rug": "rug", "armchair": "armchair", "table": "table",
          "bookshelf": "bookshelf", "console": "console"}
 # How many of each furniture family a room type can sensibly hold (tunable house rules).
 CAPS: dict[str, dict[str, int]] = {
-    "bedroom": {"sofa": 1, "bed": 1, "coffee": 1, "rug": 1, "armchair": 2, "table": 0, "bookshelf": 1, "console": 1},
-    "living": {"sofa": 2, "bed": 0, "coffee": 1, "rug": 1, "armchair": 2, "table": 1, "bookshelf": 1, "console": 1},
-    "kitchen": {"sofa": 0, "bed": 0, "coffee": 0, "rug": 1, "armchair": 0, "table": 1},
+    "bedroom": {"sofa": 1, "bed": 1, "coffee": 1, "rug": 1, "armchair": 2, "table": 0, "bookshelf": 1, "console": 1, "tv": 1, "plant": 3, "fridge": 0},
+    "living": {"sofa": 2, "bed": 0, "coffee": 1, "rug": 1, "armchair": 2, "table": 1, "bookshelf": 1, "console": 2, "tv": 1, "plant": 4, "fridge": 0},
+    "kitchen": {"sofa": 0, "bed": 0, "coffee": 0, "rug": 1, "armchair": 0, "table": 1, "fridge": 1, "plant": 2},
     "bathroom": {"sofa": 0, "bed": 0, "coffee": 0, "armchair": 0, "table": 0},
 }
 BEDROOM_SOFA_MIN_AREA = 12.0   # m2: below this a bedroom gets no sofa at all
 WALK_OK = 0.8                  # reviewer accepts 0.8 m; the 0.9 m target is still reported
-ESSENTIAL = {"bed", "counter", "island", "fridge", "tub", "tubshower", "shower", "vanity", "toilet", "tv", "fire", "tall", "seat"}
+ESSENTIAL = {"bed", "counter", "island", "tub", "tubshower", "shower", "vanity", "toilet", "fire", "tall", "seat", "closet", "washer"}
 
 
 def fam(it: dict[str, Any]) -> str:
@@ -35,17 +35,21 @@ def fam(it: dict[str, Any]) -> str:
 
 
 def cap_for(key: str, room: dict[str, Any], family: str) -> int | None:
-    cap = CAPS.get(key, {}).get(family)
-    if key == "bedroom" and family == "sofa" and room["w"] * room["d"] < BEDROOM_SOFA_MIN_AREA:
+    rtype = room.get("type", key)
+    cap = CAPS.get(rtype, {}).get(family)
+    if rtype == "bedroom" and family == "sofa" and room["w"] * room["d"] < BEDROOM_SOFA_MIN_AREA:
         return 0
     return cap
 
 
 def compute_check(room: dict[str, Any], items: list[dict[str, Any]], walkway) -> dict[str, Any]:
     sol = [i for i in items if not i["floor"]]
-    pairs = [(sol[a], sol[b]) for a in range(len(sol)) for b in range(a + 1, len(sol)) if overlap(sol[a]["rect"], sol[b]["rect"])]
-    doors = [s for s in sol if any(overlap(s["rect"], dz) for dz in room["doors"])]
-    outside = [s for s in sol if s["rect"][0] < -EPS or s["rect"][1] < -EPS or s["rect"][0] + s["rect"][2] > room["w"] + EPS
+    # the plan's own fixtures are ground truth: never flag them against each other, a door, or the room edge
+    pairs = [(sol[a], sol[b]) for a in range(len(sol)) for b in range(a + 1, len(sol))
+             if not (sol[a].get("plan") and sol[b].get("plan")) and overlap(sol[a]["rect"], sol[b]["rect"])]
+    loose = [s for s in sol if not s.get("plan")]
+    doors = [s for s in loose if any(overlap(s["rect"], dz) for dz in room["doors"])]
+    outside = [s for s in loose if s["rect"][0] < -EPS or s["rect"][1] < -EPS or s["rect"][0] + s["rect"][2] > room["w"] + EPS
                or s["rect"][1] + s["rect"][3] > room["d"] + EPS or any(overlap(s["rect"], o) for o in room["obstacles"])]
     return {"overlaps": len(pairs), "door_blocks": len(doors), "outside_room": len(outside), "walkway": walkway(room, sol),
             "overlap_pairs": [[a["label"], b["label"]] for a, b in pairs], "door_items": [s["label"] for s in doors],
@@ -69,7 +73,8 @@ def inspect(key: str, room: dict[str, Any], items: list[dict[str, Any]], walkway
         out.append({"rule": "bounds", "level": "error", "text": f"{n} is outside the room or inside a closet."})
     counts: dict[str, list[str]] = {}
     for i in items:
-        counts.setdefault(fam(i), []).append(i["label"])
+        if i["type"] not in ACCESSORY:
+            counts.setdefault(fam(i), []).append(i["label"])
     for f, labels in counts.items():
         cap = cap_for(key, room, f)
         if cap is not None and len(labels) > cap:
@@ -85,8 +90,10 @@ def inspect(key: str, room: dict[str, Any], items: list[dict[str, Any]], walkway
 
 def _relocate(o: dict[str, Any], it: dict[str, Any], from_key: str, by_key: dict[str, Any], walkway) -> str | None:
     """Try the piece's other preferred rooms. Returns the room key it moved to, or None."""
-    for key in o["rooms"]:
-        if key == from_key or key not in by_key:
+    if it["type"] in ACCESSORY:
+        return None
+    for key in [k for t in o["rooms"] for k in by_key if by_key[k]["room"]["type"] == t]:
+        if key == from_key:
             continue
         room, F = by_key[key]["room"], by_key[key]["final"]
         cap = cap_for(key, room, fam(it))
@@ -99,7 +106,7 @@ def _relocate(o: dict[str, Any], it: dict[str, Any], from_key: str, by_key: dict
             rect = [round((room["w"] - bw) / 2, 3), round((room["d"] - bd) / 2, 3), round(bw, 3), round(bd, 3)]
         elif o["type"] in WALL_TYPES:
             for wl in sorted((w for w in WALLS if w not in room["open"]), key=lambda w: -(room["w"] if w in "NS" else room["d"])):
-                rect = _along_wall(room, wl, o["w"], o["d"], solids, o["type"] == "bookshelf")
+                rect = _along_wall(room, wl, o["w"], o["d"], solids, o["type"] in TALL_TYPES)
                 if rect:
                     face, note = WALLS[(WALLS.index(wl) + 2) % 4], f"against the {WALL_NAME[wl]} wall"
                     break
@@ -132,8 +139,12 @@ def review(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway, fix:
     def remove(key: str, it: dict[str, Any], why: str, rule: str) -> None:
         r = by_key[key]
         F, room = r["final"], r["room"]
-        F["items"] = [i for i in F["items"] if i is not it]
+        riders = [i for i in F["items"] if i.get("on") == it["id"]]
+        F["items"] = [i for i in F["items"] if i is not it and i.get("on") != it["id"]]
         F["check"] = compute_check(room, F["items"], walkway)
+        for rd in riders:
+            if rd.get("own"):
+                truck.append({"id": rd["id"], "label": rd["label"], "pri": 3, "own": True, "reason": f"reviewer: it sat on the {it['label'].lower()}, which was moved out"})
         if not it.get("own"):
             notes[key].append({"rule": rule, "level": "fixed", "text": f"{why} Removed the photo's {it['label'].lower()}."})
             return
@@ -152,13 +163,16 @@ def review(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway, fix:
             fams = sorted({fam(i) for i in r["final"]["items"]})
             for f in fams:
                 cap = cap_for(key, room, f)
-                group = [i for i in r["final"]["items"] if fam(i) == f]
+                group = [i for i in r["final"]["items"] if fam(i) == f and i["type"] not in ACCESSORY]
                 if cap is None or len(group) <= cap:
                     continue
                 # keep the user's best-matched pieces; photo pieces go first, then unmatched, then worst match
+                group = [i for i in group if not i.get("plan")]   # a plan fixture is never the one to go
+                over = len([i for i in r["final"]["items"] if fam(i) == f and i["type"] not in ACCESSORY]) - cap
                 group.sort(key=lambda i: (0 if not i.get("own") else 1 if "match" not in i else 2, -(i.get("match") or {}).get("cost", 0)))
-                for it in group[: len(group) - cap]:
-                    remove(key, it, f"{len(group)} {NAMES.get(f, f)}s in the {room['label'].lower()} is too many (at most {cap}).", "count")
+                group = group[:max(0, over)] + [None] * 0
+                for it in group:
+                    remove(key, it, f"{over + cap} {NAMES.get(f, f)}s in the {room['label'].lower()} is too many (at most {cap}).", "count")
         # Rule 2: every piece must be reachable along a walkway; clear the least important pieces until it is.
         for key, r in by_key.items():
             room = r["room"]
@@ -196,5 +210,8 @@ def review(rooms: list[dict[str, Any]], own: list[dict[str, Any]], walkway, fix:
         errors = [n for n in open_issues if n["level"] == "error"]
         verdict = "needs attention" if errors else ("corrected" if fixed else "approved")
         r["review"] = {"verdict": verdict, "findings": notes[key] + open_issues, "fixes": len(fixed)}
-        F["leftovers"] = F["leftovers"] + [t for t in truck if own_by_id[t["id"]]["rooms"][0] == key]
+        first = {}
+        for k2, r2 in by_key.items():
+            first.setdefault(r2["room"]["type"], k2)
+        F["leftovers"] = F["leftovers"] + [t for t in truck if first.get(own_by_id[t["id"]]["rooms"][0]) == key]
     return truck
