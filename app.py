@@ -26,13 +26,16 @@ from schemas import (
     CheckResult,
     CostBreakdown,
     Home,
+    HomeStyleBundle,
     HomeVideoInventory,
     Layout,
     LeftoverItem,
     Placement,
     Provenance,
     Room,
+    RoomType,
 )
+from style import build_default_style_bundle, extract_style_from_photo
 from weave import weave
 
 BASE_DIR = Path(__file__).parent
@@ -175,7 +178,11 @@ def arrange_whole_home(inv: HomeVideoInventory, home: Home) -> tuple[list[Layout
 
 
 def ensure_seed_data(force: bool = False) -> None:
-    """Seed `./data/home.json`, `./data/inventory.json`, and `./data/layouts.json` from 1BR residence."""
+    """Seed `./data/home.json`, `./data/inventory.json`, `./data/layouts.json`, and `./data/styles.json`."""
+    styles_file = DATA_DIR / "styles.json"
+    if force or not styles_file.exists():
+        styles_file.write_text(build_default_style_bundle().model_dump_json(indent=2), encoding="utf-8")
+
     home_file = DATA_DIR / "home.json"
     layouts_file = DATA_DIR / "layouts.json"
     inv_file = DATA_DIR / "inventory.json"
@@ -196,7 +203,7 @@ def ensure_seed_data(force: bool = False) -> None:
 
 
 ensure_seed_data(force=False)
-app = FastAPI(title="Homeweave", version="1.1.0")
+app = FastAPI(title="Homeweave", version="1.2.0")
 
 
 class PerceiveListingReq(BaseModel):
@@ -239,6 +246,13 @@ class JudgeRendersReq(BaseModel):
     has_bed: bool = False
 
 
+class ExtractStyleReq(BaseModel):
+    photo_source: str = Field(description="Preset ID ('L2', 'K3'), path, or data:image/... URI.")
+    room_type: RoomType = "living"
+    style_id: str = "custom"
+    palette_hint: Optional[dict[str, str]] = None
+
+
 @app.get("/", response_class=HTMLResponse)
 @app.get("/viewer.html", response_class=HTMLResponse)
 def serve_viewer() -> HTMLResponse:
@@ -255,6 +269,42 @@ def serve_home_root() -> FileResponse:
 def serve_layouts_root() -> FileResponse:
     ensure_seed_data()
     return FileResponse(DATA_DIR / "layouts.json", media_type="application/json")
+
+
+@app.get("/styles.json")
+def serve_styles_root() -> FileResponse:
+    ensure_seed_data()
+    return FileResponse(DATA_DIR / "styles.json", media_type="application/json")
+
+
+@app.get("/drive_inputs/{filename}")
+def serve_drive_input(filename: str) -> FileResponse:
+    safe_name = Path(filename).name
+    target = DATA_DIR / "drive_inputs" / safe_name
+    if not target.exists():
+        raise HTTPException(status_code=404, detail=f"{safe_name} not found in drive_inputs")
+    return FileResponse(target)
+
+
+@app.post("/style/extract")
+def api_extract_style(req: ExtractStyleReq) -> JSONResponse:
+    res = extract_style_from_photo(
+        req.photo_source,
+        room_type=req.room_type,
+        style_id=req.style_id,
+        client_palette_hint=req.palette_hint,
+    )
+    if res.ok and res.data is not None:
+        styles_path = DATA_DIR / "styles.json"
+        bundle = (
+            HomeStyleBundle.model_validate_json(styles_path.read_text(encoding="utf-8"))
+            if styles_path.exists()
+            else build_default_style_bundle()
+        )
+        bundle.by_room_type[req.room_type] = res.data
+        bundle.catalog[res.data.style_id] = res.data
+        styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+    return JSONResponse(res.model_dump())
 
 
 @app.get("/data/{filename}")
