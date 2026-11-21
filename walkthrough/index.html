@@ -332,6 +332,284 @@
     .dialog-footer {
       display: flex;
       justify-content: flex-end;
+      gap: 8px;
+    }
+
+    /* Step-1 Space Photo Input Studio Overlay */
+    #photo-studio-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 35;
+      background: rgba(10, 14, 21, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      overflow-y: auto;
+      padding: 28px 24px 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 0.28s ease;
+    }
+    #photo-studio-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .studio-shell {
+      inline-size: min(1240px, 96vw);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .studio-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+    .studio-head h1 {
+      font: 700 26px var(--display);
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .studio-head p {
+      color: var(--muted);
+      margin: 6px 0 0;
+      max-width: 68ch;
+      line-height: 1.45;
+    }
+    .studio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 600 11px var(--mono);
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(229, 184, 121, 0.14);
+      border: 1px solid rgba(229, 184, 121, 0.4);
+      color: var(--accent);
+    }
+    .space-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    @media (max-width: 1040px) {
+      .space-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 580px) {
+      .space-grid { grid-template-columns: 1fr; }
+    }
+    .space-card {
+      background: rgba(22, 29, 41, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+    .space-hero {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: #0b0f16;
+      overflow: hidden;
+    }
+    .space-hero img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .space-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(10, 14, 21, 0.78);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 3px 9px;
+      font: 700 11px var(--mono);
+      color: var(--accent);
+    }
+    .upload-chip {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(15, 20, 28, 0.88);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font: 600 11.5px var(--sans);
+      border-radius: 8px;
+      padding: 5px 10px;
+    }
+    .upload-chip:hover {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+    .space-body {
+      padding: 12px 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      flex: 1;
+    }
+    .space-title {
+      font: 700 15px var(--display);
+      color: var(--text);
+    }
+    .space-style-name {
+      font-size: 12.5px;
+      color: var(--muted);
+      min-height: 18px;
+    }
+    .dna-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 2px;
+    }
+    .swatch-strip {
+      display: flex;
+      gap: 5px;
+    }
+    .swatch-dot {
+      inline-size: 15px;
+      block-size: 15px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .dna-tag {
+      font: 500 10.5px var(--mono);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+    .thumb-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+    .thumb-btn {
+      position: relative;
+      padding: 0;
+      border-radius: 7px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      border: 2px solid transparent;
+      background: #0d121a;
+    }
+    .thumb-btn img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-btn span {
+      position: absolute;
+      inset: auto 3px 3px auto;
+      background: rgba(0, 0, 0, 0.72);
+      color: #fff;
+      font: 600 9.5px var(--mono);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+    .thumb-btn.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(229, 184, 121, 0.28);
+    }
+    .studio-cta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(22, 29, 41, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 16px;
+    }
+    .cta-primary {
+      background: linear-gradient(180deg, #f2c88b 0%, #dda75c 100%);
+      color: #19130a;
+      border: 0;
+      font: 700 14px var(--sans);
+      padding: 11px 22px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(229, 184, 121, 0.28);
+    }
+    .cta-primary:hover {
+      background: linear-gradient(180deg, #f7d39e 0%, #e5b36b 100%);
+      color: #19130a;
+    }
+
+    /* Live Input Photo Reference Card in 3D */
+    #style-ref-card {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--glass-strong);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 7px 11px 7px 7px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      max-inline-size: 320px;
+    }
+    #style-ref-card img {
+      inline-size: 52px;
+      block-size: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    #style-ref-card .ref-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-inline-size: 0;
+    }
+    #style-ref-card .ref-kicker {
+      font: 700 9.5px var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+    #style-ref-card .ref-label {
+      font: 600 12.5px var(--sans);
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .judge-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .judge-cell {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .judge-cell b {
+      display: block;
+      font: 700 16px var(--display);
+      color: var(--accent);
     }
   </style>
   <script type="importmap">
@@ -350,23 +628,67 @@
     <div class="progress-track"><div id="progress-bar"></div></div>
   </div>
 
+  <!-- Step 1: Space Photo Input Studio -->
+  <section id="photo-studio-overlay" aria-label="Space Photo Input Studio">
+    <div class="studio-shell">
+      <div class="studio-head">
+        <div>
+          <span class="studio-pill" id="api-mode-pill">Gemini 4 Visual Transfer + Blender 5.2 PBR</span>
+          <h1>Input a Photo for Each Space → Photorealistic 3D Output</h1>
+          <p>
+            Pick any reference photo or upload your own picture for the <strong>Living Room</strong>,
+            <strong>Kitchen</strong>, <strong>Primary Bedroom</strong>, and <strong>Spa Bathroom</strong>.
+            Homeweave extracts stone, wood, cabinetry, upholstery, and lighting attributes and translates them directly onto our Blender 5.2 photorealistic 3D residence.
+          </p>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="studio-pill" id="glb-ready-pill">Streaming 3D Model…</span>
+          <a class="btn-link" href="/studio" title="Open 5-Candidate Beam-Search & Constraint Floor-Plan Studio">5-Layout Plan Studio ↗</a>
+        </div>
+      </div>
+
+      <input type="file" id="space-file-input" accept="image/*" style="display:none" />
+      <div class="space-grid" id="space-cards-grid"></div>
+
+      <div class="studio-cta-bar">
+        <div style="color:var(--muted);font-size:13px;" id="studio-status-msg">
+          4 spaces configured · translates finishes onto 512 Blender 3D architectural &amp; furniture meshes.
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button type="button" id="close-studio-btn" style="display:none">Cancel</button>
+          <button type="button" class="cta-primary" id="translate-3d-btn">
+            Render Photorealistic 3D Output →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div id="stage">
-    <canvas id="webgl" aria-label="First-person 3D walkthrough of the composite apartment"></canvas>
+    <canvas id="webgl" aria-label="Photorealistic 3D apartment output"></canvas>
   </div>
   <div id="reticle" aria-hidden="true"></div>
 
   <header id="hud-top">
     <div class="toolbar">
-      <a class="btn-link" href="/" title="Return to Homeweave Floor-Plan & Constraint Studio">← Studio</a>
+      <button type="button" id="open-photo-studio-btn" class="active" title="Change or upload input photos for each space">
+        ✦ Photo Inputs <span class="kbd">P</span>
+      </button>
       <div class="brand-chip">
-        <span class="eyebrow">Eye-Level Walkthrough · 1.65 m</span>
-        <span class="room-now" id="room-indicator">Living &amp; Dining Room</span>
+        <span class="eyebrow" id="view-eyebrow">3D Cutaway Orbit · Styled</span>
+        <span class="room-now" id="room-indicator">Composite 4-Room Residence</span>
       </div>
     </div>
 
-    <nav class="toolbar" id="room-nav" aria-label="Teleport to room">
-      <button type="button" data-room="0" class="active">Living <span class="kbd">1</span></button>
-      <button type="button" data-room="1">Kitchen &amp; Foyer <span class="kbd">2</span></button>
+    <nav class="toolbar" id="room-nav" aria-label="View mode and room teleport">
+      <button type="button" id="mode-cutaway-btn" class="active" title="3D Dollhouse Cutaway Orbit across all 4 styled rooms">
+        3D Cutaway <span class="kbd">O</span>
+      </button>
+      <button type="button" id="mode-walk-btn" title="Walk inside at 1.65 m eye level with full ceilings & LED coves">
+        Walk Inside <span class="kbd">V</span>
+      </button>
+      <button type="button" data-room="0">Living <span class="kbd">1</span></button>
+      <button type="button" data-room="1">Kitchen <span class="kbd">2</span></button>
       <button type="button" data-room="2">Bedroom <span class="kbd">3</span></button>
       <button type="button" data-room="3">Spa Bath <span class="kbd">4</span></button>
       <button type="button" data-room="4">Balcony <span class="kbd">5</span></button>
@@ -382,8 +704,12 @@
       <button type="button" id="minimap-btn" class="active" title="Toggle live floor-plan radar">
         Map <span class="kbd">M</span>
       </button>
+      <button type="button" id="judge-3d-btn" title="Score live 3D renders with gemini-decision-1 calibrated rubric">
+        ★ Judge 3D
+      </button>
+      <a class="btn-link" href="/studio" title="Inspect 5 candidate layouts & A* walkway checks">Plan Studio ↗</a>
       <button type="button" commandfor="assumptions-dialog" command="show-modal">
-        Notes &amp; Specs
+        Specs
       </button>
     </div>
   </header>
@@ -393,9 +719,18 @@
   </div>
 
   <footer id="hud-bottom">
-    <div id="controls-pill">
-      <strong>Click view</strong> for mouse-look (or drag to look) · <strong>WASD / Arrows</strong> walk ·
-      <strong>Shift</strong> brisk pace · <strong>1–5</strong> rooms · <strong>Esc</strong> unlock cursor
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;">
+      <div id="style-ref-card" title="Input photo styling the current room">
+        <img id="ref-card-img" src="/drive_inputs/L2.jpg" alt="Room reference photo" />
+        <div class="ref-meta">
+          <span class="ref-kicker" id="ref-card-kicker">Living · L2</span>
+          <span class="ref-label" id="ref-card-label">Sculpted Travertine Rock &amp; Walnut</span>
+          <div class="swatch-strip" id="ref-card-swatches" style="margin-top:3px;"></div>
+        </div>
+      </div>
+      <div id="controls-pill">
+        <strong>Drag</strong> to orbit 3D cutaway · <strong>Scroll</strong> zoom · Click <strong>Walk Inside (V)</strong> or <strong>1–5</strong> for eye-level walkthrough · <strong>P</strong> change space photos
+      </div>
     </div>
 
     <div id="minimap-wrap" role="region" aria-label="Live floor plan position map">
@@ -406,6 +741,15 @@
       <canvas id="minimap" width="196" height="158"></canvas>
     </div>
   </footer>
+
+  <dialog id="judge-dialog" aria-labelledby="judge-dialog-title" style="background:#151c27;color:var(--text);border:1px solid var(--border);border-radius:14px;padding:20px 22px;max-inline-size:min(500px,92vw);box-shadow:0 24px 60px rgba(0,0,0,0.55);">
+    <h2 id="judge-dialog-title" style="font:700 18px var(--display);">Decisions API Rubric Score</h2>
+    <p id="judge-dialog-sub" style="color:var(--muted);margin:4px 0 8px;font-size:12.5px;"></p>
+    <div class="judge-grid" id="judge-dialog-grid"></div>
+    <div class="dialog-footer">
+      <button type="button" class="active" onclick="document.getElementById('judge-dialog').close()">Close</button>
+    </div>
+  </dialog>
 
   <dialog id="assumptions-dialog" aria-labelledby="dialog-title">
     <h2 id="dialog-title">Reference Synthesis &amp; Layout Assumptions</h2>
@@ -432,6 +776,7 @@
 
     import * as THREE from "three";
     import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
     import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
     import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
     import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
@@ -451,6 +796,9 @@
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.04;
+    renderer.localClippingEnabled = true;
+
+    const cutawayPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1.42);
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xc9dff2);
@@ -468,6 +816,15 @@
       80
     );
     camera.rotation.order = "YXZ";
+
+    const orbitControls = new OrbitControls(camera, canvas);
+    orbitControls.enableDamping = true;
+    orbitControls.dampingFactor = 0.07;
+    orbitControls.maxPolarAngle = Math.PI * 0.47;
+    orbitControls.minDistance = 3.2;
+    orbitControls.maxDistance = 24.0;
+    orbitControls.target.set(4.65, 0.55, 3.35);
+    orbitControls.enabled = false;
 
     // Post-processing with gentle architectural bloom for LED coves & globe pendants
     const composer = new EffectComposer(renderer);
@@ -517,15 +874,722 @@
       return l;
     };
 
-    addWarmLight(2.45, 2.52, 1.95, 2.6, 8.5, 0xffe4bd, true);   // Living tray ceiling
-    addWarmLight(0.42, 1.45, 1.85, 1.1, 4.2, 0xffd599, false);  // Backlit TV feature wall glow
-    addWarmLight(4.58, 1.95, 2.12, 1.8, 6.0, 0xffe0b2, false);  // Dining linear chandelier
-    addWarmLight(7.39, 1.72, 1.94, 2.8, 7.5, 0xffd296, true);   // Kitchen amber globe pendants
-    addWarmLight(8.75, 2.42, 2.95, 1.4, 5.0, 0xffe6c4, false);  // Entry foyer downlight
-    addWarmLight(2.15, 2.52, 5.38, 2.3, 7.5, 0xffdfb3, true);   // Bedroom tray cove
-    addWarmLight(0.35, 0.72, 4.20, 0.9, 3.2, 0xffcc88, false);  // Nightstand moon lamp L
-    addWarmLight(0.35, 0.72, 6.56, 0.9, 3.2, 0xffcc88, false);  // Nightstand moon lamp R
-    addWarmLight(6.48, 2.48, 5.25, 2.4, 7.0, 0xfaf2e6, false);  // Spa bathroom ceiling + mirror
+    addWarmLight(2.45, 2.52, 1.95, 2.6, 8.5, 0xffe4bd, true);   // 0: Living tray ceiling
+    addWarmLight(0.42, 1.45, 1.85, 1.1, 4.2, 0xffd599, false);  // 1: Backlit TV feature wall glow
+    addWarmLight(4.58, 1.95, 2.12, 1.8, 6.0, 0xffe0b2, false);  // 2: Dining linear chandelier
+    addWarmLight(7.39, 1.72, 1.94, 2.8, 7.5, 0xffd296, true);   // 3: Kitchen amber globe pendants
+    addWarmLight(8.75, 2.42, 2.95, 1.4, 5.0, 0xffe6c4, false);  // 4: Entry foyer downlight
+    addWarmLight(2.15, 2.52, 5.38, 2.3, 7.5, 0xffdfb3, true);   // 5: Bedroom tray cove
+    addWarmLight(0.35, 0.72, 4.20, 0.9, 3.2, 0xffcc88, false);  // 6: Nightstand moon lamp L
+    addWarmLight(0.35, 0.72, 6.56, 0.9, 3.2, 0xffcc88, false);  // 7: Nightstand moon lamp R
+    addWarmLight(6.48, 2.48, 5.25, 2.4, 7.0, 0xfaf2e6, false);  // 8: Spa bathroom ceiling + mirror
+    const LIGHT_ROOM_MAP = [
+      "living", "living", "living",
+      "kitchen", "kitchen",
+      "primary_bedroom", "primary_bedroom", "primary_bedroom",
+      "bathroom",
+    ];
+
+    // -----------------------------------------------------------------------
+    // Photo-to-Blender-3D Visual Attribute & PBR Texture Synthesis Engine
+    // -----------------------------------------------------------------------
+    const SPACE_SPECS = [
+      { roomType: "living", title: "Living & Dining", presets: ["L1", "L2", "L3", "L4"], roomIdx: 0 },
+      { roomType: "kitchen", title: "Open Island Kitchen", presets: ["K1", "K2", "K3", "K4"], roomIdx: 1 },
+      { roomType: "primary_bedroom", title: "Primary Bedroom", presets: ["Be1", "Be2", "Be3"], roomIdx: 2 },
+      { roomType: "bathroom", title: "Spa Bathroom", presets: ["B1", "B2", "B3", "B4"], roomIdx: 3 },
+    ];
+
+    let styleBundle = { by_room_type: {}, catalog: {} };
+    const spaceDrafts = {
+      living: { styleId: "L2", photoSource: "L2", previewUrl: "/drive_inputs/L2.jpg", paletteHint: null },
+      kitchen: { styleId: "K1", photoSource: "K1", previewUrl: "/drive_inputs/K1.jpg", paletteHint: null },
+      primary_bedroom: { styleId: "Be1", photoSource: "Be1", previewUrl: "/drive_inputs/Be1.jpg", paletteHint: null },
+      bathroom: { styleId: "B1", photoSource: "B1", previewUrl: "/drive_inputs/B1.jpg", paletteHint: null },
+    };
+    let activeUploadRoomType = null;
+    let hasTranslatedOnce = new URLSearchParams(window.location.search).get("view") === "3d";
+    let viewMode = "dollhouse"; // "dollhouse" (3D Cutaway Orbit) or "walk" (1.65 m Eye-Level)
+
+    const glbMeshes = [];
+    const ceilingMeshes = [];
+    const vistaMeshes = [];
+    const cutawayMeshes = [];
+    let kitchenFloorPatch = null;
+    const procTexCache = new Map();
+
+    function photoUrlForStyle(st, roomType) {
+      if (!st) return spaceDrafts[roomType]?.previewUrl || "/drive_inputs/L2.jpg";
+      const src = (st.provenance && st.provenance.source) || "";
+      if (src.startsWith("/custom_uploads/") || src.startsWith("data:image/")) return src;
+      if (src.includes("drive_inputs/")) return "/drive_inputs/" + src.split("/").pop();
+      if (/^(L|K|Be|B)\d+$/.test(st.style_id)) return `/drive_inputs/${st.style_id}.jpg`;
+      return spaceDrafts[roomType]?.previewUrl || "/drive_inputs/L2.jpg";
+    }
+
+    function makeFloorTex(st) {
+      const k = `fl:${st.floor_material}:${st.floor_hex}:${st.floor_grain_hex}`;
+      if (procTexCache.has(k)) return procTexCache.get(k);
+      const c = document.createElement("canvas");
+      c.width = c.height = 512;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = st.floor_hex;
+      ctx.fillRect(0, 0, 512, 512);
+      if (st.floor_material === "wood_plank" || st.floor_material === "dark_walnut") {
+        for (let row = 0; row < 8; row++) {
+          const y = row * 64;
+          ctx.fillStyle = row % 2 === 0 ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.05)";
+          ctx.fillRect(0, y, 512, 62);
+          ctx.strokeStyle = st.floor_grain_hex;
+          ctx.globalAlpha = 0.28;
+          ctx.lineWidth = 1.5;
+          for (let g = 0; g < 6; g++) {
+            ctx.beginPath();
+            ctx.moveTo(0, y + 8 + g * 9);
+            ctx.bezierCurveTo(170, y + 4 + g * 9, 340, y + 13 + g * 9, 512, y + 8 + g * 9);
+            ctx.stroke();
+          }
+          ctx.globalAlpha = 0.55;
+          ctx.fillStyle = "rgba(0,0,0,0.28)";
+          ctx.fillRect(0, y + 62, 512, 2);
+          ctx.fillRect(((row * 173) % 460) + 24, y, 2, 64);
+          ctx.globalAlpha = 1;
+        }
+      } else if (st.floor_material === "veined_marble" || st.floor_material === "travertine_stone") {
+        ctx.strokeStyle = st.floor_grain_hex;
+        for (let v = 0; v < 10; v++) {
+          ctx.globalAlpha = 0.24 + (v % 3) * 0.08;
+          ctx.lineWidth = st.floor_material === "veined_marble" ? 2.2 : 3.5;
+          ctx.beginPath();
+          ctx.moveTo(0, (v * 57) % 512);
+          ctx.bezierCurveTo(160, (v * 93) % 512, 340, (v * 41) % 512, 512, (v * 79) % 512);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 0.16;
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(0, 0, 256, 256);
+        ctx.strokeRect(256, 0, 256, 256);
+        ctx.strokeRect(0, 256, 256, 256);
+        ctx.strokeRect(256, 256, 256, 256);
+        ctx.globalAlpha = 1;
+      } else {
+        ctx.strokeStyle = st.floor_grain_hex;
+        ctx.globalAlpha = 0.4;
+        ctx.lineWidth = 3;
+        for (let i = 0; i <= 4; i++) {
+          const p = i * 128;
+          ctx.beginPath();
+          ctx.moveTo(p, 0); ctx.lineTo(p, 512);
+          ctx.moveTo(0, p); ctx.lineTo(512, p);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+      }
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(3.2, 3.2);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      procTexCache.set(k, tex);
+      return tex;
+    }
+
+    function makeStoneTex(baseHex, veinHex) {
+      const k = `st:${baseHex}:${veinHex}`;
+      if (procTexCache.has(k)) return procTexCache.get(k);
+      const c = document.createElement("canvas");
+      c.width = c.height = 512;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = baseHex;
+      ctx.fillRect(0, 0, 512, 512);
+      ctx.strokeStyle = veinHex;
+      for (let v = 0; v < 9; v++) {
+        ctx.globalAlpha = 0.30;
+        ctx.lineWidth = 2.0 + (v % 2);
+        ctx.beginPath();
+        ctx.moveTo(0, (v * 67) % 512);
+        ctx.bezierCurveTo(175, (v * 109) % 512, 335, (v * 53) % 512, 512, (v * 91) % 512);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      procTexCache.set(k, tex);
+      return tex;
+    }
+
+    function makeAccentTex(st) {
+      const k = `ac:${st.accent_material}:${st.accent_wall_hex}:${st.countertop_vein_hex}:${st.led_glow_hex}`;
+      if (procTexCache.has(k)) return procTexCache.get(k);
+      const c = document.createElement("canvas");
+      c.width = c.height = 512;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = st.accent_wall_hex;
+      ctx.fillRect(0, 0, 512, 512);
+      if (st.accent_material === "chiseled_limestone") {
+        for (let i = 0; i < 18; i++) {
+          ctx.fillStyle = i % 2 === 0 ? "rgba(255,255,255,0.11)" : "rgba(55,38,20,0.15)";
+          ctx.beginPath();
+          ctx.arc((i * 97) % 512, (i * 83) % 512, 62 + (i % 4) * 24, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.strokeStyle = st.led_glow_hex;
+        ctx.lineWidth = 4;
+        ctx.shadowColor = st.led_glow_hex;
+        ctx.shadowBlur = 12;
+        for (const yb of [130, 285, 415]) {
+          ctx.beginPath();
+          ctx.moveTo(16, yb);
+          ctx.bezierCurveTo(170, yb - 52, 330, yb + 60, 496, yb - 18);
+          ctx.stroke();
+        }
+        ctx.shadowBlur = 0;
+      } else if (st.accent_material === "charcoal_gold_patina") {
+        ctx.strokeStyle = "rgba(0,0,0,0.45)";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(0, 0, 256, 256); ctx.strokeRect(256, 0, 256, 256);
+        ctx.strokeRect(0, 256, 256, 256); ctx.strokeRect(256, 256, 256, 256);
+        ctx.fillStyle = "#d49b42";
+        for (let g = 0; g < 64; g++) {
+          ctx.globalAlpha = 0.22 + (g % 4) * 0.13;
+          ctx.fillRect((g * 79) % 480, (g * 53) % 480, 12 + (g % 18), 8 + (g % 14));
+        }
+        ctx.globalAlpha = 1;
+      } else if (st.accent_material === "fluted_panel") {
+        for (let x = 0; x < 512; x += 16) {
+          ctx.fillStyle = "rgba(0,0,0,0.18)";
+          ctx.fillRect(x, 0, 5, 512);
+          ctx.fillStyle = "rgba(255,255,255,0.09)";
+          ctx.fillRect(x + 5, 0, 5, 512);
+        }
+      } else if (st.accent_material === "calacatta_marble") {
+        return makeStoneTex(st.accent_wall_hex, st.countertop_vein_hex);
+      }
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      procTexCache.set(k, tex);
+      return tex;
+    }
+
+    function makeWoodTex(woodHex) {
+      const k = `wd:${woodHex}`;
+      if (procTexCache.has(k)) return procTexCache.get(k);
+      const c = document.createElement("canvas");
+      c.width = c.height = 256;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = woodHex;
+      ctx.fillRect(0, 0, 256, 256);
+      for (let i = 0; i < 28; i++) {
+        ctx.strokeStyle = i % 2 === 0 ? "rgba(0,0,0,0.14)" : "rgba(255,255,255,0.06)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, i * 9);
+        ctx.bezierCurveTo(85, i * 9 + 4, 170, i * 9 - 4, 256, i * 9);
+        ctx.stroke();
+      }
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      procTexCache.set(k, tex);
+      return tex;
+    }
+
+    function classifyMeshRoom(name, cx, cz) {
+      if (/^(Kitchen_|Island_|Stool_|Pendant_|Foyer_)/.test(name)) return "kitchen";
+      if (/^(Bath_|Tub_|Shower_|Threshold_Bath)/.test(name)) return "bathroom";
+      if (/^(Bed_|Bedroom_|Wardrobe_|Nightstand_|MoonLamp_|Curtain_Bed)/.test(name)) return "primary_bedroom";
+      if (/^(Living_|Sofa_|Accent_Armchair|Coffee|Media_|Niche_|TV_|OLED_|Dining|Curtain_Living)/.test(name)) return "living";
+      if (cz < -0.05 || name.startsWith("Balcony_")) return "balcony";
+      if (cz >= 3.66) return cx < 4.78 ? "primary_bedroom" : "bathroom";
+      return cx < 5.82 ? "living" : "kitchen";
+    }
+
+    function applyHardwareMetal(mat, hw) {
+      mat.map = null;
+      if (hw === "brushed_gold") {
+        mat.color.set("#c89d46"); mat.metalness = 0.92; mat.roughness = 0.24;
+      } else if (hw === "chrome") {
+        mat.color.set("#dde3ea"); mat.metalness = 0.96; mat.roughness = 0.12;
+      } else if (hw === "brushed_nickel") {
+        mat.color.set("#b6bcc4"); mat.metalness = 0.88; mat.roughness = 0.28;
+      } else {
+        mat.color.set("#1d1e21"); mat.metalness = 0.76; mat.roughness = 0.34;
+      }
+      mat.needsUpdate = true;
+    }
+
+    function applyStylesToBlenderScene() {
+      const byRoom = styleBundle.by_room_type || {};
+      if (!Object.keys(byRoom).length) return;
+
+      // Update per-room interior PointLights to match extracted LED warmth
+      interiorLights.forEach((item, idx) => {
+        const rt = LIGHT_ROOM_MAP[idx];
+        const st = byRoom[rt];
+        if (st && st.led_glow_hex) {
+          item.light.color.set(st.led_glow_hex);
+        }
+      });
+
+      // Update independent Kitchen floor patch so Kitchen & Living floors style separately
+      if (kitchenFloorPatch && byRoom.kitchen) {
+        const kst = byRoom.kitchen;
+        kitchenFloorPatch.material.map = makeFloorTex(kst);
+        kitchenFloorPatch.material.color.set("#ffffff");
+        kitchenFloorPatch.material.roughness = kst.floor_roughness;
+        kitchenFloorPatch.material.needsUpdate = true;
+      }
+
+      for (const entry of glbMeshes) {
+        const { node, name, baseMatName, roomType } = entry;
+        if (roomType === "balcony") continue;
+        const st = byRoom[roomType];
+        if (!st) continue;
+        const mat = node.material;
+
+        // 1. Floors
+        if (name === "Floor_LivingKitchen" || name === "Floor_Bedroom" || name === "Floor_Bathroom") {
+          const fst = name === "Floor_LivingKitchen" ? (byRoom.living || st) : st;
+          mat.map = makeFloorTex(fst);
+          mat.color.set("#ffffff");
+          mat.roughness = fst.floor_roughness;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 2. LED coves, halos, pendant globes & moon lamps
+        if (baseMatName === "LED_WarmCove" || baseMatName === "Glass_AmberGlobe" || /(LED|Halo|MoonLamp|Pendant_Globe|Chandelier_Bar)/.test(name)) {
+          mat.color.set(st.led_glow_hex);
+          if (mat.emissive) mat.emissive.set(st.led_glow_hex);
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 3. Sculpted feature / accent walls
+        if (name === "TV_Travertine_Slab" || name === "Bath_AccentStone" || name === "Kitchen_BacksplashN") {
+          mat.map = makeAccentTex(st);
+          mat.color.set("#ffffff");
+          mat.roughness = st.accent_material === "calacatta_marble" ? 0.22 : 0.52;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 4. Primary room plaster walls
+        if (name.startsWith("Wall_") && baseMatName === "Wall_WarmPlaster") {
+          mat.map = null;
+          mat.color.set(st.wall_hex);
+          mat.roughness = 0.80;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 5. Cabinetry & primary millwork
+        if (baseMatName === "Cabinet_SageOlive" || /^(Kitchen_Base|Kitchen_Door|Kitchen_RangeHood|Island_Core|Bath_VanityCabinet|Media_Console_Body|Media_Drawer|Bedroom_Wardrobe)$/.test(name.replace(/_\d+.*$/, ""))) {
+          if (st.accent_material === "fluted_panel") {
+            mat.map = makeAccentTex({ ...st, accent_wall_hex: st.cabinet_hex });
+            mat.color.set("#ffffff");
+          } else {
+            mat.map = null;
+            mat.color.set(st.cabinet_hex);
+          }
+          mat.roughness = 0.36;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 6. Stone countertops, waterfall island, vanity top & shower stone
+        if (baseMatName === "Stone_Calacatta" || /^(Island_Waterfall|Kitchen_Counter|Bath_VanityTop|Shower_WallTile|Shower_Curb|Shower_NicheShelf|CoffeeTable_Top|Media_Console_Top)/.test(name)) {
+          mat.map = makeStoneTex(st.countertop_hex, st.countertop_vein_hex);
+          mat.color.set("#ffffff");
+          mat.roughness = 0.18;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 7. Wood slats, flutes, dining joinery, nightstands, desk & teak plinth
+        if (baseMatName === "Wood_Walnut") {
+          mat.map = makeWoodTex(st.wood_tone_hex);
+          mat.color.set("#ffffff");
+          mat.roughness = 0.42;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 8. Primary upholstery (keeps Blender bouclé weave normalMap!)
+        if (baseMatName === "Fabric_OatmealBoucle") {
+          mat.map = null;
+          mat.color.set(st.upholstery_hex);
+          mat.roughness = 0.84;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 9. Accent pillows & throws
+        if (baseMatName === "Fabric_OliveVelvet" || baseMatName === "Fabric_TerracottaThrow") {
+          mat.map = null;
+          mat.color.set(st.accent_fabric_hex);
+          mat.roughness = 0.82;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 10. Rugs & bath mats (keeps Blender rug_normal.png!)
+        if (baseMatName === "Rug_WovenCream") {
+          mat.map = null;
+          mat.color.set(st.rug_hex);
+          mat.roughness = 0.92;
+          mat.needsUpdate = true;
+          continue;
+        }
+
+        // 11. Hardware pulls, faucets, shower frame, stool legs & pendant rods
+        if (/(Pull|Faucet|Spout|FloorFiller|FlushPlate|Shower_Rain|Shower_Frame|Stool_Leg|Pendant_Rod|Chandelier_Canopy|ajarhandle)/.test(name)) {
+          applyHardwareMetal(mat, st.hardware_metal);
+          continue;
+        }
+      }
+
+      updateRefHudCard(currentRoomTypeForHud());
+    }
+
+    function currentRoomTypeForHud() {
+      if (viewMode === "dollhouse") return "living";
+      if (player.z >= 3.66) return player.x < 4.78 ? "primary_bedroom" : "bathroom";
+      return player.x < 5.82 ? "living" : "kitchen";
+    }
+
+    function updateRefHudCard(roomType) {
+      const st = (styleBundle.by_room_type || {})[roomType];
+      if (!st) return;
+      const roomLabels = {
+        living: "Living",
+        kitchen: "Kitchen",
+        primary_bedroom: "Bedroom",
+        bathroom: "Spa Bath",
+      };
+      document.getElementById("ref-card-img").src = photoUrlForStyle(st, roomType);
+      document.getElementById("ref-card-kicker").textContent =
+        viewMode === "dollhouse"
+          ? `4 Spaces Styled · ${st.style_id}`
+          : `${roomLabels[roomType] || "Room"} · ${st.style_id}`;
+      document.getElementById("ref-card-label").textContent = st.label;
+      const sw = [st.wall_hex, st.accent_wall_hex, st.cabinet_hex, st.countertop_hex, st.upholstery_hex];
+      document.getElementById("ref-card-swatches").innerHTML = sw
+        .map(c => `<span class="swatch-dot" style="inline-size:11px;block-size:11px;background:${c}"></span>`)
+        .join("");
+    }
+
+    function setViewMode(mode) {
+      viewMode = mode;
+      const isCutaway = mode === "dollhouse";
+      if (isCutaway && document.pointerLockElement === canvas) {
+        document.exitPointerLock();
+      }
+      ceilingMeshes.forEach(m => { m.visible = !isCutaway; });
+      vistaMeshes.forEach(m => { m.visible = !isCutaway; });
+      cutawayMeshes.forEach(m => {
+        m.material.clippingPlanes = isCutaway ? [cutawayPlane] : null;
+        m.material.needsUpdate = true;
+      });
+
+      document.getElementById("mode-cutaway-btn").classList.toggle("active", isCutaway);
+      document.getElementById("mode-walk-btn").classList.toggle("active", !isCutaway);
+
+      if (isCutaway) {
+        camera.fov = 46;
+        camera.updateProjectionMatrix();
+        camera.position.set(4.7, 9.0, 11.2);
+        orbitControls.target.set(4.65, 0.55, 3.35);
+        orbitControls.enabled = true;
+        orbitControls.update();
+        document.getElementById("view-eyebrow").textContent = "3D Cutaway Orbit · Blender PBR";
+        document.getElementById("room-indicator").textContent = "Composite 4-Room Residence";
+        document.querySelectorAll("#room-nav button[data-room]").forEach(b => b.classList.remove("active"));
+        document.getElementById("controls-pill").innerHTML =
+          `<strong>Drag</strong> to orbit 3D cutaway · <strong>Scroll</strong> zoom · Click <strong>Walk Inside (V)</strong> or <strong>1–5</strong> for eye-level walkthrough · <strong>P</strong> change space photos`;
+      } else {
+        orbitControls.enabled = false;
+        camera.fov = 66;
+        camera.rotation.set(player.pitch, player.yaw, 0, "YXZ");
+        camera.updateProjectionMatrix();
+        document.getElementById("view-eyebrow").textContent = "Eye-Level Walkthrough · 1.65 m";
+        document.getElementById("controls-pill").innerHTML =
+          `<strong>Click view</strong> for mouse-look · <strong>WASD / Arrows</strong> walk · <strong>O</strong> 3D Cutaway · <strong>1–5</strong> rooms · <strong>P</strong> change space photos`;
+        updateRoomIndicator();
+      }
+      updateRefHudCard(currentRoomTypeForHud());
+    }
+
+    // -----------------------------------------------------------------------
+    // Step-1 Photo Studio UI + Regional RGB/Gloss Sampler
+    // -----------------------------------------------------------------------
+    function samplePaletteHint(img) {
+      const c = document.createElement("canvas");
+      c.width = c.height = 64;
+      const ctx = c.getContext("2d");
+      ctx.drawImage(img, 0, 0, 64, 64);
+      const d = ctx.getImageData(0, 0, 64, 64).data;
+      const avgBand = (y0, y1) => {
+        let r = 0, g = 0, b = 0, n = 0;
+        for (let y = y0; y < y1; y++) {
+          for (let x = 8; x < 56; x++) {
+            const i = (y * 64 + x) * 4;
+            r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
+          }
+        }
+        return "#" + [r, g, b].map(v => Math.round(v / n).toString(16).padStart(2, "0")).join("");
+      };
+      let bestSat = -1, accent = "#6d5b4b", spec = 0;
+      for (let y = 8; y < 56; y += 2) {
+        for (let x = 8; x < 56; x += 2) {
+          const i = (y * 64 + x) * 4;
+          const r = d[i], g = d[i + 1], b = d[i + 2];
+          const mx = Math.max(r, g, b), mn = Math.min(r, g, b), sat = mx - mn;
+          if (mx > 238 && mn > 224) spec++;
+          if (sat > bestSat && mx > 42 && mx < 235) {
+            bestSat = sat;
+            accent = "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("");
+          }
+        }
+      }
+      return {
+        wall_hex: avgBand(6, 22),
+        upholstery_hex: avgBand(22, 42),
+        floor_hex: avgBand(44, 61),
+        accent_hex: accent,
+        glossy: spec > 26 ? "true" : "false",
+      };
+    }
+
+    function renderPhotoStudioCards() {
+      const grid = document.getElementById("space-cards-grid");
+      const cat = styleBundle.catalog || {};
+      grid.innerHTML = SPACE_SPECS.map(sp => {
+        const draft = spaceDrafts[sp.roomType];
+        const st = cat[draft.styleId] || (styleBundle.by_room_type || {})[sp.roomType] || {};
+        const swatches = [
+          st.wall_hex || draft.paletteHint?.wall_hex || "#e8e0d4",
+          st.accent_wall_hex || draft.paletteHint?.accent_hex || "#7d6852",
+          st.cabinet_hex || draft.paletteHint?.accent_hex || "#5a4634",
+          st.countertop_hex || "#ede6da",
+          st.upholstery_hex || draft.paletteHint?.upholstery_hex || "#dcd3c6",
+        ];
+        const matSummary = st.accent_material
+          ? `${st.accent_material.replace(/_/g, " ")} · ${(st.floor_material || "").replace(/_/g, " ")}`
+          : "Custom photo · ready to extract finishes";
+        const thumbs = sp.presets.map(pid => `
+          <button type="button" class="thumb-btn ${draft.styleId === pid ? "active" : ""}" data-rt="${sp.roomType}" data-pid="${pid}" title="Select ${pid}">
+            <img src="/drive_inputs/${pid}.jpg" alt="${pid}" loading="lazy" />
+            <span>${pid}</span>
+          </button>
+        `).join("");
+        return `
+          <article class="space-card">
+            <div class="space-hero">
+              <img src="${draft.previewUrl}" alt="${sp.title} input photo" />
+              <span class="space-badge">${sp.title} · ${draft.styleId}</span>
+              <button type="button" class="upload-chip" data-upload-rt="${sp.roomType}">+ Upload Photo</button>
+            </div>
+            <div class="space-body">
+              <div class="space-title">${st.label || draft.customLabel || sp.title}</div>
+              <div class="space-style-name">${matSummary}</div>
+              <div class="dna-row">
+                <div class="swatch-strip">
+                  ${swatches.map(hex => `<span class="swatch-dot" style="background:${hex}"></span>`).join("")}
+                </div>
+                <span class="dna-tag">${(st.hardware_metal || "brushed_gold").replace(/_/g, " ")}</span>
+              </div>
+              <div class="thumb-strip">${thumbs}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    document.getElementById("space-cards-grid").addEventListener("click", e => {
+      const upBtn = e.target.closest("[data-upload-rt]");
+      if (upBtn) {
+        activeUploadRoomType = upBtn.dataset.uploadRt;
+        const inp = document.getElementById("space-file-input");
+        inp.value = "";
+        inp.click();
+        return;
+      }
+      const thBtn = e.target.closest("[data-pid]");
+      if (thBtn) {
+        const rt = thBtn.dataset.rt;
+        const pid = thBtn.dataset.pid;
+        spaceDrafts[rt] = {
+          styleId: pid,
+          photoSource: pid,
+          previewUrl: `/drive_inputs/${pid}.jpg`,
+          paletteHint: null,
+        };
+        renderPhotoStudioCards();
+      }
+    });
+
+    document.getElementById("space-file-input").addEventListener("change", async e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file || !activeUploadRoomType) return;
+      const rt = activeUploadRoomType;
+      const rawUrl = await new Promise((res, rej) => {
+        const fr = new FileReader();
+        fr.onload = () => res(fr.result);
+        fr.onerror = rej;
+        fr.readAsDataURL(file);
+      });
+      const img = await new Promise((res, rej) => {
+        const im = new Image();
+        im.onload = () => res(im);
+        im.onerror = rej;
+        im.src = rawUrl;
+      });
+      const maxDim = 960;
+      const sc = Math.min(1, maxDim / Math.max(img.width, img.height));
+      const cv = document.createElement("canvas");
+      cv.width = Math.round(img.width * sc);
+      cv.height = Math.round(img.height * sc);
+      cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+      const compactUrl = cv.toDataURL("image/jpeg", 0.86);
+      const hint = samplePaletteHint(img);
+      const cleanLabel = file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").slice(0, 26);
+      hint.label = cleanLabel;
+      const customId = "U-" + rt.slice(0, 3).toUpperCase();
+      spaceDrafts[rt] = {
+        styleId: customId,
+        photoSource: compactUrl,
+        previewUrl: compactUrl,
+        paletteHint: hint,
+        customLabel: cleanLabel,
+      };
+      renderPhotoStudioCards();
+      document.getElementById("studio-status-msg").textContent =
+        `Loaded "${cleanLabel}" for ${rt.replace("_", " ")} — click Render Photorealistic 3D Output to apply.`;
+    });
+
+    function openPhotoStudio() {
+      if (document.pointerLockElement === canvas) document.exitPointerLock();
+      document.getElementById("close-studio-btn").style.display = hasTranslatedOnce ? "inline-flex" : "none";
+      renderPhotoStudioCards();
+      document.getElementById("photo-studio-overlay").classList.remove("hidden");
+    }
+
+    function closePhotoStudio() {
+      document.getElementById("photo-studio-overlay").classList.add("hidden");
+    }
+
+    document.getElementById("open-photo-studio-btn").addEventListener("click", openPhotoStudio);
+    document.getElementById("close-studio-btn").addEventListener("click", closePhotoStudio);
+    document.getElementById("style-ref-card").addEventListener("click", openPhotoStudio);
+
+    document.getElementById("translate-3d-btn").addEventListener("click", async () => {
+      const btn = document.getElementById("translate-3d-btn");
+      btn.disabled = true;
+      btn.textContent = "Translating Visual Attributes to 3D…";
+      try {
+        const spaces = SPACE_SPECS.map(sp => {
+          const d = spaceDrafts[sp.roomType];
+          return {
+            room_type: sp.roomType,
+            photo_source: d.photoSource,
+            style_id: d.styleId,
+            palette_hint: d.paletteHint,
+          };
+        });
+        const r = await fetch("/style/build-residence", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ spaces }),
+        });
+        if (r.ok) {
+          const out = await r.json();
+          styleBundle = out.styles;
+          for (const sp of SPACE_SPECS) {
+            const st = styleBundle.by_room_type[sp.roomType];
+            if (st) {
+              spaceDrafts[sp.roomType].styleId = st.style_id;
+              spaceDrafts[sp.roomType].previewUrl = photoUrlForStyle(st, sp.roomType);
+            }
+          }
+          applyStylesToBlenderScene();
+        }
+      } catch (_) {}
+      btn.disabled = false;
+      btn.textContent = "Render Photorealistic 3D Output →";
+      hasTranslatedOnce = true;
+      closePhotoStudio();
+      setViewMode(viewMode);
+    });
+
+    document.getElementById("judge-3d-btn").addEventListener("click", async () => {
+      const jbtn = document.getElementById("judge-3d-btn");
+      jbtn.disabled = true;
+      jbtn.textContent = "★ Judging…";
+      const prevMode = viewMode;
+      const prevPos = camera.position.clone();
+      const prevTarget = orbitControls.target.clone();
+      const renders = [];
+
+      // 1 top-down cutaway view + 3 eye-level room views
+      setViewMode("dollhouse");
+      camera.position.set(4.65, 12.2, 3.6);
+      orbitControls.target.set(4.65, 0.2, 3.4);
+      orbitControls.update();
+      composer.render();
+      renders.push(canvas.toDataURL("image/png"));
+
+      setViewMode("walk");
+      for (const rIdx of [0, 1, 2]) {
+        const rm = (meta.rooms || [])[rIdx];
+        if (!rm || !rm.preset) continue;
+        camera.position.set(rm.preset.x, 1.65, rm.preset.z);
+        camera.rotation.set(
+          THREE.MathUtils.degToRad(rm.preset.pitch_deg || -3),
+          THREE.MathUtils.degToRad(rm.preset.yaw_deg || 60),
+          0,
+          "YXZ"
+        );
+        composer.render();
+        renders.push(canvas.toDataURL("image/png"));
+      }
+
+      setViewMode(prevMode);
+      if (prevMode === "dollhouse") {
+        camera.position.copy(prevPos);
+        orbitControls.target.copy(prevTarget);
+        orbitControls.update();
+      }
+      composer.render();
+
+      try {
+        const resp = await fetch("/judge", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ layout_id: "new-layout-01", renders, has_bed: true }),
+        });
+        const data = await resp.json();
+        const top = (data.layouts || [])[0] || {};
+        const js = top.judge_score || {};
+        document.getElementById("judge-dialog-title").textContent =
+          `Decisions API Rubric · ${(js.total_score || 0).toFixed(2)} / 14.0`;
+        document.getElementById("judge-dialog-sub").textContent =
+          data.note || "Scored 4 photorealistic Blender WebGL views (1 top-down + 3 eye-level) via gemini-decision-1 (v1beta).";
+        document.getElementById("judge-dialog-grid").innerHTML = `
+          <div class="judge-cell"><b>${Math.round((js.conversation_faces_seat_or_tv_p || 0) * 100)}%</b>Conversation group alignment</div>
+          <div class="judge-cell"><b>${Math.round((js.clear_path_from_doors_p || 0) * 100)}%</b>Clear walking path from doors</div>
+          <div class="judge-cell"><b>${Math.round((1 - (js.blocks_window_p || 0)) * 100)}%</b>Windows kept unblocked</div>
+          <div class="judge-cell"><b>${Math.round((js.bed_clear_long_side_p || 0) * 100)}%</b>Bed clear long-side access</div>
+          <div class="judge-cell"><b>${(js.balance_score || 0).toFixed(1)} / 5</b>Spatial balance</div>
+          <div class="judge-cell"><b>${(js.comfort_score || 0).toFixed(1)} / 5</b>Livability &amp; comfort</div>
+        `;
+        document.getElementById("judge-dialog").showModal();
+      } catch (_) {}
+      jbtn.disabled = false;
+      jbtn.textContent = "★ Judge 3D";
+    });
 
     const LIGHTING_MODES = [
       {
@@ -655,6 +1719,7 @@
     function teleportToRoom(roomIdx) {
       const rm = (meta.rooms || [])[roomIdx];
       if (!rm || !rm.preset) return;
+      if (viewMode !== "walk") setViewMode("walk");
       player.x = rm.preset.x;
       player.z = rm.preset.z;
       player.vx = 0;
@@ -662,9 +1727,11 @@
       player.yaw = THREE.MathUtils.degToRad(rm.preset.yaw_deg || 0);
       player.pitch = THREE.MathUtils.degToRad(rm.preset.pitch_deg || 0);
       updateRoomIndicator();
+      updateRefHudCard(currentRoomTypeForHud());
     }
 
     function updateRoomIndicator() {
+      if (viewMode === "dollhouse") return;
       const rooms = meta.rooms || [];
       let activeIdx = -1;
       for (let i = 0; i < rooms.length; i++) {
@@ -676,12 +1743,13 @@
       }
       if (activeIdx >= 0) {
         document.getElementById("room-indicator").textContent = rooms[activeIdx].name;
-        document.querySelectorAll("#room-nav button").forEach((btn, idx) => {
+        document.querySelectorAll("#room-nav button[data-room]").forEach((btn, idx) => {
           btn.classList.toggle("active", idx === activeIdx);
         });
       }
       document.getElementById("coord-readout").textContent =
         `x ${player.x.toFixed(2)} · z ${player.z.toFixed(2)} m`;
+      updateRefHudCard(currentRoomTypeForHud());
     }
 
     // Live 2D Minimap Renderer
@@ -746,8 +1814,10 @@
       mctx.stroke();
     }
 
-    // Desktop PointerLock + Drag-to-Look Fallback
+    // Desktop PointerLock + Drag-to-Look Fallback (only in Walk Inside mode)
     canvas.addEventListener("click", () => {
+      if (viewMode !== "walk") return;
+      if (!document.getElementById("photo-studio-overlay").classList.contains("hidden")) return;
       if (window.matchMedia("(pointer: coarse)").matches) return;
       if (!pointerLocked && canvas.requestPointerLock) {
         canvas.requestPointerLock();
@@ -760,12 +1830,13 @@
     });
 
     canvas.addEventListener("mousedown", e => {
-      if (pointerLocked) return;
+      if (viewMode !== "walk" || pointerLocked) return;
       mouseDragging = true;
       lastPointer = { x: e.clientX, y: e.clientY };
     });
     window.addEventListener("mouseup", () => { mouseDragging = false; });
     window.addEventListener("mousemove", e => {
+      if (viewMode !== "walk") return;
       if (pointerLocked) {
         player.yaw -= e.movementX * 0.0022;
         player.pitch = Math.max(-1.32, Math.min(1.25, player.pitch - e.movementY * 0.0022));
@@ -859,16 +1930,26 @@
     }
 
     window.addEventListener("keydown", e => {
-      if (document.getElementById("assumptions-dialog").open) return;
+      if (document.getElementById("assumptions-dialog").open || document.getElementById("judge-dialog").open) return;
+      const studioOpen = !document.getElementById("photo-studio-overlay").classList.contains("hidden");
+      if (studioOpen) {
+        if (e.code === "Escape" && hasTranslatedOnce) closePhotoStudio();
+        return;
+      }
       keys.add(e.code);
       if (e.key >= "1" && e.key <= "5") teleportToRoom(Number(e.key) - 1);
+      else if (e.code === "KeyO") setViewMode("dollhouse");
+      else if (e.code === "KeyV") setViewMode("walk");
+      else if (e.code === "KeyP") openPhotoStudio();
       else if (e.code === "KeyL") applyLightingMode(lightingIdx + 1);
       else if (e.code === "KeyC") toggleCrouch();
       else if (e.code === "KeyM") toggleMinimap();
     });
     window.addEventListener("keyup", e => keys.delete(e.code));
 
-    document.querySelectorAll("#room-nav button").forEach(btn => {
+    document.getElementById("mode-cutaway-btn").addEventListener("click", () => setViewMode("dollhouse"));
+    document.getElementById("mode-walk-btn").addEventListener("click", () => setViewMode("walk"));
+    document.querySelectorAll("#room-nav button[data-room]").forEach(btn => {
       btn.addEventListener("click", () => teleportToRoom(Number(btn.dataset.room)));
     });
     document.getElementById("lighting-btn").addEventListener("click", () => applyLightingMode(lightingIdx + 1));
@@ -916,6 +1997,14 @@
     function animate(now) {
       const dt = Math.min(0.05, (now - lastTime) / 1000);
       lastTime = now;
+
+      if (viewMode === "dollhouse") {
+        orbitControls.update();
+        drawMinimap();
+        composer.render();
+        requestAnimationFrame(animate);
+        return;
+      }
 
       let forwardInput = 0;
       let strafeInput = 0;
@@ -989,10 +2078,35 @@
     }
 
     async function boot() {
-      const loadedMeta = await fetchFirstJson([
-        "/walkthrough/assets/apartment_meta.json",
-        "./assets/apartment_meta.json",
+      const [loadedMeta, loadedStyles, evalInfo] = await Promise.all([
+        fetchFirstJson(["/walkthrough/assets/apartment_meta.json", "./assets/apartment_meta.json"]),
+        fetchFirstJson(["/styles.json"]),
+        fetchFirstJson(["/eval/summary"]),
       ]);
+
+      if (evalInfo && evalInfo.live_gemini) {
+        document.getElementById("api-mode-pill").textContent = "Live Gemini 4 + Blender 5.2 PBR";
+      }
+
+      if (loadedStyles && loadedStyles.by_room_type) {
+        styleBundle = loadedStyles;
+        for (const sp of SPACE_SPECS) {
+          const st = styleBundle.by_room_type[sp.roomType];
+          if (st) {
+            spaceDrafts[sp.roomType].styleId = st.style_id;
+            spaceDrafts[sp.roomType].photoSource = /^(L|K|Be|B)\d+$/.test(st.style_id)
+              ? st.style_id
+              : photoUrlForStyle(st, sp.roomType);
+            spaceDrafts[sp.roomType].previewUrl = photoUrlForStyle(st, sp.roomType);
+          }
+        }
+      }
+      if (hasTranslatedOnce) {
+        closePhotoStudio();
+      } else {
+        renderPhotoStudioCards();
+      }
+
       if (loadedMeta) {
         meta = loadedMeta;
         player.x = meta.spawn.x;
@@ -1017,6 +2131,10 @@
       const loader = new GLTFLoader();
       const progressBar = document.getElementById("progress-bar");
       const statusTxt = document.getElementById("loader-status");
+      // Hide full-screen loader immediately when Step-1 Photo Studio is visible so user can pick photos right away
+      if (!hasTranslatedOnce) {
+        document.getElementById("loader").classList.add("done");
+      }
 
       let gltf = null;
       for (const url of glbUrls) {
@@ -1030,6 +2148,7 @@
                   const pct = Math.round((xhr.loaded / xhr.total) * 100);
                   progressBar.style.inlineSize = `${Math.max(15, pct)}%`;
                   statusTxt.textContent = `Streaming apartment GLB (${pct}%)…`;
+                  document.getElementById("glb-ready-pill").textContent = `Streaming 3D (${pct}%)…`;
                 }
               },
               reject
@@ -1041,13 +2160,20 @@
 
       if (gltf && gltf.scene) {
         const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+        const boxTmp = new THREE.Box3();
+        const centerTmp = new THREE.Vector3();
+        let sharedFloorNormalMap = null;
+
         gltf.scene.traverse(node => {
           if (!node.isMesh) return;
-          const mname = (node.material && node.material.name) || "";
+          const origMat = node.material;
+          const mname = (origMat && origMat.name) || "";
           const isGlassOrVista = mname.includes("Glass") || mname.includes("Vista") || mname.includes("Water");
           node.castShadow = !isGlassOrVista;
           node.receiveShadow = !mname.includes("Vista");
-          if (node.material) {
+
+          if (origMat) {
+            node.material = origMat.clone();
             for (const key of ["map", "normalMap", "roughnessMap", "emissiveMap"]) {
               const tex = node.material[key];
               if (tex) {
@@ -1055,9 +2181,44 @@
                 tex.needsUpdate = true;
               }
             }
+            if (node.name === "Floor_LivingKitchen" && node.material.normalMap) {
+              sharedFloorNormalMap = node.material.normalMap;
+            }
+          }
+
+          boxTmp.setFromObject(node);
+          boxTmp.getCenter(centerTmp);
+          const roomType = classifyMeshRoom(node.name, centerTmp.x, centerTmp.z);
+          glbMeshes.push({ node, name: node.name, baseMatName: mname, roomType });
+
+          if (node.name.startsWith("Ceil_") || (centerTmp.y > 2.58 && node.name.includes("Chandelier_Canopy"))) {
+            ceilingMeshes.push(node);
+          }
+          if (node.name.startsWith("Vista_")) {
+            vistaMeshes.push(node);
+          }
+          if (node.name.startsWith("Wall_") || node.name.startsWith("Curtain_")) {
+            cutawayMeshes.push(node);
           }
         });
+
+        // Add independent Kitchen floor overlay (x: 5.82..9.35, z: 0.08..3.58) so Kitchen floor styles independently
+        const kGeo = new THREE.PlaneGeometry(3.52, 3.50);
+        const kMat = new THREE.MeshStandardMaterial({
+          roughness: 0.45,
+          normalMap: sharedFloorNormalMap,
+          normalScale: new THREE.Vector2(0.45, 0.45),
+        });
+        kitchenFloorPatch = new THREE.Mesh(kGeo, kMat);
+        kitchenFloorPatch.rotation.x = -Math.PI / 2;
+        kitchenFloorPatch.position.set(7.58, 0.003, 1.83);
+        kitchenFloorPatch.receiveShadow = true;
+        gltf.scene.add(kitchenFloorPatch);
+
         scene.add(gltf.scene);
+        applyStylesToBlenderScene();
+        setViewMode("dollhouse");
+        document.getElementById("glb-ready-pill").textContent = "Blender 3D Ready ✓";
       } else {
         statusTxt.textContent = "Failed to load dream_apartment.glb — check server path.";
       }

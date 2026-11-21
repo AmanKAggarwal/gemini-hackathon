@@ -27,20 +27,25 @@ from schemas import (
     CheckResult,
     CostBreakdown,
     Home,
+    HomeStyleBundle,
     HomeVideoInventory,
     Layout,
     LeftoverItem,
     Placement,
     Provenance,
     Room,
+    RoomType,
 )
+from style import build_default_style_bundle, extract_style_from_photo
 from weave import weave
 
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
+CUSTOM_UPLOADS_DIR = DATA_DIR / "custom_uploads"
 SAMPLES_DIR = BASE_DIR / "samples"
 WALKTHROUGH_DIR = BASE_DIR / "walkthrough"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+CUSTOM_UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def pair_rooms(src_rooms: list[Room], new_rooms: list[Room]) -> list[tuple[Room, Room]]:
@@ -177,7 +182,11 @@ def arrange_whole_home(inv: HomeVideoInventory, home: Home) -> tuple[list[Layout
 
 
 def ensure_seed_data(force: bool = False) -> None:
-    """Seed `./data/home.json`, `./data/inventory.json`, and `./data/layouts.json` from 1BR residence."""
+    """Seed `./data/home.json`, `./data/inventory.json`, `./data/layouts.json`, and `./data/styles.json`."""
+    styles_file = DATA_DIR / "styles.json"
+    if force or not styles_file.exists():
+        styles_file.write_text(build_default_style_bundle().model_dump_json(indent=2), encoding="utf-8")
+
     home_file = DATA_DIR / "home.json"
     layouts_file = DATA_DIR / "layouts.json"
     inv_file = DATA_DIR / "inventory.json"
@@ -247,12 +256,43 @@ class JudgeRendersReq(BaseModel):
     has_bed: bool = False
 
 
+class ExtractStyleReq(BaseModel):
+    photo_source: str = Field(description="Preset ID ('L2', 'K3'), path, or data:image/... URI.")
+    room_type: RoomType = "living"
+    style_id: str = "custom"
+    palette_hint: Optional[dict[str, str]] = None
+
+
+class SpaceInputEntry(BaseModel):
+    room_type: RoomType
+    photo_source: str = Field(description="Preset ID ('L1'..'B4') or uploaded data:image/... URI.")
+    style_id: str = "custom"
+    palette_hint: Optional[dict[str, str]] = None
+
+
+class BuildStyledResidenceReq(BaseModel):
+    spaces: list[SpaceInputEntry]
+
+
+def _persist_uploaded_photo_if_data_uri(photo_source: str, style_id: str) -> tuple[str | Path, Optional[str]]:
+    """If `photo_source` is a `data:image/...` URI, save to `data/custom_uploads` and return `(path, public_url)`."""
+    if not photo_source.startswith("data:image/") or "," not in photo_source:
+        return photo_source, None
+    import hashlib
+
+    header, b64_payload = photo_source.split(",", 1)
+    mime = header.split(";")[0].replace("data:", "")
+    ext = {"image/png": ".png", "image/webp": ".webp"}.get(mime, ".jpg")
+    raw = base64.b64decode(b64_payload)
+    short = hashlib.sha1(raw).hexdigest()[:6]
+    safe_stem = "".join(ch for ch in style_id if ch.isalnum() or ch in ("-", "_"))[:24] or "upload"
+    fname = f"{safe_stem}_{short}{ext}"
+    out_path = CUSTOM_UPLOADS_DIR / fname
+    out_path.write_bytes(raw)
+    return out_path, f"/custom_uploads/{fname}"
+
+
 @app.get("/", response_class=HTMLResponse)
-@app.get("/viewer.html", response_class=HTMLResponse)
-def serve_viewer() -> HTMLResponse:
-    return HTMLResponse((BASE_DIR / "viewer.html").read_text(encoding="utf-8"))
-
-
 @app.get("/walkthrough", response_class=HTMLResponse)
 @app.get("/walkthrough/", response_class=HTMLResponse)
 @app.get("/walkthrough/index.html", response_class=HTMLResponse)
@@ -261,6 +301,125 @@ def serve_walkthrough() -> HTMLResponse:
     if not wt_file.exists():
         raise HTTPException(status_code=404, detail="walkthrough/index.html not found")
     return HTMLResponse(wt_file.read_text(encoding="utf-8"))
+
+
+@app.get("/studio", response_class=HTMLResponse)
+@app.get("/plan-studio", response_class=HTMLResponse)
+@app.get("/viewer.html", response_class=HTMLResponse)
+def serve_viewer() -> HTMLResponse:
+    return HTMLResponse((BASE_DIR / "viewer.html").read_text(encoding="utf-8"))
+
+
+@app.get("/styles.json")
+def serve_styles_root() -> FileResponse:
+    ensure_seed_data()
+    return FileResponse(DATA_DIR / "styles.json", media_type="application/json")
+
+
+@app.get("/drive_inputs/{filename}")
+def serve_drive_input(filename: str) -> FileResponse:
+    safe_name = Path(filename).name
+    target = DATA_DIR / "drive_inputs" / safe_name
+    if not target.exists():
+        raise HTTPException(status_code=404, detail=f"{safe_name} not found in drive_inputs")
+    return FileResponse(target)
+
+
+@app.get("/custom_uploads/{filename}")
+def serve_custom_upload(filename: str) -> FileResponse:
+    safe_name = Path(filename).name
+    target = CUSTOM_UPLOADS_DIR / safe_name
+    if not target.exists():
+        raise HTTPException(status_code=404, detail=f"{safe_name} not found in custom_uploads")
+    return FileResponse(target)
+
+
+@app.get("/eval/summary")
+def serve_eval_summary() -> JSONResponse:
+    import csv
+
+    rows: list[dict[str, str]] = []
+    csv_path = DATA_DIR / "results.csv"
+    if csv_path.exists():
+        with csv_path.open("r", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+    return JSONResponse(
+        {
+            "ok": True,
+            "live_gemini": bool(os.environ.get("GEMINI_API_KEY")),
+            "rows": rows,
+        }
+    )
+
+
+@app.post("/style/extract")
+def api_extract_style(req: ExtractStyleReq) -> JSONResponse:
+    resolved_src, pub_url = _persist_uploaded_photo_if_data_uri(req.photo_source, req.style_id)
+    res = extract_style_from_photo(
+        resolved_src,
+        room_type=req.room_type,
+        style_id=req.style_id,
+        client_palette_hint=req.palette_hint,
+    )
+    if res.ok and res.data is not None:
+        if pub_url:
+            res.data = res.data.model_copy(
+                update={"provenance": Provenance(source=pub_url, notes="Custom uploaded room photo")}
+            )
+        styles_path = DATA_DIR / "styles.json"
+        bundle = (
+            HomeStyleBundle.model_validate_json(styles_path.read_text(encoding="utf-8"))
+            if styles_path.exists()
+            else build_default_style_bundle()
+        )
+        bundle.by_room_type[req.room_type] = res.data
+        bundle.catalog[res.data.style_id] = res.data
+        styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+    return JSONResponse(res.model_dump())
+
+
+@app.post("/style/build-residence")
+def api_build_styled_residence(req: BuildStyledResidenceReq) -> JSONResponse:
+    """Process input pictures for each space (living, kitchen, bedroom, bathroom) and return full 3D payload."""
+    ensure_seed_data()
+    styles_path = DATA_DIR / "styles.json"
+    bundle = (
+        HomeStyleBundle.model_validate_json(styles_path.read_text(encoding="utf-8"))
+        if styles_path.exists()
+        else build_default_style_bundle()
+    )
+
+    extracted_summary: dict[str, Any] = {}
+    for sp in req.spaces:
+        resolved_src, pub_url = _persist_uploaded_photo_if_data_uri(sp.photo_source, sp.style_id)
+        res = extract_style_from_photo(
+            resolved_src,
+            room_type=sp.room_type,
+            style_id=sp.style_id,
+            client_palette_hint=sp.palette_hint,
+        )
+        if res.ok and res.data is not None:
+            if pub_url:
+                res.data = res.data.model_copy(
+                    update={"provenance": Provenance(source=pub_url, notes="Custom uploaded room photo")}
+                )
+            bundle.by_room_type[sp.room_type] = res.data
+            bundle.catalog[res.data.style_id] = res.data
+            extracted_summary[sp.room_type] = res.data.model_dump()
+
+    styles_path.write_text(bundle.model_dump_json(indent=2), encoding="utf-8")
+    home_json = json.loads((DATA_DIR / "home.json").read_text(encoding="utf-8"))
+    layouts_json = json.loads((DATA_DIR / "layouts.json").read_text(encoding="utf-8"))
+    return JSONResponse(
+        {
+            "ok": True,
+            "live_gemini": bool(os.environ.get("GEMINI_API_KEY")),
+            "styles": bundle.model_dump(),
+            "extracted": extracted_summary,
+            "home": home_json,
+            "layouts": layouts_json,
+        }
+    )
 
 
 @app.get("/home.json")

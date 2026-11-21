@@ -674,6 +674,62 @@ class BaselineLayoutResponse(BaseModel):
     leftovers: list[BaselineLeftoverItem] = Field(default_factory=list)
 
 
+class RoomVisualStyle(BaseModel):
+    """Visual material, palette, lighting, and decor attributes extracted from room photos."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    style_id: str = Field(description="Photo preset or upload slug, e.g. 'L2', 'K1', 'custom-living'.")
+    label: str = Field(description="Human-readable aesthetic summary.")
+    room_type: RoomType
+    floor_material: Literal[
+        "wood_plank", "dark_walnut", "veined_marble", "travertine_stone", "sage_tile", "porcelain_tile"
+    ]
+    floor_hex: str
+    floor_grain_hex: str
+    floor_roughness: float = Field(ge=0.05, le=1.0)
+    wall_hex: str
+    accent_wall_hex: str
+    accent_material: Literal[
+        "plaster",
+        "calacatta_marble",
+        "chiseled_limestone",
+        "charcoal_gold_patina",
+        "fluted_panel",
+        "obsidian_matte",
+    ]
+    cap_hex: str
+    cabinet_hex: str
+    countertop_hex: str
+    countertop_vein_hex: str
+    hardware_metal: Literal["matte_black", "brushed_gold", "chrome"]
+    upholstery_hex: str
+    accent_fabric_hex: str
+    wood_tone_hex: str
+    table_shape: Literal["rectangular", "round", "organic_oval"] = "rectangular"
+    rug_style: Literal["shag", "persian", "jute", "boucle_round", "none"] = "shag"
+    rug_hex: str = "#ddd6c8"
+    led_cove_glow: bool = True
+    led_glow_hex: str = "#ffba66"
+    pendant_style: Literal[
+        "globe_glass", "brass_spiral", "cage_industrial", "lantern_cylinder", "none"
+    ] = "none"
+    fireplace_glow: bool = False
+    greenery_accents: bool = True
+    arched_shower: bool = False
+    provenance: Provenance
+
+
+class HomeStyleBundle(BaseModel):
+    """Per-room visual styles applied to the generated 3D residence."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    by_room_type: dict[str, RoomVisualStyle]
+    catalog: dict[str, RoomVisualStyle] = Field(default_factory=dict)
+
+
+
 T = TypeVar("T", bound=BaseModel)
 
 
