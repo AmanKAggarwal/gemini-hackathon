@@ -468,16 +468,19 @@
    "title": "Olive & Oak",
    "vibe": "Olive cabinets, cream stone, oak floor, globe pendants",
    "palette": {
-    "floor": "#c9a77c",
-    "floor2": "#b8946a",
+    "floor": "#af8b66",
+    "floor2": "#8c6f52",
     "style": "wood",
     "cab": "#5c6143",
     "top": "#ebe2d0",
     "accent": "#1f1d1a",
     "soft": "#d8cbb8",
     "rug": "#d9cdb9",
-    "glow": "#ffc46b",
-    "metal": "#2a2826"
+    "glow": "#f2ad68",
+    "metal": "#2a2826",
+    "hand_floor": "#c9a77c",
+    "wall": "#573e1f",
+    "sampled_floor": "#9a7454"
    },
    "gauged": {
     "w": 4.4,
@@ -566,6 +569,14 @@
      "parent": "run-e",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#21180a",
+    "#a28164",
+    "#422e16",
+    "#62482b",
+    "#876545",
+    "#b6997c"
    ]
   },
   {
@@ -575,16 +586,19 @@
    "title": "Graphite Gloss",
    "vibe": "Gloss greige fronts, black stone, lit display towers",
    "palette": {
-    "floor": "#e6dccb",
-    "floor2": "#d3c7b3",
+    "floor": "#c1aa95",
+    "floor2": "#9a8877",
     "style": "marble",
     "cab": "#cfc8bd",
     "top": "#1f1d1c",
     "accent": "#141312",
     "soft": "#6f6a66",
     "rug": "#cfc3ae",
-    "glow": "#ffbf66",
-    "metal": "#151515"
+    "glow": "#f5bc88",
+    "metal": "#151515",
+    "hand_floor": "#e6dccb",
+    "wall": "#857265",
+    "sampled_floor": "#a28168"
    },
    "gauged": {
     "w": 4.6,
@@ -675,6 +689,14 @@
       "label": "bar cut to 1.7 m with 2 stools"
      }
     }
+   ],
+   "swatches": [
+    "#927966",
+    "#463425",
+    "#735943",
+    "#1e160e",
+    "#b89d89",
+    "#d9bea5"
    ]
   },
   {
@@ -684,16 +706,19 @@
    "title": "Walnut & Gold",
    "vibe": "Walnut fronts, waterfall marble island, brass pendants",
    "palette": {
-    "floor": "#d8c4a6",
-    "floor2": "#c6b08f",
+    "floor": "#caad8e",
+    "floor2": "#a28a72",
     "style": "marble",
     "cab": "#7a4e2d",
     "top": "#b9a78f",
     "accent": "#c9a24a",
     "soft": "#cdbfae",
     "rug": "#b89a72",
-    "glow": "#ffb655",
-    "metal": "#4a4a4c"
+    "glow": "#f4c37f",
+    "metal": "#4a4a4c",
+    "hand_floor": "#d8c4a6",
+    "wall": "#77522f",
+    "sampled_floor": "#be9a7b"
    },
    "gauged": {
     "w": 4.8,
@@ -796,6 +821,14 @@
      "parent": "island",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#bf9872",
+    "#482a16",
+    "#a57a53",
+    "#6c4729",
+    "#875f3c",
+    "#e5c18f"
    ]
   },
   {
@@ -805,16 +838,19 @@
    "title": "Champagne U",
    "vibe": "U-shaped champagne gloss, grey marble, window sink",
    "palette": {
-    "floor": "#e9dcc6",
-    "floor2": "#d6c6aa",
+    "floor": "#d7c9b9",
+    "floor2": "#aca194",
     "style": "marble",
     "cab": "#d9cdb8",
     "top": "#8f8a84",
     "accent": "#2b2a28",
     "soft": "#cfc4b2",
     "rug": "#cbbda4",
-    "glow": "#ffc873",
-    "metal": "#8c8c8e"
+    "glow": "#f3b071",
+    "metal": "#8c8c8e",
+    "hand_floor": "#e9dcc6",
+    "wall": "#9d8265",
+    "sampled_floor": "#c9b9ae"
    },
    "gauged": {
     "w": 4.2,
@@ -888,6 +924,14 @@
      "tall": true,
      "pri": 1
     }
+   ],
+   "swatches": [
+    "#b1967a",
+    "#c8b29d",
+    "#66513e",
+    "#91785f",
+    "#2e261f",
+    "#dadbe0"
    ]
   },
   {
@@ -897,17 +941,20 @@
    "title": "Amber Stone Spa",
    "vibe": "Raised tub, arched stone shower, amber step lights",
    "palette": {
-    "floor": "#9a948a",
-    "floor2": "#857f75",
+    "floor": "#9f8572",
+    "floor2": "#7f6a5b",
     "style": "tile",
     "cab": "#b07b45",
     "top": "#efe7d8",
     "accent": "#2a2622",
     "soft": "#e7dccb",
     "rug": "#d8c8b2",
-    "glow": "#ffb347",
+    "glow": "#f2b768",
     "metal": "#2a2622",
-    "water": "#8fd0d6"
+    "water": "#8fd0d6",
+    "hand_floor": "#9a948a",
+    "wall": "#8c7861",
+    "sampled_floor": "#a3795f"
    },
    "gauged": {
     "w": 3.4,
@@ -1002,6 +1049,14 @@
      "floor": true,
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#af886c",
+    "#906847",
+    "#503b25",
+    "#e4ae66",
+    "#6b838c",
+    "#c0bbbf"
    ]
   },
   {
@@ -1011,17 +1066,20 @@
    "title": "Sage Sanctuary",
    "vibe": "Sage marble, glass corner shower, freestanding tub",
    "palette": {
-    "floor": "#9fb09a",
-    "floor2": "#8a9c85",
+    "floor": "#9fa896",
+    "floor2": "#7f8678",
     "style": "marble",
     "cab": "#a9b8a2",
     "top": "#e9efe4",
     "accent": "#1e2420",
     "soft": "#dfe7d9",
     "rug": "#b9c7b2",
-    "glow": "#ffd28a",
+    "glow": "#f7d99c",
     "metal": "#1e2420",
-    "water": "#a9dcd8"
+    "water": "#a9dcd8",
+    "hand_floor": "#9fb09a",
+    "wall": "#73755e",
+    "sampled_floor": "#9fa293"
    },
    "gauged": {
     "w": 3.2,
@@ -1116,6 +1174,14 @@
      "floor": true,
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#93907c",
+    "#6f715c",
+    "#afac99",
+    "#4c4f3b",
+    "#272b19",
+    "#d9cfbb"
    ]
   },
   {
@@ -1125,17 +1191,20 @@
    "title": "Powder Blue",
    "vibe": "Powder-blue walls, arched shower niche, white marble",
    "palette": {
-    "floor": "#9fb4cc",
-    "floor2": "#8aa1bb",
+    "floor": "#8a98ac",
+    "floor2": "#6e7a8a",
     "style": "tile",
     "cab": "#f1f3f6",
     "top": "#ffffff",
     "accent": "#7f97b4",
     "soft": "#e8eef5",
     "rug": "#7f9cc0",
-    "glow": "#ffe2a8",
+    "glow": "#f8d6b3",
     "metal": "#b9bec6",
-    "water": "#9fd6e6"
+    "water": "#9fd6e6",
+    "hand_floor": "#9fb4cc",
+    "wall": "#8d8c8c",
+    "sampled_floor": "#798291"
    },
    "gauged": {
     "w": 3.0,
@@ -1224,6 +1293,14 @@
      "floor": true,
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#969597",
+    "#80858c",
+    "#68707b",
+    "#b8b0a9",
+    "#e1d6cb",
+    "#4b504f"
    ]
   },
   {
@@ -1233,17 +1310,20 @@
    "title": "Midnight Marble",
    "vibe": "Navy and white marble, brass fittings, starlight ceiling",
    "palette": {
-    "floor": "#e8e6e3",
-    "floor2": "#cfccc8",
+    "floor": "#cac3be",
+    "floor2": "#a29c98",
     "style": "marble",
     "cab": "#1c2a4a",
     "top": "#f1efec",
     "accent": "#c9a24a",
     "soft": "#f3f1ee",
     "rug": "#26365c",
-    "glow": "#ffd699",
+    "glow": "#f5bf8d",
     "metal": "#c9a24a",
-    "water": "#dfe9ee"
+    "water": "#dfe9ee",
+    "hand_floor": "#e8e6e3",
+    "wall": "#1c1f29",
+    "sampled_floor": "#b2a79f"
    },
    "gauged": {
     "w": 3.6,
@@ -1328,6 +1408,14 @@
      "pri": 1,
      "inferred": true
     }
+   ],
+   "swatches": [
+    "#111522",
+    "#ada196",
+    "#cdc1b6",
+    "#8e8376",
+    "#675c51",
+    "#333030"
    ]
   },
   {
@@ -1337,16 +1425,19 @@
    "title": "Cream Cinema Lounge",
    "vibe": "Deep cream sectional, marble media wall, cove lighting",
    "palette": {
-    "floor": "#a99a86",
-    "floor2": "#978873",
+    "floor": "#927d67",
+    "floor2": "#756452",
     "style": "carpet",
     "cab": "#3a2c22",
     "top": "#d9cfbf",
     "accent": "#16130f",
     "soft": "#ebe3d4",
     "rug": "#8d7f6c",
-    "glow": "#ffcf8a",
-    "metal": "#16130f"
+    "glow": "#f2b468",
+    "metal": "#16130f",
+    "hand_floor": "#a99a86",
+    "wall": "#6a543e",
+    "sampled_floor": "#7f664e"
    },
    "gauged": {
     "w": 6.0,
@@ -1436,6 +1527,14 @@
      "face": "S",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#856c53",
+    "#503e2c",
+    "#6a543e",
+    "#20160e",
+    "#b9986f",
+    "#839bc7"
    ]
   },
   {
@@ -1445,17 +1544,20 @@
    "title": "Stone Feature Wall",
    "vibe": "Backlit carved stone, cream sofa, round walnut table",
    "palette": {
-    "floor": "#d9c8ae",
-    "floor2": "#c5b294",
+    "floor": "#af9376",
+    "floor2": "#8c765e",
     "style": "marble",
     "cab": "#ede4d3",
     "top": "#f3ecdf",
     "accent": "#5a3d27",
     "soft": "#ece4d6",
     "rug": "#bfb19b",
-    "glow": "#ffbf5e",
+    "glow": "#f2ad68",
     "metal": "#15120f",
-    "pop": "#59603a"
+    "pop": "#59603a",
+    "hand_floor": "#d9c8ae",
+    "wall": "#886545",
+    "sampled_floor": "#8d6748"
    },
    "gauged": {
     "w": 5.5,
@@ -1556,6 +1658,14 @@
      "face": "S",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#805f41",
+    "#9c7858",
+    "#27180a",
+    "#563a20",
+    "#be9c7a",
+    "#d6d5d2"
    ]
   },
   {
@@ -1565,17 +1675,20 @@
    "title": "Rustic Ember",
    "vibe": "Dark plaster, live-edge timber bench, bronze and candles",
    "palette": {
-    "floor": "#5b3a22",
-    "floor2": "#4a2e1a",
+    "floor": "#5e412b",
+    "floor2": "#4b3422",
     "style": "wood",
     "cab": "#4d3a2a",
     "top": "#6a5340",
     "accent": "#b08a4a",
     "soft": "#3b2f27",
     "rug": "#3d3a44",
-    "glow": "#ff9f3e",
+    "glow": "#f2ab68",
     "metal": "#0f0d0c",
-    "pop": "#7a4a22"
+    "pop": "#7a4a22",
+    "hand_floor": "#5b3a22",
+    "wall": "#41342a",
+    "sampled_floor": "#614633"
    },
    "gauged": {
     "w": 4.5,
@@ -1644,6 +1757,14 @@
      "face": "E",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#483527",
+    "#130c07",
+    "#312015",
+    "#644a35",
+    "#8d6443",
+    "#c68e59"
    ]
   },
   {
@@ -1653,17 +1774,20 @@
    "title": "Moss Conservatory",
    "vibe": "Moss velvet sectional, linear fire, plants everywhere",
    "palette": {
-    "floor": "#3b3128",
-    "floor2": "#2f2720",
+    "floor": "#423222",
+    "floor2": "#35281b",
     "style": "wood",
     "cab": "#2a231d",
     "top": "#4a3b2c",
     "accent": "#b3742e",
     "soft": "#4b5a2e",
     "rug": "#6b5a45",
-    "glow": "#ff9a3c",
+    "glow": "#f2ab68",
     "metal": "#14110e",
-    "pop": "#6d7a3a"
+    "pop": "#6d7a3a",
+    "hand_floor": "#3b3128",
+    "wall": "#1f190c",
+    "sampled_floor": "#47321d"
    },
    "gauged": {
     "w": 5.0,
@@ -1782,6 +1906,14 @@
      "face": "S",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#231809",
+    "#0c0a04",
+    "#342b14",
+    "#52381b",
+    "#6e4e2d",
+    "#9e7146"
    ]
   },
   {
@@ -1791,17 +1923,20 @@
    "title": "Starlight Suite",
    "vibe": "Low glowing platform bed, media wall, lounge corner",
    "palette": {
-    "floor": "#9a7653",
-    "floor2": "#876544",
+    "floor": "#705037",
+    "floor2": "#5a402c",
     "style": "wood",
     "cab": "#3b2d22",
     "top": "#5a4636",
     "accent": "#17130f",
     "soft": "#e7dccb",
     "rug": "#b7ab9b",
-    "glow": "#ffc070",
+    "glow": "#f3b173",
     "metal": "#17130f",
-    "pop": "#7b5d43"
+    "pop": "#7b5d43",
+    "hand_floor": "#9a7653",
+    "wall": "#7a533b",
+    "sampled_floor": "#4e3120"
    },
    "gauged": {
     "w": 5.0,
@@ -1925,6 +2060,14 @@
      "face": "S",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#65422d",
+    "#80573d",
+    "#432b1c",
+    "#a57452",
+    "#1e130d",
+    "#ddb28a"
    ]
   },
   {
@@ -1934,17 +2077,20 @@
    "title": "Cloud Bed",
    "vibe": "Round bed on a glowing platform, boucle everything",
    "palette": {
-    "floor": "#eadfce",
-    "floor2": "#dccfba",
+    "floor": "#ad947f",
+    "floor2": "#8a7666",
     "style": "carpet",
     "cab": "#f3eadb",
     "top": "#fbf5ea",
     "accent": "#c9b08a",
     "soft": "#fbf6ee",
     "rug": "#f6efe3",
-    "glow": "#ffcf8f",
+    "glow": "#f4b982",
     "metal": "#c9b08a",
-    "pop": "#f0e4d2"
+    "pop": "#f0e4d2",
+    "hand_floor": "#eadfce",
+    "wall": "#ae7f5f",
+    "sampled_floor": "#7b573e"
    },
    "gauged": {
     "w": 5.0,
@@ -2025,6 +2171,14 @@
      "face": "S",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#a57b62",
+    "#906951",
+    "#79563e",
+    "#c1906d",
+    "#e7ba90",
+    "#39363b"
    ]
   },
   {
@@ -2034,17 +2188,20 @@
    "title": "Moonlit Nook",
    "vibe": "Round window seat, trailing ivy, moon lamp, flower rugs",
    "palette": {
-    "floor": "#8b5e3c",
-    "floor2": "#774e30",
+    "floor": "#633f27",
+    "floor2": "#4f321f",
     "style": "wood",
     "cab": "#b98d5e",
     "top": "#e9dcc6",
     "accent": "#5f7a45",
     "soft": "#f0e6d6",
     "rug": "#f3ead9",
-    "glow": "#ffb85c",
+    "glow": "#f3b56b",
     "metal": "#3a2a1c",
-    "pop": "#c9a878"
+    "pop": "#c9a878",
+    "hand_floor": "#8b5e3c",
+    "wall": "#704625",
+    "sampled_floor": "#422515"
    },
    "gauged": {
     "w": 3.6,
@@ -2130,7 +2287,16 @@
      "shape": "round",
      "pri": 3
     }
+   ],
+   "swatches": [
+    "#5a361e",
+    "#784d30",
+    "#3f210d",
+    "#1b120e",
+    "#b47843",
+    "#eeb571"
    ]
   }
- ]
+ ],
+ "palette_note": "floor, wall, glow and swatches are sampled from the photo pixels (median of the bottom strip, median of the upper wall band, warmest dominant cluster, 6-colour median cut). Cabinet and upholstery colours are hand-picked."
 }

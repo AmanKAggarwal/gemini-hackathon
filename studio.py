@@ -28,6 +28,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 
 from studio_correspond import correspond
+from studio_review import inspect, review
 
 BASE_DIR = Path(__file__).parent
 CATALOG_PATH = BASE_DIR / "data" / "studio_catalog.json"
@@ -480,10 +481,33 @@ def studio_fit(req: FitReq) -> dict[str, Any]:
     inv = {i["id"]: i for i in cat["inventory"]["items"]}
     own = [inv[i] for i in req.own if i in inv]
     correspond(out, own, walkway)
+    review(out, own, walkway, fix=True)
     placed = {i["id"] for r in out for i in r["final"]["items"] if i.get("own")}
     return {"plan": plan["id"], "perception_source": cat["perception_source"], "rooms": out,
             "own_requested": [o["id"] for o in own],
             "own_leftovers": [{"id": o["id"], "label": o["label"]} for o in own if o["id"] not in placed]}
+
+
+class CheckReq(BaseModel):
+    plan: str
+    rooms: dict[str, list[dict[str, Any]]]
+
+
+@router.post("/studio/check")
+def studio_check(req: CheckReq) -> dict[str, Any]:
+    """Live edit: the page sends the items as the user dragged them; the reviewer re-inspects, changing nothing."""
+    cat = load_catalog()
+    plan = next((p for p in cat["plans"] if p["id"] == req.plan), None)
+    if plan is None:
+        raise HTTPException(status_code=404, detail=f"unknown plan {req.plan}")
+    out = {}
+    for key, items in req.rooms.items():
+        if key not in plan["rooms"]:
+            continue
+        chk, findings = inspect(key, target_room(plan, key), items, walkway)
+        errors = [f for f in findings if f["level"] == "error"]
+        out[key] = {"check": chk, "review": {"verdict": "needs attention" if errors else "approved", "findings": findings, "fixes": 0}}
+    return out
 
 
 if __name__ == "__main__":
