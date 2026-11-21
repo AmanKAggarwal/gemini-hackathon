@@ -14,8 +14,9 @@ From the repository root:
 *(Or directly once `.venv` is created: `.venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000`)*
 
 Then open:
-- **Photorealistic First-Person Walkthrough:** http://127.0.0.1:8000/walkthrough
-- **Homeweave Floor-Plan & Constraint Studio:** http://127.0.0.1:8000/
+- **Interactive Room Upload Studio + Live Tiny-Mover 3D Build + 3 Orientations + POV:** http://127.0.0.1:8000/
+- **Direct Eye-Level First-Person Walkthrough:** http://127.0.0.1:8000/walkthrough?mode=walkthrough
+- **JSON Pipeline Inspector:** http://127.0.0.1:8000/pipeline
 
 ### Option B — Standalone Static Three.js Project
 `walkthrough/` has zero backend dependencies and works with any static HTTP server:
