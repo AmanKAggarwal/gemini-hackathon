@@ -492,7 +492,7 @@ $('base').onclick=async()=>{const b=$('base');b.disabled=true;speed=0;Studio3D.f
     for(const br of Object.values(j.rooms))if(br.gemini)logLine('review',`<span class="op">${br.label}: Gemini alone had <b>${br.gemini.overlaps}</b> overlaps, <b>${br.gemini.door_blocks}</b> in door zones, <b>${br.gemini.outside_room}</b> outside the room; engine <b>${br.engine.hard_violations}</b> violations.</span>`);
     view('2d');document.querySelector('.cmp').scrollIntoView({behavior:'smooth',block:'center'})}
   catch(e){logLine('review','<span class="bad">Baseline failed: '+e.message+'</span>')}b.disabled=false;b.textContent='✦ Baseline: Gemini places it'};
-$('final').onclick=()=>{logLine('room','Final design');logLine('3d','Opened the photoreal Blender home in a new tab. It is a fixed showcase residence, not the floor plan picked here.');window.open('/walkthrough?from=studio','_blank')};
+$('final').onclick=()=>{logLine('room','Final design');logLine('3d','Opened the photoreal Blender home in a new tab. It is a fixed showcase residence, not the floor plan picked here.');window.open('/walkthrough?from=studio&mode=walkthrough','_blank')};
 $('finClose').onclick=()=>{$('fin').classList.add('hide');$('wTitle').textContent='Your new home in 3D · '+P.name};
 $('st1').onclick=()=>{if(!$('weave').classList.contains('hide'))$('back').click()};
 $('ptext').addEventListener('keydown',e=>{if(e.key==='Enter')$('pgo').click()});
