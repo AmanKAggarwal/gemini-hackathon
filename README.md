@@ -121,6 +121,6 @@ Conventions used everywhere: metres, y up, floor at y = 0; ids prefixed `src-` f
 
 ## Team
 
-**Cornell Movers**: Aditi Kumari, Abhinav Barat, Kyuseong Choi, Aman Aggarwal.
+**Cornell Movers**: Aditi Kumari ([@kriaditi](https://github.com/kriaditi)), Abhinav Barat ([@abarat007](https://github.com/abarat007)), Kyuseong Choi ([@kyuseongchoi5](https://github.com/kyuseongchoi5)) and Aman Aggarwal ([@AmanKAggarwal](https://github.com/AmanKAggarwal)).
 
 Everything in this repository was built during the hackathon.
