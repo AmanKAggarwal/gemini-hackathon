@@ -1,0 +1,4304 @@
+{
+ "perception_source": "gemini_live",
+ "perception_note": "Floor plans were read by gemini-4-neon and every photo was gauged by gemini-4-hydrogen. Sizes are model estimates, not measurements.",
+ "plans": [
+  {
+   "id": "plan2",
+   "name": "The Eastline · Residence 1713",
+   "subtitle": "1 bed · 1 bath",
+   "image": "plan2.webp",
+   "size": [
+    1422,
+    800
+   ],
+   "view": [
+    629,
+    94,
+    1144,
+    706
+   ],
+   "px_per_m": 58.0,
+   "scale_ref": "Gemini read 65.0 px/m on this run and 59.3 on an earlier one; with no printed sizes the studio keeps 58.0 px/m, measured from the 60 in tub and the entry door",
+   "rooms": {
+    "kitchen": {
+     "type": "kitchen",
+     "label": "KITCHEN",
+     "rect": [
+      668,
+      133,
+      918,
+      330
+     ],
+     "open": [
+      "S"
+     ],
+     "windows": [
+      {
+       "wall": "E",
+       "a": 152,
+       "b": 235
+      }
+     ],
+     "doors": [
+      [
+       880,
+       235,
+       918,
+       300
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "counter",
+       "rect": [
+        668,
+        133,
+        808,
+        171
+       ],
+       "feat": "hob"
+      },
+      {
+       "type": "fridge",
+       "rect": [
+        808,
+        133,
+        853,
+        171
+       ]
+      },
+      {
+       "type": "island",
+       "rect": [
+        668,
+        256,
+        783,
+        315
+       ],
+       "feat": "sink",
+       "n": 3
+      }
+     ],
+     "entry": [
+      840,
+      320
+     ]
+    },
+    "living": {
+     "type": "living",
+     "label": "LIVING ROOM",
+     "rect": [
+      735,
+      344,
+      1105,
+      505
+     ],
+     "open": [
+      "N",
+      "W"
+     ],
+     "windows": [
+      {
+       "wall": "N",
+       "a": 955,
+       "b": 1065
+      },
+      {
+       "wall": "E",
+       "a": 352,
+       "b": 492
+      }
+     ],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [],
+     "entry": [
+      745,
+      392
+     ]
+    },
+    "bedroom": {
+     "type": "bedroom",
+     "label": "PRIMARY BEDROOM",
+     "rect": [
+      835,
+      518,
+      1105,
+      667
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "E",
+       "a": 542,
+       "b": 667
+      }
+     ],
+     "doors": [
+      [
+       838,
+       518,
+       891,
+       571
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "closet",
+       "rect": [
+        835,
+        598,
+        875,
+        667
+       ]
+      }
+     ],
+     "entry": [
+      865,
+      535
+     ]
+    },
+    "bathroom": {
+     "type": "bathroom",
+     "label": "BATHROOM",
+     "rect": [
+      678,
+      538,
+      828,
+      652
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       769,
+       538,
+       821,
+       590
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "tub",
+       "rect": [
+        678,
+        538,
+        727,
+        633
+       ]
+      },
+      {
+       "type": "vanity",
+       "rect": [
+        727,
+        623,
+        765,
+        652
+       ]
+      },
+      {
+       "type": "toilet",
+       "rect": [
+        793,
+        613,
+        817,
+        652
+       ]
+      }
+     ],
+     "entry": [
+      795,
+      555
+     ]
+    }
+   },
+   "beds": 1,
+   "baths": 1,
+   "entrance": [
+    648,
+    392
+   ],
+   "live": {
+    "model": "gemini-4-neon",
+    "seconds": 32.4,
+    "attempts": 1,
+    "source_file": "plan2.webp"
+   }
+  },
+  {
+   "id": "plan1",
+   "name": "Manhattan Park · Plan P",
+   "subtitle": "2 bed · 2 bath",
+   "image": "plan1.webp",
+   "size": [
+    618,
+    800
+   ],
+   "view": [
+    123,
+    194,
+    475,
+    477
+   ],
+   "px_per_m": 30.2,
+   "scale_ref": "Bedroom 10'0\" (3.05 m) = 92 px; Living Room 12'0\" (3.66 m) = 111 px (read by gemini-4-neon, confidence 0.90)",
+   "rooms": {
+    "kitchen": {
+     "type": "kitchen",
+     "label": "KITCHEN",
+     "rect": [
+      250,
+      388,
+      322,
+      458
+     ],
+     "open": [
+      "E"
+     ],
+     "windows": [],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "counter",
+       "rect": [
+        257,
+        390,
+        281,
+        411
+       ],
+       "feat": "hob"
+      },
+      {
+       "type": "counter",
+       "rect": [
+        281,
+        390,
+        321,
+        411
+       ]
+      },
+      {
+       "type": "counter",
+       "rect": [
+        250,
+        437,
+        297,
+        458
+       ],
+       "feat": "sink"
+      },
+      {
+       "type": "fridge",
+       "rect": [
+        297,
+        437,
+        321,
+        458
+       ]
+      }
+     ],
+     "entry": [
+      315,
+      425
+     ]
+    },
+    "living": {
+     "type": "living",
+     "label": "LIVING ROOM",
+     "rect": [
+      249,
+      218,
+      360,
+      385
+     ],
+     "open": [
+      "S"
+     ],
+     "windows": [
+      {
+       "wall": "N",
+       "a": 256,
+       "b": 350
+      }
+     ],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [],
+     "entry": [
+      340,
+      380
+     ],
+     "printed_text": "19'1\" X 12'0\"",
+     "printed": [
+      5.82,
+      3.66,
+      "19'1\" × 12'0\""
+     ]
+    },
+    "bedroom": {
+     "type": "bedroom",
+     "label": "MASTER BEDROOM",
+     "rect": [
+      141,
+      242,
+      243,
+      400
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "N",
+       "a": 163,
+       "b": 215
+      }
+     ],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "closet",
+       "rect": [
+        141,
+        384,
+        206,
+        400
+       ]
+      }
+     ],
+     "entry": [
+      238,
+      360
+     ],
+     "printed_text": "15'8\" X 10'11\"",
+     "printed": [
+      4.78,
+      3.33,
+      "15'8\" × 10'11\""
+     ]
+    },
+    "bedroom2": {
+     "type": "bedroom",
+     "label": "BEDROOM",
+     "rect": [
+      365,
+      212,
+      457,
+      337
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "N",
+       "a": 395,
+       "b": 450
+      }
+     ],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [],
+     "entry": [
+      390,
+      332
+     ],
+     "printed_text": "14'0\" X 10'0\""
+    },
+    "bathroom": {
+     "type": "bathroom",
+     "label": "MASTER BATHROOM",
+     "rect": [
+      178,
+      404,
+      245,
+      452
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "tub",
+       "rect": [
+        178,
+        404,
+        202,
+        451
+       ]
+      },
+      {
+       "type": "toilet",
+       "rect": [
+        205,
+        428,
+        223,
+        451
+       ]
+      },
+      {
+       "type": "vanity",
+       "rect": [
+        226,
+        435,
+        244,
+        451
+       ]
+      }
+     ],
+     "entry": [
+      225,
+      408
+     ]
+    },
+    "bathroom2": {
+     "type": "bathroom",
+     "label": "BATHROOM",
+     "rect": [
+      383,
+      390,
+      430,
+      459
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "tub",
+       "rect": [
+        383,
+        435,
+        430,
+        459
+       ]
+      },
+      {
+       "type": "toilet",
+       "rect": [
+        407,
+        414,
+        430,
+        432
+       ]
+      },
+      {
+       "type": "vanity",
+       "rect": [
+        412,
+        391,
+        430,
+        411
+       ]
+      }
+     ],
+     "entry": [
+      395,
+      395
+     ]
+    }
+   },
+   "beds": 2,
+   "baths": 2,
+   "entrance": [
+    340,
+    468
+   ],
+   "live": {
+    "model": "gemini-4-neon",
+    "seconds": 31.6,
+    "attempts": 1,
+    "source_file": "plan1.webp"
+   }
+  },
+  {
+   "id": "plan3",
+   "name": "224 W 124 · Apt 305",
+   "subtitle": "3 bed · 2 bath",
+   "image": "plan3.webp",
+   "size": [
+    1035,
+    800
+   ],
+   "view": [
+    375,
+    162,
+    984,
+    520
+   ],
+   "px_per_m": 43.5,
+   "scale_ref": "Living Room 12'6\" x 13'6\" (164 x 179 px) and Master Bedroom 10'5\" x 16'10\" (140 x 222 px) (read by gemini-4-neon, confidence 0.90)",
+   "rooms": {
+    "kitchen": {
+     "type": "kitchen",
+     "label": "Kitchen",
+     "rect": [
+      411,
+      199,
+      535,
+      315
+     ],
+     "open": [
+      "E",
+      "S"
+     ],
+     "windows": [],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "counter",
+       "rect": [
+        411,
+        199,
+        496,
+        226
+       ],
+       "feat": "hob"
+      },
+      {
+       "type": "fridge",
+       "rect": [
+        496,
+        199,
+        532,
+        226
+       ]
+      },
+      {
+       "type": "island",
+       "rect": [
+        411,
+        275,
+        532,
+        315
+       ],
+       "feat": "sink"
+      }
+     ],
+     "entry": [
+      535,
+      255
+     ]
+    },
+    "living": {
+     "type": "living",
+     "label": "Living Room",
+     "rect": [
+      401,
+      315,
+      565,
+      494
+     ],
+     "open": [
+      "N"
+     ],
+     "windows": [
+      {
+       "wall": "W",
+       "a": 357,
+       "b": 453
+      },
+      {
+       "wall": "S",
+       "a": 488,
+       "b": 537
+      }
+     ],
+     "doors": [],
+     "obstacles": [],
+     "fixtures": [],
+     "entry": [
+      545,
+      330
+     ],
+     "printed_text": "12'6\" x 13'6\"",
+     "printed": [
+      3.81,
+      4.11,
+      "12'6\" × 13'6\""
+     ]
+    },
+    "bedroom": {
+     "type": "bedroom",
+     "label": "Master Bedroom",
+     "rect": [
+      818,
+      272,
+      958,
+      494
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "S",
+       "a": 857,
+       "b": 906
+      }
+     ],
+     "doors": [
+      [
+       818,
+       277,
+       853,
+       312
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "closet",
+       "rect": [
+        874,
+        272,
+        958,
+        344
+       ]
+      }
+     ],
+     "entry": [
+      835,
+      295
+     ],
+     "printed_text": "10'5\" x 16'10\"",
+     "printed": [
+      3.2,
+      5.13,
+      "10'6\" × 16'10\""
+     ]
+    },
+    "bedroom2": {
+     "type": "bedroom",
+     "label": "Bedroom",
+     "rect": [
+      571,
+      352,
+      680,
+      494
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "S",
+       "a": 619,
+       "b": 667
+      }
+     ],
+     "doors": [
+      [
+       576,
+       352,
+       613,
+       388
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [],
+     "entry": [
+      595,
+      370
+     ],
+     "printed_text": "8'2\" x 10'8\""
+    },
+    "bedroom3": {
+     "type": "bedroom",
+     "label": "Bedroom",
+     "rect": [
+      685,
+      322,
+      813,
+      494
+     ],
+     "open": [],
+     "windows": [
+      {
+       "wall": "S",
+       "a": 727,
+       "b": 775
+      }
+     ],
+     "doors": [
+      [
+       770,
+       322,
+       806,
+       359
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "closet",
+       "rect": [
+        685,
+        322,
+        726,
+        350
+       ]
+      }
+     ],
+     "entry": [
+      788,
+      340
+     ],
+     "printed_text": "9'6\" x 12'0\""
+    },
+    "bathroom": {
+     "type": "bathroom",
+     "label": "Bathroom",
+     "rect": [
+      703,
+      188,
+      813,
+      265
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       710,
+       230,
+       747,
+       265
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "toilet",
+       "rect": [
+        712,
+        188,
+        732,
+        218
+       ]
+      },
+      {
+       "type": "vanity",
+       "rect": [
+        745,
+        188,
+        773,
+        208
+       ]
+      },
+      {
+       "type": "tub",
+       "rect": [
+        777,
+        199,
+        811,
+        263
+       ]
+      }
+     ],
+     "entry": [
+      728,
+      250
+     ]
+    },
+    "bathroom2": {
+     "type": "bathroom",
+     "label": "Bathroom",
+     "rect": [
+      818,
+      188,
+      958,
+      265
+     ],
+     "open": [],
+     "windows": [],
+     "doors": [
+      [
+       823,
+       230,
+       860,
+       265
+      ]
+     ],
+     "obstacles": [],
+     "fixtures": [
+      {
+       "type": "toilet",
+       "rect": [
+        825,
+        188,
+        845,
+        218
+       ]
+      },
+      {
+       "type": "vanity",
+       "rect": [
+        855,
+        188,
+        922,
+        208
+       ]
+      },
+      {
+       "type": "tub",
+       "rect": [
+        924,
+        199,
+        958,
+        263
+       ]
+      }
+     ],
+     "entry": [
+      840,
+      250
+     ]
+    }
+   },
+   "beds": 3,
+   "baths": 2,
+   "entrance": [
+    630,
+    175
+   ],
+   "live": {
+    "model": "gemini-4-neon",
+    "seconds": 33.9,
+    "attempts": 1,
+    "source_file": "plan3.webp"
+   }
+  }
+ ],
+ "photos": [
+  {
+   "id": "K1",
+   "cat": "kitchen",
+   "file": "K1.jpg",
+   "title": "Olive Oak Kitchen",
+   "vibe": "Matte olive cabinetry, warm walnut accents, veined beige marble, and warm backlit shelving with glass globe pendants.",
+   "palette": {
+    "floor": "#9f7854",
+    "floor2": "#7f6043",
+    "style": "wood",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f2ad68",
+    "wall": "#573e1f"
+   },
+   "gauged": {
+    "w": 4.4,
+    "d": 4.2,
+    "conf": 0.72,
+    "ref": "counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "tall_1",
+     "type": "tall",
+     "label": "Oven Tower",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 0.8,
+     "d": 0.65,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    },
+    {
+     "id": "counter_n",
+     "type": "counter",
+     "label": "Range Counter",
+     "x": 0.8,
+     "z": 0.0,
+     "w": 2.98,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.49,
+     "feat": "hob"
+    },
+    {
+     "id": "counter_e",
+     "type": "counter",
+     "label": "Window Sink Counter",
+     "x": 3.78,
+     "z": 0.0,
+     "w": 0.62,
+     "d": 3.8,
+     "walls": [
+      "E",
+      "N"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "sink"
+    },
+    {
+     "id": "island_1",
+     "type": "island",
+     "label": "Kitchen Island",
+     "x": 0.3,
+     "z": 1.7,
+     "w": 2.4,
+     "d": 1.35,
+     "walls": [],
+     "face": "S",
+     "pri": 1,
+     "feat": "sink",
+     "n": 3,
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "island cut to 1.7 m with 2 stools"
+     }
+    },
+    {
+     "id": "rug_1",
+     "type": "rug",
+     "label": "Runner Rug",
+     "x": 2.9,
+     "z": 1.5,
+     "w": 0.75,
+     "d": 2.2,
+     "face": "N",
+     "pri": 3,
+     "floor": true
+    }
+   ],
+   "swatches": [
+    "#21180a",
+    "#a28164",
+    "#422e16",
+    "#62482b",
+    "#876545",
+    "#b6997c"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 29.6,
+    "attempts": 1,
+    "source_file": "K1.jpg",
+    "hand_estimate_was": {
+     "w": 4.4,
+     "d": 4.0,
+     "conf": 0.72,
+     "ref": "counter depth 0.62 m and bar-stool seat 0.65 m"
+    }
+   }
+  },
+  {
+   "id": "K2",
+   "cat": "kitchen",
+   "file": "K2.jpg",
+   "title": "Warm Gloss Kitchen",
+   "vibe": "Glossy grey cabinetry, black granite countertops, and warm LED strip lighting over cream marble floors.",
+   "palette": {
+    "floor": "#bba28b",
+    "floor2": "#96826f",
+    "style": "marble",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f5bc88",
+    "wall": "#857265"
+   },
+   "gauged": {
+    "w": 3.9,
+    "d": 4.2,
+    "conf": 0.82,
+    "ref": "counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "north_counter",
+     "type": "counter",
+     "label": "North Hob Counter",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 3.9,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "hob"
+    },
+    {
+     "id": "west_counter",
+     "type": "counter",
+     "label": "West Sink Counter",
+     "x": 0.0,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 2.03,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.01,
+     "feat": "sink"
+    },
+    {
+     "id": "east_counter",
+     "type": "counter",
+     "label": "East Prep Counter",
+     "x": 3.28,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 1.4,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.7
+    },
+    {
+     "id": "east_oven",
+     "type": "tall",
+     "label": "Oven Housing Unit",
+     "x": 3.28,
+     "z": 2.02,
+     "w": 0.62,
+     "d": 0.65,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    },
+    {
+     "id": "fridge",
+     "type": "fridge",
+     "label": "Double-Door Fridge",
+     "x": 3.2,
+     "z": 2.67,
+     "w": 0.7,
+     "d": 0.9,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "tall": true
+    },
+    {
+     "id": "east_shelf",
+     "type": "tall",
+     "label": "East Display Tower",
+     "x": 3.45,
+     "z": 3.57,
+     "w": 0.45,
+     "d": 0.55,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    },
+    {
+     "id": "island",
+     "type": "island",
+     "label": "Breakfast Peninsula",
+     "x": 0.35,
+     "z": 2.65,
+     "w": 1.9,
+     "d": 1.05,
+     "walls": [],
+     "face": "S",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.95,
+     "n": 3,
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "island cut to 1.7 m with 2 stools"
+     }
+    },
+    {
+     "id": "west_shelf",
+     "type": "tall",
+     "label": "West Display Tower",
+     "x": 0.0,
+     "z": 2.65,
+     "w": 0.35,
+     "d": 0.55,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 3,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    }
+   ],
+   "swatches": [
+    "#927966",
+    "#463425",
+    "#735943",
+    "#1e160e",
+    "#b89d89",
+    "#d9bea5"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 40.7,
+    "attempts": 1,
+    "source_file": "K2.jpg",
+    "hand_estimate_was": {
+     "w": 4.6,
+     "d": 3.8,
+     "conf": 0.7,
+     "ref": "fridge width 0.90 m and counter depth 0.62 m"
+    }
+   }
+  },
+  {
+   "id": "K3",
+   "cat": "kitchen",
+   "file": "K3.jpg",
+   "title": "Warm Walnut Kitchen",
+   "vibe": "Walnut cabinetry, taupe marble surfaces, and warm recessed brass lighting",
+   "palette": {
+    "floor": "#cab095",
+    "floor2": "#a28d77",
+    "style": "marble",
+    "cab": "#6e482e",
+    "top": "#8a7868",
+    "accent": "#6c6a58",
+    "soft": "#c4b39e",
+    "rug": "#a58867",
+    "metal": "#b68d54",
+    "glow": "#f4c37f",
+    "wall": "#77522f"
+   },
+   "gauged": {
+    "w": 3.7,
+    "d": 4.3,
+    "conf": 0.8,
+    "ref": "base counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "tall_nw",
+     "type": "tall",
+     "label": "Lit shelf tower",
+     "x": 0.05,
+     "z": 0.0,
+     "w": 0.4,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    },
+    {
+     "id": "counter_n",
+     "type": "counter",
+     "label": "Hob counter run",
+     "x": 0.45,
+     "z": 0.0,
+     "w": 3.25,
+     "d": 0.62,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "hob"
+    },
+    {
+     "id": "counter_e",
+     "type": "counter",
+     "label": "Sink counter run",
+     "x": 3.08,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 1.88,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.94,
+     "feat": "sink"
+    },
+    {
+     "id": "fridge_e",
+     "type": "fridge",
+     "label": "French door fridge",
+     "x": 2.98,
+     "z": 2.5,
+     "w": 0.72,
+     "d": 0.95,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "tall": true
+    },
+    {
+     "id": "island_w",
+     "type": "island",
+     "label": "Marble peninsula with bar stools",
+     "x": 0.15,
+     "z": 0.65,
+     "w": 1.3,
+     "d": 2.35,
+     "walls": [],
+     "face": "W",
+     "pri": 1,
+     "n": 3,
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "island cut to 1.7 m with 2 stools"
+     }
+    },
+    {
+     "id": "rug_center",
+     "type": "rug",
+     "label": "Woven runner rug",
+     "x": 1.85,
+     "z": 1.25,
+     "w": 0.85,
+     "d": 2.0,
+     "face": "N",
+     "pri": 2,
+     "floor": true
+    }
+   ],
+   "swatches": [
+    "#bf9872",
+    "#482a16",
+    "#a57a53",
+    "#6c4729",
+    "#875f3c",
+    "#e5c18f"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 39.4,
+    "attempts": 1,
+    "source_file": "K3.jpg",
+    "hand_estimate_was": {
+     "w": 4.8,
+     "d": 4.2,
+     "conf": 0.68,
+     "ref": "fridge width 0.90 m and bar-stool seat 0.65 m"
+    }
+   }
+  },
+  {
+   "id": "K4",
+   "cat": "kitchen",
+   "file": "K4.jpg",
+   "title": "Warm Greige Kitchen",
+   "vibe": "Glossy greige cabinets with veined grey marble counters, warm LED cove and pendant lighting, and brass-accented black hardware.",
+   "palette": {
+    "floor": "#d0c1b1",
+    "floor2": "#a69a8e",
+    "style": "marble",
+    "cab": "#c5b6a0",
+    "top": "#6f6965",
+    "accent": "#2a2725",
+    "soft": "#8c7a6b",
+    "rug": "#d8cbb8",
+    "metal": "#b5945b",
+    "glow": "#f3b071",
+    "wall": "#9d8265"
+   },
+   "gauged": {
+    "w": 3.5,
+    "d": 3.2,
+    "conf": 0.85,
+    "ref": "base counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "c_north",
+     "type": "counter",
+     "label": "Sink counter run",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 3.5,
+     "d": 0.62,
+     "walls": [
+      "N",
+      "E",
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "sink"
+    },
+    {
+     "id": "c_west",
+     "type": "counter",
+     "label": "Hob counter run",
+     "x": 0.0,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 1.78,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.89,
+     "feat": "hob"
+    },
+    {
+     "id": "c_east",
+     "type": "counter",
+     "label": "East counter run",
+     "x": 2.88,
+     "z": 0.62,
+     "w": 0.62,
+     "d": 1.28,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.64
+    },
+    {
+     "id": "fridge_1",
+     "type": "fridge",
+     "label": "Stainless steel fridge",
+     "x": 2.8,
+     "z": 1.9,
+     "w": 0.7,
+     "d": 0.8,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "tall": true
+    }
+   ],
+   "swatches": [
+    "#b1967a",
+    "#c8b29d",
+    "#66513e",
+    "#91785f",
+    "#2e261f",
+    "#dadbe0"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 23.3,
+    "attempts": 1,
+    "source_file": "K4.jpg",
+    "hand_estimate_was": {
+     "w": 4.2,
+     "d": 3.4,
+     "conf": 0.74,
+     "ref": "counter depth 0.62 m and 0.60 m base-unit doors"
+    }
+   }
+  },
+  {
+   "id": "B1",
+   "cat": "bathroom",
+   "file": "B1.jpg",
+   "title": "Warm Spa Bath",
+   "vibe": "Warm walnut wood, textured stone, grey tile, and recessed amber LED lighting with matte black fixtures",
+   "palette": {
+    "floor": "#9f8674",
+    "floor2": "#7f6b5d",
+    "style": "tile",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f2b768",
+    "wall": "#8c7861"
+   },
+   "gauged": {
+    "w": 2.8,
+    "d": 3.8,
+    "conf": 0.78,
+    "ref": "toilet depth 0.70 m"
+   },
+   "items": [
+    {
+     "id": "tub_1",
+     "type": "tub",
+     "label": "Built-in soaking tub with steps",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 1.4,
+     "d": 2.0,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.0,
+     "shape": "built",
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "shape": "built",
+      "label": "built-in 1.5 m tub"
+     }
+    },
+    {
+     "id": "shower_1",
+     "type": "shower",
+     "label": "Arched walk-in shower",
+     "x": 1.55,
+     "z": 0.0,
+     "w": 1.25,
+     "d": 2.0,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.0,
+     "tall": true,
+     "merge": "tub_1",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "toilet_1",
+     "type": "toilet",
+     "label": "Rounded toilet",
+     "x": 0.0,
+     "z": 2.25,
+     "w": 0.7,
+     "d": 0.42,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1
+    },
+    {
+     "id": "vanity_1",
+     "type": "vanity",
+     "label": "Wood vanity with vessel sink",
+     "x": 2.25,
+     "z": 2.1,
+     "w": 0.55,
+     "d": 1.2,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "rug_1",
+     "type": "rug",
+     "label": "Shag bath mat",
+     "x": 1.05,
+     "z": 2.45,
+     "w": 0.9,
+     "d": 1.25,
+     "face": "W",
+     "pri": 2,
+     "floor": true,
+     "parent": "vanity_1"
+    }
+   ],
+   "swatches": [
+    "#af886c",
+    "#906847",
+    "#503b25",
+    "#e4ae66",
+    "#6b838c",
+    "#c0bbbf"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 24.0,
+    "attempts": 1,
+    "source_file": "B1.jpg",
+    "hand_estimate_was": {
+     "w": 3.4,
+     "d": 3.8,
+     "conf": 0.66,
+     "ref": "toilet depth 0.70 m and 0.60 m floor tiles"
+    }
+   }
+  },
+  {
+   "id": "B2",
+   "cat": "bathroom",
+   "file": "B2.jpg",
+   "title": "Sage Spa Sanctuary",
+   "vibe": "Sage green cabinetry, veined stone tiles, matte black fixtures, and warm recessed lighting",
+   "palette": {
+    "floor": "#b9b4a2",
+    "floor2": "#949082",
+    "style": "marble",
+    "cab": "#7b917d",
+    "top": "#8da693",
+    "accent": "#9e734e",
+    "soft": "#f2f4f2",
+    "rug": "#9dab9f",
+    "metal": "#1e201f",
+    "glow": "#f7d99c",
+    "wall": "#73755e"
+   },
+   "gauged": {
+    "w": 2.8,
+    "d": 3.4,
+    "conf": 0.82,
+    "ref": "toilet 0.70 m deep"
+   },
+   "items": [
+    {
+     "id": "shower",
+     "type": "shower",
+     "label": "Glass Walk-In Shower",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 1.15,
+     "d": 1.2,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true,
+     "merge": "tub",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "toilet",
+     "type": "toilet",
+     "label": "Wall-Hung Toilet",
+     "x": 1.55,
+     "z": 0.0,
+     "w": 0.42,
+     "d": 0.65,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6
+    },
+    {
+     "id": "vanity",
+     "type": "vanity",
+     "label": "Floating Sage Vanity",
+     "x": 0.0,
+     "z": 1.25,
+     "w": 0.58,
+     "d": 1.6,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.8,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "tub",
+     "type": "tub",
+     "label": "Freestanding Oval Tub",
+     "x": 1.85,
+     "z": 1.2,
+     "w": 0.85,
+     "d": 1.65,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "shape": "oval",
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "shape": "built",
+      "label": "built-in 1.5 m tub"
+     }
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Shaggy Bath Mat",
+     "x": 0.75,
+     "z": 1.45,
+     "w": 0.65,
+     "d": 1.2,
+     "face": "E",
+     "pri": 2,
+     "floor": true,
+     "parent": "vanity"
+    },
+    {
+     "id": "plant_ne",
+     "type": "plant",
+     "label": "Corner Potted Plant",
+     "x": 2.3,
+     "z": 0.55,
+     "w": 0.45,
+     "d": 0.45,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 3
+    }
+   ],
+   "swatches": [
+    "#93907c",
+    "#6f715c",
+    "#afac99",
+    "#4c4f3b",
+    "#272b19",
+    "#d9cfbb"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 34.6,
+    "attempts": 1,
+    "source_file": "B2.jpg",
+    "hand_estimate_was": {
+     "w": 3.2,
+     "d": 3.6,
+     "conf": 0.7,
+     "ref": "toilet width 0.38 m and vanity height 0.85 m"
+    }
+   }
+  },
+  {
+   "id": "B3",
+   "cat": "bathroom",
+   "file": "B3.jpg",
+   "title": "Powder Blue Spa",
+   "vibe": "Dusty blue walls and glossy marble-look tile illuminated by warm recessed cove and LED strip lighting.",
+   "palette": {
+    "floor": "#888b90",
+    "floor2": "#6d6f73",
+    "style": "tile",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f8d6b3",
+    "wall": "#8d8c8c"
+   },
+   "gauged": {
+    "w": 2.5,
+    "d": 3.3,
+    "conf": 0.8,
+    "ref": "toilet 0.70 m deep"
+   },
+   "items": [
+    {
+     "id": "shower",
+     "type": "shower",
+     "label": "Arched Glass Shower",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 1.0,
+     "d": 1.25,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.62,
+     "tall": true,
+     "merge": "tub",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "tub",
+     "type": "tub",
+     "label": "Built-in Bathtub",
+     "x": 1.12,
+     "z": 0.0,
+     "w": 1.38,
+     "d": 1.05,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.69,
+     "shape": "built",
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "shape": "built",
+      "label": "built-in 1.5 m tub"
+     }
+    },
+    {
+     "id": "vanity",
+     "type": "vanity",
+     "label": "Floating Marble Vanity",
+     "x": 0.0,
+     "z": 1.45,
+     "w": 0.55,
+     "d": 1.45,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.72,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "toilet",
+     "type": "toilet",
+     "label": "Modern White Toilet",
+     "x": 1.8,
+     "z": 2.35,
+     "w": 0.7,
+     "d": 0.42,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1
+    },
+    {
+     "id": "rug",
+     "type": "rug",
+     "label": "Blue Bordered Bath Mat",
+     "x": 0.65,
+     "z": 2.15,
+     "w": 0.65,
+     "d": 0.95,
+     "face": "W",
+     "pri": 2,
+     "floor": true,
+     "parent": "vanity"
+    }
+   ],
+   "swatches": [
+    "#969597",
+    "#80858c",
+    "#68707b",
+    "#b8b0a9",
+    "#e1d6cb",
+    "#4b504f"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 28.2,
+    "attempts": 1,
+    "source_file": "B3.jpg",
+    "hand_estimate_was": {
+     "w": 3.0,
+     "d": 3.2,
+     "conf": 0.73,
+     "ref": "toilet depth 0.70 m and 0.60 m floor tiles"
+    }
+   }
+  },
+  {
+   "id": "B4",
+   "cat": "bathroom",
+   "file": "B4.jpg",
+   "title": "Starry Midnight Bath",
+   "vibe": "Deep navy walls and starry recessed ceiling paired with veined white marble and warm brushed brass.",
+   "palette": {
+    "floor": "#c4b7a9",
+    "floor2": "#9d9287",
+    "style": "marble",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f5bf8d",
+    "wall": "#1c1f29"
+   },
+   "gauged": {
+    "w": 3.3,
+    "d": 3.8,
+    "conf": 0.8,
+    "ref": "counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "tub_1",
+     "type": "tub",
+     "label": "Freestanding Marble Tub",
+     "x": 0.5,
+     "z": 0.15,
+     "w": 1.6,
+     "d": 0.85,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "shape": "oval",
+     "alt": {
+      "len": 1.5,
+      "dep": 0.75,
+      "shape": "built",
+      "label": "built-in 1.5 m tub"
+     }
+    },
+    {
+     "id": "shower_1",
+     "type": "shower",
+     "label": "Glass Walk-In Shower",
+     "x": 2.3,
+     "z": 0.0,
+     "w": 1.0,
+     "d": 3.2,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "tall": true,
+     "merge": "tub_1",
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "vanity_1",
+     "type": "vanity",
+     "label": "Floating Navy Vanity",
+     "x": 0.0,
+     "z": 1.25,
+     "w": 0.62,
+     "d": 1.85,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.93,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    }
+   ],
+   "swatches": [
+    "#111522",
+    "#ada196",
+    "#cdc1b6",
+    "#8e8376",
+    "#675c51",
+    "#333030"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 27.5,
+    "attempts": 1,
+    "source_file": "B4.jpg",
+    "hand_estimate_was": {
+     "w": 3.6,
+     "d": 4.4,
+     "conf": 0.64,
+     "ref": "freestanding tub length 1.70 m"
+    }
+   }
+  },
+  {
+   "id": "L1",
+   "cat": "living",
+   "file": "L1.jpg",
+   "title": "Warm Marble Lounge",
+   "vibe": "Warm indirect cove lighting, dark walnut millwork, cream veined marble, and plush ivory upholstery",
+   "palette": {
+    "floor": "#a8937c",
+    "floor2": "#867663",
+    "style": "marble",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f2b468",
+    "wall": "#6a543e"
+   },
+   "gauged": {
+    "w": 4.7,
+    "d": 5.5,
+    "conf": 0.72,
+    "ref": "85-inch wall-mounted TV (~1.9 m wide) on the east media wall"
+   },
+   "items": [
+    {
+     "id": "tv_wall",
+     "type": "tv",
+     "label": "Floating media console and marble TV wall",
+     "x": 4.2,
+     "z": 1.1,
+     "w": 0.5,
+     "d": 4.1,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6
+    },
+    {
+     "id": "sofa_w",
+     "type": "sofa",
+     "label": "West sofa section",
+     "x": 0.1,
+     "z": 1.45,
+     "w": 1.05,
+     "d": 3.0,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "sofa_n",
+     "type": "sofa",
+     "label": "North window sofa section",
+     "x": 0.1,
+     "z": 0.4,
+     "w": 3.55,
+     "d": 1.05,
+     "walls": [],
+     "face": "S",
+     "pri": 1,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "sofa_s",
+     "type": "sofa",
+     "label": "South foreground sofa section",
+     "x": 0.1,
+     "z": 4.45,
+     "w": 3.5,
+     "d": 1.05,
+     "walls": [
+      "S"
+     ],
+     "face": "N",
+     "pri": 1,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "ottoman",
+     "type": "pouf",
+     "label": "Attached chaise ottoman",
+     "x": 1.15,
+     "z": 1.45,
+     "w": 0.95,
+     "d": 0.8,
+     "walls": [],
+     "face": "S",
+     "pri": 2,
+     "parent": "sofa_n"
+    },
+    {
+     "id": "coffee_table",
+     "type": "coffee",
+     "label": "Marble plinth coffee table",
+     "x": 1.7,
+     "z": 2.3,
+     "w": 1.1,
+     "d": 1.5,
+     "walls": [],
+     "face": "E",
+     "pri": 1,
+     "parent": "sofa_w",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    },
+    {
+     "id": "area_rug",
+     "type": "rug",
+     "label": "Textured cream shag rug",
+     "x": 1.0,
+     "z": 1.3,
+     "w": 3.1,
+     "d": 3.3,
+     "face": "E",
+     "pri": 2,
+     "floor": true,
+     "parent": "sofa_w"
+    },
+    {
+     "id": "corner_tree",
+     "type": "plant",
+     "label": "Tall indoor tree",
+     "x": 3.85,
+     "z": 0.3,
+     "w": 0.75,
+     "d": 0.75,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "W",
+     "pri": 3
+    }
+   ],
+   "swatches": [
+    "#856c53",
+    "#503e2c",
+    "#6a543e",
+    "#20160e",
+    "#b9986f",
+    "#839bc7"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 37.0,
+    "attempts": 1,
+    "source_file": "L1.jpg",
+    "hand_estimate_was": {
+     "w": 6.0,
+     "d": 5.0,
+     "conf": 0.62,
+     "ref": "TV is about 85 in (1.88 m wide)"
+    }
+   }
+  },
+  {
+   "id": "L2",
+   "cat": "living",
+   "file": "L2.jpg",
+   "title": "Sculpted Stone Living",
+   "vibe": "Backlit carved stone wall, dark walnut slats, glossy marble floors, and amber glass pendants",
+   "palette": {
+    "floor": "#af9479",
+    "floor2": "#8c7661",
+    "style": "marble",
+    "cab": "#4e392a",
+    "top": "#7a5438",
+    "accent": "#464d2b",
+    "soft": "#cfc4b4",
+    "rug": "#b8ab9a",
+    "metal": "#b88d4f",
+    "glow": "#f2ad68",
+    "wall": "#886545"
+   },
+   "gauged": {
+    "w": 6.5,
+    "d": 6.0,
+    "conf": 0.72,
+    "ref": "85-inch wall-mounted TV (~1.9 m wide)"
+   },
+   "items": [
+    {
+     "id": "tv_1",
+     "type": "tv",
+     "label": "Stone media wall and floating console",
+     "x": 0.5,
+     "z": 0.0,
+     "w": 5.0,
+     "d": 0.55,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "shape": "built"
+    },
+    {
+     "id": "sectional_1",
+     "type": "sectional",
+     "label": "Beige modular sectional",
+     "x": 3.5,
+     "z": 1.8,
+     "w": 2.5,
+     "d": 3.2,
+     "walls": [],
+     "face": "W",
+     "pri": 1,
+     "alt": {
+      "type": "sofa",
+      "len": 2.2,
+      "dep": 0.95,
+      "label": "2.2 m three-seat sofa"
+     }
+    },
+    {
+     "id": "coffee_1",
+     "type": "coffee",
+     "label": "Tiered wood coffee table",
+     "x": 2.0,
+     "z": 2.3,
+     "w": 1.3,
+     "d": 1.0,
+     "walls": [],
+     "face": "N",
+     "pri": 2,
+     "shape": "oval",
+     "parent": "sectional_1",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    },
+    {
+     "id": "rug_1",
+     "type": "rug",
+     "label": "Textured beige area rug",
+     "x": 1.3,
+     "z": 1.6,
+     "w": 3.8,
+     "d": 3.2,
+     "face": "N",
+     "pri": 2,
+     "floor": true,
+     "parent": "sectional_1"
+    },
+    {
+     "id": "armchair_1",
+     "type": "armchair",
+     "label": "Curved beige lounge chair",
+     "x": 0.2,
+     "z": 2.5,
+     "w": 0.9,
+     "d": 0.9,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 2,
+     "shape": "round"
+    },
+    {
+     "id": "pouf_1",
+     "type": "pouf",
+     "label": "Olive tufted round pouf",
+     "x": 0.6,
+     "z": 4.3,
+     "w": 0.8,
+     "d": 0.8,
+     "walls": [],
+     "face": "E",
+     "pri": 2,
+     "shape": "round"
+    },
+    {
+     "id": "plant_1",
+     "type": "plant",
+     "label": "Potted olive tree",
+     "x": 5.6,
+     "z": 0.3,
+     "w": 0.7,
+     "d": 0.7,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 3,
+     "shape": "round"
+    },
+    {
+     "id": "plant_2",
+     "type": "plant",
+     "label": "West wall potted plant",
+     "x": 0.1,
+     "z": 1.2,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 3,
+     "shape": "round"
+    }
+   ],
+   "swatches": [
+    "#805f41",
+    "#9c7858",
+    "#27180a",
+    "#563a20",
+    "#be9c7a",
+    "#d6d5d2"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 21.6,
+    "attempts": 1,
+    "source_file": "L2.jpg",
+    "hand_estimate_was": {
+     "w": 5.5,
+     "d": 5.0,
+     "conf": 0.66,
+     "ref": "TV is about 75 in (1.66 m wide)"
+    }
+   }
+  },
+  {
+   "id": "L3",
+   "cat": "living",
+   "file": "L3.jpg",
+   "title": "Gilded Timber Media",
+   "vibe": "Dark gold-flecked slate and reclaimed wood lit by warm hidden LEDs and candlelight",
+   "palette": {
+    "floor": "#805e42",
+    "floor2": "#664b35",
+    "style": "wood",
+    "cab": "#4a3222",
+    "top": "#5c3e2a",
+    "accent": "#c58b38",
+    "soft": "#4f321e",
+    "rug": "#2d2824",
+    "metal": "#8c6d46",
+    "glow": "#f2ab68",
+    "wall": "#41342a"
+   },
+   "gauged": {
+    "w": 3.8,
+    "d": 3.2,
+    "conf": 0.35,
+    "ref": "65-inch wall-mounted TV (1.65 m diagonal, ~1.45 m wide)"
+   },
+   "items": [
+    {
+     "id": "tv_1",
+     "type": "tv",
+     "label": "Media Wall & Timber Bench",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 3.8,
+     "d": 0.6,
+     "walls": [
+      "N",
+      "W",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "shape": "built"
+    },
+    {
+     "id": "rug_1",
+     "type": "rug",
+     "label": "Patterned Area Rug",
+     "x": 0.6,
+     "z": 1.1,
+     "w": 2.6,
+     "d": 1.8,
+     "face": "N",
+     "pri": 2,
+     "floor": true
+    },
+    {
+     "id": "coffee_1",
+     "type": "coffee",
+     "label": "Round Bronze Drum Table",
+     "x": 2.4,
+     "z": 1.5,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [],
+     "face": "N",
+     "pri": 2,
+     "shape": "round",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    }
+   ],
+   "swatches": [
+    "#483527",
+    "#130c07",
+    "#312015",
+    "#644a35",
+    "#8d6443",
+    "#c68e59"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 16.8,
+    "attempts": 1,
+    "source_file": "L3.jpg",
+    "hand_estimate_was": {
+     "w": 4.5,
+     "d": 4.0,
+     "conf": 0.58,
+     "ref": "TV is about 65 in (1.44 m wide)"
+    }
+   }
+  },
+  {
+   "id": "L4",
+   "cat": "living",
+   "file": "L4.jpg",
+   "title": "Moody Botanical Living",
+   "vibe": "Dark matte walls, slatted wood ceiling, lush indoor plants, olive velvet, and warm candlelight",
+   "palette": {
+    "floor": "#6c5f50",
+    "floor2": "#564c40",
+    "style": "tile",
+    "cab": "#3d2b1f",
+    "top": "#4a3728",
+    "accent": "#8c5a32",
+    "soft": "#3f4627",
+    "rug": "#755d47",
+    "metal": "#1c1e1d",
+    "glow": "#f2ab68",
+    "wall": "#1f190c"
+   },
+   "gauged": {
+    "w": 4.4,
+    "d": 5.6,
+    "conf": 0.72,
+    "ref": "sectional sofa seat depth 1.0 m"
+   },
+   "items": [
+    {
+     "id": "fire1",
+     "type": "fire",
+     "label": "Linear fireplace and stone hearth",
+     "x": 2.2,
+     "z": 0.0,
+     "w": 1.7,
+     "d": 0.6,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.85,
+     "shape": "built"
+    },
+    {
+     "id": "cab1",
+     "type": "tv",
+     "label": "East built-in console and shelving",
+     "x": 3.95,
+     "z": 0.8,
+     "w": 0.45,
+     "d": 4.4,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 2,
+     "stretch": true,
+     "minw": 1.6,
+     "shape": "built"
+    },
+    {
+     "id": "sec1",
+     "type": "sectional",
+     "label": "Olive velvet L-shaped sectional",
+     "x": 0.0,
+     "z": 1.8,
+     "w": 3.1,
+     "d": 1.8,
+     "walls": [
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "alt": {
+      "type": "sofa",
+      "len": 2.2,
+      "dep": 0.95,
+      "label": "2.2 m three-seat sofa"
+     }
+    },
+    {
+     "id": "cof1",
+     "type": "coffee",
+     "label": "Round dark wood coffee table",
+     "x": 1.35,
+     "z": 3.65,
+     "w": 1.1,
+     "d": 1.1,
+     "walls": [],
+     "face": "N",
+     "pri": 1,
+     "shape": "round",
+     "parent": "sec1",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    },
+    {
+     "id": "rug1",
+     "type": "rug",
+     "label": "Textured woven brown area rug",
+     "x": 0.6,
+     "z": 2.5,
+     "w": 2.8,
+     "d": 2.4,
+     "face": "N",
+     "pri": 2,
+     "floor": true,
+     "parent": "sec1"
+    },
+    {
+     "id": "plt1",
+     "type": "plant",
+     "label": "Tall indoor tree in corner",
+     "x": 0.1,
+     "z": 0.1,
+     "w": 1.1,
+     "d": 1.1,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 3
+    },
+    {
+     "id": "plt2",
+     "type": "plant",
+     "label": "Foreground monstera plant",
+     "x": 0.0,
+     "z": 4.6,
+     "w": 0.8,
+     "d": 0.8,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 3
+    }
+   ],
+   "swatches": [
+    "#231809",
+    "#0c0a04",
+    "#342b14",
+    "#52381b",
+    "#6e4e2d",
+    "#9e7146"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 33.1,
+    "attempts": 1,
+    "source_file": "L4.jpg",
+    "hand_estimate_was": {
+     "w": 5.0,
+     "d": 4.5,
+     "conf": 0.6,
+     "ref": "sofa seat depth 0.60 m and 0.45 m seat height"
+    }
+   }
+  },
+  {
+   "id": "Be1",
+   "cat": "bedroom",
+   "file": "Be1.jpg",
+   "title": "Warm Amber Suite",
+   "vibe": "Warm walnut slats, taupe upholstery, light oak flooring, and layered amber cove lighting",
+   "palette": {
+    "floor": "#755338",
+    "floor2": "#5e422d",
+    "style": "wood",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f3b173",
+    "wall": "#7a533b"
+   },
+   "gauged": {
+    "w": 5.6,
+    "d": 8.6,
+    "conf": 0.78,
+    "ref": "king bed ~2.0 m wide"
+   },
+   "items": [
+    {
+     "id": "bed",
+     "type": "bed",
+     "label": "Platform Bed",
+     "x": 0.0,
+     "z": 2.8,
+     "w": 2.3,
+     "d": 2.0,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.4,
+      "dep": 2.0,
+      "label": "1.4 m double bed"
+     }
+    },
+    {
+     "id": "tv",
+     "type": "tv",
+     "label": "Media Wall TV",
+     "x": 5.15,
+     "z": 2.4,
+     "w": 0.45,
+     "d": 3.0,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.5
+    },
+    {
+     "id": "rug_bed",
+     "type": "rug",
+     "label": "Bedroom Area Rug",
+     "x": 0.4,
+     "z": 2.2,
+     "w": 3.5,
+     "d": 3.2,
+     "face": "E",
+     "pri": 2,
+     "floor": true,
+     "parent": "bed"
+    },
+    {
+     "id": "tall",
+     "type": "tall",
+     "label": "Display Shelving",
+     "x": 4.9,
+     "z": 0.0,
+     "w": 0.7,
+     "d": 1.2,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "W",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    },
+    {
+     "id": "armchair_1",
+     "type": "armchair",
+     "label": "Window Armchair West",
+     "x": 1.5,
+     "z": 0.4,
+     "w": 0.9,
+     "d": 0.9,
+     "walls": [],
+     "face": "E",
+     "pri": 2
+    },
+    {
+     "id": "armchair_2",
+     "type": "armchair",
+     "label": "Window Armchair East",
+     "x": 3.2,
+     "z": 0.4,
+     "w": 0.9,
+     "d": 0.9,
+     "walls": [],
+     "face": "W",
+     "pri": 2
+    },
+    {
+     "id": "sofa",
+     "type": "sofa",
+     "label": "Curved Lounge Sofa",
+     "x": 0.5,
+     "z": 6.9,
+     "w": 2.6,
+     "d": 1.5,
+     "walls": [],
+     "face": "N",
+     "pri": 2,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "coffee",
+     "type": "coffee",
+     "label": "Round Coffee Table",
+     "x": 1.2,
+     "z": 5.5,
+     "w": 1.0,
+     "d": 1.0,
+     "walls": [],
+     "face": "N",
+     "pri": 2,
+     "shape": "round",
+     "parent": "sofa",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    }
+   ],
+   "swatches": [
+    "#65422d",
+    "#80573d",
+    "#432b1c",
+    "#a57452",
+    "#1e130d",
+    "#ddb28a"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 20.8,
+    "attempts": 1,
+    "source_file": "Be1.jpg",
+    "hand_estimate_was": {
+     "w": 5.0,
+     "d": 7.0,
+     "conf": 0.6,
+     "ref": "king bed 2.0 m wide"
+    }
+   }
+  },
+  {
+   "id": "Be2",
+   "cat": "bedroom",
+   "file": "Be2.jpg",
+   "title": "Ethereal Cloud Suite",
+   "vibe": "Plush cream boucle, sculpted cloud ceiling, and warm LED cove lighting.",
+   "palette": {
+    "floor": "#977d66",
+    "floor2": "#796452",
+    "style": "carpet",
+    "cab": "#e8dfd5",
+    "top": "#f2ebe3",
+    "accent": "#f4c995",
+    "soft": "#f5efe8",
+    "rug": "#e5dcd1",
+    "metal": "#d4c4b5",
+    "glow": "#f4b982",
+    "wall": "#ae7f5f"
+   },
+   "gauged": {
+    "w": 4.8,
+    "d": 5.2,
+    "conf": 0.75,
+    "ref": "round platform bed ~2.5 m diameter"
+   },
+   "items": [
+    {
+     "id": "bed1",
+     "type": "bed",
+     "label": "Round Cloud Platform Bed",
+     "x": 0.0,
+     "z": 1.4,
+     "w": 2.5,
+     "d": 2.5,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "shape": "round"
+    },
+    {
+     "id": "ns1",
+     "type": "nightstand",
+     "label": "North Round Nightstand",
+     "x": 0.0,
+     "z": 0.85,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 2,
+     "shape": "round"
+    },
+    {
+     "id": "ns2",
+     "type": "nightstand",
+     "label": "South Round Nightstand",
+     "x": 0.0,
+     "z": 3.95,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 2,
+     "shape": "round"
+    },
+    {
+     "id": "shelf1",
+     "type": "tall",
+     "label": "Arched Recessed Shelving",
+     "x": 1.5,
+     "z": 0.0,
+     "w": 1.1,
+     "d": 0.4,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true,
+     "shape": "built"
+    },
+    {
+     "id": "chair1",
+     "type": "armchair",
+     "label": "Curved Boucle Armchair",
+     "x": 3.5,
+     "z": 0.8,
+     "w": 1.0,
+     "d": 1.0,
+     "walls": [],
+     "face": "W",
+     "pri": 2,
+     "shape": "round"
+    },
+    {
+     "id": "coffee1",
+     "type": "coffee",
+     "label": "Round Side Table",
+     "x": 4.1,
+     "z": 1.9,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [],
+     "face": "W",
+     "pri": 3,
+     "shape": "round",
+     "parent": "chair1",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    },
+    {
+     "id": "pouf1",
+     "type": "pouf",
+     "label": "Sculpted Cloud Pouf",
+     "x": 2.6,
+     "z": 4.0,
+     "w": 0.9,
+     "d": 0.9,
+     "walls": [],
+     "face": "N",
+     "pri": 3,
+     "shape": "round"
+    },
+    {
+     "id": "rug1",
+     "type": "rug",
+     "label": "Round Plush Area Rug",
+     "x": 0.5,
+     "z": 1.5,
+     "w": 3.6,
+     "d": 3.6,
+     "face": "N",
+     "pri": 2,
+     "floor": true,
+     "shape": "round",
+     "parent": "bed1"
+    }
+   ],
+   "swatches": [
+    "#a57b62",
+    "#906951",
+    "#79563e",
+    "#c1906d",
+    "#e7ba90",
+    "#39363b"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 45.4,
+    "attempts": 1,
+    "source_file": "Be2.jpg",
+    "hand_estimate_was": {
+     "w": 5.0,
+     "d": 5.0,
+     "conf": 0.63,
+     "ref": "round bed about 2.4 m across"
+    }
+   }
+  },
+  {
+   "id": "Be3",
+   "cat": "bedroom",
+   "file": "Be3.jpg",
+   "title": "Celestial Cozy Nook",
+   "vibe": "Warm wood, cream bedding, LED cove lighting, and soft ambient lamps.",
+   "palette": {
+    "floor": "#6f4c32",
+    "floor2": "#593d28",
+    "style": "wood",
+    "cab": "#8b6343",
+    "top": "#e6dcd0",
+    "accent": "#b88a56",
+    "soft": "#d8cbb8",
+    "rug": "#cfc2ae",
+    "metal": "#a87e4c",
+    "glow": "#f3b56b",
+    "wall": "#704625"
+   },
+   "gauged": {
+    "w": 3.3,
+    "d": 3.4,
+    "conf": 0.72,
+    "ref": "queen bed 1.52 m wide"
+   },
+   "items": [
+    {
+     "id": "bed1",
+     "type": "bed",
+     "label": "Queen Bed",
+     "x": 0.0,
+     "z": 0.75,
+     "w": 2.0,
+     "d": 1.55,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.4,
+      "dep": 2.0,
+      "label": "1.4 m double bed"
+     }
+    },
+    {
+     "id": "ns1",
+     "type": "nightstand",
+     "label": "North Nightstand",
+     "x": 0.0,
+     "z": 0.1,
+     "w": 0.45,
+     "d": 0.55,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 2,
+     "parent": "bed1"
+    },
+    {
+     "id": "ns2",
+     "type": "nightstand",
+     "label": "South Nightstand",
+     "x": 0.0,
+     "z": 2.4,
+     "w": 0.55,
+     "d": 0.65,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 2,
+     "parent": "bed1"
+    },
+    {
+     "id": "winseat1",
+     "type": "seat",
+     "label": "Circular Window Nook",
+     "x": 0.9,
+     "z": 0.0,
+     "w": 1.4,
+     "d": 0.55,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.7,
+     "shape": "built"
+    },
+    {
+     "id": "shelf1",
+     "type": "tall",
+     "label": "Curved Wall Shelf",
+     "x": 2.35,
+     "z": 0.0,
+     "w": 0.9,
+     "d": 0.45,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true,
+     "shape": "built"
+    },
+    {
+     "id": "rug1",
+     "type": "rug",
+     "label": "Foreground Flower Rug",
+     "x": 1.7,
+     "z": 2.45,
+     "w": 1.0,
+     "d": 0.9,
+     "face": "N",
+     "pri": 3,
+     "floor": true,
+     "shape": "round",
+     "parent": "bed1"
+    },
+    {
+     "id": "rug2",
+     "type": "rug",
+     "label": "Side Flower Rug",
+     "x": 2.3,
+     "z": 1.55,
+     "w": 0.85,
+     "d": 0.8,
+     "face": "N",
+     "pri": 3,
+     "floor": true,
+     "shape": "round",
+     "parent": "bed1"
+    }
+   ],
+   "swatches": [
+    "#5a361e",
+    "#784d30",
+    "#3f210d",
+    "#1b120e",
+    "#b47843",
+    "#eeb571"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 39.6,
+    "attempts": 1,
+    "source_file": "Be3.jpg",
+    "hand_estimate_was": {
+     "w": 3.6,
+     "d": 3.8,
+     "conf": 0.69,
+     "ref": "double bed 1.4 to 1.6 m wide"
+    }
+   }
+  },
+  {
+   "id": "Be7",
+   "cat": "bedroom",
+   "file": "Be7.jpeg",
+   "title": "Warm Boho Glow",
+   "vibe": "Cream linen bedding, dusty terracotta accents, warm wood shelf, and glowing neon and fairy lights.",
+   "palette": {
+    "floor": "#a07557",
+    "floor2": "#805e46",
+    "style": "wood",
+    "cab": "#e8e3da",
+    "top": "#ece7df",
+    "accent": "#b88473",
+    "soft": "#e5ded2",
+    "rug": "#d8cfc2",
+    "metal": "#b58d4c",
+    "glow": "#f6ca96",
+    "wall": "#b2947a"
+   },
+   "gauged": {
+    "w": 3.0,
+    "d": 3.5,
+    "conf": 0.35,
+    "ref": "queen bed 1.52 m wide"
+   },
+   "items": [
+    {
+     "id": "bed_1",
+     "type": "bed",
+     "label": "Queen Bed",
+     "x": 0.85,
+     "z": 0.0,
+     "w": 1.52,
+     "d": 2.05,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "alt": {
+      "len": 1.4,
+      "dep": 2.0,
+      "label": "1.4 m double bed"
+     }
+    },
+    {
+     "id": "nightstand_1",
+     "type": "nightstand",
+     "label": "Three-Drawer Nightstand",
+     "x": 0.25,
+     "z": 0.0,
+     "w": 0.55,
+     "d": 0.45,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2
+    }
+   ],
+   "swatches": [
+    "#b6967b",
+    "#c2a994",
+    "#a27d5e",
+    "#825c3c",
+    "#4b3218",
+    "#e2c9ab"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 13.5,
+    "attempts": 1,
+    "source_file": "Be7.jpeg"
+   }
+  },
+  {
+   "id": "Be6",
+   "cat": "bedroom",
+   "file": "Be6.jpeg",
+   "title": "Sunny Attic Bedroom",
+   "vibe": "Warm natural wood, creamy linen bedding, and abundant trailing plants in soft daylight",
+   "palette": {
+    "floor": "#8d6d50",
+    "floor2": "#715740",
+    "style": "wood",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f7e6a7",
+    "wall": "#928a77"
+   },
+   "gauged": {
+    "w": 3.1,
+    "d": 3.2,
+    "conf": 0.65,
+    "ref": "queen bed 1.52 m wide"
+   },
+   "items": [
+    {
+     "id": "bed1",
+     "type": "bed",
+     "label": "Wood platform bed",
+     "x": 1.55,
+     "z": 0.0,
+     "w": 1.55,
+     "d": 2.25,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "alt": {
+      "len": 1.4,
+      "dep": 2.0,
+      "label": "1.4 m double bed"
+     }
+    },
+    {
+     "id": "rug1",
+     "type": "rug",
+     "label": "Sheepskin rug",
+     "x": 0.9,
+     "z": 1.55,
+     "w": 0.65,
+     "d": 1.1,
+     "face": "W",
+     "pri": 3,
+     "floor": true,
+     "parent": "bed1"
+    },
+    {
+     "id": "stand1",
+     "type": "nightstand",
+     "label": "Folding wood plant table",
+     "x": 0.48,
+     "z": 0.05,
+     "w": 0.45,
+     "d": 0.35,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2
+    },
+    {
+     "id": "plant1",
+     "type": "plant",
+     "label": "Floor plant on stand",
+     "x": 0.05,
+     "z": 0.85,
+     "w": 0.35,
+     "d": 0.35,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 3
+    }
+   ],
+   "swatches": [
+    "#9b8f7e",
+    "#644629",
+    "#7d6d55",
+    "#baafa0",
+    "#302012",
+    "#d9d5c6"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 13.9,
+    "attempts": 1,
+    "source_file": "Be6.jpeg"
+   }
+  },
+  {
+   "id": "B5",
+   "cat": "bathroom",
+   "file": "B5.jpeg",
+   "title": "Warm Travertine Bath",
+   "vibe": "Creamy veined marble, fluted warm oak, and brushed brass under recessed LED niche lighting",
+   "palette": {
+    "floor": "#d1c7b8",
+    "floor2": "#a79f93",
+    "style": "marble",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f7d2a0",
+    "wall": "#a29382"
+   },
+   "gauged": {
+    "w": 2.8,
+    "d": 2.3,
+    "conf": 0.75,
+    "ref": "wall-hung toilet 0.55 m deep"
+   },
+   "items": [
+    {
+     "id": "vanity_1",
+     "type": "vanity",
+     "label": "Floating marble vanity",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 0.95,
+     "d": 0.5,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "toilet_1",
+     "type": "toilet",
+     "label": "Wall-hung toilet",
+     "x": 1.18,
+     "z": 0.0,
+     "w": 0.4,
+     "d": 0.55,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1
+    },
+    {
+     "id": "shower_1",
+     "type": "shower",
+     "label": "Glass walk-in shower",
+     "x": 1.8,
+     "z": 0.0,
+     "w": 1.0,
+     "d": 1.2,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true,
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    }
+   ],
+   "swatches": [
+    "#b0a494",
+    "#a0917f",
+    "#c0b7ac",
+    "#8b7a66",
+    "#d3cdc5",
+    "#6a5541"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 13.9,
+    "attempts": 1,
+    "source_file": "B5.jpeg"
+   }
+  },
+  {
+   "id": "B6",
+   "cat": "bathroom",
+   "file": "B6.jpeg",
+   "title": "Warm Brass Marble",
+   "vibe": "Cream walls and white marble paired with brushed brass fixtures, fluted sconces, and a crystal chandelier.",
+   "palette": {
+    "floor": "#d2cdc9",
+    "floor2": "#a8a4a1",
+    "style": "marble",
+    "cab": "#e5dcd0",
+    "top": "#f2efe9",
+    "accent": "#9e7b56",
+    "soft": "#e8e2d8",
+    "rug": "#e8e2d8",
+    "metal": "#b8925a",
+    "glow": "#f2b268",
+    "wall": "#b7ab9a"
+   },
+   "gauged": {
+    "w": 2.7,
+    "d": 2.8,
+    "conf": 0.78,
+    "ref": "toilet (0.70 m deep)"
+   },
+   "items": [
+    {
+     "id": "vanity_1",
+     "type": "vanity",
+     "label": "Floating Vanity",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 1.8,
+     "d": 0.6,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.9,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "shower_1",
+     "type": "shower",
+     "label": "Glass Shower",
+     "x": 1.8,
+     "z": 0.0,
+     "w": 0.9,
+     "d": 1.7,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.85,
+     "tall": true,
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "toilet_1",
+     "type": "toilet",
+     "label": "Wall-Hung Toilet",
+     "x": 0.0,
+     "z": 0.72,
+     "w": 0.7,
+     "d": 0.4,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1
+    }
+   ],
+   "swatches": [
+    "#b8ada0",
+    "#ac9a85",
+    "#c2beba",
+    "#d1d4df",
+    "#927862",
+    "#5a4437"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 15.3,
+    "attempts": 1,
+    "source_file": "B6.jpeg"
+   }
+  },
+  {
+   "id": "B7",
+   "cat": "bathroom",
+   "file": "B7.jpeg",
+   "title": "Warm Stone Spa",
+   "vibe": "Beige stone tiles with matte black fixtures, fluted cabinetry, and warm indirect lighting.",
+   "palette": {
+    "floor": "#b19d89",
+    "floor2": "#8e7e6e",
+    "style": "tile",
+    "cab": "#21201f",
+    "top": "#cbbba6",
+    "accent": "#1c1b1a",
+    "soft": "#e5e1da",
+    "rug": "#a69787",
+    "metal": "#181818",
+    "glow": "#f4b980",
+    "wall": "#8d775f"
+   },
+   "gauged": {
+    "w": 2.3,
+    "d": 2.5,
+    "conf": 0.78,
+    "ref": "wall-mounted toilet and vanity counter depth"
+   },
+   "items": [
+    {
+     "id": "vanity_1",
+     "type": "vanity",
+     "label": "Fluted vanity with vessel sink",
+     "x": 0.0,
+     "z": 0.55,
+     "w": 0.55,
+     "d": 1.6,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.8,
+     "feat": "sink",
+     "alt": {
+      "len": 0.7,
+      "dep": 0.48,
+      "label": "0.7 m vanity"
+     }
+    },
+    {
+     "id": "plant_1",
+     "type": "plant",
+     "label": "Tall potted plant",
+     "x": 0.02,
+     "z": 0.02,
+     "w": 0.42,
+     "d": 0.42,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 3,
+     "shape": "round"
+    },
+    {
+     "id": "toilet_1",
+     "type": "toilet",
+     "label": "Wall-hung toilet",
+     "x": 0.72,
+     "z": 0.0,
+     "w": 0.4,
+     "d": 0.58,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6
+    },
+    {
+     "id": "shower_1",
+     "type": "shower",
+     "label": "Glass walk-in shower",
+     "x": 1.3,
+     "z": 0.0,
+     "w": 1.0,
+     "d": 1.05,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true,
+     "alt": {
+      "len": 0.9,
+      "dep": 0.9,
+      "label": "0.9 m shower"
+     }
+    },
+    {
+     "id": "rug_1",
+     "type": "rug",
+     "label": "Plush bath mat",
+     "x": 0.7,
+     "z": 1.2,
+     "w": 1.0,
+     "d": 1.1,
+     "face": "S",
+     "pri": 2,
+     "floor": true
+    }
+   ],
+   "swatches": [
+    "#bfa388",
+    "#a4886a",
+    "#201912",
+    "#d3baa2",
+    "#826a50",
+    "#4f4232"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 20.0,
+    "attempts": 1,
+    "source_file": "B7.jpeg"
+   }
+  },
+  {
+   "id": "K5",
+   "cat": "kitchen",
+   "file": "K5.jpg",
+   "title": "Sage Farmhouse Kitchen",
+   "vibe": "Sage green cabinetry, warm oak butcher block, subway tile, and soft natural window light",
+   "palette": {
+    "floor": "#948e88",
+    "floor2": "#76726d",
+    "style": "tile",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#fbcfcf",
+    "wall": "#aaa38e"
+   },
+   "gauged": {
+    "w": 2.8,
+    "d": 2.4,
+    "conf": 0.45,
+    "ref": "counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "c1",
+     "type": "counter",
+     "label": "Sink Counter Run",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 2.8,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.4,
+     "feat": "sink"
+    },
+    {
+     "id": "r1",
+     "type": "rug",
+     "label": "Cream Fringed Kitchen Mat",
+     "x": 1.05,
+     "z": 0.68,
+     "w": 0.9,
+     "d": 0.55,
+     "face": "S",
+     "pri": 3,
+     "floor": true
+    }
+   ],
+   "swatches": [
+    "#6f6250",
+    "#a79c8d",
+    "#8a7e6c",
+    "#c3c0bb",
+    "#4d3927",
+    "#e6e5e5"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 11.2,
+    "attempts": 1,
+    "source_file": "K5.jpg"
+   }
+  },
+  {
+   "id": "K7",
+   "cat": "kitchen",
+   "file": "K7.jpeg",
+   "title": "Classic Cream Kitchen",
+   "vibe": "Cream paneled cabinetry, veined marble counters, brass hardware, and a crystal chandelier over warm wood floors.",
+   "palette": {
+    "floor": "#9d8670",
+    "floor2": "#7e6b5a",
+    "style": "wood",
+    "cab": "#e8e3d9",
+    "top": "#e5e3df",
+    "accent": "#c99aa0",
+    "soft": "#d8d2c7",
+    "rug": "#8c8273",
+    "metal": "#b89452",
+    "glow": "#f2b768",
+    "wall": "#a18d74"
+   },
+   "gauged": {
+    "w": 4.0,
+    "d": 4.9,
+    "conf": 0.65,
+    "ref": "base counter depth 0.62 m"
+   },
+   "items": [
+    {
+     "id": "counter_west",
+     "type": "counter",
+     "label": "West cooktop counter run",
+     "x": 0.0,
+     "z": 0.7,
+     "w": 0.62,
+     "d": 3.5,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6,
+     "feat": "hob"
+    },
+    {
+     "id": "island_main",
+     "type": "island",
+     "label": "Marble sink island",
+     "x": 1.75,
+     "z": 1.4,
+     "w": 1.05,
+     "d": 2.8,
+     "walls": [],
+     "face": "W",
+     "pri": 1,
+     "feat": "sink",
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "island cut to 1.7 m with 2 stools"
+     }
+    },
+    {
+     "id": "tall_north",
+     "type": "tall",
+     "label": "Built-in oven tower",
+     "x": 0.85,
+     "z": 0.0,
+     "w": 0.9,
+     "d": 0.65,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2,
+     "stretch": true,
+     "minw": 0.6,
+     "tall": true
+    },
+    {
+     "id": "rug_runner",
+     "type": "rug",
+     "label": "Woven runner rug",
+     "x": 3.0,
+     "z": 1.5,
+     "w": 0.8,
+     "d": 2.6,
+     "face": "W",
+     "pri": 3,
+     "floor": true
+    }
+   ],
+   "swatches": [
+    "#a8957e",
+    "#907f6a",
+    "#756652",
+    "#c6c7c9",
+    "#c8b090",
+    "#413724"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 16.0,
+    "attempts": 1,
+    "source_file": "K7.jpeg"
+   }
+  },
+  {
+   "id": "K6",
+   "cat": "kitchen",
+   "file": "K6.jpeg",
+   "title": "Gothic Revival Kitchen",
+   "vibe": "Cream gothic cabinetry, dark granite counters, cobalt diamond tile backsplash, and hanging iron lanterns",
+   "palette": {
+    "floor": "#908f8d",
+    "floor2": "#737271",
+    "style": "tile",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#d9fbd9",
+    "wall": "#acaaa1"
+   },
+   "gauged": {
+    "w": 4.8,
+    "d": 5.0,
+    "conf": 0.72,
+    "ref": "0.62 m perimeter counter depth"
+   },
+   "items": [
+    {
+     "id": "island_1",
+     "type": "island",
+     "label": "Center prep island",
+     "x": 1.7,
+     "z": 1.6,
+     "w": 1.4,
+     "d": 2.4,
+     "walls": [],
+     "face": "S",
+     "pri": 1,
+     "feat": "sink",
+     "alt": {
+      "len": 1.7,
+      "n": 2,
+      "label": "island cut to 1.7 m with 2 stools"
+     }
+    },
+    {
+     "id": "counter_w",
+     "type": "counter",
+     "label": "West wall counter run",
+     "x": 0.0,
+     "z": 0.0,
+     "w": 0.62,
+     "d": 5.0,
+     "walls": [
+      "W",
+      "N"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6
+    },
+    {
+     "id": "counter_e",
+     "type": "counter",
+     "label": "East wall counter run",
+     "x": 4.18,
+     "z": 0.0,
+     "w": 0.62,
+     "d": 5.0,
+     "walls": [
+      "E",
+      "N"
+     ],
+     "face": "W",
+     "pri": 1,
+     "stretch": true,
+     "minw": 1.6
+    },
+    {
+     "id": "counter_nw",
+     "type": "counter",
+     "label": "North-west counter return",
+     "x": 0.62,
+     "z": 0.0,
+     "w": 1.0,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6
+    },
+    {
+     "id": "counter_ne",
+     "type": "counter",
+     "label": "North-east counter return",
+     "x": 3.18,
+     "z": 0.0,
+     "w": 1.0,
+     "d": 0.62,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6
+    }
+   ],
+   "swatches": [
+    "#a4a4a1",
+    "#8a8a87",
+    "#c1c2c1",
+    "#676662",
+    "#eaebea",
+    "#3e3835"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 16.3,
+    "attempts": 1,
+    "source_file": "K6.jpeg"
+   }
+  },
+  {
+   "id": "L5",
+   "cat": "living",
+   "file": "L5.jpg",
+   "title": "Cozy Fairy Lounge",
+   "vibe": "Warm fairy-lit space with cream floral textiles, white bookshelves, and potted greenery",
+   "palette": {
+    "floor": "#684b2b",
+    "floor2": "#533c22",
+    "style": "wood",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f2d468",
+    "wall": "#645523"
+   },
+   "gauged": {
+    "w": 3.6,
+    "d": 4.6,
+    "conf": 0.55,
+    "ref": "single daybed 0.95 m wide"
+   },
+   "items": [
+    {
+     "id": "sofa_1",
+     "type": "sofa",
+     "label": "Daybed",
+     "x": 2.65,
+     "z": 1.0,
+     "w": 0.95,
+     "d": 2.0,
+     "walls": [
+      "E"
+     ],
+     "face": "W",
+     "pri": 1,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "sofa_2",
+     "type": "sofa",
+     "label": "Floor Futon",
+     "x": 0.0,
+     "z": 2.4,
+     "w": 1.6,
+     "d": 1.9,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.8,
+      "dep": 0.9,
+      "label": "1.8 m sofa"
+     }
+    },
+    {
+     "id": "armchair_1",
+     "type": "armchair",
+     "label": "Wooden Chair",
+     "x": 0.0,
+     "z": 1.5,
+     "w": 0.6,
+     "d": 0.6,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 2
+    },
+    {
+     "id": "coffee_1",
+     "type": "coffee",
+     "label": "Small Side Table",
+     "x": 1.75,
+     "z": 0.1,
+     "w": 0.55,
+     "d": 0.55,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 2,
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    },
+    {
+     "id": "plant_1",
+     "type": "plant",
+     "label": "Corner Plants",
+     "x": 3.1,
+     "z": 0.1,
+     "w": 0.45,
+     "d": 0.45,
+     "walls": [
+      "N",
+      "E"
+     ],
+     "face": "S",
+     "pri": 3,
+     "shape": "round"
+    },
+    {
+     "id": "plant_2",
+     "type": "plant",
+     "label": "Window Plants",
+     "x": 0.1,
+     "z": 0.1,
+     "w": 0.45,
+     "d": 0.45,
+     "walls": [
+      "N",
+      "W"
+     ],
+     "face": "S",
+     "pri": 3,
+     "shape": "round"
+    }
+   ],
+   "swatches": [
+    "#5f4f26",
+    "#31230a",
+    "#473917",
+    "#75653c",
+    "#150d05",
+    "#a2966b"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 16.9,
+    "attempts": 1,
+    "source_file": "L5.jpg"
+   }
+  },
+  {
+   "id": "Be4",
+   "cat": "bedroom",
+   "file": "Be4.jpeg",
+   "title": "Boho Mustard Bedroom",
+   "vibe": "Light oak bed with floral pink linens, mustard knit throw, and bright daylight through sheer curtains",
+   "palette": {
+    "floor": "#a99587",
+    "floor2": "#87776c",
+    "style": "tile",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f2a468",
+    "wall": "#d6c8be"
+   },
+   "gauged": {
+    "w": 3.2,
+    "d": 3.3,
+    "conf": 0.65,
+    "ref": "queen bed 1.52 m wide"
+   },
+   "items": [
+    {
+     "id": "bed1",
+     "type": "bed",
+     "label": "Queen Bed",
+     "x": 0.0,
+     "z": 0.55,
+     "w": 2.05,
+     "d": 1.55,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "alt": {
+      "len": 1.4,
+      "dep": 2.0,
+      "label": "1.4 m double bed"
+     }
+    },
+    {
+     "id": "rug1",
+     "type": "rug",
+     "label": "Floral Rug",
+     "x": 0.25,
+     "z": 2.25,
+     "w": 1.65,
+     "d": 0.85,
+     "face": "N",
+     "pri": 2,
+     "floor": true,
+     "parent": "bed1"
+    },
+    {
+     "id": "plant1",
+     "type": "plant",
+     "label": "Corner Plant",
+     "x": 0.25,
+     "z": 0.05,
+     "w": 0.4,
+     "d": 0.4,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 3
+    }
+   ],
+   "swatches": [
+    "#e0cfc9",
+    "#d1b3a8",
+    "#b78476",
+    "#dae8ec",
+    "#ac642c",
+    "#684528"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 37.3,
+    "attempts": 1,
+    "source_file": "Be4.jpeg"
+   }
+  },
+  {
+   "id": "L6",
+   "cat": "living",
+   "file": "L6.jpeg",
+   "title": "Boho Gallery Living",
+   "vibe": "Soft daylight across warm neutral textiles, black fireplace, and gallery frames",
+   "palette": {
+    "floor": "#a4886c",
+    "floor2": "#836d56",
+    "style": "wood",
+    "cab": "#6b4a33",
+    "top": "#e6dccb",
+    "accent": "#222222",
+    "soft": "#e2d8c8",
+    "rug": "#cbbda4",
+    "metal": "#333333",
+    "glow": "#f9d8b6",
+    "wall": "#cbc2b6"
+   },
+   "gauged": {
+    "w": 3.8,
+    "d": 3.6,
+    "conf": 0.55,
+    "ref": "sectional sofa depth ~0.95 m"
+   },
+   "items": [
+    {
+     "id": "fire1",
+     "type": "fire",
+     "label": "Black Fireplace",
+     "x": 0.0,
+     "z": 1.15,
+     "w": 0.45,
+     "d": 1.15,
+     "walls": [
+      "W"
+     ],
+     "face": "E",
+     "pri": 1,
+     "stretch": true,
+     "minw": 0.6
+    },
+    {
+     "id": "sofa1",
+     "type": "sectional",
+     "label": "Grey Sectional Sofa",
+     "x": 0.95,
+     "z": 0.0,
+     "w": 2.55,
+     "d": 1.65,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 1,
+     "alt": {
+      "type": "sofa",
+      "len": 2.2,
+      "dep": 0.95,
+      "label": "2.2 m three-seat sofa"
+     }
+    },
+    {
+     "id": "coffee1",
+     "type": "coffee",
+     "label": "Round Wood Coffee Table",
+     "x": 1.4,
+     "z": 1.68,
+     "w": 0.5,
+     "d": 0.5,
+     "walls": [],
+     "face": "N",
+     "pri": 2,
+     "shape": "round",
+     "parent": "sofa1",
+     "alt": {
+      "len": 0.8,
+      "dep": 0.5,
+      "label": "0.8 m coffee table"
+     }
+    },
+    {
+     "id": "plant1",
+     "type": "plant",
+     "label": "Pampas Grass Vase",
+     "x": 0.45,
+     "z": 0.05,
+     "w": 0.4,
+     "d": 0.4,
+     "walls": [
+      "N"
+     ],
+     "face": "S",
+     "pri": 3,
+     "shape": "round"
+    },
+    {
+     "id": "rug1",
+     "type": "rug",
+     "label": "Moroccan Trellis Rug",
+     "x": 0.55,
+     "z": 0.95,
+     "w": 2.85,
+     "d": 2.4,
+     "face": "N",
+     "pri": 2,
+     "floor": true,
+     "parent": "sofa1"
+    }
+   ],
+   "swatches": [
+    "#c7bcae",
+    "#b2a391",
+    "#e1d8cf",
+    "#95826d",
+    "#645442",
+    "#2b1f17"
+   ],
+   "live": {
+    "model": "gemini-4-hydrogen",
+    "seconds": 23.8,
+    "attempts": 1,
+    "source_file": "L6.jpeg"
+   }
+  }
+ ],
+ "palette_note": "floor, wall, glow and swatches are sampled from the photo pixels (median of the bottom strip, median of the upper wall band, warmest dominant cluster, 6-colour median cut). Cabinet and upholstery colours are hand-picked."
+}

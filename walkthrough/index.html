@@ -1201,6 +1201,12 @@
       justify-content: flex-end;
       gap: 8px;
     }
+      body.embed #hud-top, body.embed #hud-bottom, body.embed #studio-overlay { display: none !important; }
+    /* opened from Homeweave Studio as its final step: no furniture-layout dock, no floor-plan / replay / notes buttons */
+    body.from-studio #orientation-dock, body.from-studio #toggle-view-btn, body.from-studio #replay-mover-btn, body.from-studio #specs-btn { display: none !important; }
+    body.embed { background: #131314; }
+    body.embed #loader { background: #131314 !important; color: #e3e3e3 !important; }
+    body.embed #loader * { color: #e3e3e3 !important; }
   </style>
   <script type="importmap">
     {
@@ -1212,6 +1218,10 @@
   </script>
 </head>
 <body>
+  <script>
+    if (location.search.includes("embed")) document.body.classList.add("embed");
+    if (location.search.includes("from=studio")) document.body.classList.add("from-studio");
+  </script>
   <div id="loader" role="status" aria-live="polite">
     <div id="loader-box">
       <h2 id="loader-title">Homeweave</h2>
@@ -3416,7 +3426,13 @@
       syncCutawayVisibility();
 
       const params = new URLSearchParams(window.location.search);
-      if (params.get("mode") === "walkthrough") {
+      if (params.get("embed")) {
+        // Shown inside Homeweave Studio as its final step: no second picker, no panels, same dark stage.
+        document.body.classList.add("embed");
+        openStudioOverlay(false);
+        finishLiveBuildInstantly();
+        try { scene.background = new THREE.Color(0x131314); if (scene.fog) scene.fog.color.set(0x131314); } catch (_) {}
+      } else if (params.get("mode") === "walkthrough") {
         openStudioOverlay(false);
         finishLiveBuildInstantly();
         setViewMode("POV");
