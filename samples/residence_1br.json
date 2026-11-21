@@ -1,0 +1,456 @@
+{
+  "home": {
+    "id": "new-home",
+    "source": "generated",
+    "rooms": [
+      {
+        "id": "new-living",
+        "type": "living",
+        "polygon": [[0.0, 0.0], [5.4, 0.0], [5.4, 4.4], [0.0, 4.4]],
+        "ceiling_height_m": 2.6,
+        "doors": [
+          {
+            "id": "new-door-entry",
+            "wall_index": 3,
+            "offset_m": 0.45,
+            "width_m": 0.86,
+            "swing": "inward_left",
+            "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-living"}
+          },
+          {
+            "id": "new-door-kitchen",
+            "wall_index": 1,
+            "offset_m": 0.6,
+            "width_m": 1.4,
+            "swing": "open",
+            "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-living"}
+          },
+          {
+            "id": "new-door-bed",
+            "wall_index": 2,
+            "offset_m": 1.1,
+            "width_m": 0.81,
+            "swing": "inward_right",
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bedroom"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "new-win-living-01",
+            "wall_index": 0,
+            "offset_m": 0.8,
+            "width_m": 3.6,
+            "sill_height_m": 0.55,
+            "height_m": 1.75,
+            "provenance": {"source": "plan", "photo_indices": [0]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "new-tv-wall-01",
+            "room_id": "new-living",
+            "type": "tv_wall",
+            "footprint": [[0.02, 1.5], [0.16, 1.5], [0.16, 3.3], [0.02, 3.3]],
+            "provenance": {"source": "photo:0", "photo_indices": [0]}
+          }
+        ],
+        "provenance": {"source": "weave_stage", "from_listing": "lst1", "from_room": "lst1-living"}
+      },
+      {
+        "id": "new-kitchen",
+        "type": "kitchen",
+        "polygon": [[5.4, 0.0], [8.8, 0.0], [8.8, 4.4], [5.4, 4.4]],
+        "ceiling_height_m": 2.6,
+        "doors": [
+          {
+            "id": "new-door-kitchen-open",
+            "wall_index": 3,
+            "offset_m": 2.4,
+            "width_m": 1.4,
+            "swing": "open",
+            "provenance": {"source": "plan", "from_listing": "lst1", "from_room": "lst1-kitchen"}
+          },
+          {
+            "id": "new-door-bath",
+            "wall_index": 2,
+            "offset_m": 1.1,
+            "width_m": 0.76,
+            "swing": "outward_left",
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bathroom"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "new-win-kitchen-01",
+            "wall_index": 0,
+            "offset_m": 0.7,
+            "width_m": 2.0,
+            "sill_height_m": 0.95,
+            "height_m": 1.35,
+            "provenance": {"source": "plan", "photo_indices": [2]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "new-counter-back",
+            "room_id": "new-kitchen",
+            "type": "counter",
+            "footprint": [[8.15, 0.1], [8.78, 0.1], [8.78, 3.8], [8.15, 3.8]],
+            "provenance": {"source": "plan", "photo_indices": [2]}
+          },
+          {
+            "id": "new-island-01",
+            "room_id": "new-kitchen",
+            "type": "island",
+            "footprint": [[6.45, 0.95], [7.25, 0.95], [7.25, 2.75], [6.45, 2.75]],
+            "provenance": {"source": "photo:2", "photo_indices": [2]}
+          }
+        ],
+        "provenance": {"source": "weave_stage", "from_listing": "lst1", "from_room": "lst1-kitchen"}
+      },
+      {
+        "id": "new-bedroom",
+        "type": "primary_bedroom",
+        "polygon": [[0.0, 4.4], [5.4, 4.4], [5.4, 8.2], [0.0, 8.2]],
+        "ceiling_height_m": 2.6,
+        "doors": [
+          {
+            "id": "new-door-bed-in",
+            "wall_index": 0,
+            "offset_m": 3.49,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bedroom"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "new-win-bed-01",
+            "wall_index": 2,
+            "offset_m": 1.1,
+            "width_m": 3.0,
+            "sill_height_m": 0.65,
+            "height_m": 1.65,
+            "provenance": {"source": "plan", "photo_indices": [4]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "new-closet-01",
+            "room_id": "new-bedroom",
+            "type": "closet",
+            "footprint": [[4.75, 4.5], [5.38, 4.5], [5.38, 6.5], [4.75, 6.5]],
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bedroom"}
+          }
+        ],
+        "provenance": {"source": "weave_stage", "from_listing": "lst2", "from_room": "lst2-bedroom"}
+      },
+      {
+        "id": "new-bathroom",
+        "type": "bathroom",
+        "polygon": [[5.4, 4.4], [8.8, 4.4], [8.8, 8.2], [5.4, 8.2]],
+        "ceiling_height_m": 2.6,
+        "doors": [
+          {
+            "id": "new-door-bath-in",
+            "wall_index": 0,
+            "offset_m": 1.54,
+            "width_m": 0.76,
+            "swing": "inward_right",
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bathroom"}
+          }
+        ],
+        "windows": [],
+        "fixtures": [
+          {
+            "id": "new-tub-01",
+            "room_id": "new-bathroom",
+            "type": "bath_tub",
+            "footprint": [[5.5, 7.35], [7.2, 7.35], [7.2, 8.12], [5.5, 8.12]],
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bathroom"}
+          },
+          {
+            "id": "new-vanity-01",
+            "room_id": "new-bathroom",
+            "type": "vanity",
+            "footprint": [[8.18, 5.2], [8.75, 5.2], [8.75, 6.6], [8.18, 6.6]],
+            "provenance": {"source": "plan", "from_listing": "lst2", "from_room": "lst2-bathroom"}
+          }
+        ],
+        "provenance": {"source": "weave_stage", "from_listing": "lst2", "from_room": "lst2-bathroom"}
+      }
+    ],
+    "fixtures": [],
+    "staging": [
+      {
+        "id": "new-stage-sofa",
+        "room_id": "new-living",
+        "category": "sofa",
+        "dims_m": {"w": 2.25, "d": 0.95, "h": 0.84},
+        "pose": {"x": 3.4, "z": 2.4, "rot_deg": 90.0},
+        "group_kind": "conversation",
+        "replaceable": true,
+        "provenance": {"source": "photo:0", "photo_indices": [0]}
+      },
+      {
+        "id": "new-stage-bed",
+        "room_id": "new-bedroom",
+        "category": "bed",
+        "dims_m": {"w": 1.65, "d": 2.1, "h": 1.05},
+        "pose": {"x": 1.15, "z": 6.3, "rot_deg": 270.0},
+        "group_kind": "sleep",
+        "replaceable": true,
+        "provenance": {"source": "photo:4", "photo_indices": [4]}
+      }
+    ],
+    "features": [],
+    "conflicts": [],
+    "scale_check": {
+      "method": "plan_labels",
+      "reference": "Merged 1BR Residence (72.2 m2 / 777 sq ft)",
+      "conflicts": [],
+      "provenance": {"source": "plan"}
+    },
+    "provenance": {"source": "weave_stage", "notes": "1BR composite residence"}
+  },
+  "inventory": {
+    "home_id": "src-home",
+    "rooms": [
+      {
+        "id": "src-living",
+        "type": "living",
+        "polygon": [[0.0, 0.0], [5.0, 0.0], [5.0, 4.2], [0.0, 4.2]],
+        "ceiling_height_m": 2.5,
+        "doors": [
+          {
+            "id": "src-door-01",
+            "wall_index": 3,
+            "offset_m": 0.4,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "video", "seen_at": ["00:04"]}
+          }
+        ],
+        "windows": [
+          {
+            "id": "src-win-01",
+            "wall_index": 0,
+            "offset_m": 1.0,
+            "width_m": 2.6,
+            "provenance": {"source": "video", "seen_at": ["00:09"]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "src-tv-wall-01",
+            "room_id": "src-living",
+            "type": "tv_wall",
+            "footprint": [[0.02, 1.4], [0.16, 1.4], [0.16, 3.0], [0.02, 3.0]],
+            "provenance": {"source": "video", "seen_at": ["00:18"]}
+          }
+        ],
+        "provenance": {"source": "video", "seen_at": ["00:00", "00:45"], "scale_ref": "src-door-01 = 0.81 m"}
+      },
+      {
+        "id": "src-bedroom",
+        "type": "primary_bedroom",
+        "polygon": [[0.0, 0.0], [4.6, 0.0], [4.6, 3.8], [0.0, 3.8]],
+        "ceiling_height_m": 2.5,
+        "doors": [
+          {
+            "id": "src-door-bed",
+            "wall_index": 0,
+            "offset_m": 3.2,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "video", "seen_at": ["00:52"]}
+          }
+        ],
+        "windows": [
+          {
+            "id": "src-win-bed",
+            "wall_index": 2,
+            "offset_m": 1.0,
+            "width_m": 2.2,
+            "provenance": {"source": "video", "seen_at": ["01:02"]}
+          }
+        ],
+        "fixtures": [],
+        "provenance": {"source": "video", "seen_at": ["00:50", "01:28"], "scale_ref": "src-door-bed = 0.81 m"}
+      }
+    ],
+    "items": [
+      {
+        "id": "src-sofa-01",
+        "room_id": "src-living",
+        "category": "sofa",
+        "dims_m": {"w": 2.25, "d": 0.94, "h": 0.84},
+        "pose": {"x": 3.55, "z": 2.2, "rot_deg": 90.0},
+        "front_dir": "toward_tv",
+        "against_wall": false,
+        "nearest_fixture": "tv_wall",
+        "group_id": "src-grp-conv",
+        "must_keep": true,
+        "confidence": 0.95,
+        "provenance": {"source": "video", "seen_at": ["00:12"], "scale_ref": "src-door-01 = 0.81 m"}
+      },
+      {
+        "id": "src-coffee-01",
+        "room_id": "src-living",
+        "category": "coffee_table",
+        "dims_m": {"w": 1.25, "d": 0.65, "h": 0.42},
+        "pose": {"x": 2.35, "z": 2.2, "rot_deg": 90.0},
+        "front_dir": "toward_tv",
+        "against_wall": false,
+        "nearest_fixture": null,
+        "group_id": "src-grp-conv",
+        "must_keep": true,
+        "confidence": 0.92,
+        "provenance": {"source": "video", "seen_at": ["00:15"], "scale_ref": "src-door-01 = 0.81 m"}
+      },
+      {
+        "id": "src-armchair-01",
+        "room_id": "src-living",
+        "category": "armchair",
+        "dims_m": {"w": 0.84, "d": 0.84, "h": 0.82},
+        "pose": {"x": 2.35, "z": 0.95, "rot_deg": 0.0},
+        "front_dir": "toward_coffee_table",
+        "against_wall": true,
+        "nearest_fixture": "window",
+        "group_id": "src-grp-conv",
+        "must_keep": true,
+        "confidence": 0.89,
+        "provenance": {"source": "video", "seen_at": ["00:19"], "scale_ref": "src-door-01 = 0.81 m"}
+      },
+      {
+        "id": "src-tv-stand-01",
+        "room_id": "src-living",
+        "category": "tv_stand",
+        "dims_m": {"w": 1.65, "d": 0.44, "h": 0.54},
+        "pose": {"x": 0.32, "z": 2.2, "rot_deg": 270.0},
+        "front_dir": "toward_sofa",
+        "against_wall": true,
+        "nearest_fixture": "tv_wall",
+        "group_id": "src-grp-media",
+        "must_keep": true,
+        "confidence": 0.94,
+        "provenance": {"source": "video", "seen_at": ["00:22"], "scale_ref": "src-door-01 = 0.81 m"}
+      },
+      {
+        "id": "src-dining-table-01",
+        "room_id": "src-living",
+        "category": "dining_table",
+        "dims_m": {"w": 1.35, "d": 0.80, "h": 0.75},
+        "pose": {"x": 3.8, "z": 3.65, "rot_deg": 180.0},
+        "front_dir": "toward_center",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-dining",
+        "must_keep": true,
+        "confidence": 0.90,
+        "provenance": {"source": "video", "seen_at": ["00:29"], "scale_ref": "src-door-01 = 0.81 m"}
+      },
+      {
+        "id": "src-bed-queen",
+        "room_id": "src-bedroom",
+        "category": "bed",
+        "dims_m": {"w": 1.62, "d": 2.08, "h": 1.06},
+        "pose": {"x": 1.10, "z": 1.95, "rot_deg": 270.0},
+        "front_dir": "toward_foot",
+        "against_wall": true,
+        "nearest_fixture": "window",
+        "group_id": "src-grp-sleep",
+        "must_keep": true,
+        "confidence": 0.97,
+        "provenance": {"source": "video", "seen_at": ["00:58"], "scale_ref": "src-door-bed = 0.81 m"}
+      },
+      {
+        "id": "src-nightstand-01",
+        "room_id": "src-bedroom",
+        "category": "nightstand",
+        "dims_m": {"w": 0.52, "d": 0.44, "h": 0.58},
+        "pose": {"x": 0.30, "z": 0.82, "rot_deg": 270.0},
+        "front_dir": "toward_room",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-sleep",
+        "must_keep": true,
+        "confidence": 0.91,
+        "provenance": {"source": "video", "seen_at": ["01:04"], "scale_ref": "src-door-bed = 0.81 m"}
+      },
+      {
+        "id": "src-desk-01",
+        "room_id": "src-bedroom",
+        "category": "desk",
+        "dims_m": {"w": 1.20, "d": 0.60, "h": 0.75},
+        "pose": {"x": 2.55, "z": 3.42, "rot_deg": 180.0},
+        "front_dir": "toward_window",
+        "against_wall": true,
+        "nearest_fixture": "window",
+        "group_id": "src-grp-work",
+        "must_keep": true,
+        "confidence": 0.89,
+        "provenance": {"source": "video", "seen_at": ["01:12"], "scale_ref": "src-door-bed = 0.81 m"}
+      },
+      {
+        "id": "src-sectional-oversize",
+        "room_id": "src-living",
+        "category": "sectional",
+        "dims_m": {"w": 5.90, "d": 1.65, "h": 0.85},
+        "pose": {"x": 2.5, "z": 1.2, "rot_deg": 0.0},
+        "front_dir": "toward_center",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-extra",
+        "must_keep": false,
+        "confidence": 0.78,
+        "provenance": {"source": "video", "seen_at": ["00:41"], "scale_ref": "src-door-01 = 0.81 m"}
+      }
+    ],
+    "groups": [
+      {
+        "id": "src-grp-conv",
+        "room_id": "src-living",
+        "kind": "conversation",
+        "item_ids": ["src-sofa-01", "src-coffee-01", "src-armchair-01"],
+        "provenance": {"source": "video", "seen_at": ["00:12", "00:19"]}
+      },
+      {
+        "id": "src-grp-media",
+        "room_id": "src-living",
+        "kind": "storage",
+        "item_ids": ["src-tv-stand-01"],
+        "provenance": {"source": "video", "seen_at": ["00:22"]}
+      },
+      {
+        "id": "src-grp-dining",
+        "room_id": "src-living",
+        "kind": "dining",
+        "item_ids": ["src-dining-table-01"],
+        "provenance": {"source": "video", "seen_at": ["00:29"]}
+      },
+      {
+        "id": "src-grp-sleep",
+        "room_id": "src-bedroom",
+        "kind": "sleep",
+        "item_ids": ["src-bed-queen", "src-nightstand-01"],
+        "provenance": {"source": "video", "seen_at": ["00:58", "01:04"]}
+      },
+      {
+        "id": "src-grp-work",
+        "room_id": "src-bedroom",
+        "kind": "work",
+        "item_ids": ["src-desk-01"],
+        "provenance": {"source": "video", "seen_at": ["01:12"]}
+      }
+    ],
+    "uncertain": [],
+    "scale_check": {
+      "method": "door_width",
+      "reference": "src-door-01 = 0.81 m x 2.03 m",
+      "conflicts": [],
+      "provenance": {"source": "video", "seen_at": ["00:04"]}
+    },
+    "provenance": {"source": "video", "seen_at": ["00:00", "01:28"]}
+  }
+}

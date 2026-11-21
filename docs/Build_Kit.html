@@ -1,0 +1,324 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Homeweave Build Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, like a drawing set. Summary first, then the day's cut, then prompts in build order. */
+:root{
+  --bg:#F3F6FA; --surface:#FFFFFF; --ink:#14233A; --muted:#55657C; --line:#CFD9E6;
+  --blue:#1F5FBF; --blue-soft:#E1ECFB; --amber:#8A5A00; --amber-soft:#FBEFD2; --code:#F0F4F9;
+  --display:"Space Grotesk","Inter",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1622; --surface:#162131; --ink:#E6EDF6; --muted:#9BABC0; --line:#2A3A50;
+    --blue:#7FB0F5; --blue-soft:#1B2F4C; --amber:#F2C36B; --amber-soft:#3A2D10; --code:#111B29;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1622; --surface:#162131; --ink:#E6EDF6; --muted:#9BABC0; --line:#2A3A50;
+  --blue:#7FB0F5; --blue-soft:#1B2F4C; --amber:#F2C36B; --amber-soft:#3A2D10; --code:#111B29;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.05rem;font-weight:500}
+p{margin:0}
+section{display:flex;flex-direction:column;gap:14px}
+.lede{font-size:1.1rem;max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.flow{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.flow li{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:8px 12px;font-size:.9rem;min-width:0}
+.flow li b{display:block;font-family:var(--display);font-weight:500}
+.flow li span{color:var(--muted);font-size:.82rem}
+.flow li.new{border-color:var(--blue);background:var(--blue-soft)}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;background:var(--blue-soft)}
+tr:last-child td{border-bottom:0}
+td.t{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+.note{background:var(--amber-soft);color:var(--ink);border-left:4px solid var(--amber);padding:12px 16px;border-radius:2px;font-size:.95rem}
+.note b{color:var(--amber)}
+ul.plain{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+.prompt{background:var(--surface);border:1px solid var(--line);border-radius:4px;min-width:0}
+.prompt header{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line)}
+.prompt .meta{font-size:.82rem;color:var(--muted);display:block;margin-top:2px}
+.tag{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--blue-soft);color:var(--blue);margin-right:6px;white-space:nowrap}
+pre{margin:0;padding:14px;background:var(--code);font-family:var(--mono);font-size:.8rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;max-height:340px;overflow:auto;border-radius:0 0 4px 4px}
+button.copy{font:600 .82rem var(--body);background:var(--blue);color:var(--bg);border:0;border-radius:4px;padding:7px 12px;cursor:pointer}
+button.copy:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.stack{display:flex;flex-direction:column;gap:16px}
+</style>
+
+<div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:12px">
+  <p class="muted small">Gemini 4 NYC Hackathon · Element 119 · Sat Nov 21, 2026</p>
+  <h1>Homeweave</h1>
+  <p class="lede">Upload photos and floor plans of homes you like, plus a phone video of your current home. Homeweave builds one composite dream home, moves your real furniture into it, and lets you walk through the result.</p>
+</header>
+
+<section>
+  <h2>The idea in one minute</h2>
+  <ul class="plain">
+    <li><b>Choosing.</b> No single listing has everything. You like one home's kitchen and another's living room, and cannot see if they fit together.</li>
+    <li><b>Moving in.</b> You cannot picture your own sofa and bed in a new space until moving day.</li>
+    <li><b>The new step, Correspondence.</b> Each furniture group in your current home is mapped to the most similar spot in the new one. It is adapted from the paper Analogical Trajectory Transfer (arXiv 2605.14393), which moves paths between rooms. Homeweave moves rigid furniture instead.</li>
+    <li><b>The split.</b> Gemini 4 sees, hears and judges. A geometric engine does the placing. A Gemini-only placement baseline shows where Gemini's spatial reasoning stops.</li>
+  </ul>
+  <ol class="flow" aria-label="Pipeline">
+    <li><b>Perceive</b><span>photos, plans, video</span></li>
+    <li><b>Judge</b><span>Decisions API</span></li>
+    <li><b>Weave</b><span>one floor plan</span></li>
+    <li><b>Generate</b><span>3D scene</span></li>
+    <li class="new"><b>Correspond</b><span>map groups</span></li>
+    <li class="new"><b>Arrange</b><span>top 5 layouts</span></li>
+    <li><b>Judge</b><span>pick a layout</span></li>
+    <li><b>Walk through</b><span>first person</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Which model does what</h2>
+  <p class="muted small">The rules ask for at least two Gemini 4 models, each with a clear job.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Job</th><th>Model</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Read listing photos and the home video</td><td>Gemini 4 Hydrogen</td><td>High volume, fast, cheap</td></tr>
+      <tr><td>Read hard floor plans, merge the plan, write the Three.js scene, act as the placement baseline</td><td>Gemini 4 Neon</td><td>Hardest reasoning and code</td></tr>
+      <tr><td>Score features and rank the 5 layouts</td><td>Decisions API (gemini-decision-1)</td><td>Calibrated yes/no and rubric scores</td></tr>
+      <tr><td>Place the furniture</td><td>Our Python geometry engine</td><td>Hard constraints are checked in code, not by a model</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Today's cut</h2>
+  <p class="note"><b>My recommendation:</b> the spec is a multi-week plan. For one day, build the 2D floor-plan engine that the spec itself names as the fallback, and skip Sonata, the GPU, LiDAR and Genie 4. The story and the demo stay the same. Tell me if the team decides otherwise.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Part</th><th>Build today</th><th>Leave out</th></tr></thead>
+    <tbody>
+      <tr><td>Dream home</td><td>2 listings, photos plus 1 floor plan each, merged into one plan</td><td>5+ listings, photo textures</td></tr>
+      <tr><td>Current home</td><td>Phone video of one or two rooms, read by Hydrogen, scale checked against a door</td><td>LiDAR scans, 3D reconstruction</td></tr>
+      <tr><td>Correspond and Arrange</td><td>2D engine: room pairing, functional groups, wall-anchored candidates, beam search, rigid poses, hard-constraint check, leftover list</td><td>Sonata features, thin-plate splines</td></tr>
+      <tr><td>Walkthrough</td><td>Three.js boxes, top-down and first person</td><td>Genie 4 video</td></tr>
+      <tr><td>Proof</td><td>Engine vs Gemini-only placement, scored by one code checker on rooms filmed by people outside the team</td><td>3D-FRONT pairs, 10-rater study</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">Why that proof works: collisions, blocked doors and walkways under 0.9 m are counted by code, so no hand-written answers are needed, and rooms from outside the team keep it honest.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>By</th><th>Gate</th></tr></thead>
+    <tbody>
+      <tr><td class="t">12:30</td><td>Real photos and one real video come back as valid JSON (prompts 1 to 3)</td></tr>
+      <tr><td class="t">2:30</td><td>Engine places one real room into one new room, shown in the viewer (prompts 6 and 8)</td></tr>
+      <tr><td class="t">4:00</td><td>Checker runs on engine and baseline for every outside room; first numbers on screen (prompts 7 and 9)</td></tr>
+      <tr><td class="t">5:30</td><td>Freeze. Stress ladder, breaking points logged, demo recorded</td></tr>
+      <tr><td class="t">6:30</td><td>Submit</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted">The submission deadline is not confirmed. Check it with the organisers and shift these times if needed.</p>
+</section>
+
+<section>
+  <h2>Prompts, in build order</h2>
+  <p class="muted small"><span class="tag">Build</span>paste into Gemini in AI Studio or Antigravity to write code. <span class="tag">Runtime</span>goes inside the app as the instruction for a model call.</p>
+  <div class="stack">
+
+  <article class="prompt"><header><div><h3>0. Project context</h3><span class="meta"><span class="tag">Build</span>Paste first in every coding session</span></div><button class="copy" data-t="p0">Copy</button></header>
+<pre id="p0">You are my coding partner at a one-day hackathon. We are building Homeweave.
+
+What it does: a user uploads listing photos and floor plans of homes they like, plus a phone video of their current home. The app builds one composite floor plan, moves the user's real furniture into it, and shows a 3D walkthrough.
+
+Stack: Python 3.11, FastAPI, google-genai SDK, shapely and numpy for geometry. Front end is one HTML page with vanilla JS and Three.js. No database; JSON files in ./data.
+
+Stages, each a pure function that takes JSON and returns JSON:
+perceive_listing, perceive_home_video, judge_features, weave, generate_scene, arrange, judge_layouts.
+
+Conventions, never break these:
+- Units are metres. Right-handed axes, y up, floor at y = 0. Angles are degrees clockwise from +z seen from above.
+- Ids are prefixed: src- for the current home, new- for the generated home, lst1-, lst2- for listings.
+- Every object has a provenance field naming the photo, video timestamp or plan it came from.
+- Unknown values are null with a reason string. Never guess a default.
+- Every model response is validated against a pydantic schema. On failure retry once, then flag it.
+
+Entities: Home {id, source, rooms[], fixtures[], scale_check}; Room {id, type, polygon, ceiling_height_m, doors[], windows[]}; FurnitureItem {id, category, dims_m {w,d,h}, pose {x,z,rot_deg}, front_dir, group_id, must_keep, confidence}; Layout {id, rank, placements[], costs{}, warnings[], leftovers[]}.
+
+Models: gemini-4-hydrogen for perception, gemini-4-neon for hard plans and code, gemini-decision-1 (Decisions API) for judging. Placement is done by our own geometry code, not by a model.
+
+How to work with me: give one file at a time, complete and runnable, with a tiny sample input and the command to run it. No placeholders. Ask before adding a dependency. Start by writing schemas.py with the pydantic models above.</pre></article>
+
+  <article class="prompt"><header><div><h3>1. Read one listing</h3><span class="meta"><span class="tag">Runtime</span>Hydrogen · input: all photos and the floor plan of one listing</span></div><button class="copy" data-t="p1">Copy</button></header>
+<pre id="p1">You are reading a real estate listing. You get its photos and, if present, its floor plan.
+
+Return one JSON object matching the Home schema. No prose.
+
+For each room: id (lst1-kitchen style), type, polygon in metres as [x,z] corners in order, ceiling_height_m, doors [{id, wall_index, offset_m, width_m, swing}], windows [{id, wall_index, offset_m, width_m}], fixtures [{id, type, footprint polygon}] for built-ins such as counters, islands, fireplaces, closets.
+
+Also return staging[]: furniture visible in the photos, each with category, approximate dims_m, pose and the room it is in. These are placeholders, not the user's furniture.
+
+Also return features[]: up to 8 things a buyer would like about this home, each {id, room_id, label, evidence: photo index}.
+
+Scale rules:
+- If the plan prints dimensions, use them and set scale_check.method = "plan_labels".
+- Otherwise assume an interior door is 0.81 m wide, set scale_check.method = "door_width", and say which door you used.
+- If a photo and the plan disagree on a room's size by more than 10 percent, keep the plan value and add the room id to scale_check.conflicts.
+
+If you cannot see something, use null and give a reason. Do not invent rooms that appear in neither the photos nor the plan. Every room and fixture needs provenance naming the photo index or "plan".</pre></article>
+
+  <article class="prompt"><header><div><h3>2. Read the current-home video</h3><span class="meta"><span class="tag">Runtime</span>Hydrogen · input: the phone walkthrough video</span></div><button class="copy" data-t="p2">Copy</button></header>
+<pre id="p2">You are watching a handheld phone video of someone's home. Build an inventory of their furniture and the rooms it sits in.
+
+Return one JSON object: {rooms[], items[], groups[], uncertain[]}. No prose.
+
+rooms: as in the Home schema, ids like src-living. Estimate each polygon from what the camera shows.
+
+items: every movable piece of furniture, each once, even if it appears at several moments. For each: id (src-sofa-01), category, dims_m {w,d,h}, pose {x,z,rot_deg} in its room, front_dir, against_wall (true or false), nearest_fixture (window, door, tv wall, fireplace or null), confidence 0 to 1, provenance {seen_at: [timestamps]}.
+
+groups: furniture used together, each {id, kind, item_ids}. Kinds: conversation, sleep, dining, work, storage, other.
+
+Scale: find a door in each room and assume it is 0.81 m wide and 2.03 m tall, then size everything else from it. Name that door in provenance. If no door is visible, set dims to null with reason "no scale reference".
+
+Counting rules: if you are not sure two sightings are the same object, list it once and add a note to uncertain[]. Put any item with confidence under 0.6 in uncertain[] with a one-line question for the user, for example "Is the grey chair at 0:42 the same one seen at 1:15?". Ignore decor smaller than 0.3 m, people and pets.</pre></article>
+
+  <article class="prompt"><header><div><h3>3. Hard floor plans</h3><span class="meta"><span class="tag">Runtime</span>Neon, high thinking · only for scanned, hand-drawn or mixed-unit plans</span></div><button class="copy" data-t="p3">Copy</button></header>
+<pre id="p3">This floor plan is low quality: it may be a scan, a phone photo of a hand sketch, or use mixed units. Read it carefully.
+
+Work in this order and show the result of each step in a "working" field:
+1. List every dimension label you can read, with its unit as written.
+2. Convert all of them to metres.
+3. Check that the walls of each room close into a polygon. Where they do not, say which label you distrust and why.
+4. Check total area against any stated area.
+
+Then return rooms[] in the same schema as the listing reader, plus plan_confidence 0 to 1 and unreadable[] listing anything you could not read. Use null with a reason for those. Do not fill gaps with typical room sizes.</pre></article>
+
+  <article class="prompt"><header><div><h3>4. Judge with the Decisions API</h3><span class="meta"><span class="tag">Runtime</span>gemini-decision-1 · questions to send; take the exact request fields from the Decisions API guide</span></div><button class="copy" data-t="p4">Copy</button></header>
+<pre id="p4">FEATURES (shared input: the photos of one feature, plus the user's rubric text)
+Ask each as its own question and write the whole question in the instructions, because the model does not see your question keys.
+
+yes/no: "Does this room get direct natural light from at least one window?"
+yes/no: "Is the kitchen open to the living area with no full wall between them?"
+yes/no: "Is there counter seating for at least two people?"
+score 1 to 5: "How well does this space match the buyer's stated preference: {rubric line}? 1 = not at all, 5 = exactly."
+score 1 to 5: "How much usable floor space does this room have for furniture? 1 = cramped, 5 = generous."
+
+LAYOUTS (shared input: one top-down render and three eye-level renders of one layout)
+yes/no: "Does every seat in the conversation group face another seat or the TV?"
+yes/no: "Is there a clear walking path from every door to the centre of the room?"
+yes/no: "Does any furniture block a window?"
+yes/no: "Does the bed have clear floor on at least one long side?"
+score 1 to 5: "How balanced is the furniture across the room? 1 = all on one side, 5 = evenly spread."
+score 1 to 5: "Would this room feel comfortable to live in? 1 = awkward, 5 = natural."
+
+Use: sum the scores in code, never ask the model to add. Rank the 5 layouts by total. If the top two are within 5 percent, show both to the user. Add a separate yes/no scope check ("Is this image a furnished room render?") instead of a "none of these" option.</pre></article>
+
+  <article class="prompt"><header><div><h3>5. Weave one floor plan</h3><span class="meta"><span class="tag">Runtime</span>Neon · input: the Home JSON for each listing and the scored features</span></div><button class="copy" data-t="p5">Copy</button></header>
+<pre id="p5">You are merging the best parts of several homes into one floor plan a person could plausibly build.
+
+Input: Home JSON for each listing, a ranked list of features with scores, and constraints {max_area_m2, bedrooms, bathrooms}.
+
+Take the top-ranked room of each type. Arrange them on one level so that:
+- every room is reachable through a door or opening, with no room entered only through a bedroom or bathroom;
+- rooms do not overlap and shared walls line up;
+- kitchen is next to dining or living; each bedroom is within one room of a bathroom;
+- room sizes stay within 10 percent of their source listing;
+- total area is under max_area_m2.
+
+Return a Home JSON with source = "generated", ids prefixed new-, and for each room a provenance field naming the listing and room it came from. Carry over each room's fixtures and its staging furniture, moved with the room.
+
+Also return conflicts[]: any feature you could not include and the reason in numbers, for example "lst2 kitchen island needs 4.2 m of width; the slot is 3.6 m". List a conflict; never squeeze or stretch a room to hide it.</pre></article>
+
+  <article class="prompt"><header><div><h3>6. The arrange engine</h3><span class="meta"><span class="tag">Build</span>The core of the project. Paste after prompt 0</span></div><button class="copy" data-t="p6">Copy</button></header>
+<pre id="p6">Write arrange.py and check.py using shapely and numpy.
+
+check.py: check_layout(room, placements) returns {overlaps, door_blocks, clearance_fails, outside_room, relations_kept, violations_total}. It must work on any layout from any source, because we use it to score both our engine and a model baseline.
+- Footprints are rectangles from dims_m and pose.
+- overlaps: pairs of item footprints that intersect.
+- door_blocks: items intersecting a door's swing, a quarter circle with radius equal to the door width.
+- clearance_fails: rasterise the room at 0.1 m, inflate obstacles by 0.45 m, run A* from each door to every other door and to the room centroid. Each unreachable target is one fail.
+- outside_room: items not fully inside the room polygon.
+- relations_kept: share of same-group item pairs whose distance changed by less than 0.3 m and whose relative facing held within 30 degrees, compared with the source room.
+
+arrange.py: arrange(src_room, src_items, groups, new_room, staging=None) returns up to 5 Layouts plus leftovers.
+1. Describe each group in the source room: bounding box, whether it sits against a wall, the type of the nearest fixture, and which way it faces relative to that wall.
+2. Candidates per group: for every wall of the new room long enough for the group's bounding box, slide the group along the wall in 0.25 m steps, with rotation in 90 degree steps and an optional mirror. The group moves as one rigid body. Items never scale.
+3. Score each candidate: fixture mismatch (source group faced a window, candidate does not) weight 1.0; wall mismatch 0.5; clearance to doors and windows 1.0; distance from the matching staging group, if staging is given, 0.1. Keep the best 5 per group.
+4. Assemble with beam search, width 5, largest group first. Add overlap between groups (weight 1.0) and change in distance between group centroids relative to the source room, scaled by the ratio of room sizes.
+5. Refine each assembled layout: try moves of 0.1 m and snaps to the wall direction, keep any that lower the cost.
+6. Run check_layout. Any item still breaking a hard constraint is removed and added to leftovers with a reason and the numbers, for example "needs 3.40 m; longest free wall is 3.10 m".
+7. Return the 5 lowest-cost distinct layouts with their cost breakdown.
+
+All weights live in one dict at the top of the file. Include a sample living room pair in samples/ and a __main__ that prints the check result for each layout. Target: under 2 seconds per room pair.</pre></article>
+
+  <article class="prompt"><header><div><h3>7. Gemini-only placement baseline</h3><span class="meta"><span class="tag">Runtime</span>Neon · the "where it breaks" comparison, scored by the same checker</span></div><button class="copy" data-t="p7">Copy</button></header>
+<pre id="p7">You are arranging furniture. You get a top-down image of the person's current room, a top-down image of an empty new room, the new room's JSON (polygon, doors, windows, fixtures, in metres), and the list of furniture with dimensions.
+
+Place every item in the new room so the arrangement feels like the old room, adapted. Keep items that were used together close together and facing the same way relative to each other.
+
+Rules: no two items may overlap; nothing may block a door or its swing; leave walkways at least 0.9 m wide; every item must be fully inside the room. If an item cannot fit, leave it out and list it under leftovers with the reason.
+
+Return JSON only: {placements: [{item_id, pose: {x, z, rot_deg}}], leftovers: [{item_id, reason}]}. Coordinates are metres in the new room's frame, angles in degrees clockwise from +z seen from above.</pre></article>
+
+  <article class="prompt"><header><div><h3>8. The 3D viewer</h3><span class="meta"><span class="tag">Build</span>Neon writes this well in AI Studio Build</span></div><button class="copy" data-t="p8">Copy</button></header>
+<pre id="p8">Write viewer.html, one file, vanilla JS with Three.js from a CDN.
+
+It loads home.json (a Home with rooms as [x,z] polygons in metres, doors, windows, fixtures) and layouts.json (up to 5 Layouts, each with placements {item_id, category, dims_m, pose}).
+
+Scene: extrude each room polygon into walls 2.6 m tall and 0.1 m thick, with gaps at doors and glass panes at windows. Floor per room. Fixtures as grey boxes. Furniture as boxes sized from dims_m, coloured by group, with a small darker strip on the front face so facing is visible, and a text label above each.
+
+Controls: a top-down orthographic view and a first-person view at eye height 1.6 m with WASD and mouse look, toggled by one button. Buttons 1 to 5 switch layouts and animate items to their new poses over 400 ms. A side panel lists leftovers with their reasons and the checker numbers for the current layout (overlaps, door blocks, clearance fails, relations kept). Items flagged by the checker get a red outline.
+
+Add a "Render for judge" button that saves one top-down and three eye-level PNGs of the current layout to canvas data URLs and posts them to /judge. Use y up and angles clockwise from +z seen from above, matching the JSON.</pre></article>
+
+  <article class="prompt"><header><div><h3>9. Evaluation and stress ladder</h3><span class="meta"><span class="tag">Build</span>Produces the numbers for the submission form</span></div><button class="copy" data-t="p9">Copy</button></header>
+<pre id="p9">Write eval.py.
+
+Input: a folder of cases. Each case is one source room and one new room, as JSON produced by our perception stage from media filmed by people outside the team. The script must not contain any expected answers.
+
+For each case run three methods: our arrange engine (top-1), our engine with the judge's pick from the top 5, and the Gemini-only baseline (call gemini-4-neon with the baseline prompt and the two top-down renders). Score every result with check_layout.
+
+Report per method: share of layouts with zero violations, mean violations per layout, placement rate (items placed over items owned), relations kept, and runtime. Give each with a 95 percent bootstrap confidence interval over cases, and a paired bootstrap for engine minus baseline. Write results.csv and a results.md table. Log every baseline response that fails JSON validation as a failure, not a skip.
+
+Stress mode (--stress): take each case and raise one dimension at a time until zero-violation rate falls below 50 percent, then record that level as the breaking point:
+- furniture count: duplicate items to 15, 30, 60;
+- scale gap: shrink the new room to 0.8, 0.6, 0.4 of its area;
+- mirror: flip the new room;
+- noise: jitter every item dimension by 5, 10, 20 percent.
+Write breaking_points.md with one row per dimension and method: level where it broke, what failed first.</pre></article>
+
+  </div>
+</section>
+
+<section>
+  <h2>What the submission form will ask</h2>
+  <p class="muted small">Fill these with measured numbers from prompt 9. Do not write them before the run.</p>
+  <ul class="plain">
+    <li><b>Hardest input.</b> Longest and messiest home video that still gave a usable inventory, and the furniture count and scale gap where the engine stopped producing clean layouts.</li>
+    <li><b>What raw media gives that text loses.</b> Room and furniture dimensions, how groups sit relative to windows and doors, and which way things face. Show one item's provenance: the video timestamp and the door used for scale.</li>
+    <li><b>Where it broke and what changed.</b> The breaking points table, one fix you made after seeing a failure, and the new breaking point. Include the Gemini-only baseline result whichever way it comes out.</li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var pre=document.getElementById(b.dataset.t), text=pre.textContent;
+    function done(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected, press Ctrl+C';setTimeout(function(){b.textContent='Copy'},2500)}
+    try{navigator.clipboard.writeText(text).then(done,fallback)}catch(e){fallback()}
+  });
+});
+</script>
+
+</body></html>
