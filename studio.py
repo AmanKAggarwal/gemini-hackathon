@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import math
+import copy
 import os
 import shutil
 import subprocess
@@ -32,7 +33,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 
 from studio_correspond import correspond
-from studio_review import inspect, review
+from studio_review import ESSENTIAL, fam, inspect, review
 import studio_live
 
 BASE_DIR = Path(__file__).parent
@@ -47,6 +48,8 @@ STEP = 0.1  # slide step, metres
 # Tunable first guesses (spec: "ours are first guesses to tune").
 COST = {"left1": 10.0, "left2": 5.0, "left3": 1.5, "swap": 3.0, "merge": 2.5, "move": 1.0,
         "open_edge": 6.0, "aspect": 2.0, "walkway": 4.0}
+DOOR_MARGIN = 0.25   # m kept clear around every door swing the plan draws
+ENTRY_CLEAR = 0.9    # m square kept clear just inside each doorway
 WALK_WIDTHS = [0.9, 0.8, 0.7, 0.6]  # spec hard constraint is 0.9 m; narrower widths are reported, not hidden
 
 
@@ -109,6 +112,16 @@ def target_room(plan: dict[str, Any], key: str) -> dict[str, Any]:
     for w in r.get("windows", []):
         o = x0 if w["wall"] in "NS" else y0
         wins.append({"wall": w["wall"], "a": (w["a"] - o) / s, "b": (w["b"] - o) / s})
+    def grow(b: list[float], m: float) -> list[float]:
+        x, z, w, d = rect_m(b)
+        ax, az, bx, bz = max(0.0, x - m), max(0.0, z - m), min(W, x + w + m), min(D, z + d + m)
+        return [round(ax, 3), round(az, 3), round(bx - ax, 3), round(bz - az, 3)]
+
+    # Doors are part of the plan and never move: nothing may stand in a swing, near it, or just inside a doorway.
+    ex, ez, h = (r["entry"][0] - x0) / s, (r["entry"][1] - y0) / s, ENTRY_CLEAR / 2
+    keep_clear = [grow(b, DOOR_MARGIN) for b in r.get("doors", [])]
+    keep_clear.append([round(max(0.0, ex - h), 3), round(max(0.0, ez - h), 3),
+                       round(min(W, ex + h) - max(0.0, ex - h), 3), round(min(D, ez + h) - max(0.0, ez - h), 3)])
     fixtures = []
     for n, f in enumerate(r.get("fixtures", [])):
         fr = [round(v, 3) for v in rect_m(f["rect"])]
@@ -124,7 +137,7 @@ def target_room(plan: dict[str, Any], key: str) -> dict[str, Any]:
     return {
         "key": key, "type": r.get("type", key), "fixtures": fixtures, "label": r["label"], "w": round(W, 2), "d": round(D, 2), "rect_px": r["rect"],
         "open": r.get("open", []), "windows": wins,
-        "doors": [rect_m(b) for b in r.get("doors", [])],
+        "doors": keep_clear,
         "obstacles": [rect_m(b) for b in r.get("obstacles", [])],
         "entry": [(r["entry"][0] - x0) / s, (r["entry"][1] - y0) / s],
     }
@@ -517,6 +530,8 @@ def studio_fit(req: FitReq) -> dict[str, Any]:
     inv = {i["id"]: i for i in cat["inventory"]["items"]}
     own = [inv[i] for i in req.own if i in inv]
     correspond(out, own, walkway)
+    for r in out:   # what the mover carries in, before the reviewer has looked at it
+        r["pre"] = {"items": copy.deepcopy(r["final"]["items"])}
     review(out, own, walkway, fix=True)
     placed = {i["id"] for r in out for i in r["final"]["items"] if i.get("own")}
     return {"plan": plan["id"], "perception_source": cat["perception_source"], "rooms": out,
@@ -626,6 +641,44 @@ class OpinionReq(BaseModel):
 def studio_second_opinion(req: OpinionReq) -> dict[str, Any]:
     """Decisions API (gemini-decision-1) scores a render of each finished room."""
     return {"rooms": _live(studio_live.second_opinion, req.rooms)}
+
+
+class AlignReq(BaseModel):
+    plan: str
+    key: str
+    items: list[dict[str, Any]]
+
+
+@router.post("/studio/align")
+def studio_align(req: AlignReq) -> dict[str, Any]:
+    """Gemini's Decisions verdict said the path is blocked where the grid check passed: act on it.
+
+    Takes out the one least important loose piece nearest the doorway, then re-inspects.
+    Plan fixtures, beds and the user's matched sofa are never touched.
+    """
+    cat = load_catalog()
+    plan = next((p for p in cat["plans"] if p["id"] == req.plan), None)
+    if plan is None or req.key not in plan["rooms"]:
+        raise HTTPException(status_code=404, detail="unknown plan or room")
+    room = target_room(plan, req.key)
+    items = req.items
+
+    def tier(i: dict[str, Any]) -> int:
+        if not i.get("own"):
+            return 0 if i["pri"] >= 3 else 2
+        return 1 if "match" not in i else 3
+
+    cands = [i for i in items if not i["floor"] and not i.get("plan") and i["type"] not in ESSENTIAL and not (fam(i) == "sofa" and "match" in i)]
+    removed: list[dict[str, Any]] = []
+    if cands:
+        ex, ez = room["entry"]
+        pick = min(cands, key=lambda i: (tier(i), math.hypot(i["rect"][0] + i["rect"][2] / 2 - ex, i["rect"][1] + i["rect"][3] / 2 - ez)))
+        removed = [pick] + [i for i in items if i.get("on") == pick["id"]]
+        items = [i for i in items if all(i is not r for r in removed)]
+    chk, findings = inspect(req.key, room, items, walkway)
+    return {"items": items, "check": chk, "findings": findings,
+            "removed": [("your " if r.get("own") else "the photo's ") + r["label"].lower() for r in removed],
+            "removed_own": [{"id": r["id"], "label": r["label"]} for r in removed if r.get("own")]}
 
 
 class CheckReq(BaseModel):

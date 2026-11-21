@@ -20,7 +20,7 @@ NAMES = {"tv": "TV", "plant": "plant", "fridge": "fridge", "sofa": "sofa", "bed"
          "bookshelf": "bookshelf", "console": "console"}
 # How many of each furniture family a room type can sensibly hold (tunable house rules).
 CAPS: dict[str, dict[str, int]] = {
-    "bedroom": {"sofa": 1, "bed": 1, "coffee": 1, "rug": 1, "armchair": 2, "table": 0, "bookshelf": 1, "console": 1, "tv": 1, "plant": 3, "fridge": 0},
+    "bedroom": {"sofa": 0, "bed": 1, "coffee": 0, "rug": 1, "armchair": 2, "table": 0, "bookshelf": 1, "console": 1, "tv": 1, "plant": 3, "fridge": 0},
     "living": {"sofa": 2, "bed": 0, "coffee": 1, "rug": 1, "armchair": 2, "table": 1, "bookshelf": 1, "console": 2, "tv": 1, "plant": 4, "fridge": 0},
     "kitchen": {"sofa": 0, "bed": 0, "coffee": 0, "rug": 1, "armchair": 0, "table": 1, "fridge": 1, "plant": 2},
     "bathroom": {"sofa": 0, "bed": 0, "coffee": 0, "armchair": 0, "table": 0},

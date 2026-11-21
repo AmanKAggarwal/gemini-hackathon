@@ -396,15 +396,25 @@ function verifyCard(){
   ${mine||lost?`<table><tr><th></th><th>Your piece</th><th>Size used and where it came from</th><th>Room</th><th>Correspondence</th></tr>${mine}${lost}</table>`:''}
   <p>Still unverified: furniture sizes are read by eye from video frames (no LiDAR or tape measure), and photo room sizes are estimates. Measure one known object per room, such as a door (0.81 m), to confirm.</p></div>`}
 let dirty=false,editable=false;
-function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true)}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
+function view(mode){const d3=mode==='3d';$('edit').classList.toggle('hide',d3||!editable);if(d3&&dirty&&window.Studio3D){dirty=false;Studio3D.show(P,FIT,CAT,logLine,()=>0,()=>true,{final:true})}$('svg').classList.toggle('hide',d3);$('three').classList.toggle('hide',!d3);$('stage').classList.toggle('dark',d3);
   $('v2d').classList.toggle('on',!d3);$('v3d').classList.toggle('on',d3);['walk','tour','rec','blend','opin'].forEach(b=>$(b).classList.toggle('hide',!d3));if(d3&&window.Studio3D)Studio3D.resize()}
 function reset3d(){editable=false;dirty=false;if(window.Studio3D)Studio3D.stopTour();view('2d');$('seg').classList.add('hide');['walk','tour','rec','blend','opin'].forEach(b=>$(b).classList.add('hide'))}
 let moveP=Promise.resolve();
+async function alignGemini(f,pv){const r=await fetch('/studio/align',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan,key:f.room.key,items:f.final.items})});
+  const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);if(!j.removed.length)return;
+  f.final.items=j.items;f.final.check=j.check;f.review.fixes+=j.removed.length;f.review.verdict=j.findings.some(n=>n.level==='error')?'needs attention':'corrected';
+  f.review.findings.push({rule:'gemini',level:'fixed',text:`Gemini gave only ${Math.round(pv*100)}% for a clear walking path where the grid check passed. Aligned with it: ${j.removed.join(', ')} taken out of the ${f.room.label.toLowerCase()}.`});
+  j.removed_own.forEach(l=>FIT.own_leftovers.push(l))}
+async function askGemini(f){const shots=Studio3D.roomShots(FIT,f.room.key);const r=await fetch('/studio/second-opinion',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({rooms:shots})});
+  const j=await r.json();if(!r.ok)throw new Error(j.detail||r.status);const o=j.rooms[0],a=o.answers,pc=k=>a[k]?Math.round(a[k].value*100)+'%':'–';
+  logLine('review',`<span class="op">${o.model} on a render of the ${f.room.label.toLowerCase()} (${o.seconds}s): clear walking path <b>${pc('clear_walking_path')}</b>, furniture blocks a window <b>${pc('blocks_window')}</b>, comfort <b>${a.comfort?a.comfort.value.toFixed(1):'–'} / 5</b>.</span>`);return o}
 async function moveIn(){
   if(!window.Studio3D){logLine('3d','The 3D engine did not load (three.js comes from a CDN and needs internet).');return}
   const my=runId;$('seg').classList.remove('hide');view('3d');$('skip').classList.remove('hide');$('replay').classList.add('hide');
   $('wTitle').textContent='Moving in · '+P.name;logLine('room','Move-in: the mover carries each piece to its spot');
-  moveP=Studio3D.show(P,FIT,CAT,logLine,()=>speed,()=>my===runId);await moveP;
+  moveP=(async()=>{await Studio3D.show(P,FIT,CAT,logLine,()=>speed,()=>my===runId);if(my!==runId)return;$('wTitle').textContent='Review walk · '+P.name;
+    await Studio3D.review(P,FIT,logLine,()=>speed,()=>my===runId,LIVE.available?askGemini:null,alignGemini);if(my!==runId)return;
+    FIT.rooms.forEach((f,i)=>$('room'+i).innerHTML=roomMarkup(i,f.candidates[f.best],false,f.final.items));renderSum()})();await moveP;
   if(my!==runId)return;$('skip').classList.add('hide');$('replay').classList.remove('hide');$('wTitle').textContent='Your new home in 3D · '+P.name;editable=true;
 }
 function finish(){
@@ -601,7 +611,56 @@ function mover(){const g=new THREE.Group(),vest='#f0a23a';const body=new THREE.M
 function tween(ms,fn,sp){return new Promise(res=>{const s=sp();if(!s){fn(1);return res()}tweens.push({t:0,d:ms*s,fn,res})})}
 const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, one=()=>1;
 
-async function show(P,FIT,CAT,log,sp,alive){
+let reg={},ctx={};
+function buildItem(it,p,ox,oz){const [x,z,bw,bd]=it.rect,ew=it.face==='E'||it.face==='W',w=ew?bd:bw,d=ew?bw:bd,g=new THREE.Group();
+  (MAKE[it.own&&it.type==='tv'?'owntv':it.type]||((g,w,d)=>B(g,w,.5,d,'#888888')))(g,w,d,it.own?ownPal(p,it):p,it);
+  g.rotation.y={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2}[it.face]||0;if(it.flip&&it.type==='sectional')g.scale.x=-1;
+  const target=new THREE.Vector3(ox+x+bw/2,it.at_h||0,oz+z+bd/2);world.add(g);
+  if(it.own&&!it.floor){const ring=new THREE.Mesh(new THREE.RingGeometry(Math.max(bw,bd)/2+.06,Math.max(bw,bd)/2+.1,48),M('#8ab4f8',{glow:1.8}));ring.rotation.x=-Math.PI/2;ring.position.set(target.x,.03,target.z);ring.visible=false;ring.userData.ring=true;world.add(ring);g.userData.ring=ring}
+  return {g,target,it}}
+/* the two reviewers: trench coat, fedora, one with a magnifying glass, one with a notepad */
+function detective(glass){const g=new THREE.Group(),coat=glass?'#b08d57':'#8c7a5b',hat='#4a3a26';
+  const body=new THREE.Mesh(new THREE.CapsuleGeometry(.18,.5,6,14),M(coat));body.position.y=1.02;body.castShadow=true;g.add(body);
+  const skirt=new THREE.Mesh(new THREE.CylinderGeometry(.2,.31,.6,20),M(coat));skirt.position.y=.72;skirt.castShadow=true;g.add(skirt);
+  B(g,.4,.05,.4,'#5e4a2c',0,.98,0,{r:.02});B(g,.1,.16,.02,'#f1ece2',0,1.2,.175,{sharp:1});
+  Sp(g,.14,'#e8c39e',0,1.6,0);Sp(g,.02,'#1b1b1b',-.05,1.62,.125);Sp(g,.02,'#1b1b1b',.05,1.62,.125);
+  Cy(g,.27,.02,hat,0,1.69,0);Cy(g,.15,.13,hat,0,1.7,0);Cy(g,.153,.03,'#1e1711',0,1.71,0);
+  const legs=[-1,1].map(s=>{const l=B(g,.1,.5,.11,'#2a2622',s*.09,0,0,{sharp:1});l.geometry.translate(0,-.25,0);l.position.y=.5;return l});
+  if(glass){B(g,.07,.07,.4,coat,.2,1.2,.22,{sharp:1});const ring=new THREE.Mesh(new THREE.TorusGeometry(.085,.014,10,26),M('#c9a24a',{metal:.9,rough:.25}));ring.position.set(.2,1.34,.44);g.add(ring);
+    const lens=new THREE.Mesh(new THREE.CircleGeometry(.08,24),M('#cfeaf5',{op:.35,rough:.05,env:1.5}));lens.position.copy(ring.position);g.add(lens);B(g,.02,.13,.02,'#3a2a1c',.2,1.19,.44,{sharp:1})}
+  else{B(g,.07,.07,.36,coat,-.2,1.16,.2,{sharp:1});B(g,.16,.22,.02,'#f6f2ea',-.2,1.14,.4,{sharp:1})}
+  g.userData.legs=legs;return g}
+async function review(P,FIT,log,sp,alive,ask,fix){
+  if(!world||!FIT.rooms.some(f=>f.pre))return;
+  const a=detective(true),b=detective(false),ent=saved.ent.clone();a.position.copy(ent);b.position.copy(ent).add(new THREE.Vector3(.5,0,.3));world.add(a);world.add(b);
+  const say=t=>{carry.classList.remove('hide');carry.innerHTML='<span>'+t+'</span>'};
+  const walk=async(to,ms)=>{const fa=a.position.clone(),fb=b.position.clone(),dir=to.clone().sub(fa),dist=dir.length();if(dist<.02)return;dir.normalize();
+    const tb=to.clone().addScaledVector(dir,-.55).add(new THREE.Vector3(-dir.z*.35,0,dir.x*.35));a.rotation.y=b.rotation.y=Math.atan2(dir.x,dir.z);
+    await tween(Math.max(200,dist*ms),t=>{const e=ease(t),sw=Math.sin(t*dist*7)*.55;a.position.lerpVectors(fa,to,e);b.position.lerpVectors(fb,tb,e);
+      for(const f of [a,b]){f.position.y=Math.abs(Math.sin(t*dist*7))*.03;f.userData.legs[0].rotation.x=sw;f.userData.legs[1].rotation.x=-sw}},sp)};
+  log('room','Review walk · two reviewers check every room');
+  for(const f of FIT.rooms){if(!alive())return;const c=ctx[f.room.key],r=f.room;if(!c)continue;
+    const door=new THREE.Vector3(c.ox+r.entry[0],0,c.oz+r.entry[1]),mid=new THREE.Vector3(c.ox+r.w/2,0,c.oz+r.d/2);
+    await walk(door,150);say('Reviewers are checking the <b>'+r.label.toLowerCase()+'</b>…');await walk(door.clone().lerp(mid,.35),170);
+    let op=null;if(ask){try{op=await ask(f)}catch(e){log('review','<span class="warn">Gemini verdict unavailable: '+e.message+'</span>')}}
+    if(!alive())return;
+    const pw=op&&op.answers.clear_walking_path;   // act only on a clear disagreement, not a coin flip
+    if(fix&&pw&&pw.value<.4&&(f.final.check.walkway.width_m||0)>=.8){try{await fix(f,pw.value)}catch(e){log('review','<span class="warn">Could not align with Gemini: '+e.message+'</span>')}}
+    const pre=new Map(f.pre.items.map(i=>[i.id,i])),fin=new Map(f.final.items.map(i=>[i.id,i]));
+    for(const n of f.review.findings){if(n.level==='fixed'||n.level==='info'){log('review',n.text);say(n.text)}}
+    for(const [id,it] of pre){const k=r.key+'|'+id,e=reg[k];if(!e)continue;const now=fin.get(id);
+      if(now&&now.rect.every((v,i)=>Math.abs(v-it.rect[i])<.02)&&now.face===it.face)continue;
+      const sx=e.g.scale.x;await tween(420,t=>{const q=1-ease(t);e.g.scale.set(q*Math.sign(sx),q,q);e.g.position.y=e.target.y+ease(t)*1.1},sp);
+      world.remove(e.g);if(e.g.userData.ring)world.remove(e.g.userData.ring);delete reg[k]}
+    for(const [id,it] of fin){const k=r.key+'|'+id;if(reg[k])continue;const e=buildItem(it,c.p,c.ox,c.oz);reg[k]=e;e.g.position.copy(e.target);const sx=e.g.scale.x;if(e.g.userData.ring)e.g.userData.ring.visible=true;
+      await tween(420,t=>{const q=ease(t);e.g.scale.set(q*Math.sign(sx),q,q)},sp);e.g.scale.set(sx,1,1)}
+    const v=f.review.verdict,walkable=pw?(pw.value>=.6?' Gemini agrees the path is clear ('+Math.round(pw.value*100)+'%).':pw.value<.4?' Gemini saw a blocked path ('+Math.round(pw.value*100)+'%).':' Gemini is undecided on the path ('+Math.round(pw.value*100)+'%), so the grid check stands.'):'';
+    say('<b>'+r.label+'</b>: '+(v==='approved'?'approved as placed.':v==='corrected'?'corrected ('+f.review.fixes+' change'+(f.review.fixes>1?'s':'')+').':'still needs attention.')+walkable);
+    log('review','<b>'+r.label+'</b>: '+v+(f.review.fixes?' · '+f.review.fixes+' fix'+(f.review.fixes>1?'es':''):'')+'.'+walkable);
+    await tween(650,()=>{},sp)}
+  await walk(ent.clone().add(new THREE.Vector3(.9,0,.2)),110);a.rotation.y=b.rotation.y=0;carry.classList.add('hide');
+  log('review','Review walk done. The 3D scene now shows the corrected layout.')}
+async function show(P,FIT,CAT,log,sp,alive,opts={}){reg={};ctx={};
   if(walking)fps.unlock();touring=false;inset.classList.add('hide');
   if(world){scene.remove(world);world.traverse(o=>o.geometry&&o.geometry.dispose())}
   tweens.forEach(t=>t.res());tweens=[];world=new THREE.Group();scene.add(world);shots=[];
@@ -640,13 +699,10 @@ async function show(P,FIT,CAT,log,sp,alive){
       fr.add(new THREE.Mesh(new THREE.PlaneGeometry(aw+.08,ah+.08),M('#17120d')));const pic=new THREE.Mesh(new THREE.PlaneGeometry(aw,ah),new THREE.MeshBasicMaterial({map:t,toneMapped:false}));pic.position.z=.005;fr.add(pic);
       const horiz=artSide==='N'||artSide==='S';fr.position.set(artSide==='W'?ox+.02:artSide==='E'?ox+r.w-.02:ox+r.w/2,1.75,artSide==='N'?oz+.02:artSide==='S'?oz+r.d-.02:oz+r.d/2);
       fr.rotation.y={N:0,S:Math.PI,W:Math.PI/2,E:-Math.PI/2}[artSide];art.add(fr)}
-    const lay=i=>(i.on||i.wall)?3:i.floor?0:i.own?2:1;const items=[...f.final.items].sort((a,c)=>lay(a)-lay(c));
-    items.forEach(it=>{const [x,z,bw,bd]=it.rect,ew=it.face==='E'||it.face==='W',w=ew?bd:bw,d=ew?bw:bd,g=new THREE.Group();
-      (MAKE[it.own&&it.type==='tv'?'owntv':it.type]||((g,w,d)=>B(g,w,.5,d,'#888888')))(g,w,d,it.own?ownPal(p,it):p,it);
-      g.rotation.y={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2}[it.face]||0;if(it.flip&&it.type==='sectional')g.scale.x=-1;
-      const target=new THREE.Vector3(ox+x+bw/2,it.at_h||0,oz+z+bd/2);world.add(g);
-      if(it.own&&!it.floor){const ring=new THREE.Mesh(new THREE.RingGeometry(Math.max(bw,bd)/2+.06,Math.max(bw,bd)/2+.1,48),M('#8ab4f8',{glow:1.8}));ring.rotation.x=-Math.PI/2;ring.position.set(target.x,.03,target.z);ring.visible=false;ring.userData.ring=true;world.add(ring);g.userData.ring=ring}
-      if(it.own||!anyOwn){g.visible=false;jobs.push({g,target,it,room:r,door:new THREE.Vector3(ox+r.entry[0],0,oz+r.entry[1])})}else g.position.copy(target)});
+    const lay=i=>(i.on||i.wall)?3:i.floor?0:i.own?2:1;const items=[...((opts.final||!f.pre)?f.final:f.pre).items].sort((a,c)=>lay(a)-lay(c));
+    ctx[r.key]={p,ox,oz,r};
+    items.forEach(it=>{const e=buildItem(it,p,ox,oz),{g,target}=e;reg[r.key+'|'+it.id]=e;
+      if((it.own||!anyOwn)&&!opts.final){g.visible=false;jobs.push({g,target,it,room:r,door:new THREE.Vector3(ox+r.entry[0],0,oz+r.entry[1])})}else{g.position.copy(target);if(g.userData.ring)g.userData.ring.visible=true}});
     // one eye-level camera shot per room for the tour
     const c=new THREE.Vector3(ox+r.w/2,0,oz+r.d/2),e=new THREE.Vector3(ox+Math.min(Math.max(r.entry[0],.25),r.w-.25),0,oz+Math.min(Math.max(r.entry[1],.25),r.d-.25));
     const dir=c.clone().sub(e);if(dir.length()<.6){dir.set(r.w>r.d?1:0,0,r.w>r.d?0:1);e.copy(c).addScaledVector(dir,-Math.max(r.w,r.d)/2+.45)}dir.normalize();const side=new THREE.Vector3(-dir.z,0,dir.x);
@@ -708,12 +764,12 @@ async function blender(opts={}){if(!world)throw new Error('no scene');
   const r=await fetch('/studio/blender',{method:'POST',headers:{'Content-Type':'model/gltf-binary','X-Camera':JSON.stringify(camera)},body:glb});
   if(!r.ok)throw new Error((await r.json()).detail||'render failed');
   return {url:URL.createObjectURL(await r.blob()),seconds:+r.headers.get('X-Render-Seconds'),kb:Math.round(glb.byteLength/1024)}}
-function roomShots(FIT){const keep={p:cam.position.clone(),q:cam.quaternion.clone(),fov:cam.fov,up:cam.up.clone()},out=[];tall(false);
-  for(const s of shots){const r=s.room,t=Math.tan(THREE.MathUtils.degToRad(25)),H=Math.max(r.d/(2*t),r.w/(2*t*cam.aspect))*1.15;cam.fov=50;cam.up.set(0,0,-1);cam.position.set(s.look.x,H,s.look.z);cam.lookAt(s.look.x,0,s.look.z);cam.updateProjectionMatrix();composer.render();
+function roomShots(FIT,only){const keep={p:cam.position.clone(),q:cam.quaternion.clone(),fov:cam.fov,up:cam.up.clone()},out=[];tall(false);
+  for(const s of shots){if(only&&s.room.key!==only)continue;const r=s.room,t=Math.tan(THREE.MathUtils.degToRad(25)),H=Math.max(r.d/(2*t),r.w/(2*t*cam.aspect))*1.15;cam.fov=50;cam.up.set(0,0,-1);cam.position.set(s.look.x,H,s.look.z);cam.lookAt(s.look.x,0,s.look.z);cam.updateProjectionMatrix();composer.render();
     const f=FIT.rooms.find(x=>x.room.key===r.key);out.push({key:r.key,label:r.label,has_bed:f.final.items.some(i=>i.type==='bed'),image:renderer.domElement.toDataURL('image/jpeg',.85)})}
   cam.up.copy(keep.up);cam.position.copy(keep.p);cam.quaternion.copy(keep.q);cam.fov=keep.fov;cam.updateProjectionMatrix();return out}
 function flush(){for(const t of tweens.splice(0)){t.fn(1);t.res()}}
-window.Studio3D={show,walk,resize,tour,blender,roomShots,flush,stopTour(){touring=false}};
+window.Studio3D={show,review,walk,resize,tour,blender,roomShots,flush,stopTour(){touring=false}};
 
 </script>
 </body>
