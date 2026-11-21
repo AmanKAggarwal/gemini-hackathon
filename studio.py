@@ -27,9 +27,13 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 
+from studio_correspond import correspond
+
 BASE_DIR = Path(__file__).parent
 CATALOG_PATH = BASE_DIR / "data" / "studio_catalog.json"
 IMG_DIR = BASE_DIR / "data" / "drive_inputs"
+INVENTORY_PATH = BASE_DIR / "data" / "studio_inventory.json"
+ITEM_DIR = BASE_DIR / "data" / "studio_items"
 
 WALLS = "NESW"
 EPS = 0.02
@@ -41,7 +45,9 @@ WALK_WIDTHS = [0.9, 0.8, 0.7, 0.6]  # spec hard constraint is 0.9 m; narrower wi
 
 
 def load_catalog() -> dict[str, Any]:
-    return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    cat = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    cat["inventory"] = json.loads(INVENTORY_PATH.read_text(encoding="utf-8")) if INVENTORY_PATH.exists() else {"items": [], "sources": []}
+    return cat
 
 
 # ---------- frame transforms (rotations x reflections) ----------
@@ -429,6 +435,7 @@ router = APIRouter()
 class FitReq(BaseModel):
     plan: str
     picks: dict[str, str]
+    own: list[str] = []
 
 
 @router.get("/studio", response_class=HTMLResponse)
@@ -449,6 +456,14 @@ def studio_img(name: str) -> FileResponse:
     return FileResponse(target)
 
 
+@router.get("/studio/item/{name}")
+def studio_item(name: str) -> FileResponse:
+    target = ITEM_DIR / Path(name).name
+    if not target.exists():
+        raise HTTPException(status_code=404, detail="item image not found")
+    return FileResponse(target)
+
+
 @router.post("/studio/fit")
 def studio_fit(req: FitReq) -> dict[str, Any]:
     cat = load_catalog()
@@ -462,7 +477,13 @@ def studio_fit(req: FitReq) -> dict[str, Any]:
         if pid not in photos or photos[pid]["cat"] != key:
             raise HTTPException(status_code=400, detail=f"pick one {key} photo")
         out.append(fit_room(photos[pid], plan, key))
-    return {"plan": plan["id"], "perception_source": cat["perception_source"], "rooms": out}
+    inv = {i["id"]: i for i in cat["inventory"]["items"]}
+    own = [inv[i] for i in req.own if i in inv]
+    correspond(out, own, walkway)
+    placed = {i["id"] for r in out for i in r["final"]["items"] if i.get("own")}
+    return {"plan": plan["id"], "perception_source": cat["perception_source"], "rooms": out,
+            "own_requested": [o["id"] for o in own],
+            "own_leftovers": [{"id": o["id"], "label": o["label"]} for o in own if o["id"] not in placed]}
 
 
 if __name__ == "__main__":
