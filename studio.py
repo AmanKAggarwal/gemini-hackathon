@@ -492,6 +492,7 @@ class FitReq(BaseModel):
     own: list[str] = []
 
 
+@router.get("/", response_class=HTMLResponse)
 @router.get("/studio", response_class=HTMLResponse)
 def studio_page() -> HTMLResponse:
     return HTMLResponse((BASE_DIR / "studio.html").read_text(encoding="utf-8"))

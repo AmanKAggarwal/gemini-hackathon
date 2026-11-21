@@ -143,6 +143,7 @@ main{padding:24px 28px 120px;max-width:1500px;margin:0 auto}
       <button class="ghostbtn hide" id="walk">Walk inside</button>
       <button class="ghostbtn" id="skip">Skip animation</button>
       <button class="ghostbtn hide" id="replay">Replay</button>
+      <a class="ghostbtn" id="photoreal" href="/walkthrough" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">Photoreal Blender walkthrough ↗</a>
       <button class="ghostbtn" id="back">Change picks</button>
     </div>
     <div class="weave">
@@ -426,7 +427,7 @@ function finish(){
   $('skip').classList.add('hide');$('replay').classList.remove('hide');
   ['gbox','mbox','cbox'].forEach(b=>$(b).classList.add('hide'));
   renderSum();
-  speed=1;moveIn();
+  moveIn();   // keep the current speed: if Skip was pressed during weaving, the 3D move-in and review also jump to the end
 }
 function renderSum(){
   $('sum').innerHTML=baseCard()+verifyCard()+FIT.rooms.map(f=>{const ph=CAT.photos.find(x=>x.id===f.photo_id),b=f.candidates[f.best],F=f.final,w=F.check.walkway;
@@ -661,7 +662,7 @@ async function review(P,FIT,log,sp,alive,ask,fix){
   for(const f of FIT.rooms){if(!alive())return;const c=ctx[f.room.key],r=f.room;if(!c)continue;
     const door=new THREE.Vector3(c.ox+r.entry[0],0,c.oz+r.entry[1]),mid=new THREE.Vector3(c.ox+r.w/2,0,c.oz+r.d/2);
     await walk(door,150);say('Reviewers are checking the <b>'+r.label.toLowerCase()+'</b>…');await walk(door.clone().lerp(mid,.35),170);
-    let op=null;if(ask){try{op=await ask(f)}catch(e){log('review','<span class="warn">Gemini verdict unavailable: '+e.message+'</span>')}}
+    let op=null;if(ask&&sp()){try{op=await ask(f)}catch(e){log('review','<span class="warn">Gemini verdict unavailable: '+e.message+'</span>')}}
     if(!alive())return;
     const pw=op&&op.answers.clear_walking_path;   // act only on a clear disagreement, not a coin flip
     if(fix&&pw&&pw.value<.4&&(f.final.check.walkway.width_m||0)>=.8){try{await fix(f,pw.value)}catch(e){log('review','<span class="warn">Could not align with Gemini: '+e.message+'</span>')}}

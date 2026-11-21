@@ -1201,6 +1201,15 @@
       justify-content: flex-end;
       gap: 8px;
     }
+
+    /* Text prompt: rearrange furniture with words (from feat/photo-to-blender-3d) */
+    #prompt-dock { margin-top: 10px; border-top: 1px solid var(--border-hairline); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+    #prompt-dock .dock-title { font-size: 12.5px; }
+    #live-prompt-form { display: flex; gap: 6px; }
+    #live-prompt-input { flex: 1; min-inline-size: 0; font: inherit; font-size: 13px; padding: 7px 10px; border-radius: 10px; border: 1px solid var(--border-hairline); background: var(--glass); color: var(--ink); }
+    #prompt-dock .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+    #prompt-dock .chips button { font-size: 11.5px; padding: 3px 8px; }
+    #prompt-dock-status { font-size: 12px; color: var(--ink-muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
   </style>
   <script type="importmap">
     {
@@ -1411,6 +1420,22 @@
         <div role="tabpanel" id="orient-panel-2" aria-labelledby="orient-tab-2" hidden="until-found">
           <div class="panel-card" id="orient-card-2"></div>
         </div>
+      </div>
+
+      <div id="prompt-dock">
+        <span class="dock-title">Rearrange with words</span>
+        <form id="live-prompt-form" autocomplete="off">
+          <input id="live-prompt-input" type="text" placeholder="e.g. Put the TV in the bedroom and no TV in the living room" aria-label="Layout instruction" />
+          <button type="submit" id="live-prompt-submit" class="accent-blue btn-compact">Apply</button>
+          <button type="button" id="live-prompt-reset" class="subtle-btn btn-compact">Reset</button>
+        </form>
+        <div class="chips" id="live-prompt-chips">
+          <button type="button" class="subtle-btn" data-prompt="Put the TV in the bedroom and in the living room, NO TV.">TV in bedroom</button>
+          <button type="button" class="subtle-btn" data-prompt="Put the bed against the east wall, move the dining table near the balcony, and use evening cove lighting.">Bed east + dining by balcony</button>
+          <button type="button" class="subtle-btn" data-prompt="Swap the sofa and dining area, and make the lighting golden hour.">Swap sofa &amp; dining</button>
+          <button type="button" class="subtle-btn" data-prompt="Put the soaking tub on the balcony and remove the study desk.">Tub on balcony, no desk</button>
+        </div>
+        <div id="prompt-dock-status"><span id="dock-msg">Type where things should go. Checked for overlaps and blocked doors.</span><span id="dock-check"></span></div>
       </div>
     </div>
 
@@ -2671,6 +2696,7 @@
     }
 
     function selectOrientationTab(idx, immediate = false) {
+      resetPromptRig();
       const orients = meta.orientations || [];
       if (!orients[idx]) return;
       activeOrientIdx = idx;
@@ -3141,6 +3167,7 @@
     }
 
     window.addEventListener("keydown", e => {
+      if (e.target && e.target.closest && e.target.closest("input, textarea, select, [contenteditable]")) return;
       if (studioOpen || document.getElementById("specs-dialog").open) return;
       keys.add(e.code);
       if (e.key >= "1" && e.key <= "6") teleportToRoom(Number(e.key) - 1);
@@ -3163,6 +3190,199 @@
     });
 
     // -------------------------------------------------------------------------
+    // Text prompt → move furniture groups (layout_prompt.py via /layout/prompt)
+    // Works on this GLB without re-parenting: each group's nodes keep a captured
+    // base world matrix and get a rigid (dx, dz, yaw) transform about the pivot.
+    // -------------------------------------------------------------------------
+    const PROMPT_GROUPS = {
+      bed_group:       { items: ["Item__src_bed_queen", "Item__src_bed_nightstand_l", "Item__src_bed_nightstand_r"], re: /^(Bed_|Nightstand_|MoonLamp_|Bedroom_Rug)/ },
+      desk_group:      { items: ["Item__src_office_desk"], ownPivot: true },
+      wardrobe_group:  { re: /^(Bedroom_Wardrobe|Wardrobe_)/ },
+      bench_group:     { items: ["Item__src_bed_bench"], re: /^(Bedroom_WindowBench|Bedroom_BenchCushion)/ },
+      tv_group:        { items: ["Item__src_living_media"], re: /^(TV_|OLED_|Media_)/ },
+      tv_niches_group: { re: /^Niche_/ },
+      sofa_group:      { items: ["Item__src_living_sofa", "Item__src_living_coffee", "Item__src_living_armchair"], re: /^(Sofa_|CoffeeTable_|Coffee_|Accent_Armchair|Living_Area_Rug)/ },
+      dining_group:    { items: ["Item__src_living_dining"], extra: () => glbNodes.diningLight },
+      living_art_group:{ re: /^Living_Art/ },
+      island_group:    { items: ["Item__src_kitchen_stools"], re: /^(Island_|Stool_|Pendant_)/ },
+      tub_group:       { re: /^(Tub_|Bath_TeakPlinth|Bath_PlinthLED)/ },
+    };
+    let promptDefaults = null;       // GROUP_DEFAULTS from the server
+    let promptRig = null;            // gid -> { nodes:[{node, base}], pivot:Vector3, applied:{dx,dz,dr,visible} }
+    let currentLayoutState = null;
+    const promptTweens = [];
+    let baseFurnitureColliders = null;
+
+    function hasAncestorIn(node, set) {
+      for (let p = node.parent; p; p = p.parent) {
+        if (set.has(p) || (p.name || "").startsWith("Item__")) return true;
+      }
+      return false;
+    }
+
+    function buildPromptRig() {
+      if (buildSeq.active) finishLiveBuildInstantly();
+      for (const tw of activeTweens) {   // settle any running layout-tab tween first
+        tw.node.position.set(tw.ex, tw.node.position.y, tw.ez);
+        tw.node.rotation.y = tw.eyaw;
+      }
+      activeTweens.length = 0;
+      scene.updateMatrixWorld(true);
+      promptRig = {};
+      baseFurnitureColliders = (meta.colliders || []).slice();
+      for (const [gid, spec] of Object.entries(PROMPT_GROUPS)) {
+        const picked = new Set();
+        for (const name of spec.items || []) if (glbNodes.items[name]) picked.add(glbNodes.items[name]);
+        if (spec.extra && spec.extra()) picked.add(spec.extra());
+        if (spec.re) {
+          scene.traverse(n => {
+            if (n.name && spec.re.test(n.name) && !picked.has(n) && !hasAncestorIn(n, picked)) picked.add(n);
+          });
+        }
+        const def = (promptDefaults && promptDefaults[gid]) || { x: 0, z: 0 };
+        let pivot = new THREE.Vector3(def.x, 0, def.z);
+        const first = [...picked][0];
+        if (spec.ownPivot && first) pivot = new THREE.Vector3().setFromMatrixPosition(first.matrixWorld).setY(0);
+        promptRig[gid] = {
+          nodes: [...picked].map(node => ({ node, base: node.matrixWorld.clone() })),
+          pivot,
+          applied: { dx: 0, dz: 0, dr: 0, visible: true },
+        };
+      }
+    }
+
+    const _m = new THREE.Matrix4(), _r = new THREE.Matrix4(), _t = new THREE.Matrix4(), _inv = new THREE.Matrix4();
+    function setGroupPose(gid, dx, dz, dr) {
+      const g = promptRig[gid];
+      g.applied.dx = dx; g.applied.dz = dz; g.applied.dr = dr;
+      // world = T(pivot + d) * R(dr) * T(-pivot) * base
+      _t.makeTranslation(g.pivot.x + dx, 0, g.pivot.z + dz);
+      _r.makeRotationY(dr);
+      _m.multiplyMatrices(_t, _r);
+      _t.makeTranslation(-g.pivot.x, 0, -g.pivot.z);
+      _m.multiply(_t);
+      for (const { node, base } of g.nodes) {
+        const world = _r.copy(_m).multiply(base);
+        node.parent.updateMatrixWorld(true);
+        _inv.copy(node.parent.matrixWorld).invert();
+        world.premultiply(_inv);
+        world.decompose(node.position, node.quaternion, node.scale);
+      }
+      // restore scratch rotation matrix for next iteration of caller
+      _r.makeRotationY(dr);
+    }
+
+    function applyLayoutState(state, collidersMap, instant) {
+      if (!state) return;
+      if (!promptRig) buildPromptRig();
+      currentLayoutState = state;
+      const now = performance.now();
+      for (const [gid, pose] of Object.entries(state)) {
+        const g = promptRig[gid];
+        const def = promptDefaults && promptDefaults[gid];
+        if (!g || !def) continue;
+        const vis = pose.visible !== false;
+        for (const { node } of g.nodes) node.visible = vis;
+        g.applied.visible = vis;
+        const tx = Number(pose.x) - def.x, tz = Number(pose.z) - def.z;
+        const tr = THREE.MathUtils.degToRad(Number(pose.rot_deg || 0) - Number(def.rot_deg || 0));
+        for (let i = promptTweens.length - 1; i >= 0; i--) if (promptTweens[i].gid === gid) promptTweens.splice(i, 1);
+        if (instant || reducedMotion) setGroupPose(gid, tx, tz, tr);
+        else promptTweens.push({ gid, t0: now, dur: 680, s: { ...g.applied }, e: { dx: tx, dz: tz, dr: tr } });
+      }
+      if (collidersMap && baseFurnitureColliders) {
+        const moved = Object.keys(collidersMap).map(gid => promptDefaults[gid]).filter(Boolean);
+        const inside = c => {
+          const cx = (c.x0 + c.x1) / 2, cz = (c.z0 + c.z1) / 2;
+          return moved.some(d => Math.abs(cx - d.x) <= d.hx && Math.abs(cz - d.z) <= d.hz);
+        };
+        const dyn = Object.entries(collidersMap)
+          .filter(([, info]) => info.visible !== false)
+          .map(([gid, info]) => ({ kind: "furniture", label: `Prompt_${gid}`, x0: info.x0, z0: info.z0, x1: info.x1, z1: info.z1, y0: 0, y1: 1.4 }));
+        meta.colliders = [...baseFurnitureColliders.filter(c => c.kind !== "furniture" || !inside(c)), ...dyn];
+        drawMinimap();
+      }
+    }
+
+    function stepPromptTweens(now) {
+      for (let i = promptTweens.length - 1; i >= 0; i--) {
+        const tw = promptTweens[i];
+        const u = Math.min(1, (now - tw.t0) / tw.dur);
+        const e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+        setGroupPose(tw.gid, tw.s.dx + (tw.e.dx - tw.s.dx) * e, tw.s.dz + (tw.e.dz - tw.s.dz) * e, tw.s.dr + (tw.e.dr - tw.s.dr) * e);
+        if (u >= 1) promptTweens.splice(i, 1);
+      }
+    }
+
+    // Switching layout tabs resets prompt edits (the tab owns the item positions).
+    function resetPromptRig() {
+      promptTweens.length = 0;
+      if (promptRig) {
+        for (const g of Object.values(promptRig)) for (const { node } of g.nodes) node.visible = true;
+      }
+      promptRig = null;
+      currentLayoutState = null;
+      const msg = document.getElementById("dock-msg");
+      if (msg) msg.textContent = "Type where things should go. Checked for overlaps and blocked doors.";
+      const chk = document.getElementById("dock-check");
+      if (chk) chk.textContent = "";
+    }
+
+    function applyLayoutResultPayload(res) {
+      if (!res || !res.ok) return;
+      if (res.state) applyLayoutState(res.state, res.colliders || null, false);
+      if (res.lighting_mode) {
+        const idxMap = { sunlit_day: 0, golden_hour: 1, evening_cove: 2 };
+        if (res.lighting_mode in idxMap) applyLightingMode(idxMap[res.lighting_mode]);
+      }
+      const chk = res.check || { violations_total: 0 };
+      document.getElementById("dock-msg").textContent = res.summary || "Layout updated.";
+      const el = document.getElementById("dock-check");
+      if (res.matched === false) { el.textContent = "No matching move"; }
+      else el.textContent = chk.violations_total === 0 ? `✓ 0 overlaps · doors clear (${res.engine || "solver"})` : `⚠ ${chk.violations_total} issue(s)`;
+    }
+
+    async function runLiveLayoutPrompt(text) {
+      text = (text || "").trim();
+      if (!text) return;
+      const btn = document.getElementById("live-prompt-submit");
+      btn.disabled = true; btn.textContent = "Solving…";
+      try {
+        if (!promptDefaults) {
+          const st = await (await fetch("/layout/state")).json();
+          promptDefaults = st.defaults;
+        }
+        const resp = await fetch("/layout/prompt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: text, current_state: currentLayoutState }),
+        });
+        if (resp.ok) applyLayoutResultPayload(await resp.json());
+        else document.getElementById("dock-msg").textContent = `Server error ${resp.status}`;
+      } catch (err) {
+        document.getElementById("dock-msg").textContent = "Could not reach /layout/prompt";
+      }
+      btn.disabled = false; btn.textContent = "Apply";
+    }
+
+    document.getElementById("live-prompt-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const inp = document.getElementById("live-prompt-input");
+      runLiveLayoutPrompt(inp.value);
+      inp.blur();
+    });
+    document.getElementById("live-prompt-reset").addEventListener("click", () => {
+      document.getElementById("live-prompt-input").value = "";
+      runLiveLayoutPrompt("Reset layout to default");
+    });
+    document.getElementById("live-prompt-chips").addEventListener("click", e => {
+      const chip = e.target.closest("[data-prompt]");
+      if (!chip) return;
+      document.getElementById("live-prompt-input").value = chip.dataset.prompt;
+      runLiveLayoutPrompt(chip.dataset.prompt);
+    });
+
+    // -------------------------------------------------------------------------
     // 11. Main Render Loop
     // -------------------------------------------------------------------------
     let lastTime = performance.now();
@@ -3172,6 +3392,7 @@
 
       if (studioOpen) orbit.desiredTheta += dt * 0.06;
       if (buildSeq.active) stepLiveBuild(dt);
+      if (promptTweens.length) stepPromptTweens(now);
 
       for (let i = activeTweens.length - 1; i >= 0; i--) {
         const tw = activeTweens[i];

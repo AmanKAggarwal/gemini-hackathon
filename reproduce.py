@@ -23,6 +23,7 @@ from eval import evaluate_case, run_stress_ladder, write_eval_reports
 from judge import judge_features
 from perceive import perceive_listing
 from schemas import Home, HomeVideoInventory
+from style import build_default_style_bundle
 from weave import weave
 
 BASE_DIR = Path(__file__).parent
@@ -78,6 +79,9 @@ def main() -> None:
     (DATA_DIR / "lst2_home.json").write_text(lst2.model_dump_json(indent=2), encoding="utf-8")
     (DATA_DIR / "inventory.json").write_text(inventory.model_dump_json(indent=2), encoding="utf-8")
     (DATA_DIR / "home.json").write_text(woven_home.model_dump_json(indent=2), encoding="utf-8")
+    (DATA_DIR / "styles.json").write_text(
+        build_default_style_bundle().model_dump_json(indent=2), encoding="utf-8"
+    )
 
     layouts, leftovers = arrange_whole_home(inventory, woven_home)
     (DATA_DIR / "layouts.json").write_text(

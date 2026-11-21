@@ -5,5 +5,7 @@ __pycache__/
 .DS_Store
 .env
 data/renders/
+data/custom_uploads/
+data/scene_layout.json
 private_refs/
 *.blend1

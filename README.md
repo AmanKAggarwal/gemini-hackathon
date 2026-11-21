@@ -19,9 +19,13 @@ chmod +x run.sh
 ./run.sh
 ```
 
-`./run.sh` creates an isolated `.venv`, installs pinned dependencies from `requirements.txt`, runs `reproduce.py` (generating `./data/home.json`, `./data/layouts.json`, `./data/results.csv`, `./data/results.md`, and `./data/breaking_points.md` from the bundled NYC apartment schematics & photos in `data/drive_inputs/`), and launches the interactive server:
-- **Homeweave Room Ensemble Studio, Live Tiny-Mover 3D Build, 3 Furniture Orientation Tabs & 1.65 m First-Person Walkthrough:** **http://127.0.0.1:8000** (and direct POV deep-link at **http://127.0.0.1:8000/walkthrough?mode=walkthrough**; see [walkthrough/README.md](walkthrough/README.md) for Blender 5.2 rebuild scripts, controls, and layout specs).
-- **Stage-by-Stage JSON Pipeline Inspector:** **http://127.0.0.1:8000/pipeline**
+`./run.sh` creates an isolated `.venv`, installs pinned dependencies from `requirements.txt`, runs `reproduce.py` (generating `./data/home.json`, `./data/layouts.json`, `./data/styles.json`, `./data/results.csv`, `./data/results.md`, and `./data/breaking_points.md` from the bundled NYC apartment schematics & photos in `data/drive_inputs/`), and launches the server. This branch (`merged-versions`) merges three lines of work:
+
+- **Studio (`/`, also `/studio`)**, from `feat/studio-picker-3d`: pick a floor plan, a look per room and your own things; watch the agent weave each room, move in, and two reviewers walk the rooms and correct the layout. **Skip animation** jumps straight to the end, including the 3D move-in and the review walk. "Photoreal Blender walkthrough ↗" opens the walkthrough below.
+- **Photoreal Blender walkthrough (`/walkthrough`)**, from `abhinav-branch`: Blender 5.2 GLB with the room ensemble studio, live tiny-mover build ("Skip to finish"), 3 layout tabs and a 1.65 m first-person walk. POV deep link: `/walkthrough?mode=walkthrough`. See [walkthrough/README.md](walkthrough/README.md).
+- **Rearrange with words**, from `feat/photo-to-blender-3d`: the "Rearrange with words" box in the walkthrough's layout panel sends text to `/layout/prompt` (`layout_prompt.py`), and the furniture groups animate to the verified positions. Style extraction endpoints (`/style/extract`, `/style/build-residence`) are kept on the server.
+- **Stage-by-Stage JSON Pipeline Inspector:** `/pipeline`
+- **5-Layout Floor-Plan & Constraint Studio (`/plan-studio`):** **http://127.0.0.1:8000/plan-studio** — Inspect all 5 `arrange.py` beam-search candidates, `0.9 m` `A*` walkway checks, and leftover analysis.
 
 To re-run live Gemini 4 perception, weaving, judging, and the `gemini-4-neon` spatial placement baseline with your own API key:
 
