@@ -1,0 +1,527 @@
+{
+  "lst1": {
+    "id": "lst1-home",
+    "source": "listing",
+    "rooms": [
+      {
+        "id": "lst1-living",
+        "type": "living",
+        "polygon": [[0.0, 0.0], [5.82, 0.0], [5.82, 3.66], [0.0, 3.66]],
+        "ceiling_height_m": 2.7,
+        "doors": [
+          {
+            "id": "lst1-door-foyer",
+            "wall_index": 2,
+            "offset_m": 0.45,
+            "width_m": 0.90,
+            "swing": "open",
+            "provenance": {"source": "data/drive_inputs/plan1.webp", "notes": "Manhattan Park Plan P foyer entry"}
+          },
+          {
+            "id": "lst1-door-balcony",
+            "wall_index": 0,
+            "offset_m": 2.10,
+            "width_m": 1.80,
+            "swing": "sliding",
+            "provenance": {"source": "data/drive_inputs/plan1.webp", "notes": "Sliding glass doors to balcony"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "lst1-win-living",
+            "wall_index": 0,
+            "offset_m": 0.60,
+            "width_m": 4.40,
+            "sill_height_m": 0.35,
+            "height_m": 2.10,
+            "provenance": {"source": "data/drive_inputs/L1.jpg", "photo_indices": [0]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "lst1-tv-wall",
+            "room_id": "lst1-living",
+            "type": "tv_wall",
+            "footprint": [[0.02, 0.95], [0.16, 0.95], [0.16, 2.85], [0.02, 2.85]],
+            "provenance": {"source": "data/drive_inputs/L1.jpg", "photo_indices": [0]}
+          }
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/plan1.webp",
+          "scale_ref": "Manhattan Park Plan P label: 19'1\" x 12'0\" (5.82 m x 3.66 m)"
+        }
+      },
+      {
+        "id": "lst1-bedroom",
+        "type": "primary_bedroom",
+        "polygon": [[0.0, 0.0], [4.78, 0.0], [4.78, 3.33], [0.0, 3.33]],
+        "ceiling_height_m": 2.7,
+        "doors": [
+          {
+            "id": "lst1-door-bed",
+            "wall_index": 0,
+            "offset_m": 3.55,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "data/drive_inputs/plan1.webp"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "lst1-win-bed",
+            "wall_index": 2,
+            "offset_m": 0.85,
+            "width_m": 3.10,
+            "sill_height_m": 0.45,
+            "height_m": 1.95,
+            "provenance": {"source": "data/drive_inputs/Be1.jpg", "photo_indices": [4]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "lst1-closet",
+            "room_id": "lst1-bedroom",
+            "type": "closet",
+            "footprint": [[4.12, 0.10], [4.74, 0.10], [4.74, 1.95], [4.12, 1.95]],
+            "provenance": {"source": "data/drive_inputs/plan1.webp"}
+          }
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/plan1.webp",
+          "scale_ref": "Manhattan Park Plan P label: 15'8\" x 10'11\" (4.78 m x 3.33 m)"
+        }
+      }
+    ],
+    "fixtures": [],
+    "staging": [
+      {
+        "id": "lst1-stage-sofa",
+        "room_id": "lst1-living",
+        "category": "sofa",
+        "dims_m": {"w": 2.40, "d": 0.98, "h": 0.84},
+        "pose": {"x": 3.65, "z": 1.85, "rot_deg": 90.0},
+        "group_kind": "conversation",
+        "replaceable": true,
+        "provenance": {"source": "data/drive_inputs/L1.jpg", "photo_indices": [0]}
+      },
+      {
+        "id": "lst1-stage-bed",
+        "room_id": "lst1-bedroom",
+        "category": "bed",
+        "dims_m": {"w": 1.65, "d": 2.10, "h": 1.06},
+        "pose": {"x": 1.25, "z": 1.75, "rot_deg": 270.0},
+        "group_kind": "sleep",
+        "replaceable": true,
+        "provenance": {"source": "data/drive_inputs/Be1.jpg", "photo_indices": [4]}
+      }
+    ],
+    "features": [
+      {
+        "id": "lst1-feat-living",
+        "home_id": "lst1-home",
+        "room_id": "lst1-living",
+        "label": "19'1\" x 12'0\" living room with marble TV wall & floor-to-ceiling balcony glass",
+        "evidence": ["0", "plan1.webp"],
+        "provenance": {"source": "data/drive_inputs/L1.jpg", "photo_indices": [0]}
+      },
+      {
+        "id": "lst1-feat-bed",
+        "home_id": "lst1-home",
+        "room_id": "lst1-bedroom",
+        "label": "15'8\" x 10'11\" primary bedroom with skyline window & cove lighting",
+        "evidence": ["4", "plan1.webp"],
+        "provenance": {"source": "data/drive_inputs/Be1.jpg", "photo_indices": [4]}
+      }
+    ],
+    "conflicts": [],
+    "scale_check": {
+      "method": "plan_labels",
+      "reference": "Manhattan Park 30 River Rd Plan P labels",
+      "conflicts": [],
+      "provenance": {"source": "data/drive_inputs/plan1.webp"}
+    },
+    "provenance": {"source": "data/drive_inputs/plan1.webp", "notes": "Manhattan Park Plan P + L1..L4, Be1..Be3"}
+  },
+  "lst2": {
+    "id": "lst2-home",
+    "source": "listing",
+    "rooms": [
+      {
+        "id": "lst2-kitchen",
+        "type": "kitchen",
+        "polygon": [[0.0, 0.0], [3.60, 0.0], [3.60, 3.66], [0.0, 3.66]],
+        "ceiling_height_m": 2.7,
+        "doors": [
+          {
+            "id": "lst2-door-open",
+            "wall_index": 3,
+            "offset_m": 1.80,
+            "width_m": 1.45,
+            "swing": "open",
+            "provenance": {"source": "data/drive_inputs/plan2.webp", "notes": "The Eastline Residence 1713 open kitchen"}
+          },
+          {
+            "id": "lst2-door-terrace",
+            "wall_index": 1,
+            "offset_m": 0.45,
+            "width_m": 0.86,
+            "swing": "outward_left",
+            "provenance": {"source": "data/drive_inputs/plan2.webp", "notes": "Terrace glass door"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "lst2-win-kitchen",
+            "wall_index": 1,
+            "offset_m": 1.55,
+            "width_m": 1.65,
+            "sill_height_m": 0.95,
+            "height_m": 1.35,
+            "provenance": {"source": "data/drive_inputs/K1.jpg", "photo_indices": [1]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "lst2-counter-l",
+            "room_id": "lst2-kitchen",
+            "type": "counter",
+            "footprint": [[0.10, 0.08], [3.50, 0.08], [3.50, 0.68], [0.10, 0.68]],
+            "provenance": {"source": "data/drive_inputs/K1.jpg", "photo_indices": [1]}
+          },
+          {
+            "id": "lst2-island-bar",
+            "room_id": "lst2-kitchen",
+            "type": "island",
+            "footprint": [[0.65, 1.55], [2.45, 1.55], [2.45, 2.40], [0.65, 2.40]],
+            "provenance": {"source": "data/drive_inputs/K1.jpg", "photo_indices": [1]}
+          }
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/plan2.webp",
+          "scale_ref": "The Eastline 1655 First Ave Residence 1713 door = 0.81 m"
+        }
+      },
+      {
+        "id": "lst2-bathroom",
+        "type": "bathroom",
+        "polygon": [[0.0, 0.0], [3.40, 0.0], [3.40, 3.33], [0.0, 3.33]],
+        "ceiling_height_m": 2.7,
+        "doors": [
+          {
+            "id": "lst2-door-bath",
+            "wall_index": 0,
+            "offset_m": 1.35,
+            "width_m": 0.76,
+            "swing": "inward_right",
+            "provenance": {"source": "data/drive_inputs/plan2.webp"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "lst2-win-bath",
+            "wall_index": 2,
+            "offset_m": 0.35,
+            "width_m": 1.35,
+            "sill_height_m": 0.90,
+            "height_m": 1.40,
+            "provenance": {"source": "data/drive_inputs/B1.jpg", "photo_indices": [3]}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "lst2-soaking-tub",
+            "room_id": "lst2-bathroom",
+            "type": "bath_tub",
+            "footprint": [[0.15, 2.42], [1.85, 2.42], [1.85, 3.22], [0.15, 3.22]],
+            "provenance": {"source": "data/drive_inputs/B1.jpg", "photo_indices": [3]}
+          },
+          {
+            "id": "lst2-vanity",
+            "room_id": "lst2-bathroom",
+            "type": "vanity",
+            "footprint": [[2.75, 0.95], [3.32, 0.95], [3.32, 2.35], [2.75, 2.35]],
+            "provenance": {"source": "data/drive_inputs/B1.jpg", "photo_indices": [3]}
+          }
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/B1.jpg",
+          "scale_ref": "The Eastline Residence 1713 + B1.jpg soaking tub & arched shower"
+        }
+      }
+    ],
+    "fixtures": [],
+    "staging": [],
+    "features": [
+      {
+        "id": "lst2-feat-kitchen",
+        "home_id": "lst2-home",
+        "room_id": "lst2-kitchen",
+        "label": "Olive & waterfall-marble island kitchen with 3 counter stools & globe pendants",
+        "evidence": ["1", "plan2.webp"],
+        "provenance": {"source": "data/drive_inputs/K1.jpg", "photo_indices": [1]}
+      },
+      {
+        "id": "lst2-feat-bath",
+        "home_id": "lst2-home",
+        "room_id": "lst2-bathroom",
+        "label": "Spa bathroom with window soaking tub, arched rain shower & floating vanity",
+        "evidence": ["3", "plan2.webp"],
+        "provenance": {"source": "data/drive_inputs/B1.jpg", "photo_indices": [3]}
+      }
+    ],
+    "conflicts": [],
+    "scale_check": {
+      "method": "door_width",
+      "reference": "Residence 1713 entry door = 0.81 m",
+      "conflicts": [],
+      "provenance": {"source": "data/drive_inputs/plan2.webp"}
+    },
+    "provenance": {"source": "data/drive_inputs/plan2.webp", "notes": "The Eastline Residence 1713 + K1..K4, B1..B4"}
+  },
+  "current_home_inventory": {
+    "home_id": "src-home",
+    "rooms": [
+      {
+        "id": "src-living",
+        "type": "living",
+        "polygon": [[0.0, 0.0], [3.66, 0.0], [3.66, 3.96], [0.0, 3.96]],
+        "ceiling_height_m": 2.55,
+        "doors": [
+          {
+            "id": "src-door-deck",
+            "wall_index": 0,
+            "offset_m": 0.45,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "data/drive_inputs/schematic.png", "scale_ref": "#4-189 LOUNGE 12'X13' (3.66 m x 3.96 m)"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "src-win-lounge",
+            "wall_index": 3,
+            "offset_m": 0.55,
+            "width_m": 2.40,
+            "provenance": {"source": "data/drive_inputs/schematic.png"}
+          }
+        ],
+        "fixtures": [
+          {
+            "id": "src-tv-wall",
+            "room_id": "src-living",
+            "type": "tv_wall",
+            "footprint": [[0.02, 1.10], [0.15, 1.10], [0.15, 2.70], [0.02, 2.70]],
+            "provenance": {"source": "data/drive_inputs/L2.jpg", "seen_at": ["00:14"]}
+          }
+        ],
+        "provenance": {
+          "source": "data/drive_inputs/schematic.png",
+          "scale_ref": "#4-189 LOUNGE 12'X13' (3.66 m x 3.96 m)"
+        }
+      },
+      {
+        "id": "src-bedroom",
+        "type": "primary_bedroom",
+        "polygon": [[0.0, 0.0], [3.35, 0.0], [3.35, 3.05], [0.0, 3.05]],
+        "ceiling_height_m": 2.55,
+        "doors": [
+          {
+            "id": "src-door-retreat",
+            "wall_index": 2,
+            "offset_m": 2.15,
+            "width_m": 0.81,
+            "swing": "inward_left",
+            "provenance": {"source": "data/drive_inputs/schematic.png", "scale_ref": "#4-189 RETREAT 11'X10' (3.35 m x 3.05 m)"}
+          }
+        ],
+        "windows": [
+          {
+            "id": "src-win-retreat",
+            "wall_index": 3,
+            "offset_m": 0.50,
+            "width_m": 1.80,
+            "provenance": {"source": "data/drive_inputs/schematic.png"}
+          }
+        ],
+        "fixtures": [],
+        "provenance": {
+          "source": "data/drive_inputs/schematic.png",
+          "scale_ref": "#4-189 RETREAT 11'X10' (3.35 m x 3.05 m)"
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "src-sofa-01",
+        "room_id": "src-living",
+        "category": "sofa",
+        "dims_m": {"w": 2.20, "d": 0.92, "h": 0.84},
+        "pose": {"x": 2.75, "z": 1.95, "rot_deg": 90.0},
+        "front_dir": "toward_tv",
+        "against_wall": true,
+        "nearest_fixture": "tv_wall",
+        "group_id": "src-grp-conv",
+        "must_keep": true,
+        "confidence": 0.95,
+        "provenance": {"source": "data/drive_inputs/L2.jpg", "seen_at": ["00:12"], "scale_ref": "#4-189 12'X13' + 0.81 m door"}
+      },
+      {
+        "id": "src-coffee-01",
+        "room_id": "src-living",
+        "category": "coffee_table",
+        "dims_m": {"w": 1.15, "d": 0.62, "h": 0.42},
+        "pose": {"x": 1.65, "z": 1.95, "rot_deg": 90.0},
+        "front_dir": "toward_tv",
+        "against_wall": false,
+        "nearest_fixture": null,
+        "group_id": "src-grp-conv",
+        "must_keep": true,
+        "confidence": 0.93,
+        "provenance": {"source": "data/drive_inputs/L2.jpg", "seen_at": ["00:16"], "scale_ref": "#4-189 12'X13' + 0.81 m door"}
+      },
+      {
+        "id": "src-armchair-01",
+        "room_id": "src-living",
+        "category": "armchair",
+        "dims_m": {"w": 0.82, "d": 0.82, "h": 0.82},
+        "pose": {"x": 1.65, "z": 0.78, "rot_deg": 0.0},
+        "front_dir": "toward_coffee_table",
+        "against_wall": true,
+        "nearest_fixture": "window",
+        "group_id": "src-grp-conv",
+        "must_keep": true,
+        "confidence": 0.90,
+        "provenance": {"source": "data/drive_inputs/L3.jpg", "seen_at": ["00:21"], "scale_ref": "#4-189 12'X13' + 0.81 m door"}
+      },
+      {
+        "id": "src-tv-stand-01",
+        "room_id": "src-living",
+        "category": "tv_stand",
+        "dims_m": {"w": 1.60, "d": 0.44, "h": 0.54},
+        "pose": {"x": 0.30, "z": 1.95, "rot_deg": 270.0},
+        "front_dir": "toward_sofa",
+        "against_wall": true,
+        "nearest_fixture": "tv_wall",
+        "group_id": "src-grp-media",
+        "must_keep": true,
+        "confidence": 0.94,
+        "provenance": {"source": "data/drive_inputs/L1.jpg", "seen_at": ["00:24"], "scale_ref": "#4-189 12'X13' + 0.81 m door"}
+      },
+      {
+        "id": "src-dining-table-01",
+        "room_id": "src-living",
+        "category": "dining_table",
+        "dims_m": {"w": 1.25, "d": 0.78, "h": 0.75},
+        "pose": {"x": 2.75, "z": 3.40, "rot_deg": 180.0},
+        "front_dir": "toward_center",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-dining",
+        "must_keep": true,
+        "confidence": 0.91,
+        "provenance": {"source": "data/drive_inputs/schematic.png", "seen_at": ["00:31"], "scale_ref": "#4-189 DINE zone"}
+      },
+      {
+        "id": "src-bed-queen",
+        "room_id": "src-bedroom",
+        "category": "bed",
+        "dims_m": {"w": 1.60, "d": 2.05, "h": 1.05},
+        "pose": {"x": 1.10, "z": 1.45, "rot_deg": 270.0},
+        "front_dir": "toward_foot",
+        "against_wall": true,
+        "nearest_fixture": "window",
+        "group_id": "src-grp-sleep",
+        "must_keep": true,
+        "confidence": 0.96,
+        "provenance": {"source": "data/drive_inputs/Be2.jpg", "seen_at": ["00:54"], "scale_ref": "#4-189 RETREAT 11'X10'"}
+      },
+      {
+        "id": "src-nightstand-01",
+        "room_id": "src-bedroom",
+        "category": "nightstand",
+        "dims_m": {"w": 0.50, "d": 0.42, "h": 0.56},
+        "pose": {"x": 0.30, "z": 0.36, "rot_deg": 270.0},
+        "front_dir": "toward_room",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-sleep",
+        "must_keep": true,
+        "confidence": 0.90,
+        "provenance": {"source": "data/drive_inputs/Be2.jpg", "seen_at": ["01:02"], "scale_ref": "#4-189 RETREAT 11'X10'"}
+      },
+      {
+        "id": "src-desk-01",
+        "room_id": "src-bedroom",
+        "category": "desk",
+        "dims_m": {"w": 1.15, "d": 0.58, "h": 0.75},
+        "pose": {"x": 2.40, "z": 0.40, "rot_deg": 0.0},
+        "front_dir": "toward_room",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-work",
+        "must_keep": true,
+        "confidence": 0.88,
+        "provenance": {"source": "data/drive_inputs/Be3.jpg", "seen_at": ["01:10"], "scale_ref": "#4-189 RETREAT 11'X10'"}
+      },
+      {
+        "id": "src-sectional-oversize",
+        "room_id": "src-living",
+        "category": "sectional",
+        "dims_m": {"w": 6.10, "d": 1.65, "h": 0.85},
+        "pose": {"x": 1.83, "z": 1.98, "rot_deg": 0.0},
+        "front_dir": "toward_center",
+        "against_wall": true,
+        "nearest_fixture": null,
+        "group_id": "src-grp-extra",
+        "must_keep": false,
+        "confidence": 0.79,
+        "provenance": {"source": "data/drive_inputs/L1.jpg", "seen_at": ["00:44"], "scale_ref": "oversized showroom sectional"}
+      }
+    ],
+    "groups": [
+      {
+        "id": "src-grp-conv",
+        "room_id": "src-living",
+        "kind": "conversation",
+        "item_ids": ["src-sofa-01", "src-coffee-01", "src-armchair-01"],
+        "provenance": {"source": "data/drive_inputs/L2.jpg", "seen_at": ["00:12", "00:21"]}
+      },
+      {
+        "id": "src-grp-media",
+        "room_id": "src-living",
+        "kind": "storage",
+        "item_ids": ["src-tv-stand-01"],
+        "provenance": {"source": "data/drive_inputs/L1.jpg", "seen_at": ["00:24"]}
+      },
+      {
+        "id": "src-grp-dining",
+        "room_id": "src-living",
+        "kind": "dining",
+        "item_ids": ["src-dining-table-01"],
+        "provenance": {"source": "data/drive_inputs/schematic.png", "seen_at": ["00:31"]}
+      },
+      {
+        "id": "src-grp-sleep",
+        "room_id": "src-bedroom",
+        "kind": "sleep",
+        "item_ids": ["src-bed-queen", "src-nightstand-01"],
+        "provenance": {"source": "data/drive_inputs/Be2.jpg", "seen_at": ["00:54", "01:02"]}
+      },
+      {
+        "id": "src-grp-work",
+        "room_id": "src-bedroom",
+        "kind": "work",
+        "item_ids": ["src-desk-01"],
+        "provenance": {"source": "data/drive_inputs/Be3.jpg", "seen_at": ["01:10"]}
+      }
+    ],
+    "uncertain": [],
+    "scale_check": {
+      "method": "plan_labels",
+      "reference": "#4-189 schematic.png (LOUNGE 12'X13', RETREAT 11'X10', 700 sq ft)",
+      "conflicts": [],
+      "provenance": {"source": "data/drive_inputs/schematic.png"}
+    },
+    "provenance": {"source": "data/drive_inputs/schematic.png", "notes": "Current home (#4-189) + furniture inventory"}
+  }
+}
