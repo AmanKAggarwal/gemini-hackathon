@@ -234,6 +234,11 @@
      "entry": [
       305,
       382
+     ],
+     "printed": [
+      5.82,
+      3.66,
+      "19'1\" × 12'0\""
      ]
     },
     "bedroom": {
@@ -264,6 +269,11 @@
      "entry": [
       240,
       365
+     ],
+     "printed": [
+      4.78,
+      3.33,
+      "15'8\" × 10'11\""
      ]
     },
     "bathroom": {
@@ -370,6 +380,11 @@
      "entry": [
       555,
       330
+     ],
+     "printed": [
+      3.81,
+      4.11,
+      "12'6\" × 13'6\""
      ]
     },
     "bedroom": {
@@ -406,7 +421,13 @@
      "entry": [
       845,
       353
-     ]
+     ],
+     "printed": [
+      3.2,
+      5.13,
+      "10'6\" × 16'10\""
+     ],
+     "printed_note": "only the furnishable part of the room is modelled; the entry strip and closet are excluded"
     },
     "bathroom": {
      "label": "Bathroom",
