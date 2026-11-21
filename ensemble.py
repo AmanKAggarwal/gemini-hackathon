@@ -68,87 +68,89 @@ ROOM_META: dict[str, dict[str, Any]] = {
         "src_room_id": "src-living",
         "type": "living",
         "title": "Living & Dining",
-        "subtitle": "Curtain-wall lounge, OLED credenza & 4-seat dining",
+        "subtitle": "Sofa, media wall, and dining table",
         "bounds": [0.00, 0.00, 5.82, 3.66],
         "preset": {"x": 4.95, "z": 2.92, "yaw_deg": 68.0, "pitch_deg": -3.0},
         "orbit_focus": [2.85, 0.65, 1.85],
         "default_samples": [
-            {"name": "L1.jpg", "url": "/samples/drive/L1.jpg", "tag": "Backlit travertine media wall"},
-            {"name": "L2.jpg", "url": "/samples/drive/L2.jpg", "tag": "Boucle sofa & warm cove lighting"},
-            {"name": "L3.jpg", "url": "/samples/drive/L3.jpg", "tag": "Open-plan honey-oak flooring"},
-            {"name": "L4.jpg", "url": "/samples/drive/L4.jpg", "tag": "Floor-to-ceiling riverfront glass"},
+            {"name": "L1.jpg", "url": "/samples/drive/L1.jpg", "tag": "Travertine media wall"},
+            {"name": "L2.jpg", "url": "/samples/drive/L2.jpg", "tag": "Boucle sofa & warm lighting"},
+            {"name": "L3.jpg", "url": "/samples/drive/L3.jpg", "tag": "Honey-oak flooring"},
+            {"name": "L4.jpg", "url": "/samples/drive/L4.jpg", "tag": "Floor-to-ceiling windows"},
         ],
     },
     "kitchen": {
         "room_id": "new-kitchen",
         "src_room_id": "src-kitchen",
         "type": "kitchen",
-        "title": "Kitchen & Entry Foyer",
-        "subtitle": "Waterfall Calacatta island, sage shaker & globe pendants",
+        "title": "Kitchen",
+        "subtitle": "Island, cabinets, and pendants",
         "bounds": [5.82, 0.00, 9.42, 3.66],
         "preset": {"x": 8.68, "z": 2.95, "yaw_deg": 52.0, "pitch_deg": -4.0},
         "orbit_focus": [7.55, 0.75, 1.85],
         "default_samples": [
-            {"name": "K1.jpg", "url": "/samples/drive/K1.jpg", "tag": "Waterfall marble island & stools"},
-            {"name": "K2.jpg", "url": "/samples/drive/K2.jpg", "tag": "Sage-olive cabinetry & brass pulls"},
-            {"name": "K3.jpg", "url": "/samples/drive/K3.jpg", "tag": "Amber glass pendants & range hood"},
-            {"name": "K4.jpg", "url": "/samples/drive/K4.jpg", "tag": "Undermount window sink & walnut tower"},
+            {"name": "K1.jpg", "url": "/samples/drive/K1.jpg", "tag": "Marble island & stools"},
+            {"name": "K2.jpg", "url": "/samples/drive/K2.jpg", "tag": "Shaker cabinets & pulls"},
+            {"name": "K3.jpg", "url": "/samples/drive/K3.jpg", "tag": "Amber glass pendants"},
+            {"name": "K4.jpg", "url": "/samples/drive/K4.jpg", "tag": "Window sink & walnut tower"},
         ],
     },
     "bedroom": {
         "room_id": "new-primary-bedroom",
         "src_room_id": "src-bedroom",
         "type": "primary_bedroom",
-        "title": "Primary Bedroom",
-        "subtitle": "Channel-tufted queen suite, lunar lamps & smoked wardrobe",
+        "title": "Bedroom",
+        "subtitle": "Queen bed, nightstands, and wardrobe",
         "bounds": [0.00, 3.66, 4.78, 6.99],
         "preset": {"x": 3.72, "z": 4.24, "yaw_deg": 122.0, "pitch_deg": -5.0},
         "orbit_focus": [2.25, 0.65, 5.32],
         "default_samples": [
-            {"name": "Be1.jpg", "url": "/samples/drive/Be1.jpg", "tag": "Boucle platform bed & halo medallion"},
-            {"name": "Be2.jpg", "url": "/samples/drive/Be2.jpg", "tag": "Walnut nightstands & warm globe lamps"},
-            {"name": "Be3.jpg", "url": "/samples/drive/Be3.jpg", "tag": "Window bench & pleated linen drapery"},
+            {"name": "Be1.jpg", "url": "/samples/drive/Be1.jpg", "tag": "Platform bed & warm halo"},
+            {"name": "Be2.jpg", "url": "/samples/drive/Be2.jpg", "tag": "Walnut nightstands & lamps"},
+            {"name": "Be3.jpg", "url": "/samples/drive/Be3.jpg", "tag": "Window bench & linen drapes"},
         ],
     },
     "bathroom": {
         "room_id": "new-bathroom",
         "src_room_id": "src-bathroom",
         "type": "bathroom",
-        "title": "Spa Bathroom",
-        "subtitle": "Freestanding soaking tub, rain shower & backlit vanity",
+        "title": "Bathroom",
+        "subtitle": "Soaking tub, glass shower, and vanity",
         "bounds": [4.78, 3.66, 8.18, 6.99],
         "preset": {"x": 6.56, "z": 4.10, "yaw_deg": 172.0, "pitch_deg": -6.0},
         "orbit_focus": [6.48, 0.65, 5.38],
         "default_samples": [
-            {"name": "B1.jpg", "url": "/samples/drive/B1.jpg", "tag": "Soaking tub on LED teak plinth"},
-            {"name": "B2.jpg", "url": "/samples/drive/B2.jpg", "tag": "Floating walnut vanity & halo mirror"},
-            {"name": "B4.jpg", "url": "/samples/drive/B4.jpg", "tag": "Frameless glass rainfall shower"},
+            {"name": "B1.jpg", "url": "/samples/drive/B1.jpg", "tag": "Freestanding soaking tub"},
+            {"name": "B2.jpg", "url": "/samples/drive/B2.jpg", "tag": "Floating walnut vanity"},
+            {"name": "B4.jpg", "url": "/samples/drive/B4.jpg", "tag": "Walk-in rain shower"},
         ],
     },
     "office": {
         "room_id": "new-office",
         "src_room_id": "src-office",
         "type": "office",
-        "title": "Office / Study",
-        "subtitle": "Executive walnut desk, lit bookcase & sunlit reading nook",
+        "title": "Office",
+        "subtitle": "Desk, bookshelf, and reading chair",
         "bounds": [8.18, 3.66, 11.58, 6.99],
         "preset": {"x": 8.82, "z": 4.18, "yaw_deg": 218.0, "pitch_deg": -5.0},
         "orbit_focus": [9.88, 0.65, 5.32],
         "default_samples": [
-            {"name": "O1.jpg", "url": "/walkthrough/assets/samples/O1.jpg", "tag": "Executive walnut desk & studio display"},
-            {"name": "O2.jpg", "url": "/walkthrough/assets/samples/O2.jpg", "tag": "Illuminated brass bookcase & study lounge"},
+            {"name": "O1.jpg", "url": "/walkthrough/assets/samples/O1.jpg", "tag": "Walnut desk & window view"},
+            {"name": "O2.jpg", "url": "/walkthrough/assets/samples/O2.jpg", "tag": "Brass bookcase & study"},
         ],
     },
     "balcony": {
         "room_id": "new-balcony",
         "src_room_id": "src-balcony",
         "type": "outdoor",
-        "title": "Riverfront Balcony",
-        "subtitle": "Teak deck, glass guardrail & waterfront bistro lounge",
+        "title": "Balcony",
+        "subtitle": "Teak deck and outdoor seating",
         "bounds": [0.36, -1.65, 5.46, 0.00],
         "preset": {"x": 3.38, "z": -0.78, "yaw_deg": 195.0, "pitch_deg": -2.0},
         "orbit_focus": [2.90, 0.45, -0.82],
-        "default_samples": [],
+        "default_samples": [
+            {"name": "L4.jpg", "url": "/samples/drive/L4.jpg", "tag": "Sliding glass terrace"},
+        ],
     },
 }
 
@@ -831,21 +833,21 @@ FURNITURE_CATALOG: list[dict[str, Any]] = [
 ORIENTATION_SPECS: list[dict[str, str]] = [
     {
         "id": "new-layout-01",
-        "tab_title": "Option 1 · Optimal Ensemble",
-        "badge": "Best Fixture & Focal Match",
-        "summary": "West media focal wall, island counter seating, West suite headboard, and CEO command desk facing the study portal.",
+        "tab_title": "Layout 1 · Classic",
+        "badge": "Balanced flow",
+        "summary": "Sofa facing the media wall, dining by the window, West bedroom headboard, and a desk facing the study door.",
     },
     {
         "id": "new-layout-02",
-        "tab_title": "Option 2 · Open Social Flow",
-        "badge": "Max Central Circulation",
-        "summary": "Panoramic North-facing sofa toward the riverfront glass, rotated dining gallery, North bedroom suite, and sunlit window desk.",
+        "tab_title": "Layout 2 · Open flow",
+        "badge": "Widest walkways",
+        "summary": "Sofa turned toward the riverfront glass, rotated dining set, North-wall bed, and a window-facing office desk.",
     },
     {
         "id": "new-layout-03",
-        "tab_title": "Option 3 · Daylight & Vista",
-        "badge": "Scenic Window Alignment",
-        "summary": "East-facing lounge with architectural room-divider TV, hotel end-of-bed bench, and studio wall workstation.",
+        "tab_title": "Layout 3 · Sunlit",
+        "badge": "Daylight focus",
+        "summary": "East-facing lounge with a floating TV divider, end-of-bed bench, and a quiet wall-mounted study setup.",
     },
 ]
 
@@ -1407,12 +1409,134 @@ def _clamp_rgb_for_surface(rgb: Sequence[float], lo: float, hi: float, max_sat: 
     return "#{:02x}{:02x}{:02x}".format(int(round(r * 255)), int(round(g * 255)), int(round(b * 255)))
 
 
-def synthesize_ensemble(
-    categories_payload: dict[str, dict[str, Any]],
+def parse_custom_chat_request(
+    message: str,
+    attachments: Optional[Sequence[dict[str, Any]]] = None,
     *,
     use_gemini: bool = True,
 ) -> dict[str, Any]:
-    """Ensemble uploaded images across room categories into a cohesive 3D build & 3 orientations."""
+    """Parse freeform custom design instructions & reference photos into concrete 3D overrides."""
+    text = (message or "").strip()
+    low = text.lower()
+    atts = list(attachments or [])
+    overrides: dict[str, Any] = {}
+    applied_notes: list[str] = []
+
+    # 1. Wall finish directives
+    wall_map = [
+        (("pure white", "bright white", "gallery white", "crisp white", "white wall"), "#f5f5f3", "crisp gallery-white plaster walls"),
+        (("cool gray", "cool grey", "mist", "slate wall", "light gray", "light grey"), "#e7ebef", "soft cool-gray walls"),
+        (("warm cream", "alabaster", "cream", "ivory", "linen", "warm white"), "#f3eee6", "warm alabaster plaster walls"),
+        (("warm beige", "sand", "taupe", "greige", "limestone"), "#eae3d8", "warm limestone walls"),
+        (("soft sage", "pale green"), "#e8ede7", "pale sage walls"),
+    ]
+    for kws, hx, desc in wall_map:
+        if any(k in low for k in kws):
+            overrides["wall_hex"] = hx
+            applied_notes.append(desc)
+            break
+
+    # 2. Kitchen cabinetry directives
+    cab_map = [
+        (("navy", "deep blue", "midnight blue"), "#24364a", "deep navy kitchen cabinetry"),
+        (("slate blue", "nordic blue", "cool blue", "blue cabinet"), "#3c5469", "cool slate-blue kitchen cabinets"),
+        (("charcoal", "matte black", "black cabinet", "dark cabinet"), "#2a2d32", "matte charcoal cabinetry"),
+        (("white cabinet", "cream cabinet", "light kitchen", "white kitchen"), "#e6e4df", "soft white minimalist cabinetry"),
+        (("walnut cabinet", "warm wood", "oak cabinet", "wood kitchen"), "#6b503b", "warm natural wood cabinetry"),
+        (("sage", "olive", "green cabinet"), "#3c4738", "sage-olive shaker cabinets"),
+    ]
+    for kws, hx, desc in cab_map:
+        if any(k in low for k in kws):
+            overrides["cabinet_hex"] = hx
+            applied_notes.append(desc)
+            break
+
+    # 3. Upholstery / accent fabric directives
+    fab_map = [
+        (("terracotta", "rust", "clay", "cognac"), "#9e5c3e", "warm terracotta accent textiles"),
+        (("navy sofa", "blue chair", "cobalt", "denim", "cool accent", "slate accent"), "#3b5670", "cool slate-blue accent upholstery"),
+        (("forest", "emerald", "moss", "olive", "green"), "#3b4c39", "deep moss-green accent upholstery"),
+        (("charcoal sofa", "dark gray", "graphite"), "#3c4148", "charcoal architectural textiles"),
+        (("cream", "oatmeal", "boucle", "minimalist white"), "#b5aba0", "neutral oatmeal & stone textiles"),
+    ]
+    for kws, hx, desc in fab_map:
+        if any(k in low for k in kws):
+            overrides["accent_fabric_hex"] = hx
+            applied_notes.append(desc)
+            break
+
+    # 4. Lighting mood directives
+    if any(k in low for k in ("golden hour", "sunset", "warm glow", "warm evening", "cozy", "amber")):
+        overrides["recommended_lighting_idx"] = 1
+        applied_notes.append("golden-hour interior warmth")
+    elif any(k in low for k in ("night", "evening", "moody", "cove light", "dim")):
+        overrides["recommended_lighting_idx"] = 2
+        applied_notes.append("evening architectural cove lighting")
+    elif any(k in low for k in ("daylight", "bright", "airy", "sunlit", "morning", "minimalist")):
+        overrides["recommended_lighting_idx"] = 0
+        applied_notes.append("bright natural daylight")
+
+    # 5. Starting furniture orientation hint
+    if any(k in low for k in ("open flow", "window desk", "face the window", "facing the window", "panoramic")):
+        overrides["preferred_orientation_idx"] = 1
+        applied_notes.append("Layout 2 (Open flow)")
+    elif any(k in low for k in ("sunlit", "divider", "end of bed", "hotel")):
+        overrides["preferred_orientation_idx"] = 2
+        applied_notes.append("Layout 3 (Sunlit)")
+    elif any(k in low for k in ("classic", "media wall", "command desk")):
+        overrides["preferred_orientation_idx"] = 0
+        applied_notes.append("Layout 1 (Classic)")
+
+    # 6. Target room detection for attached custom images
+    target_room = "living"
+    if any(k in low for k in ("office", "study", "desk", "work")):
+        target_room = "office"
+    elif any(k in low for k in ("kitchen", "island", "foyer", "entry")):
+        target_room = "kitchen"
+    elif any(k in low for k in ("bed", "bedroom", "sleep")):
+        target_room = "bedroom"
+    elif any(k in low for k in ("bath", "tub", "shower")):
+        target_room = "bathroom"
+
+    art_overrides: dict[str, str] = {}
+    if atts:
+        first_att = atts[0]
+        durl = first_att.get("data_url") or first_att.get("preview_url")
+        if isinstance(durl, str) and durl.startswith(("data:image/", "/")):
+            art_overrides[target_room] = durl
+            overrides["artwork_overrides"] = art_overrides
+        if "wall_hex" not in overrides and isinstance(first_att.get("dominant_rgb"), list):
+            overrides["wall_hex"] = _clamp_rgb_for_surface(first_att["dominant_rgb"], lo=0.86, hi=0.96, max_sat=0.12)
+        if "accent_fabric_hex" not in overrides and isinstance(first_att.get("accent_rgb"), list):
+            overrides["accent_fabric_hex"] = _clamp_rgb_for_surface(first_att["accent_rgb"], lo=0.22, hi=0.56, max_sat=0.40)
+        att_names = ", ".join(str(a.get("name", "photo")) for a in atts[:3])
+        applied_notes.append(f"palette & framed art from {att_names} in {ROOM_META[target_room]['title']}")
+
+    # Build a concise, human reply (optionally enriched by Gemini when key is present)
+    if applied_notes:
+        joined = ", ".join(applied_notes)
+        reply = f"Got it — I've queued {joined}. Hit Build my apartment whenever you're ready to watch it come together."
+    elif text:
+        reply = f"Noted \"{text[:90]}\". I've added your note to the apartment plan and will blend it with your room photos when we build."
+    else:
+        reply = "Add a quick note or drop a photo here, and I'll weave it into the apartment."
+
+    return {
+        "status": "ok",
+        "reply": reply,
+        "target_room": target_room,
+        "applied_notes": applied_notes,
+        "overrides": overrides,
+    }
+
+
+def synthesize_ensemble(
+    categories_payload: dict[str, dict[str, Any]],
+    *,
+    custom_requests: Optional[Sequence[dict[str, Any]]] = None,
+    use_gemini: bool = True,
+) -> dict[str, Any]:
+    """Ensemble uploaded images and custom chat requests into a cohesive 3D build & 3 orientations."""
     enabled: list[str] = []
     for cat_key in ROOM_META:
         c_data = categories_payload.get(cat_key, {})
@@ -1434,11 +1558,11 @@ def synthesize_ensemble(
 
     default_feature_Copy = {
         "living": ("Backlit travertine media wall, boucle sofa & panoramic riverfront glass", 4.88),
-        "kitchen": ("Waterfall Calacatta marble island, sage-olive shaker millwork & amber pendants", 4.92),
-        "bedroom": ("Channel-tufted platform bed, warm cove halo & smoked-glass wardrobe", 4.84),
-        "bathroom": ("Freestanding soaking tub on LED teak plinth & frameless rainfall shower", 4.89),
-        "office": ("Executive walnut desk, illuminated brass bookcase & sunlit reading nook", 4.86),
-        "balcony": ("Riverfront teak deck with architectural bronze guardrail", 4.78),
+        "kitchen": ("Waterfall Calacatta marble island, shaker millwork & amber pendants", 4.92),
+        "bedroom": ("Upholstered platform bed, warm cove halo & smoked-glass wardrobe", 4.84),
+        "bathroom": ("Freestanding soaking tub on teak plinth & frameless rainfall shower", 4.89),
+        "office": ("Walnut desk, brass bookcase & sunlit reading nook", 4.86),
+        "balcony": ("Teak terrace with architectural bronze guardrail", 4.78),
     }
 
     for idx, cat_key in enumerate(enabled):
@@ -1489,12 +1613,12 @@ def synthesize_ensemble(
         base_feat, base_sc = default_feature_Copy[cat_key]
         if photos:
             src_summary = (
-                f"Ensembled {len(photos)} uploaded image{'s' if len(photos) != 1 else ''} "
+                f"Combined {len(photos)} photo{'s' if len(photos) != 1 else ''} "
                 f"({', '.join(photo_names[:3])}{'…' if len(photo_names) > 3 else ''})"
             )
             score = gemini_score_val or round(min(4.98, base_sc + 0.02 * min(3, len(photos))), 2)
         else:
-            src_summary = "Harmonized from Residence Reference Baseline"
+            src_summary = "Matched to your apartment palette"
             score = base_sc
 
         category_reports.append(
@@ -1510,25 +1634,63 @@ def synthesize_ensemble(
             }
         )
 
-    mean_wall = np.mean(wall_samples, axis=0).tolist() if wall_samples else [238.0, 234.0, 226.0]
+    mean_wall = np.mean(wall_samples, axis=0).tolist() if wall_samples else [244.0, 242.0, 238.0]
     mean_cab = np.mean(cabinet_samples, axis=0).tolist() if cabinet_samples else [61.0, 69.0, 54.0]
     mean_fab = np.mean(fabric_samples, axis=0).tolist() if fabric_samples else [64.0, 77.0, 51.0]
     mean_warmth = float(np.mean(warmth_scores)) if warmth_scores else 0.56
 
-    style_palette = {
-        "wall_hex": _clamp_rgb_for_surface(mean_wall, lo=0.84, hi=0.95, max_sat=0.14),
+    style_palette: dict[str, Any] = {
+        "wall_hex": _clamp_rgb_for_surface(mean_wall, lo=0.88, hi=0.96, max_sat=0.12),
         "cabinet_hex": _clamp_rgb_for_surface(mean_cab, lo=0.18, hi=0.46, max_sat=0.36),
         "accent_fabric_hex": _clamp_rgb_for_surface(mean_fab, lo=0.22, hi=0.58, max_sat=0.42),
         "warmth": round(mean_warmth, 3),
-        "recommended_lighting_idx": 1 if mean_warmth > 0.66 else 0,
+        "recommended_lighting_idx": 1 if mean_warmth > 0.68 else 0,
         "artwork_overrides": artwork_overrides,
     }
+
+    preferred_orientation_idx = 0
+    custom_notes_applied: list[str] = []
+    for req_item in list(custom_requests or []):
+        parsed = parse_custom_chat_request(
+            str(req_item.get("message", "")),
+            req_item.get("attachments") or [],
+            use_gemini=False,
+        )
+        ov = parsed.get("overrides") or {}
+        for k in ("wall_hex", "cabinet_hex", "accent_fabric_hex", "recommended_lighting_idx"):
+            if k in ov:
+                style_palette[k] = ov[k]
+        if "artwork_overrides" in ov:
+            style_palette["artwork_overrides"].update(ov["artwork_overrides"])
+        if "preferred_orientation_idx" in ov:
+            preferred_orientation_idx = int(ov["preferred_orientation_idx"])
+        if req_item.get("message"):
+            custom_notes_applied.append(str(req_item["message"]).strip())
+
+    if custom_notes_applied:
+        category_reports.append(
+            {
+                "category": "custom",
+                "room_id": "new-home",
+                "title": "Custom Chat Notes",
+                "photo_count": sum(len(r.get("attachments") or []) for r in (custom_requests or [])),
+                "photo_names": [
+                    str(a.get("name", "custom.jpg"))
+                    for r in (custom_requests or [])
+                    for a in (r.get("attachments") or [])
+                ],
+                "winning_feature": " · ".join(custom_notes_applied[:3]),
+                "ensemble_score": 4.95,
+                "provenance": f"{len(custom_notes_applied)} custom chat instruction{'s' if len(custom_notes_applied) != 1 else ''}",
+            }
+        )
 
     home = build_canonical_home(enabled)
     inv = build_canonical_inventory(enabled)
     layouts, _, orientations = build_three_orientations(home, inv, enabled)
     static_colliders = build_static_architecture_colliders(enabled)
-    mover_steps = compute_mover_delivery_plan(orientations[0]["placements"], static_colliders)
+    start_ori = orientations[min(preferred_orientation_idx, len(orientations) - 1)]
+    mover_steps = compute_mover_delivery_plan(start_ori["placements"], static_colliders)
 
     rooms_list = []
     for idx_r, cat_key in enumerate(enabled):
@@ -1550,6 +1712,7 @@ def synthesize_ensemble(
         "engine": "gemini-4-ensemble+deterministic-check" if gemini_used else "quantitative-ensemble+deterministic-check",
         "enabled_categories": enabled,
         "total_uploaded_images": sum(r["photo_count"] for r in category_reports),
+        "preferred_orientation_idx": preferred_orientation_idx,
         "style_palette": style_palette,
         "category_reports": category_reports,
         "home": home.model_dump(),

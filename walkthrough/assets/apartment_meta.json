@@ -37,7 +37,7 @@
     {
       "id": "new-kitchen",
       "category": "kitchen",
-      "name": "Kitchen & Entry Foyer",
+      "name": "Kitchen",
       "key": "2",
       "bounds": [
         5.82,
@@ -60,7 +60,7 @@
     {
       "id": "new-primary-bedroom",
       "category": "bedroom",
-      "name": "Primary Bedroom",
+      "name": "Bedroom",
       "key": "3",
       "bounds": [
         0.0,
@@ -83,7 +83,7 @@
     {
       "id": "new-bathroom",
       "category": "bathroom",
-      "name": "Spa Bathroom",
+      "name": "Bathroom",
       "key": "4",
       "bounds": [
         4.78,
@@ -106,7 +106,7 @@
     {
       "id": "new-office",
       "category": "office",
-      "name": "Office / Study",
+      "name": "Office",
       "key": "5",
       "bounds": [
         8.18,
@@ -129,7 +129,7 @@
     {
       "id": "new-balcony",
       "category": "balcony",
-      "name": "Riverfront Balcony",
+      "name": "Balcony",
       "key": "6",
       "bounds": [
         0.36,
@@ -964,9 +964,9 @@
     {
       "id": "new-layout-01",
       "rank": 1,
-      "tab_title": "Option 1 \u00b7 Optimal Ensemble",
-      "badge": "Best Fixture & Focal Match",
-      "summary": "West media focal wall, island counter seating, West suite headboard, and CEO command desk facing the study portal.",
+      "tab_title": "Layout 1 \u00b7 Classic",
+      "badge": "Balanced flow",
+      "summary": "Sofa facing the media wall, dining by the window, West bedroom headboard, and a desk facing the study door.",
       "metrics": {
         "violations_total": 0,
         "overlaps": 0,
@@ -1411,9 +1411,9 @@
     {
       "id": "new-layout-02",
       "rank": 2,
-      "tab_title": "Option 2 \u00b7 Open Social Flow",
-      "badge": "Max Central Circulation",
-      "summary": "Panoramic North-facing sofa toward the riverfront glass, rotated dining gallery, North bedroom suite, and sunlit window desk.",
+      "tab_title": "Layout 2 \u00b7 Open flow",
+      "badge": "Widest walkways",
+      "summary": "Sofa turned toward the riverfront glass, rotated dining set, North-wall bed, and a window-facing office desk.",
       "metrics": {
         "violations_total": 0,
         "overlaps": 0,
@@ -1858,9 +1858,9 @@
     {
       "id": "new-layout-03",
       "rank": 3,
-      "tab_title": "Option 3 \u00b7 Daylight & Vista",
-      "badge": "Scenic Window Alignment",
-      "summary": "East-facing lounge with architectural room-divider TV, hotel end-of-bed bench, and studio wall workstation.",
+      "tab_title": "Layout 3 \u00b7 Sunlit",
+      "badge": "Daylight focus",
+      "summary": "East-facing lounge with a floating TV divider, end-of-bed bench, and a quiet wall-mounted study setup.",
       "metrics": {
         "violations_total": 0,
         "overlaps": 0,
@@ -2920,7 +2920,7 @@
       "src_room_id": "src-living",
       "type": "living",
       "title": "Living & Dining",
-      "subtitle": "Curtain-wall lounge, OLED credenza & 4-seat dining",
+      "subtitle": "Sofa, media wall, and dining table",
       "bounds": [
         0.0,
         0.0,
@@ -2942,22 +2942,22 @@
         {
           "name": "L1.jpg",
           "url": "/samples/drive/L1.jpg",
-          "tag": "Backlit travertine media wall"
+          "tag": "Travertine media wall"
         },
         {
           "name": "L2.jpg",
           "url": "/samples/drive/L2.jpg",
-          "tag": "Boucle sofa & warm cove lighting"
+          "tag": "Boucle sofa & warm lighting"
         },
         {
           "name": "L3.jpg",
           "url": "/samples/drive/L3.jpg",
-          "tag": "Open-plan honey-oak flooring"
+          "tag": "Honey-oak flooring"
         },
         {
           "name": "L4.jpg",
           "url": "/samples/drive/L4.jpg",
-          "tag": "Floor-to-ceiling riverfront glass"
+          "tag": "Floor-to-ceiling windows"
         }
       ]
     },
@@ -2965,8 +2965,8 @@
       "room_id": "new-kitchen",
       "src_room_id": "src-kitchen",
       "type": "kitchen",
-      "title": "Kitchen & Entry Foyer",
-      "subtitle": "Waterfall Calacatta island, sage shaker & globe pendants",
+      "title": "Kitchen",
+      "subtitle": "Island, cabinets, and pendants",
       "bounds": [
         5.82,
         0.0,
@@ -2988,22 +2988,22 @@
         {
           "name": "K1.jpg",
           "url": "/samples/drive/K1.jpg",
-          "tag": "Waterfall marble island & stools"
+          "tag": "Marble island & stools"
         },
         {
           "name": "K2.jpg",
           "url": "/samples/drive/K2.jpg",
-          "tag": "Sage-olive cabinetry & brass pulls"
+          "tag": "Shaker cabinets & pulls"
         },
         {
           "name": "K3.jpg",
           "url": "/samples/drive/K3.jpg",
-          "tag": "Amber glass pendants & range hood"
+          "tag": "Amber glass pendants"
         },
         {
           "name": "K4.jpg",
           "url": "/samples/drive/K4.jpg",
-          "tag": "Undermount window sink & walnut tower"
+          "tag": "Window sink & walnut tower"
         }
       ]
     },
@@ -3011,8 +3011,8 @@
       "room_id": "new-primary-bedroom",
       "src_room_id": "src-bedroom",
       "type": "primary_bedroom",
-      "title": "Primary Bedroom",
-      "subtitle": "Channel-tufted queen suite, lunar lamps & smoked wardrobe",
+      "title": "Bedroom",
+      "subtitle": "Queen bed, nightstands, and wardrobe",
       "bounds": [
         0.0,
         3.66,
@@ -3034,17 +3034,17 @@
         {
           "name": "Be1.jpg",
           "url": "/samples/drive/Be1.jpg",
-          "tag": "Boucle platform bed & halo medallion"
+          "tag": "Platform bed & warm halo"
         },
         {
           "name": "Be2.jpg",
           "url": "/samples/drive/Be2.jpg",
-          "tag": "Walnut nightstands & warm globe lamps"
+          "tag": "Walnut nightstands & lamps"
         },
         {
           "name": "Be3.jpg",
           "url": "/samples/drive/Be3.jpg",
-          "tag": "Window bench & pleated linen drapery"
+          "tag": "Window bench & linen drapes"
         }
       ]
     },
@@ -3052,8 +3052,8 @@
       "room_id": "new-bathroom",
       "src_room_id": "src-bathroom",
       "type": "bathroom",
-      "title": "Spa Bathroom",
-      "subtitle": "Freestanding soaking tub, rain shower & backlit vanity",
+      "title": "Bathroom",
+      "subtitle": "Soaking tub, glass shower, and vanity",
       "bounds": [
         4.78,
         3.66,
@@ -3075,17 +3075,17 @@
         {
           "name": "B1.jpg",
           "url": "/samples/drive/B1.jpg",
-          "tag": "Soaking tub on LED teak plinth"
+          "tag": "Freestanding soaking tub"
         },
         {
           "name": "B2.jpg",
           "url": "/samples/drive/B2.jpg",
-          "tag": "Floating walnut vanity & halo mirror"
+          "tag": "Floating walnut vanity"
         },
         {
           "name": "B4.jpg",
           "url": "/samples/drive/B4.jpg",
-          "tag": "Frameless glass rainfall shower"
+          "tag": "Walk-in rain shower"
         }
       ]
     },
@@ -3093,8 +3093,8 @@
       "room_id": "new-office",
       "src_room_id": "src-office",
       "type": "office",
-      "title": "Office / Study",
-      "subtitle": "Executive walnut desk, lit bookcase & sunlit reading nook",
+      "title": "Office",
+      "subtitle": "Desk, bookshelf, and reading chair",
       "bounds": [
         8.18,
         3.66,
@@ -3116,12 +3116,12 @@
         {
           "name": "O1.jpg",
           "url": "/walkthrough/assets/samples/O1.jpg",
-          "tag": "Executive walnut desk & studio display"
+          "tag": "Walnut desk & window view"
         },
         {
           "name": "O2.jpg",
           "url": "/walkthrough/assets/samples/O2.jpg",
-          "tag": "Illuminated brass bookcase & study lounge"
+          "tag": "Brass bookcase & study"
         }
       ]
     },
@@ -3129,8 +3129,8 @@
       "room_id": "new-balcony",
       "src_room_id": "src-balcony",
       "type": "outdoor",
-      "title": "Riverfront Balcony",
-      "subtitle": "Teak deck, glass guardrail & waterfront bistro lounge",
+      "title": "Balcony",
+      "subtitle": "Teak deck and outdoor seating",
       "bounds": [
         0.36,
         -1.65,
@@ -3148,7 +3148,13 @@
         0.45,
         -0.82
       ],
-      "default_samples": []
+      "default_samples": [
+        {
+          "name": "L4.jpg",
+          "url": "/samples/drive/L4.jpg",
+          "tag": "Sliding glass terrace"
+        }
+      ]
     }
   }
 }

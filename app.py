@@ -30,6 +30,7 @@ from ensemble import (
     build_canonical_home,
     build_canonical_inventory,
     build_three_orientations,
+    parse_custom_chat_request,
     synthesize_ensemble,
 )
 from judge import judge_features, judge_layouts
@@ -272,6 +273,13 @@ class JudgeRendersReq(BaseModel):
 
 class EnsembleReq(BaseModel):
     categories: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    custom_requests: list[dict[str, Any]] = Field(default_factory=list)
+    use_gemini: bool = True
+
+
+class CustomChatReq(BaseModel):
+    message: str = ""
+    attachments: list[dict[str, Any]] = Field(default_factory=list)
     use_gemini: bool = True
 
 
@@ -302,9 +310,24 @@ def api_get_presets() -> JSONResponse:
     )
 
 
+@app.post("/api/chat")
+def api_custom_chat(req: CustomChatReq) -> JSONResponse:
+    return JSONResponse(
+        parse_custom_chat_request(
+            req.message,
+            req.attachments,
+            use_gemini=req.use_gemini,
+        )
+    )
+
+
 @app.post("/api/ensemble")
 def api_ensemble_rooms(req: EnsembleReq) -> JSONResponse:
-    result = synthesize_ensemble(req.categories, use_gemini=req.use_gemini)
+    result = synthesize_ensemble(
+        req.categories,
+        custom_requests=req.custom_requests,
+        use_gemini=req.use_gemini,
+    )
 
     # Persist ensembled 6-zone Home + Inventory + 3 Validated Orientations to ./data
     enabled = result["enabled_categories"]
